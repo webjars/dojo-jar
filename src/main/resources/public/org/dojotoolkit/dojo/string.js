@@ -4,48 +4,46 @@
 	see: http://dojotoolkit.org/license for details
 */
 
-
-if(!dojo._hasResource["dojo.string"]){
-dojo._hasResource["dojo.string"]=true;
-dojo.provide("dojo.string");
-dojo.getObject("string",true,dojo);
-dojo.string.rep=function(_1,_2){
-if(_2<=0||!_1){
+//>>built
+define("dojo/string",["./_base/kernel","./_base/lang"],function(_1,_2){
+_2.getObject("string",true,_1);
+_1.string.rep=function(_3,_4){
+if(_4<=0||!_3){
 return "";
 }
-var _3=[];
+var _5=[];
 for(;;){
-if(_2&1){
-_3.push(_1);
+if(_4&1){
+_5.push(_3);
 }
-if(!(_2>>=1)){
+if(!(_4>>=1)){
 break;
 }
-_1+=_1;
+_3+=_3;
 }
-return _3.join("");
+return _5.join("");
 };
-dojo.string.pad=function(_4,_5,ch,_6){
+_1.string.pad=function(_6,_7,ch,_8){
 if(!ch){
 ch="0";
 }
-var _7=String(_4),_8=dojo.string.rep(ch,Math.ceil((_5-_7.length)/ch.length));
-return _6?_7+_8:_8+_7;
+var _9=String(_6),_a=_1.string.rep(ch,Math.ceil((_7-_9.length)/ch.length));
+return _8?_9+_a:_a+_9;
 };
-dojo.string.substitute=function(_9,_a,_b,_c){
-_c=_c||dojo.global;
-_b=_b?dojo.hitch(_c,_b):function(v){
+_1.string.substitute=function(_b,_c,_d,_e){
+_e=_e||_1.global;
+_d=_d?_2.hitch(_e,_d):function(v){
 return v;
 };
-return _9.replace(/\$\{([^\s\:\}]+)(?:\:([^\s\:\}]+))?\}/g,function(_d,_e,_f){
-var _10=dojo.getObject(_e,false,_a);
-if(_f){
-_10=dojo.getObject(_f,false,_c).call(_c,_10,_e);
+return _b.replace(/\$\{([^\s\:\}]+)(?:\:([^\s\:\}]+))?\}/g,function(_f,key,_10){
+var _11=_2.getObject(key,false,_c);
+if(_10){
+_11=_2.getObject(_10,false,_e).call(_e,_11,key);
 }
-return _b(_10,_e).toString();
+return _d(_11,key).toString();
 });
 };
-dojo.string.trim=String.prototype.trim?dojo.trim:function(str){
+_1.string.trim=String.prototype.trim?_2.trim:function(str){
 str=str.replace(/^\s+/,"");
 for(var i=str.length-1;i>=0;i--){
 if(/\S/.test(str.charAt(i))){
@@ -55,4 +53,5 @@ break;
 }
 return str;
 };
-}
+return _1.string;
+});

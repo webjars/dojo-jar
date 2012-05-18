@@ -1,15 +1,8 @@
-/*
-	Copyright (c) 2004-2011, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
-
-
-if(!dojo._hasResource["dojox.cometd.timesync"]){
-dojo._hasResource["dojox.cometd.timesync"]=true;
-dojo.provide("dojox.cometd.timesync");
-dojo.require("dojox.cometd._base");
-dojox.cometd.timesync=new function(){
+//>>built
+define(["dijit","dojo","dojox","dojo/require!dojox/cometd/_base"],function(_1,_2,_3){
+_2.provide("dojox.cometd.timesync");
+_2.require("dojox.cometd._base");
+_3.cometd.timesync=new function(){
 this._window=10;
 this._lags=[];
 this._offsets=[];
@@ -22,23 +15,23 @@ return new Date().getTime()+this.offset;
 this.getServerDate=function(){
 return new Date(this.getServerTime());
 };
-this.setTimeout=function(_1,_2){
-var ts=(_2 instanceof Date)?_2.getTime():(0+_2);
+this.setTimeout=function(_4,_5){
+var ts=(_5 instanceof Date)?_5.getTime():(0+_5);
 var tc=ts-this.offset;
-var _3=tc-new Date().getTime();
-if(_3<=0){
-_3=1;
+var _6=tc-new Date().getTime();
+if(_6<=0){
+_6=1;
 }
-return setTimeout(_1,_3);
+return setTimeout(_4,_6);
 };
-this._in=function(_4){
-var _5=_4.channel;
-if(_5&&_5.indexOf("/meta/")==0){
-if(_4.ext&&_4.ext.timesync){
-var _6=_4.ext.timesync;
-var _7=new Date().getTime();
-var l=(_7-_6.tc-_6.p)/2-_6.a;
-var o=_6.ts-_6.tc-l;
+this._in=function(_7){
+var _8=_7.channel;
+if(_8&&_8.indexOf("/meta/")==0){
+if(_7.ext&&_7.ext.timesync){
+var _9=_7.ext.timesync;
+var _a=new Date().getTime();
+var l=(_a-_9.tc-_9.p)/2-_9.a;
+var o=_9.ts-_9.tc-l;
 this._lags.push(l);
 this._offsets.push(o);
 if(this._offsets.length>this._window){
@@ -56,20 +49,20 @@ this.offset=parseInt((o/this._offsets.length).toFixed());
 this.lag=parseInt((l/this._lags.length).toFixed());
 }
 }
-return _4;
+return _7;
 };
-this._out=function(_8){
-var _9=_8.channel;
-if(_9&&_9.indexOf("/meta/")==0){
-var _a=new Date().getTime();
-if(!_8.ext){
-_8.ext={};
+this._out=function(_b){
+var _c=_b.channel;
+if(_c&&_c.indexOf("/meta/")==0){
+var _d=new Date().getTime();
+if(!_b.ext){
+_b.ext={};
 }
-_8.ext.timesync={tc:_a,l:this.lag,o:this.offset};
+_b.ext.timesync={tc:_d,l:this.lag,o:this.offset};
 }
-return _8;
+return _b;
 };
 };
-dojox.cometd._extendInList.push(dojo.hitch(dojox.cometd.timesync,"_in"));
-dojox.cometd._extendOutList.push(dojo.hitch(dojox.cometd.timesync,"_out"));
-}
+_3.cometd._extendInList.push(_2.hitch(_3.cometd.timesync,"_in"));
+_3.cometd._extendOutList.push(_2.hitch(_3.cometd.timesync,"_out"));
+});

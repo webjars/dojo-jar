@@ -1,26 +1,17 @@
-/*
-	Copyright (c) 2004-2011, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
-
-
-if(!dojo._hasResource["dojox.analytics.plugins.consoleMessages"]){
-dojo._hasResource["dojox.analytics.plugins.consoleMessages"]=true;
-dojo.require("dojox.analytics._base");
-dojo.provide("dojox.analytics.plugins.consoleMessages");
-dojox.analytics.plugins.consoleMessages=new (function(){
-this.addData=dojo.hitch(dojox.analytics,"addData","consoleMessages");
-var _1=dojo.config["consoleLogFuncs"]||["error","warn","info","rlog"];
+//>>built
+define("dojox/analytics/plugins/consoleMessages",["dojo/_base/lang","../_base","dojo/_base/config","dojo/aspect"],function(_1,_2,_3,_4){
+consoleMessages=_1.getObject("dojox.analytics.plugins.consoleMessages",true);
+this.addData=_1.hitch(_2,"addData","consoleMessages");
+var _5=_3["consoleLogFuncs"]||["error","warn","info","rlog"];
 if(!console){
 console={};
 }
-for(var i=0;i<_1.length;i++){
-if(console[_1[i]]){
-dojo.connect(console,_1[i],dojo.hitch(this,"addData",_1[i]));
+for(var i=0;i<_5.length;i++){
+if(console[_5[i]]){
+_4.after(console,_5[i],_1.hitch(this,"addData",_5[i]),true);
 }else{
-console[_1[i]]=dojo.hitch(this,"addData",_1[i]);
+console[_5[i]]=_1.hitch(this,"addData",_5[i]);
 }
 }
-})();
-}
+return consoleMessages;
+});

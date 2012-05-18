@@ -1,107 +1,61 @@
-/*
-	Copyright (c) 2004-2011, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
-
-
-if(!dojo._hasResource["dijit._Widget"]){
-dojo._hasResource["dijit._Widget"]=true;
-dojo.provide("dijit._Widget");
-dojo.require("dijit._WidgetBase");
-dojo.require("dijit._base");
-dojo.connect(dojo,"_connect",function(_1,_2){
-if(_1&&dojo.isFunction(_1._onConnect)){
-_1._onConnect(_2);
-}
-});
-dijit._connectOnUseEventHandler=function(_3){
+//>>built
+define("dijit/_Widget",["dojo/aspect","dojo/_base/config","dojo/_base/connect","dojo/_base/declare","dojo/_base/kernel","dojo/_base/lang","dojo/query","dojo/ready","./registry","./_WidgetBase","./_OnDijitClickMixin","./_FocusMixin","dojo/uacss","./hccss"],function(_1,_2,_3,_4,_5,_6,_7,_8,_9,_a,_b,_c){
+function _d(){
 };
-dijit._lastKeyDownNode=null;
-if(dojo.isIE){
-(function(){
-var _4=function(_5){
-dijit._lastKeyDownNode=_5.srcElement;
+function _e(_f){
+return function(obj,_10,_11,_12){
+if(obj&&typeof _10=="string"&&obj[_10]==_d){
+return obj.on(_10.substring(2).toLowerCase(),_6.hitch(_11,_12));
+}
+return _f.apply(_3,arguments);
 };
-dojo.doc.attachEvent("onkeydown",_4);
-dojo.addOnWindowUnload(function(){
-dojo.doc.detachEvent("onkeydown",_4);
-});
-})();
-}else{
-dojo.doc.addEventListener("keydown",function(_6){
-dijit._lastKeyDownNode=_6.target;
-},true);
+};
+_1.around(_3,"connect",_e);
+if(_5.connect){
+_1.around(_5,"connect",_e);
 }
-(function(){
-dojo.declare("dijit._Widget",dijit._WidgetBase,{_deferredConnects:{onClick:"",onDblClick:"",onKeyDown:"",onKeyPress:"",onKeyUp:"",onMouseMove:"",onMouseDown:"",onMouseOut:"",onMouseOver:"",onMouseLeave:"",onMouseEnter:"",onMouseUp:""},onClick:dijit._connectOnUseEventHandler,onDblClick:dijit._connectOnUseEventHandler,onKeyDown:dijit._connectOnUseEventHandler,onKeyPress:dijit._connectOnUseEventHandler,onKeyUp:dijit._connectOnUseEventHandler,onMouseDown:dijit._connectOnUseEventHandler,onMouseMove:dijit._connectOnUseEventHandler,onMouseOut:dijit._connectOnUseEventHandler,onMouseOver:dijit._connectOnUseEventHandler,onMouseLeave:dijit._connectOnUseEventHandler,onMouseEnter:dijit._connectOnUseEventHandler,onMouseUp:dijit._connectOnUseEventHandler,create:function(_7,_8){
-this._deferredConnects=dojo.clone(this._deferredConnects);
-for(var _9 in this.attributeMap){
-delete this._deferredConnects[_9];
-}
-for(_9 in this._deferredConnects){
-if(this[_9]!==dijit._connectOnUseEventHandler){
-delete this._deferredConnects[_9];
+var _13=_4("dijit._Widget",[_a,_b,_c],{onClick:_d,onDblClick:_d,onKeyDown:_d,onKeyPress:_d,onKeyUp:_d,onMouseDown:_d,onMouseMove:_d,onMouseOut:_d,onMouseOver:_d,onMouseLeave:_d,onMouseEnter:_d,onMouseUp:_d,constructor:function(_14){
+this._toConnect={};
+for(var _15 in _14){
+if(this[_15]===_d){
+this._toConnect[_15.replace(/^on/,"").toLowerCase()]=_14[_15];
+delete _14[_15];
 }
 }
+},postCreate:function(){
 this.inherited(arguments);
-if(this.domNode){
-for(_9 in this.params){
-this._onConnect(_9);
+for(var _16 in this._toConnect){
+this.on(_16,this._toConnect[_16]);
+}
+delete this._toConnect;
+},on:function(_17,_18){
+if(this[this._onMap(_17)]===_d){
+return _3.connect(this.domNode,_17.toLowerCase(),this,_18);
+}
+return this.inherited(arguments);
+},_setFocusedAttr:function(val){
+this._focused=val;
+this._set("focused",val);
+},setAttribute:function(_19,_1a){
+_5.deprecated(this.declaredClass+"::setAttribute(attr, value) is deprecated. Use set() instead.","","2.0");
+this.set(_19,_1a);
+},attr:function(_1b,_1c){
+if(_2.isDebug){
+var _1d=arguments.callee._ach||(arguments.callee._ach={}),_1e=(arguments.callee.caller||"unknown caller").toString();
+if(!_1d[_1e]){
+_5.deprecated(this.declaredClass+"::attr() is deprecated. Use get() or set() instead, called from "+_1e,"","2.0");
+_1d[_1e]=true;
 }
 }
-},_onConnect:function(_a){
-if(_a in this._deferredConnects){
-var _b=this[this._deferredConnects[_a]||"domNode"];
-this.connect(_b,_a.toLowerCase(),_a);
-delete this._deferredConnects[_a];
-}
-},focused:false,isFocusable:function(){
-return this.focus&&(dojo.style(this.domNode,"display")!="none");
-},onFocus:function(){
-},onBlur:function(){
-},_onFocus:function(e){
-this.onFocus();
-},_onBlur:function(){
-this.onBlur();
-},setAttribute:function(_c,_d){
-dojo.deprecated(this.declaredClass+"::setAttribute(attr, value) is deprecated. Use set() instead.","","2.0");
-this.set(_c,_d);
-},attr:function(_e,_f){
-if(dojo.config.isDebug){
-var _10=arguments.callee._ach||(arguments.callee._ach={}),_11=(arguments.callee.caller||"unknown caller").toString();
-if(!_10[_11]){
-dojo.deprecated(this.declaredClass+"::attr() is deprecated. Use get() or set() instead, called from "+_11,"","2.0");
-_10[_11]=true;
-}
-}
-var _12=arguments.length;
-if(_12>=2||typeof _e==="object"){
+var _1f=arguments.length;
+if(_1f>=2||typeof _1b==="object"){
 return this.set.apply(this,arguments);
 }else{
-return this.get(_e);
+return this.get(_1b);
 }
-},nodesWithKeyClick:["input","button"],connect:function(obj,_13,_14){
-var d=dojo,dc=d._connect,_15=this.inherited(arguments,[obj,_13=="ondijitclick"?"onclick":_13,_14]);
-if(_13=="ondijitclick"){
-if(d.indexOf(this.nodesWithKeyClick,obj.nodeName.toLowerCase())==-1){
-var m=d.hitch(this,_14);
-_15.push(dc(obj,"onkeydown",this,function(e){
-if((e.keyCode==d.keys.ENTER||e.keyCode==d.keys.SPACE)&&!e.ctrlKey&&!e.shiftKey&&!e.altKey&&!e.metaKey){
-dijit._lastKeyDownNode=e.target;
-if(!("openDropDown" in this&&obj==this._buttonNode)){
-e.preventDefault();
-}
-}
-}),dc(obj,"onkeyup",this,function(e){
-if((e.keyCode==d.keys.ENTER||e.keyCode==d.keys.SPACE)&&e.target==dijit._lastKeyDownNode&&!e.ctrlKey&&!e.shiftKey&&!e.altKey&&!e.metaKey){
-dijit._lastKeyDownNode=null;
-return m(e);
-}
-}));
-}
-}
-return _15;
+},getDescendants:function(){
+_5.deprecated(this.declaredClass+"::getDescendants() is deprecated. Use getChildren() instead.","","2.0");
+return this.containerNode?_7("[widgetId]",this.containerNode).map(_9.byNode):[];
 },_onShow:function(){
 this.onShow();
 },onShow:function(){
@@ -109,5 +63,11 @@ this.onShow();
 },onClose:function(){
 return true;
 }});
-})();
+if(!_5.isAsync){
+_8(0,function(){
+var _20=["dijit/_base"];
+require(_20);
+});
 }
+return _13;
+});

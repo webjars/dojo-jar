@@ -4,40 +4,38 @@
 	see: http://dojotoolkit.org/license for details
 */
 
-
-if(!dojo._hasResource["dojo.Stateful"]){
-dojo._hasResource["dojo.Stateful"]=true;
-dojo.provide("dojo.Stateful");
-dojo.declare("dojo.Stateful",null,{postscript:function(_1){
-if(_1){
-dojo.mixin(this,_1);
+//>>built
+define("dojo/Stateful",["./_base/kernel","./_base/declare","./_base/lang","./_base/array"],function(_1,_2,_3,_4){
+return _1.declare("dojo.Stateful",null,{postscript:function(_5){
+if(_5){
+_3.mixin(this,_5);
 }
-},get:function(_2){
-return this[_2];
-},set:function(_3,_4){
-if(typeof _3==="object"){
-for(var x in _3){
-this.set(x,_3[x]);
+},get:function(_6){
+return this[_6];
+},set:function(_7,_8){
+if(typeof _7==="object"){
+for(var x in _7){
+this.set(x,_7[x]);
 }
 return this;
 }
-var _5=this[_3];
-this[_3]=_4;
+var _9=this[_7];
+this[_7]=_8;
 if(this._watchCallbacks){
-this._watchCallbacks(_3,_5,_4);
+this._watchCallbacks(_7,_9,_8);
 }
 return this;
-},watch:function(_6,_7){
-var _8=this._watchCallbacks;
-if(!_8){
-var _9=this;
-_8=this._watchCallbacks=function(_a,_b,_c,_d){
-var _e=function(_f){
-if(_f){
-_f=_f.slice();
-for(var i=0,l=_f.length;i<l;i++){
+},watch:function(_a,_b){
+var _c=this._watchCallbacks;
+if(!_c){
+var _d=this;
+_c=this._watchCallbacks=function(_e,_f,_10,_11){
+var _12=function(_13){
+if(_13){
+_13=_13.slice();
+for(var i=0,l=_13.length;i<l;i++){
 try{
-_f[i].call(_9,_a,_b,_c);
+_13[i].call(_d,_e,_f,_10);
 }
 catch(e){
 console.error(e);
@@ -45,25 +43,25 @@ console.error(e);
 }
 }
 };
-_e(_8["_"+_a]);
-if(!_d){
-_e(_8["*"]);
+_12(_c["_"+_e]);
+if(!_11){
+_12(_c["*"]);
 }
 };
 }
-if(!_7&&typeof _6==="function"){
-_7=_6;
-_6="*";
+if(!_b&&typeof _a==="function"){
+_b=_a;
+_a="*";
 }else{
-_6="_"+_6;
+_a="_"+_a;
 }
-var _10=_8[_6];
-if(typeof _10!=="object"){
-_10=_8[_6]=[];
+var _14=_c[_a];
+if(typeof _14!=="object"){
+_14=_c[_a]=[];
 }
-_10.push(_7);
+_14.push(_b);
 return {unwatch:function(){
-_10.splice(dojo.indexOf(_10,_7),1);
+_14.splice(_4.indexOf(_14,_b),1);
 }};
 }});
-}
+});

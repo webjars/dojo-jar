@@ -1,1 +1,8 @@
-({"saturationPickerTitle":"Telítettség kiválasztó","huePickerTitle":"Árnyalat kiválasztó","valueLabel":"v","blueLabel":"b","saturationLabel":"s","greenLabel":"g","redLabel":"r","hueLabel":"h","hexLabel":"hex","degLabel":"°"})
+//>>built
+define(
+"dojox/widget/nls/hu/ColorPicker", //begin v1.x content
+({
+huePickerTitle: "Árnyalat kiválasztó",
+saturationPickerTitle: "Telítettség kiválasztó"
+})
+);

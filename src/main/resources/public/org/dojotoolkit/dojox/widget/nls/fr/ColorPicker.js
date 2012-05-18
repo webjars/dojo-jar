@@ -1,1 +1,10 @@
-({"hueLabel":"t","saturationPickerTitle":"Sélecteur de saturation","huePickerTitle":"Sélecteur de teinte","greenLabel":"v","valueLabel":"v","blueLabel":"b","saturationLabel":"s","redLabel":"r","hexLabel":"hex","degLabel":"°"})
+//>>built
+define(
+"dojox/widget/nls/fr/ColorPicker", //begin v1.x content
+({
+greenLabel: "v",
+hueLabel: "t",
+huePickerTitle: "Sélecteur de teinte",
+saturationPickerTitle: "Sélecteur de saturation"
+})
+);

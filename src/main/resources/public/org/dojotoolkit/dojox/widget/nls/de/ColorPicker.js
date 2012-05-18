@@ -1,1 +1,8 @@
-({"saturationPickerTitle":"Sättigungsauswahl","huePickerTitle":"Farbtonauswahl","valueLabel":"v","blueLabel":"b","saturationLabel":"s","greenLabel":"g","redLabel":"r","hueLabel":"h","hexLabel":"hex","degLabel":"°"})
+//>>built
+define(
+"dojox/widget/nls/de/ColorPicker", //begin v1.x content
+({
+huePickerTitle: "Farbtonauswahl",
+saturationPickerTitle: "Sättigungsauswahl"
+})
+);

@@ -1,1 +1,28 @@
-({"emoticonLaughing":"smích","emoticonCool":"skvělé","emoticonTongue":"jazyk","emoticonCrying":"pláč","emoticonOops":"ouha","emoticonFrown":"zamračení","emoticonAngry":"hněv","emoticonShy":"stud","emoticonNo":"ne","emoticonAngel":"anděl","smiley":"Vložit emotikonu","emoticonIdea":"nápad","emoticonEyebrow":"obočí","emoticonSmile":"úsměv","emoticonWink":"mrknutí","emoticonYes":"ano","emoticonGrin":"úšklebek","emoticonGoofy":"potrhlost","emoticonHalf":"polovina"})
+//>>built
+define(
+"dojox/editor/plugins/nls/cs/Smiley", //begin v1.x content
+({
+	smiley: "Vložit emotikonu",
+	emoticonSmile: "úsměv",
+	emoticonLaughing: "smích",
+	emoticonWink: "mrknutí",
+	emoticonGrin: "úšklebek",
+	emoticonCool: "skvělé",
+	emoticonAngry: "hněv",
+	emoticonHalf: "polovina",
+	emoticonEyebrow: "obočí",
+	emoticonFrown: "zamračení",
+	emoticonShy: "stud",
+	emoticonGoofy: "potrhlost",
+	emoticonOops: "ouha",
+	emoticonTongue: "jazyk",
+	emoticonIdea: "nápad",
+	emoticonYes: "ano",
+	emoticonNo: "ne",
+	emoticonAngel: "anděl",
+	emoticonCrying: "pláč",
+	emoticonHappy: "veselý"
+})
+
+//end v1.x content
+);

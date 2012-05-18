@@ -1,16 +1,5 @@
-/*
-	Copyright (c) 2004-2011, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
-
-
-if(!dojo._hasResource["dojox.encoding.digests.SHA1"]){
-dojo._hasResource["dojox.encoding.digests.SHA1"]=true;
-dojo.provide("dojox.encoding.digests.SHA1");
-dojo.require("dojox.encoding.digests._base");
-(function(){
-var _1=dojox.encoding.digests;
+//>>built
+define("dojox/encoding/digests/SHA1",["./_base"],function(_1){
 var _2=8,_3=(1<<_2)-1;
 function R(n,c){
 return (n<<c)|(n>>>(32-c));
@@ -133,5 +122,5 @@ default:
 return _14(wa);
 }
 };
-})();
-}
+return _1.SHA1;
+});

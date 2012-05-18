@@ -1,1 +1,14 @@
-({"redLabel":"č","valueLabel":"j","hueLabel":"o","saturationLabel":"n","saturationPickerTitle":"Selektor sytosti","huePickerTitle":"Selektor odstínu","greenLabel":"z","blueLabel":"m","hexLabel":"hex","degLabel":"°"})
+//>>built
+define(
+"dojox/widget/nls/cs/ColorPicker", //begin v1.x content
+({
+redLabel: "č",
+greenLabel: "z",
+blueLabel: "m",
+hueLabel: "o",
+saturationLabel: "n",
+valueLabel: "j", /* aka intensity or brightness */
+huePickerTitle: "Selektor odstínu",
+saturationPickerTitle: "Selektor sytosti"
+})
+);

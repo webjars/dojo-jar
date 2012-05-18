@@ -1,1 +1,17 @@
-({"descending":"Кему","ascending":"Өсу реті бойынша","nestedSort":"Кірістірілген сұрыптау","unsorted":"Бұл бағанды сұрыптамау","singleSort":"Бір рет сұрыптау","indirectSelectionRadio":"Row ${0}, single selection, radio box","indirectSelectionCheckBox":"Row ${0}, multiple selection, check box","selectAll":"Select all","sortingState":"${0} - ${1}"})
+//>>built
+define(
+"dojox/grid/enhanced/nls/kk/EnhancedGrid", //begin v1.x content
+({
+	singleSort: "Бір рет сұрыптау",
+	nestedSort: "Кірістірілген сұрыптау",
+	ascending: "Артуы бойынша",
+	descending: "Кемуі бойынша",
+	sortingState: "${0} - ${1}",
+	unsorted: "Бұл бағанды сұрыптамау",
+	indirectSelectionRadio: "${0}-жол, жалғыз элементті таңдау, бір түймешікті таңдау тақтасы",
+	indirectSelectionCheckBox: "${0}-жол, бірнеше элементті таңдау, құсбелгі",
+	selectAll: "Барлығын таңдау"
+})
+//end v1.x content
+);
+

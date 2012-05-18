@@ -1,90 +1,83 @@
-/*
-	Copyright (c) 2004-2011, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
-
-
-if(!dojo._hasResource["dojox.drawing.stencil.Path"]){
-dojo._hasResource["dojox.drawing.stencil.Path"]=true;
-dojo.provide("dojox.drawing.stencil.Path");
-dojox.drawing.stencil.Path=dojox.drawing.util.oo.declare(dojox.drawing.stencil._Base,function(_1){
-dojo.disconnect(this._postRenderCon);
-},{type:"dojox.drawing.stencil.Path",closePath:true,baseRender:true,closeRadius:10,closeColor:{r:255,g:255,b:0,a:0.5},_create:function(_2,_3){
-this.remove(this[_2]);
+//>>built
+define(["dijit","dojo","dojox"],function(_1,_2,_3){
+_2.provide("dojox.drawing.stencil.Path");
+_3.drawing.stencil.Path=_3.drawing.util.oo.declare(_3.drawing.stencil._Base,function(_4){
+_2.disconnect(this._postRenderCon);
+},{type:"dojox.drawing.stencil.Path",closePath:true,baseRender:true,closeRadius:10,closeColor:{r:255,g:255,b:0,a:0.5},_create:function(_5,_6){
+this.remove(this[_5]);
 if(!this.points.length){
 return;
 }
-if(dojox.gfx.renderer=="svg"){
-var _4=[];
-dojo.forEach(this.points,function(o,i){
+if(_3.gfx.renderer=="svg"){
+var _7=[];
+_2.forEach(this.points,function(o,i){
 if(!o.skip){
 if(i==0){
-_4.push("M "+o.x+" "+o.y);
+_7.push("M "+o.x+" "+o.y);
 }else{
-var _5=(o.t||"")+" ";
+var _8=(o.t||"")+" ";
 if(o.x===undefined){
-_4.push(_5);
+_7.push(_8);
 }else{
-_4.push(_5+o.x+" "+o.y);
+_7.push(_8+o.x+" "+o.y);
 }
 }
 }
 },this);
 if(this.closePath){
-_4.push("Z");
+_7.push("Z");
 }
-this.stringPath=_4.join(" ");
-this[_2]=this.container.createPath(_4.join(" ")).setStroke(_3);
-this.closePath&&this[_2].setFill(_3.fill);
+this.stringPath=_7.join(" ");
+this[_5]=this.container.createPath(_7.join(" ")).setStroke(_6);
+this.closePath&&this[_5].setFill(_6.fill);
 }else{
-this[_2]=this.container.createPath({}).setStroke(_3);
-this.closePath&&this[_2].setFill(_3.fill);
-dojo.forEach(this.points,function(o,i){
+this[_5]=this.container.createPath({}).setStroke(_6);
+this.closePath&&this[_5].setFill(_6.fill);
+_2.forEach(this.points,function(o,i){
 if(!o.skip){
 if(i==0||o.t=="M"){
-this[_2].moveTo(o.x,o.y);
+this[_5].moveTo(o.x,o.y);
 }else{
 if(o.t=="Z"){
-this.closePath&&this[_2].closePath();
+this.closePath&&this[_5].closePath();
 }else{
-this[_2].lineTo(o.x,o.y);
+this[_5].lineTo(o.x,o.y);
 }
 }
 }
 },this);
-this.closePath&&this[_2].closePath();
+this.closePath&&this[_5].closePath();
 }
-this._setNodeAtts(this[_2]);
+this._setNodeAtts(this[_5]);
 },render:function(){
 this.onBeforeRender(this);
 this.renderHit&&this._create("hit",this.style.currentHit);
 this._create("shape",this.style.current);
-},getBounds:function(_6){
-var _7=10000,_8=10000,_9=0,_a=0;
-dojo.forEach(this.points,function(p){
+},getBounds:function(_9){
+var _a=10000,_b=10000,_c=0,_d=0;
+_2.forEach(this.points,function(p){
 if(p.x!==undefined&&!isNaN(p.x)){
-_7=Math.min(_7,p.x);
-_8=Math.min(_8,p.y);
-_9=Math.max(_9,p.x);
-_a=Math.max(_a,p.y);
+_a=Math.min(_a,p.x);
+_b=Math.min(_b,p.y);
+_c=Math.max(_c,p.x);
+_d=Math.max(_d,p.y);
 }
 });
-return {x1:_7,y1:_8,x2:_9,y2:_a,x:_7,y:_8,w:_9-_7,h:_a-_8};
-},checkClosePoint:function(_b,_c,_d){
-var _e=this.util.distance(_b.x,_b.y,_c.x,_c.y);
+return {x1:_a,y1:_b,x2:_c,y2:_d,x:_a,y:_b,w:_c-_a,h:_d-_b};
+},checkClosePoint:function(_e,_f,_10){
+var _11=this.util.distance(_e.x,_e.y,_f.x,_f.y);
 if(this.points.length>1){
-if(_e<this.closeRadius&&!this.closeGuide&&!_d){
-var c={cx:_b.x,cy:_b.y,rx:this.closeRadius,ry:this.closeRadius};
+if(_11<this.closeRadius&&!this.closeGuide&&!_10){
+var c={cx:_e.x,cy:_e.y,rx:this.closeRadius,ry:this.closeRadius};
 this.closeGuide=this.container.createEllipse(c).setFill(this.closeColor);
 }else{
-if(_d||_e>this.closeRadius&&this.closeGuide){
+if(_10||_11>this.closeRadius&&this.closeGuide){
 this.remove(this.closeGuide);
 this.closeGuide=null;
 }
 }
 }
-return _e<this.closeRadius;
+return _11<this.closeRadius;
 }});
-dojox.drawing.register({name:"dojox.drawing.stencil.Path"},"stencil");
-}
+_3.drawing.register({name:"dojox.drawing.stencil.Path"},"stencil");
+});

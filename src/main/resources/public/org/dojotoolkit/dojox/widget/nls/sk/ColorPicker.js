@@ -1,1 +1,6 @@
-({"saturationPickerTitle":"Saturation Selector","valueLabel":"v","blueLabel":"b","saturationLabel":"s","greenLabel":"g","redLabel":"r","hueLabel":"h","hexLabel":"hex","huePickerTitle":"Hue Selector","degLabel":"°"})
+//>>built
+define(
+"dojox/widget/nls/sk/ColorPicker", //begin v1.x content
+({
+})
+);

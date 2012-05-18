@@ -1,1 +1,16 @@
-({"set":"แทรก","text":"รายละเอียด","insertImageTitle":"แทรกรูปภาพ","invalidMessage":"ชนิดของไฟล์รูปภาพไม่ถูกต้อง","prePopuTextBrowse":" หรือเรียกดูโลคัลไฟล์","browse":"เรียกดู...","prePopuTextUrl":"ป้อน URL ของรูปภาพ","url":"รูปภาพ"})
+//>>built
+define(
+"dojox/editor/plugins/nls/th/LocalImage", //begin v1.x content
+({
+	insertImageTitle: "แทรกรูปภาพ",
+	url: "รูปภาพ",
+	browse: "เรียกดู...",
+	text: "รายละเอียด",
+	set: "แทรก",
+	invalidMessage: "ชนิดของไฟล์รูปภาพไม่ถูกต้อง",
+	prePopuTextUrl: "ป้อน URL ของรูปภาพ",
+	prePopuTextBrowse: " หรือเรียกดูโลคัลไฟล์"
+})
+
+//end v1.x content
+);

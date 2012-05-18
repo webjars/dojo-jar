@@ -1,1 +1,14 @@
-dojo.provide("dojox.grid.nls.DataGrid_sk");dojo.provide("dijit.nls.loading");dijit.nls.loading._built=true;dojo.provide("dijit.nls.loading.sk");dijit.nls.loading.sk={"loadingState":"Zavádzanie...","errorState":"Nastala chyba"};
+require({cache:{
+'dijit/nls/sk/loading':function(){
+define(
+"dijit/nls/sk/loading", //begin v1.x content
+({
+	loadingState: "Zavádzanie...",
+	errorState: "Nastala chyba"
+})
+
+//end v1.x content
+);
+
+}}});
+define("dojox/grid/nls/DataGrid_sk", [], 1);

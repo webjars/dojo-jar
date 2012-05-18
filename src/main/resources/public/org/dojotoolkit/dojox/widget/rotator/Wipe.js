@@ -1,52 +1,45 @@
-/*
-	Copyright (c) 2004-2011, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
-
-
-if(!dojo._hasResource["dojox.widget.rotator.Wipe"]){
-dojo._hasResource["dojox.widget.rotator.Wipe"]=true;
-dojo.provide("dojox.widget.rotator.Wipe");
+//>>built
+define(["dijit","dojo","dojox"],function(_1,_2,_3){
+_2.provide("dojox.widget.rotator.Wipe");
 (function(d){
-var _1=2,_2=3,UP=0,_3=1;
-function _4(_5,w,h,x){
+var _4=2,_5=3,UP=0,_6=1;
+function _7(_8,w,h,x){
 var a=[0,w,0,0];
-if(_5==_2){
+if(_8==_5){
 a=[0,w,h,w];
 }else{
-if(_5==UP){
+if(_8==UP){
 a=[h,w,h,0];
 }else{
-if(_5==_3){
+if(_8==_6){
 a=[0,0,h,0];
 }
 }
 }
 if(x!=null){
-a[_5]=_5==_1||_5==_3?x:(_5%2?w:h)-x;
+a[_8]=_8==_4||_8==_6?x:(_8%2?w:h)-x;
 }
 return a;
 };
-function _6(n,_7,w,h,x){
-d.style(n,"clip",_7==null?"auto":"rect("+_4(_7,w,h,x).join("px,")+"px)");
+function _9(n,_a,w,h,x){
+d.style(n,"clip",_a==null?"auto":"rect("+_7(_a,w,h,x).join("px,")+"px)");
 };
-function _8(_9,_a){
-var _b=_a.next.node,w=_a.rotatorBox.w,h=_a.rotatorBox.h;
-d.style(_b,{display:"",zIndex:(d.style(_a.current.node,"zIndex")||1)+1});
-_6(_b,_9,w,h);
-return new d.Animation(d.mixin({node:_b,curve:[0,_9%2?w:h],onAnimate:function(x){
-_6(_b,_9,w,h,parseInt(x));
-}},_a));
+function _b(_c,_d){
+var _e=_d.next.node,w=_d.rotatorBox.w,h=_d.rotatorBox.h;
+d.style(_e,{display:"",zIndex:(d.style(_d.current.node,"zIndex")||1)+1});
+_9(_e,_c,w,h);
+return new d.Animation(d.mixin({node:_e,curve:[0,_c%2?w:h],onAnimate:function(x){
+_9(_e,_c,w,h,parseInt(x));
+}},_d));
 };
-d.mixin(dojox.widget.rotator,{wipeDown:function(_c){
-return _8(_1,_c);
-},wipeRight:function(_d){
-return _8(_2,_d);
-},wipeUp:function(_e){
-return _8(UP,_e);
-},wipeLeft:function(_f){
-return _8(_3,_f);
+d.mixin(_3.widget.rotator,{wipeDown:function(_f){
+return _b(_4,_f);
+},wipeRight:function(_10){
+return _b(_5,_10);
+},wipeUp:function(_11){
+return _b(UP,_11);
+},wipeLeft:function(_12){
+return _b(_6,_12);
 }});
-})(dojo);
-}
+})(_2);
+});

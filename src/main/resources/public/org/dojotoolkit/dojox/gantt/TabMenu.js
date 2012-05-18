@@ -1,27 +1,20 @@
-/*
-	Copyright (c) 2004-2011, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
-
-
-if(!dojo._hasResource["dojox.gantt.TabMenu"]){
-dojo._hasResource["dojox.gantt.TabMenu"]=true;
-dojo.provide("dojox.gantt.TabMenu");
-dojo.require("dijit.dijit");
-dojo.require("dijit.Menu");
-dojo.require("dijit.Dialog");
-dojo.require("dijit.form.NumberSpinner");
-dojo.require("dijit.form.Button");
-dojo.require("dijit.form.CheckBox");
-dojo.require("dijit.form.DateTextBox");
-dojo.require("dijit.form.TimeTextBox");
-dojo.require("dojo.date.locale");
-dojo.require("dijit.form.Form");
-dojo.require("dojo.parser");
+//>>built
+define(["dijit","dojo","dojox","dojo/require!dijit/dijit,dijit/Menu,dijit/Dialog,dijit/form/NumberSpinner,dijit/form/Button,dijit/form/CheckBox,dijit/form/DateTextBox,dijit/form/TimeTextBox,dojo/date/locale,dijit/form/Form,dojo/parser"],function(_1,_2,_3){
+_2.provide("dojox.gantt.TabMenu");
+_2.require("dijit.dijit");
+_2.require("dijit.Menu");
+_2.require("dijit.Dialog");
+_2.require("dijit.form.NumberSpinner");
+_2.require("dijit.form.Button");
+_2.require("dijit.form.CheckBox");
+_2.require("dijit.form.DateTextBox");
+_2.require("dijit.form.TimeTextBox");
+_2.require("dojo.date.locale");
+_2.require("dijit.form.Form");
+_2.require("dojo.parser");
 (function(){
-dojo.declare("dojox.gantt.TabMenu",null,{constructor:function(_1){
-this.ganttChart=_1;
+_2.declare("dojox.gantt.TabMenu",null,{constructor:function(_4){
+this.ganttChart=_4;
 this.menuPanel=null;
 this.paneContentArea=null;
 this.paneActionBar=null;
@@ -33,92 +26,92 @@ this.buildContent();
 },buildContent:function(){
 this.createMenuPanel();
 this.createTabPanel();
-var _2=this.createTab(11,"Add Successor Task","t",true,this);
-_2.addItem(1,"Id","id",true);
-_2.addItem(2,"Name","name");
-_2.addItem(3,"Start Time","startTime");
-_2.addItem(4,"Duration (hours)","duration");
-_2.addItem(5,"Percent Complete (%)","percentage");
-_2.addItem(6,"Task Assignee","taskOwner");
-_2.addAction("addSuccessorTaskAction");
-var _3=this.createTab(10,"Add Child Task","t",true,this);
-_3.addItem(1,"Id","id",true);
-_3.addItem(2,"Name","name");
-_3.addItem(3,"Start Time","startTime");
-_3.addItem(4,"Duration (hours)","duration");
-_3.addItem(5,"Percent Complete (%)","percentage");
-_3.addItem(6,"Task Assignee","taskOwner");
-_3.addAction("addChildTaskAction");
-var _4=this.createTab(4,"Set Duration(hours)","t",true,this,true);
-_4.addItem(1,"Duration (hours)","duration",true);
-_4.addAction("durationUpdateAction");
-var _5=this.createTab(5,"Set Complete Percentage (%)","t",true,this,true);
-_5.addItem(1,"Percent Complete (%)","percentage",true);
-_5.addAction("cpUpdateAction");
-var _6=this.createTab(20,"Set Owner","t",true,this,true);
-_6.addItem(1,"Task Assignee","taskOwner",true);
-_6.addAction("ownerUpdateAction");
-var _7=this.createTab(13,"Set Previous Task","t",true,this);
-_7.addItem(1,"Previous Task Id","previousTaskId",true);
-_7.addAction("ptUpdateAction");
-var _8=this.createTab(1,"Rename Task","t",true,this,true);
-_8.addItem(1,"New Name","name",true);
-_8.addAction("renameTaskAction");
-var _9=this.createTab(2,"Delete Task","t",true,this);
-_9.addAction("deleteAction");
-var _a=this.createTab(12,"Add New Project","p",false,this);
-_a.addItem(1,"Id","id",true);
-_a.addItem(2,"Name","name",true);
-_a.addItem(3,"Start Date","startDate",true);
-_a.addAction("addProjectAction");
-var _b=this.createTab(8,"Set Complete Percentage (%)","p",true,this,true);
-_b.addItem(1,"Percent Complete (%)","percentage",true);
-_b.addAction("cpProjectAction");
-var _c=this.createTab(6,"Rename Project","p",true,this,true);
-_c.addItem(1,"New Name","name",true);
-_c.addAction("renameProjectAction");
-var _d=this.createTab(7,"Delete Project","p",true,this);
-_d.addAction("deleteProjectAction");
-var _e=this.createTab(9,"Add New Task","p",true,this);
-_e.addItem(1,"Id","id",true);
-_e.addItem(2,"Name","name");
-_e.addItem(3,"Start Time","startTime");
-_e.addItem(4,"Duration (hours)","duration");
-_e.addItem(5,"Percent Complete (%)","percentage");
-_e.addItem(6,"Task Assignee","taskOwner");
-_e.addItem(7,"Parent Task Id","parentTaskId");
-_e.addItem(8,"Previous Task Id","previousTaskId");
-_e.addAction("addTaskAction");
+var _5=this.createTab(11,"Add Successor Task","t",true,this);
+_5.addItem(1,"Id","id",true);
+_5.addItem(2,"Name","name");
+_5.addItem(3,"Start Time","startTime");
+_5.addItem(4,"Duration (hours)","duration");
+_5.addItem(5,"Percent Complete (%)","percentage");
+_5.addItem(6,"Task Assignee","taskOwner");
+_5.addAction("addSuccessorTaskAction");
+var _6=this.createTab(10,"Add Child Task","t",true,this);
+_6.addItem(1,"Id","id",true);
+_6.addItem(2,"Name","name");
+_6.addItem(3,"Start Time","startTime");
+_6.addItem(4,"Duration (hours)","duration");
+_6.addItem(5,"Percent Complete (%)","percentage");
+_6.addItem(6,"Task Assignee","taskOwner");
+_6.addAction("addChildTaskAction");
+var _7=this.createTab(4,"Set Duration(hours)","t",true,this,true);
+_7.addItem(1,"Duration (hours)","duration",true);
+_7.addAction("durationUpdateAction");
+var _8=this.createTab(5,"Set Complete Percentage (%)","t",true,this,true);
+_8.addItem(1,"Percent Complete (%)","percentage",true);
+_8.addAction("cpUpdateAction");
+var _9=this.createTab(20,"Set Owner","t",true,this,true);
+_9.addItem(1,"Task Assignee","taskOwner",true);
+_9.addAction("ownerUpdateAction");
+var _a=this.createTab(13,"Set Previous Task","t",true,this);
+_a.addItem(1,"Previous Task Id","previousTaskId",true);
+_a.addAction("ptUpdateAction");
+var _b=this.createTab(1,"Rename Task","t",true,this,true);
+_b.addItem(1,"New Name","name",true);
+_b.addAction("renameTaskAction");
+var _c=this.createTab(2,"Delete Task","t",true,this);
+_c.addAction("deleteAction");
+var _d=this.createTab(12,"Add New Project","p",false,this);
+_d.addItem(1,"Id","id",true);
+_d.addItem(2,"Name","name",true);
+_d.addItem(3,"Start Date","startDate",true);
+_d.addAction("addProjectAction");
+var _e=this.createTab(8,"Set Complete Percentage (%)","p",true,this,true);
+_e.addItem(1,"Percent Complete (%)","percentage",true);
+_e.addAction("cpProjectAction");
+var _f=this.createTab(6,"Rename Project","p",true,this,true);
+_f.addItem(1,"New Name","name",true);
+_f.addAction("renameProjectAction");
+var _10=this.createTab(7,"Delete Project","p",true,this);
+_10.addAction("deleteProjectAction");
+var _11=this.createTab(9,"Add New Task","p",true,this);
+_11.addItem(1,"Id","id",true);
+_11.addItem(2,"Name","name");
+_11.addItem(3,"Start Time","startTime");
+_11.addItem(4,"Duration (hours)","duration");
+_11.addItem(5,"Percent Complete (%)","percentage");
+_11.addItem(6,"Task Assignee","taskOwner");
+_11.addItem(7,"Parent Task Id","parentTaskId");
+_11.addItem(8,"Previous Task Id","previousTaskId");
+_11.addAction("addTaskAction");
 },createMenuPanel:function(){
-this.menuPanel=dojo.create("div",{innerHTML:"<table></table>",className:"ganttMenuPanel"},this.ganttChart.content);
-dojo.addClass(this.menuPanel.firstChild,"ganttContextMenu");
+this.menuPanel=_2.create("div",{innerHTML:"<table></table>",className:"ganttMenuPanel"},this.ganttChart.content);
+_2.addClass(this.menuPanel.firstChild,"ganttContextMenu");
 this.menuPanel.firstChild.cellPadding=0;
 this.menuPanel.firstChild.cellSpacing=0;
 },createTabPanel:function(){
-this.tabPanelDlg=dijit.byId(this.tabPanelDlgId)||new dijit.Dialog({title:"Settings"});
+this.tabPanelDlg=_1.byId(this.tabPanelDlgId)||new _1.Dialog({title:"Settings"});
 this.tabPanelDlgId=this.tabPanelDlg.id;
 this.tabPanelDlg.closeButtonNode.style.display="none";
-var _f=this.tabPanelDlg.containerNode;
-this.paneContentArea=dojo.create("div",{className:"dijitDialogPaneContentArea"},_f);
-this.paneActionBar=dojo.create("div",{className:"dijitDialogPaneActionBar"},_f);
+var _12=this.tabPanelDlg.containerNode;
+this.paneContentArea=_2.create("div",{className:"dijitDialogPaneContentArea"},_12);
+this.paneActionBar=_2.create("div",{className:"dijitDialogPaneActionBar"},_12);
 this.paneContentArea.innerHTML="<table cellpadding=0 cellspacing=0><tr><th></th></tr><tr><td></td></tr></table>";
-var _10=this.paneContentArea.firstChild.rows[0].cells[0];
-_10.colSpan=2;
-_10.innerHTML="Description: ";
-dojo.addClass(_10,"ganttDialogContentHeader");
-var _11=this.paneContentArea.firstChild.rows[1].cells[0];
-_11.innerHTML="<table></table>";
-dojo.addClass(_11.firstChild,"ganttDialogContentCell");
-_11.align="center";
-this.ok=new dijit.form.Button({label:"OK"});
-this.cancel=new dijit.form.Button({label:"Cancel"});
+var _13=this.paneContentArea.firstChild.rows[0].cells[0];
+_13.colSpan=2;
+_13.innerHTML="Description: ";
+_2.addClass(_13,"ganttDialogContentHeader");
+var _14=this.paneContentArea.firstChild.rows[1].cells[0];
+_14.innerHTML="<table></table>";
+_2.addClass(_14.firstChild,"ganttDialogContentCell");
+_14.align="center";
+this.ok=new _1.form.Button({label:"OK"});
+this.cancel=new _1.form.Button({label:"Cancel"});
 this.paneActionBar.appendChild(this.ok.domNode);
 this.paneActionBar.appendChild(this.cancel.domNode);
 },addItemMenuPanel:function(tab){
 var row=this.menuPanel.firstChild.insertRow(this.menuPanel.firstChild.rows.length);
-var _12=dojo.create("td",{className:"ganttContextMenuItem",innerHTML:tab.Description});
-dojo.attr(_12,"tabIndex",0);
-this.ganttChart._events.push(dojo.connect(_12,"onclick",this,function(){
+var _15=_2.create("td",{className:"ganttContextMenuItem",innerHTML:tab.Description});
+_2.attr(_15,"tabIndex",0);
+this.ganttChart._events.push(_2.connect(_15,"onclick",this,function(){
 try{
 this.hide();
 tab.show();
@@ -126,8 +119,8 @@ tab.show();
 catch(e){
 }
 }));
-this.ganttChart._events.push(dojo.connect(_12,"onkeydown",this,function(e){
-if(e.keyCode!=dojo.keys.ENTER){
+this.ganttChart._events.push(_2.connect(_15,"onkeydown",this,function(e){
+if(e.keyCode!=_2.keys.ENTER){
 return;
 }
 try{
@@ -137,43 +130,43 @@ tab.show();
 catch(e){
 }
 }));
-this.ganttChart._events.push(dojo.connect(_12,"onmouseover",this,function(){
-dojo.addClass(_12,"ganttContextMenuItemHover");
+this.ganttChart._events.push(_2.connect(_15,"onmouseover",this,function(){
+_2.addClass(_15,"ganttContextMenuItemHover");
 }));
-this.ganttChart._events.push(dojo.connect(_12,"onmouseout",this,function(){
-dojo.removeClass(_12,"ganttContextMenuItemHover");
+this.ganttChart._events.push(_2.connect(_15,"onmouseout",this,function(){
+_2.removeClass(_15,"ganttContextMenuItemHover");
 }));
-row.appendChild(_12);
-},show:function(_13,_14){
-if(_14.constructor==dojox.gantt.GanttTaskControl){
-dojo.forEach(this.arrTabs,function(tab){
+row.appendChild(_15);
+},show:function(_16,_17){
+if(_17.constructor==_3.gantt.GanttTaskControl){
+_2.forEach(this.arrTabs,function(tab){
 if(tab.type=="t"){
-tab.object=_14;
+tab.object=_17;
 this.addItemMenuPanel(tab);
 }
 },this);
 }else{
-if(_14.constructor==dojox.gantt.GanttProjectControl){
-dojo.forEach(this.arrTabs,function(tab){
+if(_17.constructor==_3.gantt.GanttProjectControl){
+_2.forEach(this.arrTabs,function(tab){
 if(tab.type=="p"){
-tab.object=_14;
+tab.object=_17;
 this.addItemMenuPanel(tab);
 }
 },this);
 }
 }
 this.isShow=true;
-dojo.style(this.menuPanel,{zIndex:15,visibility:"visible"});
-var _15=dojo.position(this.menuPanel,true),_16=dojo.position(this.ganttChart.content,true),pos=dojo.coords(_13,true);
-if((pos.y+_15.h)>(_16.y+_16.h+50)){
-this.menuPanel.style.top=pos.y-_15.h+pos.h+"px";
+_2.style(this.menuPanel,{zIndex:15,visibility:"visible"});
+var _18=_2.position(this.menuPanel,true),_19=_2.position(this.ganttChart.content,true),pos=_2.coords(_16,true);
+if((pos.y+_18.h)>(_19.y+_19.h+50)){
+this.menuPanel.style.top=pos.y-_18.h+pos.h+"px";
 }else{
 this.menuPanel.style.top=pos.y+"px";
 }
-if(dojo._isBodyLtr()){
+if(_2._isBodyLtr()){
 this.menuPanel.style.left=pos.x+pos.w+5+"px";
 }else{
-this.menuPanel.style.left=pos.x-_15.w-5+"px";
+this.menuPanel.style.left=pos.x-_18.w-5+"px";
 }
 },hide:function(){
 this.isShow=false;
@@ -181,46 +174,46 @@ this.menuPanel.style.visibility="hidden";
 },clear:function(){
 this.menuPanel.removeChild(this.menuPanel.firstChild);
 this.menuPanel.innerHTML="<table></table>";
-dojo.addClass(this.menuPanel.firstChild,"ganttContextMenu");
+_2.addClass(this.menuPanel.firstChild,"ganttContextMenu");
 this.menuPanel.firstChild.cellPadding=0;
 this.menuPanel.firstChild.cellSpacing=0;
-},createTab:function(id,_17,_18,_19,_1a,_1b){
-var tab=new dojox.gantt.contextMenuTab(id,_17,_18,_19,_1a,_1b);
+},createTab:function(id,_1a,_1b,_1c,_1d,_1e){
+var tab=new _3.gantt.contextMenuTab(id,_1a,_1b,_1c,_1d,_1e);
 this.arrTabs.push(tab);
 return tab;
 }});
-dojo.declare("dojox.gantt.contextMenuTab",null,{constructor:function(id,_1c,_1d,_1e,_1f,_20){
+_2.declare("dojox.gantt.contextMenuTab",null,{constructor:function(id,_1f,_20,_21,_22,_23){
 this.id=id;
 this.arrItems=[];
 this.TabItemContainer=null;
-this.Description=_1c;
-this.tabMenu=_1f;
-this.type=_1d;
+this.Description=_1f;
+this.tabMenu=_22;
+this.type=_20;
 this.object=null;
-this.showObjectInfo=_1e;
-this.withDefaultValue=_20;
-},preValueValidation:function(_21){
-for(var i=0;i<_21.length;i++){
-var _22=_21[i];
-if(_22.required&&!_22.control.textbox.value){
+this.showObjectInfo=_21;
+this.withDefaultValue=_23;
+},preValueValidation:function(_24){
+for(var i=0;i<_24.length;i++){
+var _25=_24[i];
+if(_25.required&&!_25.control.textbox.value){
 return false;
 }
 }
 return true;
-},encodeDate:function(_23){
-return _23.getFullYear()+"."+(_23.getMonth()+1)+"."+_23.getDate();
-},decodeDate:function(_24){
-var arr=_24.split(".");
+},encodeDate:function(_26){
+return _26.getFullYear()+"."+(_26.getMonth()+1)+"."+_26.getDate();
+},decodeDate:function(_27){
+var arr=_27.split(".");
 return (arr.length<3)?"":(new Date(arr[0],parseInt(arr[1])-1,arr[2]));
 },renameTaskAction:function(){
-var _25=this.arrItems[0].control.textbox.value;
-if(dojo.trim(_25).length<=0){
+var _28=this.arrItems[0].control.textbox.value;
+if(_2.trim(_28).length<=0){
 return;
 }
 if(!this.preValueValidation(this.arrItems)){
 return;
 }
-this.object.setName(_25);
+this.object.setName(_28);
 this.hide();
 },deleteAction:function(){
 if(!this.preValueValidation(this.arrItems)){
@@ -276,14 +269,14 @@ alert("Please verify the Previous Task ("+p+")  and adjust its Time Range");
 return;
 }
 },renameProjectAction:function(){
-var _26=this.arrItems[0].control.textbox.value;
-if(dojo.trim(_26).length<=0){
+var _29=this.arrItems[0].control.textbox.value;
+if(_2.trim(_29).length<=0){
 return;
 }
 if(!this.preValueValidation(this.arrItems)){
 return;
 }
-this.object.setName(_26);
+this.object.setName(_29);
 this.hide();
 },deleteProjectAction:function(){
 if(!this.preValueValidation(this.arrItems)){
@@ -307,11 +300,11 @@ return;
 if(!this.preValueValidation(this.arrItems)){
 return;
 }
-var id=this.arrItems[0].control.textbox.value,_27=this.arrItems[1].control.textbox.value,_28=this.decodeDate(this.arrItems[2].control.textbox.value),_29=this.arrItems[3].control.textbox.value,pc=this.arrItems[4].control.textbox.value,_2a=this.arrItems[5].control.textbox.value,_2b=this.arrItems[6].control.textbox.value,_2c=this.arrItems[7].control.textbox.value;
-if(dojo.trim(id).length<=0){
+var id=this.arrItems[0].control.textbox.value,_2a=this.arrItems[1].control.textbox.value,_2b=this.decodeDate(this.arrItems[2].control.textbox.value),_2c=this.arrItems[3].control.textbox.value,pc=this.arrItems[4].control.textbox.value,_2d=this.arrItems[5].control.textbox.value,_2e=this.arrItems[6].control.textbox.value,_2f=this.arrItems[7].control.textbox.value;
+if(_2.trim(id).length<=0){
 return;
 }
-if(this.object.insertTask(id,_27,_28,_29,pc,_2c,_2a,_2b)){
+if(this.object.insertTask(id,_2a,_2b,_2c,pc,_2f,_2d,_2e)){
 this.hide();
 }else{
 alert("Please adjust your Customization");
@@ -322,13 +315,13 @@ this.tabMenu.ganttChart.resource&&this.tabMenu.ganttChart.resource.reConstruct()
 if(!this.preValueValidation(this.arrItems)){
 return;
 }
-var pr=this.object.project,id=this.arrItems[0].control.textbox.value,_2d=this.arrItems[1].control.textbox.value,_2e=this.decodeDate(this.arrItems[2].control.textbox.value),_2f=this.arrItems[3].control.textbox.value,pc=this.arrItems[4].control.textbox.value,_30=this.arrItems[5].control.textbox.value;
-if(dojo.trim(id).length<=0){
+var pr=this.object.project,id=this.arrItems[0].control.textbox.value,_30=this.arrItems[1].control.textbox.value,_31=this.decodeDate(this.arrItems[2].control.textbox.value),_32=this.arrItems[3].control.textbox.value,pc=this.arrItems[4].control.textbox.value,_33=this.arrItems[5].control.textbox.value;
+if(_2.trim(id).length<=0){
 return;
 }
-var _31=!this.object.parentTask?"":this.object.parentTask.taskItem.id;
-var _32=this.object.taskItem.id;
-if(pr.insertTask(id,_2d,_2e,_2f,pc,_32,_30,_31)){
+var _34=!this.object.parentTask?"":this.object.parentTask.taskItem.id;
+var _35=this.object.taskItem.id;
+if(pr.insertTask(id,_30,_31,_32,pc,_35,_33,_34)){
 this.hide();
 }else{
 alert("Please adjust your Customization");
@@ -339,11 +332,11 @@ this.tabMenu.ganttChart.resource&&this.tabMenu.ganttChart.resource.reConstruct()
 if(!this.preValueValidation(this.arrItems)){
 return;
 }
-var pr=this.object.project,id=this.arrItems[0].control.textbox.value,_33=this.arrItems[1].control.textbox.value,_34=this.decodeDate(this.arrItems[2].control.textbox.value),_35=this.arrItems[3].control.textbox.value,pc=this.arrItems[4].control.textbox.value,_36=this.arrItems[5].control.textbox.value,_37=this.object.taskItem.id,_38="";
-if(dojo.trim(id).length<=0){
+var pr=this.object.project,id=this.arrItems[0].control.textbox.value,_36=this.arrItems[1].control.textbox.value,_37=this.decodeDate(this.arrItems[2].control.textbox.value),_38=this.arrItems[3].control.textbox.value,pc=this.arrItems[4].control.textbox.value,_39=this.arrItems[5].control.textbox.value,_3a=this.object.taskItem.id,_3b="";
+if(_2.trim(id).length<=0){
 return;
 }
-if(pr.insertTask(id,_33,_34,_35,pc,_38,_36,_37)){
+if(pr.insertTask(id,_36,_37,_38,pc,_3b,_39,_3a)){
 this.hide();
 }else{
 alert("Please adjust your Customization");
@@ -354,37 +347,37 @@ this.tabMenu.ganttChart.resource&&this.tabMenu.ganttChart.resource.reConstruct()
 if(!this.preValueValidation(this.arrItems)){
 return;
 }
-var id=this.arrItems[0].control.textbox.value,_39=this.arrItems[1].control.textbox.value,_3a=this.decodeDate(this.arrItems[2].control.textbox.value);
-if(dojo.trim(id).length<=0||dojo.trim(_39).length<=0){
+var id=this.arrItems[0].control.textbox.value,_3c=this.arrItems[1].control.textbox.value,_3d=this.decodeDate(this.arrItems[2].control.textbox.value);
+if(_2.trim(id).length<=0||_2.trim(_3c).length<=0){
 return;
 }
-if(this.tabMenu.ganttChart.insertProject(id,_39,_3a)){
+if(this.tabMenu.ganttChart.insertProject(id,_3c,_3d)){
 this.hide();
 }else{
 alert("Please adjust your Customization");
 return;
 }
 this.tabMenu.ganttChart.resource&&this.tabMenu.ganttChart.resource.reConstruct();
-},addAction:function(_3b){
-this.actionFunc=this[_3b];
-},addItem:function(id,_3c,key,_3d){
-var _3e;
+},addAction:function(_3e){
+this.actionFunc=this[_3e];
+},addItem:function(id,_3f,key,_40){
+var _41;
 if(key=="startTime"||key=="startDate"){
-_3e=new dijit.form.DateTextBox({type:"text",constraints:{datePattern:"yyyy.M.d",strict:true}});
+_41=new _1.form.DateTextBox({type:"text",constraints:{datePattern:"yyyy.M.d",strict:true}});
 }else{
 if(key=="percentage"){
-_3e=new dijit.form.NumberSpinner({constraints:{max:100,min:0}});
+_41=new _1.form.NumberSpinner({constraints:{max:100,min:0}});
 }else{
 if(key=="duration"){
-_3e=new dijit.form.NumberSpinner({constraints:{min:0}});
+_41=new _1.form.NumberSpinner({constraints:{min:0}});
 }else{
-_3e=new dijit.form.TextBox();
+_41=new _1.form.TextBox();
 }
 }
 }
-this.arrItems.push({id:id,name:_3c,control:_3e,tab:this,key:key,required:_3d});
+this.arrItems.push({id:id,name:_3f,control:_41,tab:this,key:key,required:_40});
 },show:function(){
-this.tabMenu.tabPanelDlg=this.tabMenu.tabPanelDlg||dijit.byId(this.tabMenu.tabPanelDlgId)||new dijit.Dialog({title:"Settings"});
+this.tabMenu.tabPanelDlg=this.tabMenu.tabPanelDlg||_1.byId(this.tabMenu.tabPanelDlgId)||new _1.Dialog({title:"Settings"});
 try{
 this.tabMenu.tabPanelDlg.show();
 }
@@ -392,62 +385,62 @@ catch(e){
 return;
 }
 this.tabMenu.tabPanelDlg.titleNode.innerHTML=this.Description;
-var _3f=this.tabMenu.paneContentArea.firstChild.rows[1].cells[0].firstChild,_40=this.tabMenu.paneActionBar;
-var _41,_42,row=null;
+var _42=this.tabMenu.paneContentArea.firstChild.rows[1].cells[0].firstChild,_43=this.tabMenu.paneActionBar;
+var _44,_45,row=null;
 if(this.showObjectInfo){
 if(this.object){
-if(this.object.constructor==dojox.gantt.GanttTaskControl){
-this.insertData(_3f,"Id",this.object.taskItem.id);
-this.insertData(_3f,"Name",this.object.taskItem.name);
-this.insertData(_3f,"Start Time",this.encodeDate(this.object.taskItem.startTime));
-this.insertData(_3f,"Duration (hours)",this.object.taskItem.duration+" hours");
-this.insertData(_3f,"Percent Complete (%)",this.object.taskItem.percentage+"%");
-this.insertData(_3f,"Task Assignee",this.object.taskItem.taskOwner);
-this.insertData(_3f,"Previous Task Id",this.object.taskItem.previousTaskId);
+if(this.object.constructor==_3.gantt.GanttTaskControl){
+this.insertData(_42,"Id",this.object.taskItem.id);
+this.insertData(_42,"Name",this.object.taskItem.name);
+this.insertData(_42,"Start Time",this.encodeDate(this.object.taskItem.startTime));
+this.insertData(_42,"Duration (hours)",this.object.taskItem.duration+" hours");
+this.insertData(_42,"Percent Complete (%)",this.object.taskItem.percentage+"%");
+this.insertData(_42,"Task Assignee",this.object.taskItem.taskOwner);
+this.insertData(_42,"Previous Task Id",this.object.taskItem.previousTaskId);
 }else{
-this.insertData(_3f,"Id",this.object.project.id);
-this.insertData(_3f,"Name",this.object.project.name);
-this.insertData(_3f,"Start date",this.encodeDate(this.object.project.startDate));
+this.insertData(_42,"Id",this.object.project.id);
+this.insertData(_42,"Name",this.object.project.name);
+this.insertData(_42,"Start date",this.encodeDate(this.object.project.startDate));
 }
 }
 }
-row=_3f.insertRow(_3f.rows.length);
-_41=row.insertCell(row.cells.length);
-_41.colSpan=2;
-_41.innerHTML="<hr/>";
-row=_3f.insertRow(_3f.rows.length);
-_41=row.insertCell(row.cells.length);
-_41.colSpan=2;
-dojo.addClass(_41,"ganttMenuDialogInputCellHeader");
-_41.innerHTML="Customization: "+this.Description;
-dojo.forEach(this.arrItems,function(_43){
-row=_3f.insertRow(_3f.rows.length);
-_41=row.insertCell(row.cells.length);
-dojo.addClass(_41,"ganttMenuDialogInputCell");
-_42=row.insertCell(row.cells.length);
-dojo.addClass(_42,"ganttMenuDialogInputCellValue");
-_41.innerHTML=_43.name;
-_42.appendChild(_43.control.domNode);
+row=_42.insertRow(_42.rows.length);
+_44=row.insertCell(row.cells.length);
+_44.colSpan=2;
+_44.innerHTML="<hr/>";
+row=_42.insertRow(_42.rows.length);
+_44=row.insertCell(row.cells.length);
+_44.colSpan=2;
+_2.addClass(_44,"ganttMenuDialogInputCellHeader");
+_44.innerHTML="Customization: "+this.Description;
+_2.forEach(this.arrItems,function(_46){
+row=_42.insertRow(_42.rows.length);
+_44=row.insertCell(row.cells.length);
+_2.addClass(_44,"ganttMenuDialogInputCell");
+_45=row.insertCell(row.cells.length);
+_2.addClass(_45,"ganttMenuDialogInputCellValue");
+_44.innerHTML=_46.name;
+_45.appendChild(_46.control.domNode);
 if(this.withDefaultValue&&this.object){
-if(this.object.constructor==dojox.gantt.GanttTaskControl){
-if(_43.key=="startTime"){
-_43.control.textbox.value=this.encodeDate(this.object.taskItem.startTime);
+if(this.object.constructor==_3.gantt.GanttTaskControl){
+if(_46.key=="startTime"){
+_46.control.textbox.value=this.encodeDate(this.object.taskItem.startTime);
 }else{
-_43.control.textbox.value=_43.key?this.object.taskItem[_43.key]:"";
+_46.control.textbox.value=_46.key?this.object.taskItem[_46.key]:"";
 }
 }else{
-if(_43.key=="startDate"){
-_43.control.textbox.value=this.encodeDate(this.object.project.startDate);
+if(_46.key=="startDate"){
+_46.control.textbox.value=this.encodeDate(this.object.project.startDate);
 }else{
-_43.control.textbox.value=_43.key?(this.object.project[_43.key]||this.object[_43.key]||""):"";
+_46.control.textbox.value=_46.key?(this.object.project[_46.key]||this.object[_46.key]||""):"";
 }
 }
 }else{
-_43.control.textbox.placeholder=_43.required?"---required---":"---optional---";
+_46.control.textbox.placeholder=_46.required?"---required---":"---optional---";
 }
 },this);
-this.tabMenu.ok.onClick=dojo.hitch(this,this.actionFunc);
-this.tabMenu.cancel.onClick=dojo.hitch(this,this.hide);
+this.tabMenu.ok.onClick=_2.hitch(this,this.actionFunc);
+this.tabMenu.cancel.onClick=_2.hitch(this,this.hide);
 },hide:function(){
 try{
 this.tabMenu.tabPanelDlg.hide();
@@ -455,19 +448,19 @@ this.tabMenu.tabPanelDlg.hide();
 catch(e){
 this.tabMenu.tabPanelDlg.destroy();
 }
-var _44=this.tabMenu.paneContentArea.firstChild.rows[1].cells[0];
-_44.firstChild.parentNode.removeChild(_44.firstChild);
-_44.innerHTML="<table></table>";
-dojo.addClass(_44.firstChild,"ganttDialogContentCell");
-},insertData:function(_45,_46,_47){
-var _48,_49,row=null;
-row=_45.insertRow(_45.rows.length);
-_48=row.insertCell(row.cells.length);
-dojo.addClass(_48,"ganttMenuDialogDescCell");
-_48.innerHTML=_46;
-_49=row.insertCell(row.cells.length);
-dojo.addClass(_49,"ganttMenuDialogDescCellValue");
-_49.innerHTML=_47;
+var _47=this.tabMenu.paneContentArea.firstChild.rows[1].cells[0];
+_47.firstChild.parentNode.removeChild(_47.firstChild);
+_47.innerHTML="<table></table>";
+_2.addClass(_47.firstChild,"ganttDialogContentCell");
+},insertData:function(_48,_49,_4a){
+var _4b,_4c,row=null;
+row=_48.insertRow(_48.rows.length);
+_4b=row.insertCell(row.cells.length);
+_2.addClass(_4b,"ganttMenuDialogDescCell");
+_4b.innerHTML=_49;
+_4c=row.insertCell(row.cells.length);
+_2.addClass(_4c,"ganttMenuDialogDescCellValue");
+_4c.innerHTML=_4a;
 }});
 })();
-}
+});

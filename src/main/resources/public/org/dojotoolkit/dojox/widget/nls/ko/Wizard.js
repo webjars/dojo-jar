@@ -1,1 +1,10 @@
-({"next":"다음","done":"완료","previous":"이전"})
+//>>built
+define(
+"dojox/widget/nls/ko/Wizard", //begin v1.x content
+({
+next: "다음",
+previous: "이전",
+done: "완료"
+})
+//end v1.x content
+);

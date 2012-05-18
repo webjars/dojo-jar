@@ -1,114 +1,107 @@
-/*
-	Copyright (c) 2004-2011, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
-
-
-if(!dojo._hasResource["dojox.drawing.ui.dom.Toolbar"]){
-dojo._hasResource["dojox.drawing.ui.dom.Toolbar"]=true;
-dojo.provide("dojox.drawing.ui.dom.Toolbar");
-dojo.deprecated("dojox.drawing.ui.dom.Toolbar","It may not even make it to the 1.4 release.",1.4);
+//>>built
+define(["dijit","dojo","dojox"],function(_1,_2,_3){
+_2.provide("dojox.drawing.ui.dom.Toolbar");
+_2.deprecated("dojox.drawing.ui.dom.Toolbar","It may not even make it to the 1.4 release.",1.4);
 (function(){
-dojo.declare("dojox.drawing.ui.dom.Toolbar",[],{baseClass:"drawingToolbar",buttonClass:"drawingButton",iconClass:"icon",constructor:function(_1,_2){
-dojo.addOnLoad(this,function(){
-this.domNode=dojo.byId(_2);
-dojo.addClass(this.domNode,this.baseClass);
+_2.declare("dojox.drawing.ui.dom.Toolbar",[],{baseClass:"drawingToolbar",buttonClass:"drawingButton",iconClass:"icon",constructor:function(_4,_5){
+_2.addOnLoad(this,function(){
+this.domNode=_2.byId(_5);
+_2.addClass(this.domNode,this.baseClass);
 this.parse();
 });
-},createIcon:function(_3,_4){
-var _5=_4&&_4.setup?_4.setup:{};
-if(_5.iconClass){
-var _6=_5.iconClass?_5.iconClass:"iconNone";
-var _7=_5.tooltip?_5.tooltip:"Tool";
-var _8=dojo.create("div",{title:_7},_3);
-dojo.addClass(_8,this.iconClass);
-dojo.addClass(_8,_6);
-dojo.connect(_3,"mouseup",function(_9){
-dojo.stopEvent(_9);
-dojo.removeClass(_3,"active");
+},createIcon:function(_6,_7){
+var _8=_7&&_7.setup?_7.setup:{};
+if(_8.iconClass){
+var _9=_8.iconClass?_8.iconClass:"iconNone";
+var _a=_8.tooltip?_8.tooltip:"Tool";
+var _b=_2.create("div",{title:_a},_6);
+_2.addClass(_b,this.iconClass);
+_2.addClass(_b,_9);
+_2.connect(_6,"mouseup",function(_c){
+_2.stopEvent(_c);
+_2.removeClass(_6,"active");
 });
-dojo.connect(_3,"mouseover",function(_a){
-dojo.stopEvent(_a);
-dojo.addClass(_3,"hover");
+_2.connect(_6,"mouseover",function(_d){
+_2.stopEvent(_d);
+_2.addClass(_6,"hover");
 });
-dojo.connect(_3,"mousedown",this,function(_b){
-dojo.stopEvent(_b);
-dojo.addClass(_3,"active");
+_2.connect(_6,"mousedown",this,function(_e){
+_2.stopEvent(_e);
+_2.addClass(_6,"active");
 });
-dojo.connect(_3,"mouseout",this,function(_c){
-dojo.stopEvent(_c);
-dojo.removeClass(_3,"hover");
+_2.connect(_6,"mouseout",this,function(_f){
+_2.stopEvent(_f);
+_2.removeClass(_6,"hover");
 });
 }
-},createTool:function(_d){
-_d.innerHTML="";
-var _e=dojo.attr(_d,"tool");
-this.toolNodes[_e]=_d;
-dojo.attr(_d,"tabIndex",1);
-var _f=dojo.getObject(_e);
-this.createIcon(_d,_f);
-this.drawing.registerTool(_e,_f);
-dojo.connect(_d,"mouseup",this,function(evt){
-dojo.stopEvent(evt);
-dojo.removeClass(_d,"active");
-this.onClick(_e);
+},createTool:function(_10){
+_10.innerHTML="";
+var _11=_2.attr(_10,"tool");
+this.toolNodes[_11]=_10;
+_2.attr(_10,"tabIndex",1);
+var _12=_2.getObject(_11);
+this.createIcon(_10,_12);
+this.drawing.registerTool(_11,_12);
+_2.connect(_10,"mouseup",this,function(evt){
+_2.stopEvent(evt);
+_2.removeClass(_10,"active");
+this.onClick(_11);
 });
-dojo.connect(_d,"mouseover",function(evt){
-dojo.stopEvent(evt);
-dojo.addClass(_d,"hover");
+_2.connect(_10,"mouseover",function(evt){
+_2.stopEvent(evt);
+_2.addClass(_10,"hover");
 });
-dojo.connect(_d,"mousedown",this,function(evt){
-dojo.stopEvent(evt);
-dojo.addClass(_d,"active");
+_2.connect(_10,"mousedown",this,function(evt){
+_2.stopEvent(evt);
+_2.addClass(_10,"active");
 });
-dojo.connect(_d,"mouseout",this,function(evt){
-dojo.stopEvent(evt);
-dojo.removeClass(_d,"hover");
+_2.connect(_10,"mouseout",this,function(evt){
+_2.stopEvent(evt);
+_2.removeClass(_10,"hover");
 });
 },parse:function(){
-var _10=dojo.attr(this.domNode,"drawingId");
-this.drawing=dojox.drawing.util.common.byId(_10);
+var _13=_2.attr(this.domNode,"drawingId");
+this.drawing=_3.drawing.util.common.byId(_13);
 !this.drawing&&console.error("Drawing not found based on 'drawingId' in Toolbar. ");
 this.toolNodes={};
-var _11;
-dojo.query(">",this.domNode).forEach(function(_12,i){
-_12.className=this.buttonClass;
-var _13=dojo.attr(_12,"tool");
-var _14=dojo.attr(_12,"action");
-var _15=dojo.attr(_12,"plugin");
-if(_13){
-if(i==0||dojo.attr(_12,"selected")=="true"){
-_11=_13;
+var _14;
+_2.query(">",this.domNode).forEach(function(_15,i){
+_15.className=this.buttonClass;
+var _16=_2.attr(_15,"tool");
+var _17=_2.attr(_15,"action");
+var _18=_2.attr(_15,"plugin");
+if(_16){
+if(i==0||_2.attr(_15,"selected")=="true"){
+_14=_16;
 }
-this.createTool(_12);
+this.createTool(_15);
 }else{
-if(_15){
-var p={name:_15,options:{}},opt=dojo.attr(_12,"options");
+if(_18){
+var p={name:_18,options:{}},opt=_2.attr(_15,"options");
 if(opt){
 p.options=eval("("+opt+")");
 }
-p.options.node=_12;
-_12.innerHTML="";
+p.options.node=_15;
+_15.innerHTML="";
 this.drawing.addPlugin(p);
-this.createIcon(_12,dojo.getObject(dojo.attr(_12,"plugin")));
+this.createIcon(_15,_2.getObject(_2.attr(_15,"plugin")));
 }
 }
 },this);
 this.drawing.initPlugins();
-dojo.connect(this.drawing,"setTool",this,"onSetTool");
-this.drawing.setTool(_11);
-},onClick:function(_16){
-this.drawing.setTool(_16);
-},onSetTool:function(_17){
+_2.connect(this.drawing,"setTool",this,"onSetTool");
+this.drawing.setTool(_14);
+},onClick:function(_19){
+this.drawing.setTool(_19);
+},onSetTool:function(_1a){
 for(var n in this.toolNodes){
-if(n==_17){
-dojo.addClass(this.toolNodes[_17],"selected");
-this.toolNodes[_17].blur();
+if(n==_1a){
+_2.addClass(this.toolNodes[_1a],"selected");
+this.toolNodes[_1a].blur();
 }else{
-dojo.removeClass(this.toolNodes[n],"selected");
+_2.removeClass(this.toolNodes[n],"selected");
 }
 }
 }});
 })();
-}
+});

@@ -1,72 +1,65 @@
-/*
-	Copyright (c) 2004-2011, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
-
-
-if(!dojo._hasResource["dojox.drawing.ui.dom.Pan"]){
-dojo._hasResource["dojox.drawing.ui.dom.Pan"]=true;
-dojo.provide("dojox.drawing.ui.dom.Pan");
-dojo.require("dojox.drawing.plugins._Plugin");
-dojo.deprecated("dojox.drawing.ui.dom.Pan","It may not even make it to the 1.4 release.",1.4);
-dojox.drawing.ui.dom.Pan=dojox.drawing.util.oo.declare(dojox.drawing.plugins._Plugin,function(_1){
-this.domNode=_1.node;
-var _2;
-dojo.connect(this.domNode,"click",this,"onSetPan");
-dojo.connect(this.keys,"onKeyUp",this,"onKeyUp");
-dojo.connect(this.keys,"onKeyDown",this,"onKeyDown");
-dojo.connect(this.anchors,"onAnchorUp",this,"checkBounds");
-dojo.connect(this.stencils,"register",this,"checkBounds");
-dojo.connect(this.canvas,"resize",this,"checkBounds");
-dojo.connect(this.canvas,"setZoom",this,"checkBounds");
-dojo.connect(this.canvas,"onScroll",this,function(){
+//>>built
+define(["dijit","dojo","dojox","dojo/require!dojox/drawing/plugins/_Plugin"],function(_1,_2,_3){
+_2.provide("dojox.drawing.ui.dom.Pan");
+_2.require("dojox.drawing.plugins._Plugin");
+_2.deprecated("dojox.drawing.ui.dom.Pan","It may not even make it to the 1.4 release.",1.4);
+_3.drawing.ui.dom.Pan=_3.drawing.util.oo.declare(_3.drawing.plugins._Plugin,function(_4){
+this.domNode=_4.node;
+var _5;
+_2.connect(this.domNode,"click",this,"onSetPan");
+_2.connect(this.keys,"onKeyUp",this,"onKeyUp");
+_2.connect(this.keys,"onKeyDown",this,"onKeyDown");
+_2.connect(this.anchors,"onAnchorUp",this,"checkBounds");
+_2.connect(this.stencils,"register",this,"checkBounds");
+_2.connect(this.canvas,"resize",this,"checkBounds");
+_2.connect(this.canvas,"setZoom",this,"checkBounds");
+_2.connect(this.canvas,"onScroll",this,function(){
 if(this._blockScroll){
 this._blockScroll=false;
 return;
 }
-_2&&clearTimeout(_2);
-_2=setTimeout(dojo.hitch(this,"checkBounds"),200);
+_5&&clearTimeout(_5);
+_5=setTimeout(_2.hitch(this,"checkBounds"),200);
 });
 this._mouseHandle=this.mouse.register(this);
-},{selected:false,type:"dojox.drawing.ui.dom.Pan",onKeyUp:function(_3){
-if(_3.keyCode==32){
+},{selected:false,type:"dojox.drawing.ui.dom.Pan",onKeyUp:function(_6){
+if(_6.keyCode==32){
 this.onSetPan(false);
 }
-},onKeyDown:function(_4){
-if(_4.keyCode==32){
+},onKeyDown:function(_7){
+if(_7.keyCode==32){
 this.onSetPan(true);
 }
-},onSetPan:function(_5){
-if(_5===true||_5===false){
-this.selected=!_5;
+},onSetPan:function(_8){
+if(_8===true||_8===false){
+this.selected=!_8;
 }
 if(this.selected){
 this.selected=false;
-dojo.removeClass(this.domNode,"selected");
+_2.removeClass(this.domNode,"selected");
 }else{
 this.selected=true;
-dojo.addClass(this.domNode,"selected");
+_2.addClass(this.domNode,"selected");
 }
 this.mouse.setEventMode(this.selected?"pan":"");
-},onPanDrag:function(_6){
-var x=_6.x-_6.last.x;
-var y=_6.y-_6.last.y;
-this.canvas.domNode.parentNode.scrollTop-=_6.move.y;
-this.canvas.domNode.parentNode.scrollLeft-=_6.move.x;
+},onPanDrag:function(_9){
+var x=_9.x-_9.last.x;
+var y=_9.y-_9.last.y;
+this.canvas.domNode.parentNode.scrollTop-=_9.move.y;
+this.canvas.domNode.parentNode.scrollLeft-=_9.move.x;
 this.canvas.onScroll();
-},onStencilUp:function(_7){
+},onStencilUp:function(_a){
 this.checkBounds();
-},onStencilDrag:function(_8){
+},onStencilDrag:function(_b){
 },checkBounds:function(){
-var _9=function(){
+var _c=function(){
 };
-var _a=function(){
+var _d=function(){
 };
-var t=Infinity,r=-Infinity,b=-Infinity,l=Infinity,sx=0,sy=0,dy=0,dx=0,mx=this.stencils.group?this.stencils.group.getTransform():{dx:0,dy:0},sc=this.mouse.scrollOffset(),_b=sc.left?10:0,_c=sc.top?10:0,ch=this.canvas.height,cw=this.canvas.width,z=this.canvas.zoom,_d=this.canvas.parentHeight,_e=this.canvas.parentWidth;
+var t=Infinity,r=-Infinity,b=-Infinity,l=Infinity,sx=0,sy=0,dy=0,dx=0,mx=this.stencils.group?this.stencils.group.getTransform():{dx:0,dy:0},sc=this.mouse.scrollOffset(),_e=sc.left?10:0,_f=sc.top?10:0,ch=this.canvas.height,cw=this.canvas.width,z=this.canvas.zoom,pch=this.canvas.parentHeight,pcw=this.canvas.parentWidth;
 this.stencils.withSelected(function(m){
 var o=m.getBounds();
-_a("SEL BOUNDS:",o);
+_d("SEL BOUNDS:",o);
 t=Math.min(o.y1+mx.dy,t);
 r=Math.max(o.x2+mx.dx,r);
 b=Math.max(o.y2+mx.dy,b);
@@ -74,38 +67,38 @@ l=Math.min(o.x1+mx.dx,l);
 });
 this.stencils.withUnselected(function(m){
 var o=m.getBounds();
-_a("UN BOUNDS:",o);
+_d("UN BOUNDS:",o);
 t=Math.min(o.y1,t);
 r=Math.max(o.x2,r);
 b=Math.max(o.y2,b);
 l=Math.min(o.x1,l);
 });
 b*=z;
-var _f=0,_10=0;
-_9("Bottom test","b:",b,"z:",z,"ch:",ch,"pch:",_d,"top:",sc.top,"sy:",sy);
-if(b>_d||sc.top){
-_9("*bottom scroll*");
-ch=Math.max(b,_d+sc.top);
+var _10=0,_11=0;
+_c("Bottom test","b:",b,"z:",z,"ch:",ch,"pch:",pch,"top:",sc.top,"sy:",sy);
+if(b>pch||sc.top){
+_c("*bottom scroll*");
+ch=Math.max(b,pch+sc.top);
 sy=sc.top;
-_f+=this.canvas.getScrollWidth();
+_10+=this.canvas.getScrollWidth();
 }else{
-if(!sy&&ch>_d){
-_9("*bottom remove*");
-ch=_d;
+if(!sy&&ch>pch){
+_c("*bottom remove*");
+ch=pch;
 }
 }
 r*=z;
-if(r>_e||sc.left){
-cw=Math.max(r,_e+sc.left);
+if(r>pcw||sc.left){
+cw=Math.max(r,pcw+sc.left);
 sx=sc.left;
-_10+=this.canvas.getScrollWidth();
+_11+=this.canvas.getScrollWidth();
 }else{
-if(!sx&&cw>_e){
-cw=_e;
+if(!sx&&cw>pcw){
+cw=pcw;
 }
 }
-cw+=_f*2;
-ch+=_10*2;
+cw+=_10*2;
+ch+=_11*2;
 this._blockScroll=true;
 this.stencils.group&&this.stencils.group.applyTransform({dx:dx,dy:dy});
 this.stencils.withUnselected(function(m){
@@ -113,6 +106,6 @@ m.transformPoints({dx:dx,dy:dy});
 });
 this.canvas.setDimensions(cw,ch,sx,sy);
 }});
-dojox.drawing.ui.dom.Pan.setup={name:"dojox.drawing.ui.dom.Pan",tooltip:"Pan Tool",iconClass:"iconPan"};
-dojox.drawing.register(dojox.drawing.ui.dom.Pan.setup,"plugin");
-}
+_3.drawing.ui.dom.Pan.setup={name:"dojox.drawing.ui.dom.Pan",tooltip:"Pan Tool",iconClass:"iconPan"};
+_3.drawing.register(_3.drawing.ui.dom.Pan.setup,"plugin");
+});

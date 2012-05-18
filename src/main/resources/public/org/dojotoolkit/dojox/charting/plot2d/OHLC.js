@@ -1,79 +1,65 @@
-/*
-	Copyright (c) 2004-2011, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
-
-
-if(!dojo._hasResource["dojox.charting.plot2d.OHLC"]){
-dojo._hasResource["dojox.charting.plot2d.OHLC"]=true;
-dojo.provide("dojox.charting.plot2d.OHLC");
-dojo.require("dojox.charting.plot2d.common");
-dojo.require("dojox.charting.plot2d.Base");
-dojo.require("dojox.lang.utils");
-dojo.require("dojox.lang.functional");
-dojo.require("dojox.lang.functional.reversed");
-(function(){
-var df=dojox.lang.functional,du=dojox.lang.utils,dc=dojox.charting.plot2d.common,_1=df.lambda("item.purgeGroup()");
-dojo.declare("dojox.charting.plot2d.OHLC",dojox.charting.plot2d.Base,{defaultParams:{hAxis:"x",vAxis:"y",gap:2,animate:null},optionalParams:{minBarSize:1,maxBarSize:1,stroke:{},outline:{},shadow:{},fill:{},font:"",fontColor:""},constructor:function(_2,_3){
-this.opt=dojo.clone(this.defaultParams);
-du.updateWithObject(this.opt,_3);
-du.updateWithPattern(this.opt,_3,this.optionalParams);
+//>>built
+define("dojox/charting/plot2d/OHLC",["dojo/_base/lang","dojo/_base/array","dojo/_base/declare","./Base","./common","dojox/lang/functional","dojox/lang/functional/reversed","dojox/lang/utils","dojox/gfx/fx"],function(_1,_2,_3,_4,dc,df,_5,du,fx){
+var _6=_5.lambda("item.purgeGroup()");
+return _3("dojox.charting.plot2d.OHLC",_4,{defaultParams:{hAxis:"x",vAxis:"y",gap:2,animate:null},optionalParams:{minBarSize:1,maxBarSize:1,stroke:{},outline:{},shadow:{},fill:{},font:"",fontColor:""},constructor:function(_7,_8){
+this.opt=_1.clone(this.defaultParams);
+du.updateWithObject(this.opt,_8);
+du.updateWithPattern(this.opt,_8,this.optionalParams);
 this.series=[];
 this.hAxis=this.opt.hAxis;
 this.vAxis=this.opt.vAxis;
 this.animate=this.opt.animate;
-},collectStats:function(_4){
-var _5=dojo.delegate(dc.defaultStats);
-for(var i=0;i<_4.length;i++){
-var _6=_4[i];
-if(!_6.data.length){
+},collectStats:function(_9){
+var _a=_1.delegate(dc.defaultStats);
+for(var i=0;i<_9.length;i++){
+var _b=_9[i];
+if(!_b.data.length){
 continue;
 }
-var _7=_5.vmin,_8=_5.vmax;
-if(!("ymin" in _6)||!("ymax" in _6)){
-dojo.forEach(_6.data,function(_9,_a){
-if(_9!==null){
-var x=_9.x||_a+1;
-_5.hmin=Math.min(_5.hmin,x);
-_5.hmax=Math.max(_5.hmax,x);
-_5.vmin=Math.min(_5.vmin,_9.open,_9.close,_9.high,_9.low);
-_5.vmax=Math.max(_5.vmax,_9.open,_9.close,_9.high,_9.low);
+var _c=_a.vmin,_d=_a.vmax;
+if(!("ymin" in _b)||!("ymax" in _b)){
+_2.forEach(_b.data,function(_e,_f){
+if(_e!==null){
+var x=_e.x||_f+1;
+_a.hmin=Math.min(_a.hmin,x);
+_a.hmax=Math.max(_a.hmax,x);
+_a.vmin=Math.min(_a.vmin,_e.open,_e.close,_e.high,_e.low);
+_a.vmax=Math.max(_a.vmax,_e.open,_e.close,_e.high,_e.low);
 }
 });
 }
-if("ymin" in _6){
-_5.vmin=Math.min(_7,_6.ymin);
+if("ymin" in _b){
+_a.vmin=Math.min(_c,_b.ymin);
 }
-if("ymax" in _6){
-_5.vmax=Math.max(_8,_6.ymax);
+if("ymax" in _b){
+_a.vmax=Math.max(_d,_b.ymax);
 }
 }
-return _5;
+return _a;
 },getSeriesStats:function(){
-var _b=this.collectStats(this.series);
-_b.hmin-=0.5;
-_b.hmax+=0.5;
-return _b;
-},render:function(_c,_d){
+var _10=this.collectStats(this.series);
+_10.hmin-=0.5;
+_10.hmax+=0.5;
+return _10;
+},render:function(dim,_11){
 if(this.zoom&&!this.isDataDirty()){
-return this.performZoom(_c,_d);
+return this.performZoom(dim,_11);
 }
 this.resetEvents();
 this.dirty=this.isDirty();
 if(this.dirty){
-dojo.forEach(this.series,_1);
+_2.forEach(this.series,_6);
 this._eventSeries={};
 this.cleanGroup();
 var s=this.group;
-df.forEachRev(this.series,function(_e){
-_e.cleanGroup(s);
+df.forEachRev(this.series,function(_12){
+_12.cleanGroup(s);
 });
 }
-var t=this.chart.theme,f,_f,_10,ht=this._hScaler.scaler.getTransformerFromModel(this._hScaler),vt=this._vScaler.scaler.getTransformerFromModel(this._vScaler),_11=Math.max(0,this._vScaler.bounds.lower),_12=vt(_11),_13=this.events();
+var t=this.chart.theme,f,gap,_13,ht=this._hScaler.scaler.getTransformerFromModel(this._hScaler),vt=this._vScaler.scaler.getTransformerFromModel(this._vScaler),_14=Math.max(0,this._vScaler.bounds.lower),_15=vt(_14),_16=this.events();
 f=dc.calculateBarSize(this._hScaler.bounds.scale,this.opt);
-_f=f.gap;
-_10=f.size;
+gap=f.gap;
+_13=f.size;
 for(var i=this.series.length-1;i>=0;--i){
 var run=this.series[i];
 if(!this.dirty&&!run.dirty){
@@ -82,44 +68,43 @@ this._reconnectEvents(run.name);
 continue;
 }
 run.cleanGroup();
-var _14=t.next("candlestick",[this.opt,run]),s=run.group,_15=new Array(run.data.length);
+var _17=t.next("candlestick",[this.opt,run]),s=run.group,_18=new Array(run.data.length);
 for(var j=0;j<run.data.length;++j){
 var v=run.data[j];
 if(v!==null){
-var _16=t.addMixin(_14,"candlestick",v,true);
-var x=ht(v.x||(j+0.5))+_d.l+_f,y=_c.height-_d.b,_17=vt(v.open),_18=vt(v.close),_19=vt(v.high),low=vt(v.low);
-if(low>_19){
-var tmp=_19;
-_19=low;
+var _19=t.addMixin(_17,"candlestick",v,true);
+var x=ht(v.x||(j+0.5))+_11.l+gap,y=dim.height-_11.b,_1a=vt(v.open),_1b=vt(v.close),_1c=vt(v.high),low=vt(v.low);
+if(low>_1c){
+var tmp=_1c;
+_1c=low;
 low=tmp;
 }
-if(_10>=1){
-var hl={x1:_10/2,x2:_10/2,y1:y-_19,y2:y-low},op={x1:0,x2:((_10/2)+((_16.series.stroke.width||1)/2)),y1:y-_17,y2:y-_17},cl={x1:((_10/2)-((_16.series.stroke.width||1)/2)),x2:_10,y1:y-_18,y2:y-_18};
-shape=s.createGroup();
-shape.setTransform({dx:x,dy:0});
-var _1a=shape.createGroup();
-_1a.createLine(hl).setStroke(_16.series.stroke);
-_1a.createLine(op).setStroke(_16.series.stroke);
-_1a.createLine(cl).setStroke(_16.series.stroke);
-run.dyn.stroke=_16.series.stroke;
-if(_13){
-var o={element:"candlestick",index:j,run:run,shape:_1a,x:x,y:y-Math.max(_17,_18),cx:_10/2,cy:(y-Math.max(_17,_18))+(Math.max(_17>_18?_17-_18:_18-_17,1)/2),width:_10,height:Math.max(_17>_18?_17-_18:_18-_17,1),data:v};
+if(_13>=1){
+var hl={x1:_13/2,x2:_13/2,y1:y-_1c,y2:y-low},op={x1:0,x2:((_13/2)+((_19.series.stroke.width||1)/2)),y1:y-_1a,y2:y-_1a},cl={x1:((_13/2)-((_19.series.stroke.width||1)/2)),x2:_13,y1:y-_1b,y2:y-_1b};
+var _1d=s.createGroup();
+_1d.setTransform({dx:x,dy:0});
+var _1e=_1d.createGroup();
+_1e.createLine(hl).setStroke(_19.series.stroke);
+_1e.createLine(op).setStroke(_19.series.stroke);
+_1e.createLine(cl).setStroke(_19.series.stroke);
+run.dyn.stroke=_19.series.stroke;
+if(_16){
+var o={element:"candlestick",index:j,run:run,shape:_1e,x:x,y:y-Math.max(_1a,_1b),cx:_13/2,cy:(y-Math.max(_1a,_1b))+(Math.max(_1a>_1b?_1a-_1b:_1b-_1a,1)/2),width:_13,height:Math.max(_1a>_1b?_1a-_1b:_1b-_1a,1),data:v};
 this._connectEvents(o);
-_15[j]=o;
+_18[j]=o;
 }
 }
 if(this.animate){
-this._animateOHLC(shape,y-low,_19-low);
+this._animateOHLC(_1d,y-low,_1c-low);
 }
 }
 }
-this._eventSeries[run.name]=_15;
+this._eventSeries[run.name]=_18;
 run.dirty=false;
 }
 this.dirty=false;
 return this;
-},_animateOHLC:function(_1b,_1c,_1d){
-dojox.gfx.fx.animateTransform(dojo.delegate({shape:_1b,duration:1200,transform:[{name:"translate",start:[0,_1c-(_1c/_1d)],end:[0,0]},{name:"scale",start:[1,1/_1d],end:[1,1]},{name:"original"}]},this.animate)).play();
+},_animateOHLC:function(_1f,_20,_21){
+fx.animateTransform(_1.delegate({shape:_1f,duration:1200,transform:[{name:"translate",start:[0,_20-(_20/_21)],end:[0,0]},{name:"scale",start:[1,1/_21],end:[1,1]},{name:"original"}]},this.animate)).play();
 }});
-})();
-}
+});

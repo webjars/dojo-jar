@@ -4,53 +4,53 @@
 	see: http://dojotoolkit.org/license for details
 */
 
-
-if(!dojo._hasResource["dojo.store.JsonRest"]){
-dojo._hasResource["dojo.store.JsonRest"]=true;
-dojo.provide("dojo.store.JsonRest");
-dojo.require("dojo.store.util.QueryResults");
-dojo.declare("dojo.store.JsonRest",null,{constructor:function(_1){
-dojo.mixin(this,_1);
-},target:"",idProperty:"id",get:function(id,_2){
-var _3=_2||{};
-_3.Accept="application/javascript, application/json";
-return dojo.xhrGet({url:this.target+id,handleAs:"json",headers:_3});
-},getIdentity:function(_4){
-return _4[this.idProperty];
-},put:function(_5,_6){
-_6=_6||{};
-var id=("id" in _6)?_6.id:this.getIdentity(_5);
-var _7=typeof id!="undefined";
-return dojo.xhr(_7&&!_6.incremental?"PUT":"POST",{url:_7?this.target+id:this.target,postData:dojo.toJson(_5),handleAs:"json",headers:{"Content-Type":"application/json","If-Match":_6.overwrite===true?"*":null,"If-None-Match":_6.overwrite===false?"*":null}});
-},add:function(_8,_9){
-_9=_9||{};
-_9.overwrite=false;
-return this.put(_8,_9);
+//>>built
+define("dojo/store/JsonRest",["../_base/xhr","../json","../_base/declare","./util/QueryResults"],function(_1,_2,_3,_4){
+return _3("dojo.store.JsonRest",null,{constructor:function(_5){
+_3.safeMixin(this,_5);
+},target:"",idProperty:"id",get:function(id,_6){
+var _7=_6||{};
+_7.Accept=this.accepts;
+return _1("GET",{url:this.target+id,handleAs:"json",headers:_7});
+},accepts:"application/javascript, application/json",getIdentity:function(_8){
+return _8[this.idProperty];
+},put:function(_9,_a){
+_a=_a||{};
+var id=("id" in _a)?_a.id:this.getIdentity(_9);
+var _b=typeof id!="undefined";
+return _1(_b&&!_a.incremental?"PUT":"POST",{url:_b?this.target+id:this.target,postData:_2.stringify(_9),handleAs:"json",headers:{"Content-Type":"application/json",Accept:this.accepts,"If-Match":_a.overwrite===true?"*":null,"If-None-Match":_a.overwrite===false?"*":null}});
+},add:function(_c,_d){
+_d=_d||{};
+_d.overwrite=false;
+return this.put(_c,_d);
 },remove:function(id){
-return dojo.xhrDelete({url:this.target+id});
-},query:function(_a,_b){
-var _c={Accept:"application/javascript, application/json"};
-_b=_b||{};
-if(_b.start>=0||_b.count>=0){
-_c.Range="items="+(_b.start||"0")+"-"+(("count" in _b&&_b.count!=Infinity)?(_b.count+(_b.start||0)-1):"");
+return _1("DELETE",{url:this.target+id});
+},query:function(_e,_f){
+var _10={Accept:this.accepts};
+_f=_f||{};
+if(_f.start>=0||_f.count>=0){
+_10.Range="items="+(_f.start||"0")+"-"+(("count" in _f&&_f.count!=Infinity)?(_f.count+(_f.start||0)-1):"");
 }
-if(dojo.isObject(_a)){
-_a=dojo.objectToQuery(_a);
-_a=_a?"?"+_a:"";
+if(_e&&typeof _e=="object"){
+_e=_1.objectToQuery(_e);
+_e=_e?"?"+_e:"";
 }
-if(_b&&_b.sort){
-_a+=(_a?"&":"?")+"sort(";
-for(var i=0;i<_b.sort.length;i++){
-var _d=_b.sort[i];
-_a+=(i>0?",":"")+(_d.descending?"-":"+")+encodeURIComponent(_d.attribute);
+if(_f&&_f.sort){
+var _11=this.sortParam;
+_e+=(_e?"&":"?")+(_11?_11+"=":"sort(");
+for(var i=0;i<_f.sort.length;i++){
+var _12=_f.sort[i];
+_e+=(i>0?",":"")+(_12.descending?"-":"+")+encodeURIComponent(_12.attribute);
 }
-_a+=")";
+if(!_11){
+_e+=")";
 }
-var _e=dojo.xhrGet({url:this.target+(_a||""),handleAs:"json",headers:_c});
-_e.total=_e.then(function(){
-var _f=_e.ioArgs.xhr.getResponseHeader("Content-Range");
-return _f&&(_f=_f.match(/\/(.*)/))&&+_f[1];
+}
+var _13=_1("GET",{url:this.target+(_e||""),handleAs:"json",headers:_10});
+_13.total=_13.then(function(){
+var _14=_13.ioArgs.xhr.getResponseHeader("Content-Range");
+return _14&&(_14=_14.match(/\/(.*)/))&&+_14[1];
 });
-return dojo.store.util.QueryResults(_e);
+return _4(_13);
 }});
-}
+});

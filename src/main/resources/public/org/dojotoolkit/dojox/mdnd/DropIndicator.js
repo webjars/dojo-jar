@@ -1,29 +1,20 @@
-/*
-	Copyright (c) 2004-2011, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
-
-
-if(!dojo._hasResource["dojox.mdnd.DropIndicator"]){
-dojo._hasResource["dojox.mdnd.DropIndicator"]=true;
-dojo.provide("dojox.mdnd.DropIndicator");
-dojo.require("dojox.mdnd.AreaManager");
-dojo.declare("dojox.mdnd.DropIndicator",null,{node:null,constructor:function(){
-var _1=document.createElement("div");
+//>>built
+define("dojox/mdnd/DropIndicator",["dojo/_base/kernel","dojo/_base/declare","dojo/_base/html","./AreaManager"],function(_1){
+var di=_1.declare("dojox.mdnd.DropIndicator",null,{node:null,constructor:function(){
 var _2=document.createElement("div");
-_1.appendChild(_2);
-dojo.addClass(_1,"dropIndicator");
-this.node=_1;
-},place:function(_3,_4,_5){
-if(_5){
-this.node.style.height=_5.h+"px";
+var _3=document.createElement("div");
+_2.appendChild(_3);
+_1.addClass(_2,"dropIndicator");
+this.node=_2;
+},place:function(_4,_5,_6){
+if(_6){
+this.node.style.height=_6.h+"px";
 }
 try{
-if(_4){
-_3.insertBefore(this.node,_4);
+if(_5){
+_4.insertBefore(this.node,_5);
 }else{
-_3.appendChild(this.node);
+_4.appendChild(this.node);
 }
 return this.node;
 }
@@ -42,11 +33,10 @@ if(this.node){
 if(this.node.parentNode){
 this.node.parentNode.removeChild(this.node);
 }
-dojo._destroyElement(this.node);
+_1._destroyElement(this.node);
 delete this.node;
 }
 }});
-(function(){
 dojox.mdnd.areaManager()._dropIndicator=new dojox.mdnd.DropIndicator();
-}());
-}
+return di;
+});

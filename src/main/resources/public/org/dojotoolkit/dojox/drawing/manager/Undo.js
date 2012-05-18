@@ -1,34 +1,27 @@
-/*
-	Copyright (c) 2004-2011, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
-
-
-if(!dojo._hasResource["dojox.drawing.manager.Undo"]){
-dojo._hasResource["dojox.drawing.manager.Undo"]=true;
-dojo.provide("dojox.drawing.manager.Undo");
-dojox.drawing.manager.Undo=dojox.drawing.util.oo.declare(function(_1){
-this.keys=_1.keys;
+//>>built
+define(["dijit","dojo","dojox"],function(_1,_2,_3){
+_2.provide("dojox.drawing.manager.Undo");
+_3.drawing.manager.Undo=_3.drawing.util.oo.declare(function(_4){
+this.keys=_4.keys;
 this.undostack=[];
 this.redostack=[];
-dojo.connect(this.keys,"onKeyDown",this,"onKeyDown");
-},{onKeyDown:function(_2){
-if(!_2.cmmd){
+_2.connect(this.keys,"onKeyDown",this,"onKeyDown");
+},{onKeyDown:function(_5){
+if(!_5.cmmd){
 return;
 }
-if(_2.keyCode==90&&!_2.shift){
+if(_5.keyCode==90&&!_5.shift){
 this.undo();
 }else{
-if((_2.keyCode==90&&_2.shift)||_2.keyCode==89){
+if((_5.keyCode==90&&_5.shift)||_5.keyCode==89){
 this.redo();
 }
 }
-},add:function(_3){
-_3.args=dojo.mixin({},_3.args);
-this.undostack.push(_3);
-},apply:function(_4,_5,_6){
-dojo.hitch(_4,_5)(_6);
+},add:function(_6){
+_6.args=_2.mixin({},_6.args);
+this.undostack.push(_6);
+},apply:function(_7,_8,_9){
+_2.hitch(_7,_8)(_9);
 },undo:function(){
 var o=this.undostack.pop();
 if(!o){
@@ -48,4 +41,4 @@ o.before();
 }
 this.undostack.push(o);
 }});
-}
+});

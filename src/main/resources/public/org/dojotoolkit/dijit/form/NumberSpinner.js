@@ -1,38 +1,28 @@
-/*
-	Copyright (c) 2004-2011, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
-
-
-if(!dojo._hasResource["dijit.form.NumberSpinner"]){
-dojo._hasResource["dijit.form.NumberSpinner"]=true;
-dojo.provide("dijit.form.NumberSpinner");
-dojo.require("dijit.form._Spinner");
-dojo.require("dijit.form.NumberTextBox");
-dojo.declare("dijit.form.NumberSpinner",[dijit.form._Spinner,dijit.form.NumberTextBoxMixin],{adjust:function(_1,_2){
-var tc=this.constraints,v=isNaN(_1),_3=!isNaN(tc.max),_4=!isNaN(tc.min);
-if(v&&_2!=0){
-_1=(_2>0)?_4?tc.min:_3?tc.max:0:_3?this.constraints.max:_4?tc.min:0;
+//>>built
+define("dijit/form/NumberSpinner",["dojo/_base/declare","dojo/_base/event","dojo/keys","./_Spinner","./NumberTextBox"],function(_1,_2,_3,_4,_5){
+return _1("dijit.form.NumberSpinner",[_4,_5.Mixin],{adjust:function(_6,_7){
+var tc=this.constraints,v=isNaN(_6),_8=!isNaN(tc.max),_9=!isNaN(tc.min);
+if(v&&_7!=0){
+_6=(_7>0)?_9?tc.min:_8?tc.max:0:_8?this.constraints.max:_9?tc.min:0;
 }
-var _5=_1+_2;
-if(v||isNaN(_5)){
-return _1;
+var _a=_6+_7;
+if(v||isNaN(_a)){
+return _6;
 }
-if(_3&&(_5>tc.max)){
-_5=tc.max;
+if(_8&&(_a>tc.max)){
+_a=tc.max;
 }
-if(_4&&(_5<tc.min)){
-_5=tc.min;
+if(_9&&(_a<tc.min)){
+_a=tc.min;
 }
-return _5;
+return _a;
 },_onKeyPress:function(e){
-if((e.charOrCode==dojo.keys.HOME||e.charOrCode==dojo.keys.END)&&!(e.ctrlKey||e.altKey||e.metaKey)&&typeof this.get("value")!="undefined"){
-var _6=this.constraints[(e.charOrCode==dojo.keys.HOME?"min":"max")];
-if(typeof _6=="number"){
-this._setValueAttr(_6,false);
+if((e.charOrCode==_3.HOME||e.charOrCode==_3.END)&&!(e.ctrlKey||e.altKey||e.metaKey)&&typeof this.get("value")!="undefined"){
+var _b=this.constraints[(e.charOrCode==_3.HOME?"min":"max")];
+if(typeof _b=="number"){
+this._setValueAttr(_b,false);
 }
-dojo.stopEvent(e);
+_2.stop(e);
 }
 }});
-}
+});

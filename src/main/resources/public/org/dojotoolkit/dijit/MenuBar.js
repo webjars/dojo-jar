@@ -1,38 +1,30 @@
-/*
-	Copyright (c) 2004-2011, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
-
-
-if(!dojo._hasResource["dijit.MenuBar"]){
-dojo._hasResource["dijit.MenuBar"]=true;
-dojo.provide("dijit.MenuBar");
-dojo.require("dijit.Menu");
-dojo.declare("dijit.MenuBar",dijit._MenuBase,{templateString:dojo.cache("dijit","templates/MenuBar.html","<div class=\"dijitMenuBar dijitMenuPassive\" dojoAttachPoint=\"containerNode\"  role=\"menubar\" tabIndex=\"${tabIndex}\" dojoAttachEvent=\"onkeypress: _onKeyPress\"></div>\n"),baseClass:"dijitMenuBar",_isMenuBar:true,postCreate:function(){
-var k=dojo.keys,l=this.isLeftToRight();
-this.connectKeyNavHandlers(l?[k.LEFT_ARROW]:[k.RIGHT_ARROW],l?[k.RIGHT_ARROW]:[k.LEFT_ARROW]);
-this._orient=this.isLeftToRight()?{BL:"TL"}:{BR:"TR"};
-},focusChild:function(_1){
-var _2=this.focusedChild,_3=_2&&_2.popup&&_2.popup.isShowingNow;
+//>>built
+require({cache:{"url:dijit/templates/MenuBar.html":"<div class=\"dijitMenuBar dijitMenuPassive\" data-dojo-attach-point=\"containerNode\"  role=\"menubar\" tabIndex=\"${tabIndex}\" data-dojo-attach-event=\"onkeypress: _onKeyPress\"></div>\n"}});
+define("dijit/MenuBar",["dojo/_base/declare","dojo/_base/event","dojo/keys","./_MenuBase","dojo/text!./templates/MenuBar.html"],function(_1,_2,_3,_4,_5){
+return _1("dijit.MenuBar",_4,{templateString:_5,baseClass:"dijitMenuBar",_isMenuBar:true,postCreate:function(){
+var l=this.isLeftToRight();
+this.connectKeyNavHandlers(l?[_3.LEFT_ARROW]:[_3.RIGHT_ARROW],l?[_3.RIGHT_ARROW]:[_3.LEFT_ARROW]);
+this._orient=["below"];
+},focusChild:function(_6){
+var _7=this.focusedChild,_8=_7&&_7.popup&&_7.popup.isShowingNow;
 this.inherited(arguments);
-if(_3&&_1.popup&&!_1.disabled){
+if(_8&&_6.popup&&!_6.disabled){
 this._openPopup();
 }
-},_onKeyPress:function(_4){
-if(_4.ctrlKey||_4.altKey){
+},_onKeyPress:function(_9){
+if(_9.ctrlKey||_9.altKey){
 return;
 }
-switch(_4.charOrCode){
-case dojo.keys.DOWN_ARROW:
-this._moveToPopup(_4);
-dojo.stopEvent(_4);
+switch(_9.charOrCode){
+case _3.DOWN_ARROW:
+this._moveToPopup(_9);
+_2.stop(_9);
 }
-},onItemClick:function(_5,_6){
-if(_5.popup&&_5.popup.isShowingNow){
-_5.popup.onCancel();
+},onItemClick:function(_a,_b){
+if(_a.popup&&_a.popup.isShowingNow){
+_a.popup.onCancel();
 }else{
 this.inherited(arguments);
 }
 }});
-}
+});

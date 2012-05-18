@@ -1,1 +1,16 @@
-({"close":"[kapat]","title":"Başlık","authors":"Yazarlar","summary":"Özet","content":"İçerik","contributors":"Katkıda Bulunanlar","updated":"Güncelleştirildi","displayOptions":"[görüntüleme seçenekleri]","id":"Kimlik"})
+//>>built
+define(
+"dojox/atom/widget/nls/tr/FeedEntryViewer", //begin v1.x content
+({
+	displayOptions: "[görüntüleme seçenekleri]",
+	title: "Başlık",
+	authors: "Yazarlar",
+	contributors: "Katkıda Bulunanlar",
+	id: "Kimlik",
+	close: "[kapat]",
+	updated: "Güncelleştirildi",
+	summary: "Özet",
+	content: "İçerik"
+})
+//end v1.x content
+);

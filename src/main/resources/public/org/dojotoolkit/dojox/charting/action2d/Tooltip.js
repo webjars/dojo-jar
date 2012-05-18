@@ -1,21 +1,6 @@
-/*
-	Copyright (c) 2004-2011, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
-
-
-if(!dojo._hasResource["dojox.charting.action2d.Tooltip"]){
-dojo._hasResource["dojox.charting.action2d.Tooltip"]=true;
-dojo.provide("dojox.charting.action2d.Tooltip");
-dojo.require("dijit.Tooltip");
-dojo.require("dojox.charting.action2d.Base");
-dojo.require("dojox.gfx.matrix");
-dojo.require("dojox.lang.functional");
-dojo.require("dojox.lang.functional.scan");
-dojo.require("dojox.lang.functional.fold");
-(function(){
-var _1=function(o){
+//>>built
+define("dojox/charting/action2d/Tooltip",["dojo/_base/kernel","dijit/Tooltip","dojo/_base/lang","dojo/_base/html","dojo/_base/declare","./PlotAction","dojox/gfx/matrix","dojox/lang/functional","dojox/lang/functional/scan","dojox/lang/functional/fold"],function(_1,_2,_3,_4,_5,_6,m,df,_7,_8){
+var _9=function(o){
 var t=o.run&&o.run.data&&o.run.data[o.index];
 if(t&&typeof t!="number"&&(t.tooltip||t.text)){
 return t.tooltip||t.text;
@@ -25,13 +10,13 @@ return "<table cellpadding=\"1\" cellspacing=\"0\" border=\"0\" style=\"font-siz
 }
 return o.element=="bar"?o.x:o.y;
 };
-var df=dojox.lang.functional,m=dojox.gfx.matrix,_2=Math.PI/4,_3=Math.PI/2;
-dojo.declare("dojox.charting.action2d.Tooltip",dojox.charting.action2d.Base,{defaultParams:{text:_1},optionalParams:{},constructor:function(_4,_5,_6){
-this.text=_6&&_6.text?_6.text:_1;
+var _a=Math.PI/4,_b=Math.PI/2;
+return _5("dojox.charting.action2d.Tooltip",_6,{defaultParams:{text:_9},optionalParams:{},constructor:function(_c,_d,_e){
+this.text=_e&&_e.text?_e.text:_9;
 this.connect();
 },process:function(o){
 if(o.type==="onplotreset"||o.type==="onmouseout"){
-dijit.hideTooltip(this.aroundRect);
+_2.hide(this.aroundRect);
 this.aroundRect=null;
 if(o.type==="onplotreset"){
 delete this.angles;
@@ -41,28 +26,30 @@ return;
 if(!o.shape||o.type!=="onmouseover"){
 return;
 }
-var _7={type:"rect"},_8=["after","before"];
+var _f={type:"rect"},_10=["after","before"];
 switch(o.element){
 case "marker":
-_7.x=o.cx;
-_7.y=o.cy;
-_7.width=_7.height=1;
+_f.x=o.cx;
+_f.y=o.cy;
+_f.w=_f.h=1;
 break;
 case "circle":
-_7.x=o.cx-o.cr;
-_7.y=o.cy-o.cr;
-_7.width=_7.height=2*o.cr;
+_f.x=o.cx-o.cr;
+_f.y=o.cy-o.cr;
+_f.w=_f.h=2*o.cr;
 break;
 case "column":
-_8=["above","below"];
+_10=["above","below"];
 case "bar":
-_7=dojo.clone(o.shape.getShape());
+_f=_3.clone(o.shape.getShape());
+_f.w=_f.width;
+_f.h=_f.height;
 break;
 case "candlestick":
-_7.x=o.x;
-_7.y=o.y;
-_7.width=o.width;
-_7.height=o.height;
+_f.x=o.x;
+_f.y=o.y;
+_f.w=o.width;
+_f.h=o.height;
 break;
 default:
 if(!this.angles){
@@ -72,38 +59,49 @@ this.angles=df.map(df.scanl(o.run.data,"+",0),"* 2 * Math.PI / this",df.foldl(o.
 this.angles=df.map(df.scanl(o.run.data,"a + b.y",0),"* 2 * Math.PI / this",df.foldl(o.run.data,"a + b.y",0));
 }
 }
-var _9=m._degToRad(o.plot.opt.startAngle),_a=(this.angles[o.index]+this.angles[o.index+1])/2+_9;
-_7.x=o.cx+o.cr*Math.cos(_a);
-_7.y=o.cy+o.cr*Math.sin(_a);
-_7.width=_7.height=1;
-if(_a<_2){
+var _11=m._degToRad(o.plot.opt.startAngle),_12=(this.angles[o.index]+this.angles[o.index+1])/2+_11;
+_f.x=o.cx+o.cr*Math.cos(_12);
+_f.y=o.cy+o.cr*Math.sin(_12);
+_f.w=_f.h=1;
+if(_12<_a){
 }else{
-if(_a<_3+_2){
-_8=["below","above"];
+if(_12<_b+_a){
+_10=["below","above"];
 }else{
-if(_a<Math.PI+_2){
-_8=["before","after"];
+if(_12<Math.PI+_a){
+_10=["before","after"];
 }else{
-if(_a<2*Math.PI-_2){
-_8=["above","below"];
+if(_12<2*Math.PI-_a){
+_10=["above","below"];
 }
 }
 }
 }
 break;
 }
-var lt=dojo.coords(this.chart.node,true);
-_7.x+=lt.x;
-_7.y+=lt.y;
-_7.x=Math.round(_7.x);
-_7.y=Math.round(_7.y);
-_7.width=Math.ceil(_7.width);
-_7.height=Math.ceil(_7.height);
-this.aroundRect=_7;
-var _b=this.text(o);
-if(_b){
-dijit.showTooltip(_b,this.aroundRect,_8);
+var lt=this.chart.getCoords();
+_f.x+=lt.x;
+_f.y+=lt.y;
+_f.x=Math.round(_f.x);
+_f.y=Math.round(_f.y);
+_f.w=Math.ceil(_f.w);
+_f.h=Math.ceil(_f.h);
+this.aroundRect=_f;
+var _13=this.text(o);
+if(this.chart.getTextDir){
+var _14=(_4.style(this.chart.node,"direction")=="rtl");
+var _15=(this.chart.getTextDir(_13)=="rtl");
+}
+if(_13){
+if(_15&&!_14){
+_2.show("<span dir = 'rtl'>"+_13+"</span>",this.aroundRect,_10);
+}else{
+if(!_15&&_14){
+_2.show("<span dir = 'ltr'>"+_13+"</span>",this.aroundRect,_10);
+}else{
+_2.show(_13,this.aroundRect,_10);
+}
+}
 }
 }});
-})();
-}
+});

@@ -1,1 +1,16 @@
-({"set":"Inserare","text":"Descriere","insertImageTitle":"Inserare imagine","invalidMessage":"Tip de fişier imagine nevalid","prePopuTextBrowse":"sau răsfoiţi la un fişier local.","browse":"Răsfoire...","prePopuTextUrl":"Introduceţi un URL de imagine","url":"Imagine"})
+//>>built
+define(
+"dojox/editor/plugins/nls/ro/LocalImage", //begin v1.x content
+({
+	insertImageTitle: "Inserare imagine",
+	url: "Imagine",
+	browse: "Răsfoire...",
+	text: "Descriere",
+	set: "Inserare",
+	invalidMessage: "Tip de fişier imagine nevalid",
+	prePopuTextUrl: "Introduceţi un URL de imagine",
+	prePopuTextBrowse: "sau răsfoiţi la un fişier local."
+})
+
+//end v1.x content
+);

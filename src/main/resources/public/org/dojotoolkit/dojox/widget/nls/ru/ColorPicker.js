@@ -1,1 +1,15 @@
-({"saturationPickerTitle":"Выбор насыщенности","valueLabel":"з","blueLabel":"с","saturationLabel":"н","greenLabel":"з","redLabel":"к","hueLabel":"о","hexLabel":"шест","huePickerTitle":"Выбор оттенка","degLabel":"°"})
+//>>built
+define(
+"dojox/widget/nls/ru/ColorPicker", //begin v1.x content
+({
+redLabel: "к",
+greenLabel: "з",
+blueLabel: "с",
+hueLabel: "о",
+saturationLabel: "н",
+valueLabel: "з", /* aka intensity or brightness */
+hexLabel: "шест",
+huePickerTitle: "Выбор оттенка",
+saturationPickerTitle: "Выбор насыщенности"
+})
+);

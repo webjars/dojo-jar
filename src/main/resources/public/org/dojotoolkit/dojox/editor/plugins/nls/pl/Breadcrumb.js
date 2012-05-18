@@ -1,1 +1,15 @@
-({"selectContents":"Zaznacz treść","deleteElement":"Usuń element","moveEnd":"Przenieś kursor na koniec","deleteContents":"Usuń treść","nodeActions":"${nodeName} - działania","selectElement":"Zaznacz element","moveStart":"Przenieś kursor na początek"})
+//>>built
+define(
+"dojox/editor/plugins/nls/pl/Breadcrumb", //begin v1.x content
+({
+	"nodeActions": "${nodeName} - działania",
+	"selectContents": "Zaznacz treść",
+	"selectElement": "Zaznacz element",
+	"deleteElement": "Usuń element",
+	"deleteContents": "Usuń treść",
+	"moveStart": "Przenieś kursor na początek",
+	"moveEnd": "Przenieś kursor na koniec"
+})
+
+//end v1.x content
+);

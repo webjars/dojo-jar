@@ -1,14 +1,6 @@
-/*
-	Copyright (c) 2004-2011, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
-
-
-if(!dojo._hasResource["dojox.timing.Streamer"]){
-dojo._hasResource["dojox.timing.Streamer"]=true;
-dojo.provide("dojox.timing.Streamer");
-dojo.require("dojox.timing._base");
+//>>built
+define("dojox/timing/Streamer",["./_base"],function(){
+dojo.experimental("dojox.timing.Streamer");
 dojox.timing.Streamer=function(_1,_2,_3,_4,_5){
 var _6=this;
 var _7=[];
@@ -61,4 +53,5 @@ if(_5){
 _7.concat(_5);
 }
 };
-}
+return dojox.timing.Streamer;
+});

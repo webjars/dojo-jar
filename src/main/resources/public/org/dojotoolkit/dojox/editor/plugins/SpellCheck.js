@@ -1,49 +1,45 @@
-/*
-	Copyright (c) 2004-2011, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
-
-
-if(!dojo._hasResource["dojox.editor.plugins.SpellCheck"]){
-dojo._hasResource["dojox.editor.plugins.SpellCheck"]=true;
-dojo.provide("dojox.editor.plugins.SpellCheck");
-dojo.require("dijit.form.TextBox");
-dojo.require("dijit.form.DropDownButton");
-dojo.require("dijit.TooltipDialog");
-dojo.require("dijit.form.MultiSelect");
-dojo.require("dojo.io.script");
-dojo.require("dijit.Menu");
-dojo.requireLocalization("dojox.editor.plugins","SpellCheck",null,"ROOT,ar,ca,cs,da,de,el,es,fi,fr,he,hu,it,ja,kk,ko,nb,nl,pl,pt,pt-pt,ro,ru,sk,sl,sv,th,tr,zh,zh-tw");
-dojo.experimental("dojox.editor.plugins.SpellCheck");
-dojo.declare("dojox.editor.plugins._spellCheckControl",[dijit._Widget,dijit._Templated],{widgetsInTemplate:true,templateString:"<table class='dijitEditorSpellCheckTable'>"+"<tr><td colspan='3' class='alignBottom'><label for='${textId}' id='${textId}_label'>${unfound}</label>"+"<div class='dijitEditorSpellCheckBusyIcon' id='${id}_progressIcon'></div></td></tr>"+"<tr>"+"<td class='dijitEditorSpellCheckBox'><input dojoType='dijit.form.TextBox' required='false' intermediateChanges='true' "+"class='dijitEditorSpellCheckBox' dojoAttachPoint='unfoundTextBox' id='${textId}'/></td>"+"<td><button dojoType='dijit.form.Button' class='blockButton' dojoAttachPoint='skipButton'>${skip}</button></td>"+"<td><button dojoType='dijit.form.Button' class='blockButton' dojoAttachPoint='skipAllButton'>${skipAll}</button></td>"+"</tr>"+"<tr>"+"<td class='alignBottom'><label for='${selectId}'>${suggestions}</td></label>"+"<td colspan='2'><button dojoType='dijit.form.Button' class='blockButton' dojoAttachPoint='toDicButton'>${toDic}</button></td>"+"</tr>"+"<tr>"+"<td>"+"<select dojoType='dijit.form.MultiSelect' id='${selectId}' "+"class='dijitEditorSpellCheckBox listHeight' dojoAttachPoint='suggestionSelect'></select>"+"</td>"+"<td colspan='2'>"+"<button dojoType='dijit.form.Button' class='blockButton' dojoAttachPoint='replaceButton'>${replace}</button>"+"<div class='topMargin'><button dojoType='dijit.form.Button' class='blockButton' "+"dojoAttachPoint='replaceAllButton'>${replaceAll}</button><div>"+"</td>"+"</tr>"+"<tr>"+"<td><div class='topMargin'><button dojoType='dijit.form.Button' dojoAttachPoint='cancelButton'>${cancel}</button></div></td>"+"<td></td>"+"<td></td>"+"</tr>"+"</table>",constructor:function(){
+//>>built
+define(["dijit","dojo","dojox","dojo/i18n!dojox/editor/plugins/nls/SpellCheck","dojo/require!dijit/_base/popup,dijit/_Widget,dijit/_Templated,dijit/form/TextBox,dijit/form/DropDownButton,dijit/TooltipDialog,dijit/form/MultiSelect,dojo/io/script,dijit/Menu"],function(_1,_2,_3){
+_2.provide("dojox.editor.plugins.SpellCheck");
+_2.require("dijit._base.popup");
+_2.require("dijit._Widget");
+_2.require("dijit._Templated");
+_2.require("dijit.form.TextBox");
+_2.require("dijit.form.DropDownButton");
+_2.require("dijit.TooltipDialog");
+_2.require("dijit.form.MultiSelect");
+_2.require("dojo.io.script");
+_2.require("dijit.Menu");
+_2.requireLocalization("dojox.editor.plugins","SpellCheck");
+_2.experimental("dojox.editor.plugins.SpellCheck");
+_2.declare("dojox.editor.plugins._spellCheckControl",[_1._Widget,_1._Templated],{widgetsInTemplate:true,templateString:"<table class='dijitEditorSpellCheckTable'>"+"<tr><td colspan='3' class='alignBottom'><label for='${textId}' id='${textId}_label'>${unfound}</label>"+"<div class='dijitEditorSpellCheckBusyIcon' id='${id}_progressIcon'></div></td></tr>"+"<tr>"+"<td class='dijitEditorSpellCheckBox'><input dojoType='dijit.form.TextBox' required='false' intermediateChanges='true' "+"class='dijitEditorSpellCheckBox' dojoAttachPoint='unfoundTextBox' id='${textId}'/></td>"+"<td><button dojoType='dijit.form.Button' class='blockButton' dojoAttachPoint='skipButton'>${skip}</button></td>"+"<td><button dojoType='dijit.form.Button' class='blockButton' dojoAttachPoint='skipAllButton'>${skipAll}</button></td>"+"</tr>"+"<tr>"+"<td class='alignBottom'><label for='${selectId}'>${suggestions}</td></label>"+"<td colspan='2'><button dojoType='dijit.form.Button' class='blockButton' dojoAttachPoint='toDicButton'>${toDic}</button></td>"+"</tr>"+"<tr>"+"<td>"+"<select dojoType='dijit.form.MultiSelect' id='${selectId}' "+"class='dijitEditorSpellCheckBox listHeight' dojoAttachPoint='suggestionSelect'></select>"+"</td>"+"<td colspan='2'>"+"<button dojoType='dijit.form.Button' class='blockButton' dojoAttachPoint='replaceButton'>${replace}</button>"+"<div class='topMargin'><button dojoType='dijit.form.Button' class='blockButton' "+"dojoAttachPoint='replaceAllButton'>${replaceAll}</button><div>"+"</td>"+"</tr>"+"<tr>"+"<td><div class='topMargin'><button dojoType='dijit.form.Button' dojoAttachPoint='cancelButton'>${cancel}</button></div></td>"+"<td></td>"+"<td></td>"+"</tr>"+"</table>",constructor:function(){
 this.ignoreChange=false;
 this.isChanged=false;
 this.isOpen=false;
 this.closable=true;
 },postMixInProperties:function(){
-this.id=dijit.getUniqueId(this.declaredClass.replace(/\./g,"_"));
+this.id=_1.getUniqueId(this.declaredClass.replace(/\./g,"_"));
 this.textId=this.id+"_textBox";
 this.selectId=this.id+"_select";
 },postCreate:function(){
-var _1=this.suggestionSelect;
-dojo.removeAttr(_1.domNode,"multiple");
-_1.addItems=function(_2){
-var _3=this;
+var _4=this.suggestionSelect;
+_2.removeAttr(_4.domNode,"multiple");
+_4.addItems=function(_5){
+var _6=this;
 var o=null;
-if(_2&&_2.length>0){
-dojo.forEach(_2,function(_4,i){
-o=dojo.create("option",{innerHTML:_4,value:_4},_3.domNode);
+if(_5&&_5.length>0){
+_2.forEach(_5,function(_7,i){
+o=_2.create("option",{innerHTML:_7,value:_7},_6.domNode);
 if(i==0){
 o.selected=true;
 }
 });
 }
 };
-_1.removeItems=function(){
-dojo.empty(this.domNode);
+_4.removeItems=function(){
+_2.empty(this.domNode);
 };
-_1.deselectAll=function(){
+_4.deselectAll=function(){
 this.containerNode.selectedIndex=-1;
 };
 this.connect(this,"onKeyPress","_cancel");
@@ -65,152 +61,152 @@ this.connect(this.cancelButton,"onClick","onCancel");
 },onEnter:function(){
 },focus:function(){
 this.unfoundTextBox.focus();
-},_cancel:function(_5){
-if(_5.keyCode==dojo.keys.ESCAPE){
+},_cancel:function(_8){
+if(_8.keyCode==_2.keys.ESCAPE){
 this.onCancel();
-dojo.stopEvent(_5);
+_2.stopEvent(_8);
 }
-},_enter:function(_6){
-if(_6.keyCode==dojo.keys.ENTER){
+},_enter:function(_9){
+if(_9.keyCode==_2.keys.ENTER){
 this.onEnter();
-dojo.stopEvent(_6);
+_2.stopEvent(_9);
 }
 },_unfoundTextBoxChange:function(){
 var id=this.textId+"_label";
 if(!this.ignoreChange){
-dojo.byId(id).innerHTML=this["replaceWith"];
+_2.byId(id).innerHTML=this["replaceWith"];
 this.isChanged=true;
 this.suggestionSelect.deselectAll();
 }else{
-dojo.byId(id).innerHTML=this["unfound"];
+_2.byId(id).innerHTML=this["unfound"];
 }
-},_setUnfoundWordAttr:function(_7){
-_7=_7||"";
-this.unfoundTextBox.set("value",_7);
+},_setUnfoundWordAttr:function(_a){
+_a=_a||"";
+this.unfoundTextBox.set("value",_a);
 },_getUnfoundWordAttr:function(){
 return this.unfoundTextBox.get("value");
-},_setSuggestionListAttr:function(_8){
-var _9=this.suggestionSelect;
-_8=_8||[];
-_9.removeItems();
-_9.addItems(_8);
+},_setSuggestionListAttr:function(_b){
+var _c=this.suggestionSelect;
+_b=_b||[];
+_c.removeItems();
+_c.addItems(_b);
 },_getSelectedWordAttr:function(){
-var _a=this.suggestionSelect.getSelected();
-if(_a&&_a.length>0){
-return _a[0].value;
+var _d=this.suggestionSelect.getSelected();
+if(_d&&_d.length>0){
+return _d[0].value;
 }else{
 return this.unfoundTextBox.get("value");
 }
-},_setDisabledAttr:function(_b){
-this.skipButton.set("disabled",_b);
-this.skipAllButton.set("disabled",_b);
-this.toDicButton.set("disabled",_b);
-this.replaceButton.set("disabled",_b);
-this.replaceAllButton.set("disabled",_b);
-},_setInProgressAttr:function(_c){
-var id=this.id+"_progressIcon",_d=_c?"removeClass":"addClass";
-dojo[_d](id,"hidden");
+},_setDisabledAttr:function(_e){
+this.skipButton.set("disabled",_e);
+this.skipAllButton.set("disabled",_e);
+this.toDicButton.set("disabled",_e);
+this.replaceButton.set("disabled",_e);
+this.replaceAllButton.set("disabled",_e);
+},_setInProgressAttr:function(_f){
+var id=this.id+"_progressIcon",cmd=_f?"removeClass":"addClass";
+_2[cmd](id,"hidden");
 }});
-dojo.declare("dojox.editor.plugins._SpellCheckScriptMultiPart",null,{ACTION_QUERY:"query",ACTION_UPDATE:"update",callbackHandle:"callback",maxBufferLength:100,delimiter:" ",label:"response",_timeout:30000,SEC:1000,constructor:function(){
+_2.declare("dojox.editor.plugins._SpellCheckScriptMultiPart",null,{ACTION_QUERY:"query",ACTION_UPDATE:"update",callbackHandle:"callback",maxBufferLength:100,delimiter:" ",label:"response",_timeout:30000,SEC:1000,constructor:function(){
 this.serviceEndPoint="";
 this._queue=[];
 this.isWorking=false;
 this.exArgs=null;
 this._counter=0;
-},send:function(_e,_f){
-var _10=this,dt=this.delimiter,mbl=this.maxBufferLength,_11=this.label,_12=this.serviceEndPoint,_13=this.callbackHandle,_14=this.exArgs,_15=this._timeout,l=0,r=0;
+},send:function(_10,_11){
+var _12=this,dt=this.delimiter,mbl=this.maxBufferLength,_13=this.label,_14=this.serviceEndPoint,_15=this.callbackHandle,_16=this.exArgs,_17=this._timeout,l=0,r=0;
 if(!this._result){
 this._result=[];
 }
-_f=_f||this.ACTION_QUERY;
-var _16=function(){
-var _17=[];
-var _18=0;
-if(_e&&_e.length>0){
-_10.isWorking=true;
-var len=_e.length;
+_11=_11||this.ACTION_QUERY;
+var _18=function(){
+var _19=[];
+var _1a=0;
+if(_10&&_10.length>0){
+_12.isWorking=true;
+var len=_10.length;
 do{
 l=r+1;
 if((r+=mbl)>len){
 r=len;
 }else{
-while(dt&&_e.charAt(r)!=dt&&r<=len){
+while(dt&&_10.charAt(r)!=dt&&r<=len){
 r++;
 }
 }
-_17.push({l:l,r:r});
-_18++;
+_19.push({l:l,r:r});
+_1a++;
 }while(r<len);
-dojo.forEach(_17,function(_19,_1a){
-var _1b={url:_12,action:_f,timeout:_15,callbackParamName:_13,handle:function(_1c,_1d){
-if(++_10._counter<=this.size&&!(_1c instanceof Error)&&_1c[_11]&&dojo.isArray(_1c[_11])){
-var _1e=this.offset;
-dojo.forEach(_1c[_11],function(_1f){
-_1f.offset+=_1e;
+_2.forEach(_19,function(_1b,_1c){
+var _1d={url:_14,action:_11,timeout:_17,callbackParamName:_15,handle:function(_1e,_1f){
+if(++_12._counter<=this.size&&!(_1e instanceof Error)&&_1e[_13]&&_2.isArray(_1e[_13])){
+var _20=this.offset;
+_2.forEach(_1e[_13],function(_21){
+_21.offset+=_20;
 });
-_10._result[this.number]=_1c[_11];
+_12._result[this.number]=_1e[_13];
 }
-if(_10._counter==this.size){
-_10._finalizeCollection(this.action);
-_10.isWorking=false;
-if(_10._queue.length>0){
-(_10._queue.shift())();
+if(_12._counter==this.size){
+_12._finalizeCollection(this.action);
+_12.isWorking=false;
+if(_12._queue.length>0){
+(_12._queue.shift())();
 }
 }
 }};
-_1b.content=_14?dojo.mixin(_14,{action:_f,content:_e.substring(_19.l-1,_19.r)}):{action:_f,content:_e.substring(_19.l-1,_19.r)};
-_1b.size=_18;
-_1b.number=_1a;
-_1b.offset=_19.l-1;
-dojo.io.script.get(_1b);
+_1d.content=_16?_2.mixin(_16,{action:_11,content:_10.substring(_1b.l-1,_1b.r)}):{action:_11,content:_10.substring(_1b.l-1,_1b.r)};
+_1d.size=_1a;
+_1d.number=_1c;
+_1d.offset=_1b.l-1;
+_2.io.script.get(_1d);
 });
 }
 };
-if(!_10.isWorking){
-_16();
+if(!_12.isWorking){
+_18();
 }else{
-_10._queue.push(_16);
+_12._queue.push(_18);
 }
-},_finalizeCollection:function(_20){
-var _21=this._result,len=_21.length;
+},_finalizeCollection:function(_22){
+var _23=this._result,len=_23.length;
 for(var i=0;i<len;i++){
-var _22=_21.shift();
-_21=_21.concat(_22);
+var _24=_23.shift();
+_23=_23.concat(_24);
 }
-if(_20==this.ACTION_QUERY){
-this.onLoad(_21);
+if(_22==this.ACTION_QUERY){
+this.onLoad(_23);
 }
 this._counter=0;
 this._result=[];
-},onLoad:function(_23){
-},setWaitingTime:function(_24){
-this._timeout=_24*this.SEC;
+},onLoad:function(_25){
+},setWaitingTime:function(_26){
+this._timeout=_26*this.SEC;
 }});
-dojo.declare("dojox.editor.plugins.SpellCheck",[dijit._editor._Plugin],{url:"",bufferLength:100,interactive:false,timeout:30,button:null,_editor:null,exArgs:null,_cursorSpan:"<span class=\"cursorPlaceHolder\"></span>",_cursorSelector:"cursorPlaceHolder",_incorrectWordsSpan:"<span class='incorrectWordPlaceHolder'>${text}</span>",_ignoredIncorrectStyle:{"cursor":"inherit","borderBottom":"none","backgroundColor":"transparent"},_normalIncorrectStyle:{"cursor":"pointer","borderBottom":"1px dotted red","backgroundColor":"yellow"},_highlightedIncorrectStyle:{"borderBottom":"1px dotted red","backgroundColor":"#b3b3ff"},_selector:"incorrectWordPlaceHolder",_maxItemNumber:3,constructor:function(){
+_2.declare("dojox.editor.plugins.SpellCheck",[_1._editor._Plugin],{url:"",bufferLength:100,interactive:false,timeout:30,button:null,_editor:null,exArgs:null,_cursorSpan:"<span class=\"cursorPlaceHolder\"></span>",_cursorSelector:"cursorPlaceHolder",_incorrectWordsSpan:"<span class='incorrectWordPlaceHolder'>${text}</span>",_ignoredIncorrectStyle:{"cursor":"inherit","borderBottom":"none","backgroundColor":"transparent"},_normalIncorrectStyle:{"cursor":"pointer","borderBottom":"1px dotted red","backgroundColor":"yellow"},_highlightedIncorrectStyle:{"borderBottom":"1px dotted red","backgroundColor":"#b3b3ff"},_selector:"incorrectWordPlaceHolder",_maxItemNumber:3,constructor:function(){
 this._spanList=[];
 this._cache={};
 this._enabled=true;
 this._iterator=0;
-},setEditor:function(_25){
-this._editor=_25;
+},setEditor:function(_27){
+this._editor=_27;
 this._initButton();
 this._setNetwork();
 this._connectUp();
 },_initButton:function(){
-var _26=this,_27=this._strings=dojo.i18n.getLocalization("dojox.editor.plugins","SpellCheck"),_28=this._dialog=new dijit.TooltipDialog();
-_28.set("content",(this._dialogContent=new dojox.editor.plugins._spellCheckControl({unfound:_27["unfound"],skip:_27["skip"],skipAll:_27["skipAll"],toDic:_27["toDic"],suggestions:_27["suggestions"],replaceWith:_27["replaceWith"],replace:_27["replace"],replaceAll:_27["replaceAll"],cancel:_27["cancel"]})));
-this.button=new dijit.form.DropDownButton({label:_27["widgetLabel"],showLabel:false,iconClass:"dijitEditorSpellCheckIcon",dropDown:_28,id:dijit.getUniqueId(this.declaredClass.replace(/\./g,"_"))+"_dialogPane",closeDropDown:function(_29){
-if(_26._dialogContent.closable){
-_26._dialogContent.isOpen=false;
-if(dojo.isIE){
-var pos=_26._iterator,_2a=_26._spanList;
-if(pos<_2a.length&&pos>=0){
-dojo.style(_2a[pos],_26._normalIncorrectStyle);
+var _28=this,_29=(this._strings=_2.i18n.getLocalization("dojox.editor.plugins","SpellCheck")),_2a=(this._dialog=new _1.TooltipDialog());
+_2a.set("content",(this._dialogContent=new _3.editor.plugins._spellCheckControl({unfound:_29["unfound"],skip:_29["skip"],skipAll:_29["skipAll"],toDic:_29["toDic"],suggestions:_29["suggestions"],replaceWith:_29["replaceWith"],replace:_29["replace"],replaceAll:_29["replaceAll"],cancel:_29["cancel"]})));
+this.button=new _1.form.DropDownButton({label:_29["widgetLabel"],showLabel:false,iconClass:"dijitEditorSpellCheckIcon",dropDown:_2a,id:_1.getUniqueId(this.declaredClass.replace(/\./g,"_"))+"_dialogPane",closeDropDown:function(_2b){
+if(_28._dialogContent.closable){
+_28._dialogContent.isOpen=false;
+if(_2.isIE){
+var pos=_28._iterator,_2c=_28._spanList;
+if(pos<_2c.length&&pos>=0){
+_2.style(_2c[pos],_28._normalIncorrectStyle);
 }
 }
 if(this._opened){
-dijit.popup.close(this.dropDown);
-if(_29){
+_1.popup.close(this.dropDown);
+if(_2b){
 this.focus();
 }
 this._opened=false;
@@ -218,58 +214,58 @@ this.state="";
 }
 }
 }});
-_26._dialogContent.isOpen=false;
-dijit.setWaiState(_28.domNode,"label",this._strings["widgetLabel"]);
+_28._dialogContent.isOpen=false;
+_2a.domNode.setAttribute("aria-label",this._strings["widgetLabel"]);
 },_setNetwork:function(){
-var _2b=this.exArgs;
+var _2d=this.exArgs;
 if(!this._service){
-var _2c=this._service=new dojox.editor.plugins._SpellCheckScriptMultiPart();
-_2c.serviceEndPoint=this.url;
-_2c.maxBufferLength=this.bufferLength;
-_2c.setWaitingTime(this.timeout);
-if(_2b){
-delete _2b.name;
-delete _2b.url;
-delete _2b.interactive;
-delete _2b.timeout;
-_2c.exArgs=_2b;
+var _2e=(this._service=new _3.editor.plugins._SpellCheckScriptMultiPart());
+_2e.serviceEndPoint=this.url;
+_2e.maxBufferLength=this.bufferLength;
+_2e.setWaitingTime(this.timeout);
+if(_2d){
+delete _2d.name;
+delete _2d.url;
+delete _2d.interactive;
+delete _2d.timeout;
+_2e.exArgs=_2d;
 }
 }
 },_connectUp:function(){
-var _2d=this._editor,_2e=this._dialogContent;
+var _2f=this._editor,_30=this._dialogContent;
 this.connect(this.button,"set","_disabled");
 this.connect(this._service,"onLoad","_loadData");
 this.connect(this._dialog,"onOpen","_openDialog");
-this.connect(_2d,"onKeyPress","_keyPress");
-this.connect(_2d,"onLoad","_submitContent");
-this.connect(_2e,"onSkip","_skip");
-this.connect(_2e,"onSkipAll","_skipAll");
-this.connect(_2e,"onAddToDic","_add");
-this.connect(_2e,"onReplace","_replace");
-this.connect(_2e,"onReplaceAll","_replaceAll");
-this.connect(_2e,"onCancel","_cancel");
-this.connect(_2e,"onEnter","_enter");
-_2d.contentPostFilters.push(this._spellCheckFilter);
-dojo.publish(dijit._scopeName+".Editor.plugin.SpellCheck.getParser",[this]);
+this.connect(_2f,"onKeyPress","_keyPress");
+this.connect(_2f,"onLoad","_submitContent");
+this.connect(_30,"onSkip","_skip");
+this.connect(_30,"onSkipAll","_skipAll");
+this.connect(_30,"onAddToDic","_add");
+this.connect(_30,"onReplace","_replace");
+this.connect(_30,"onReplaceAll","_replaceAll");
+this.connect(_30,"onCancel","_cancel");
+this.connect(_30,"onEnter","_enter");
+_2f.contentPostFilters.push(this._spellCheckFilter);
+_2.publish(_1._scopeName+".Editor.plugin.SpellCheck.getParser",[this]);
 if(!this.parser){
 console.error("Can not get the word parser!");
 }
-},_disabled:function(_2f,_30){
-if(_2f=="disabled"){
-if(_30){
+},_disabled:function(_31,_32){
+if(_31=="disabled"){
+if(_32){
 this._iterator=0;
 this._spanList=[];
 }else{
-if(this.interactive&&!_30&&this._service){
+if(this.interactive&&!_32&&this._service){
 this._submitContent(true);
 }
 }
-this._enabled=!_30;
+this._enabled=!_32;
 }
 },_keyPress:function(evt){
 if(this.interactive){
 var v=118,V=86,cc=evt.charCode;
-if(!evt.altKey&&cc==dojo.keys.SPACE){
+if(!evt.altKey&&cc==_2.keys.SPACE){
 this._submitContent();
 }else{
 if((evt.ctrlKey&&(cc==v||cc==V))||(!evt.ctrlKey&&evt.charCode)){
@@ -277,83 +273,83 @@ this._submitContent(true);
 }
 }
 }
-},_loadData:function(_31){
-var _32=this._cache,_33=this._editor.get("value"),_34=this._dialogContent;
+},_loadData:function(_33){
+var _34=this._cache,_35=this._editor.get("value"),_36=this._dialogContent;
 this._iterator=0;
-dojo.forEach(_31,function(d){
-_32[d.text]=d.suggestion;
-_32[d.text].correct=false;
+_2.forEach(_33,function(d){
+_34[d.text]=d.suggestion;
+_34[d.text].correct=false;
 });
 if(this._enabled){
-_34.closable=false;
-this._markIncorrectWords(_33,_32);
-_34.closable=true;
+_36.closable=false;
+this._markIncorrectWords(_35,_34);
+_36.closable=true;
 if(this._dialogContent.isOpen){
 this._iterator=-1;
 this._skip();
 }
 }
 },_openDialog:function(){
-var _35=this._dialogContent;
-_35.ignoreChange=true;
-_35.set("unfoundWord","");
-_35.set("suggestionList",null);
-_35.set("disabled",true);
-_35.set("inProgress",true);
-_35.isOpen=true;
-_35.closable=false;
-this._submitContent();
-_35.closable=true;
-},_skip:function(evt,_36){
-var _37=this._dialogContent,_38=this._spanList||[],len=_38.length,_39=this._iterator;
-_37.closable=false;
-_37.isChanged=false;
+var _37=this._dialogContent;
 _37.ignoreChange=true;
-if(!_36&&_39>=0&&_39<len){
-this._skipWord(_39);
-}
-while(++_39<len&&_38[_39].edited==true){
-}
-if(_39<len){
-this._iterator=_39;
-this._populateDialog(_39);
-this._selectWord(_39);
-}else{
-this._iterator=-1;
-_37.set("unfoundWord",this._strings["msg"]);
+_37.set("unfoundWord","");
 _37.set("suggestionList",null);
 _37.set("disabled",true);
-_37.set("inProgress",false);
+_37.set("inProgress",true);
+_37.isOpen=true;
+_37.closable=false;
+this._submitContent();
+_37.closable=true;
+},_skip:function(evt,_38){
+var _39=this._dialogContent,_3a=this._spanList||[],len=_3a.length,_3b=this._iterator;
+_39.closable=false;
+_39.isChanged=false;
+_39.ignoreChange=true;
+if(!_38&&_3b>=0&&_3b<len){
+this._skipWord(_3b);
+}
+while(++_3b<len&&_3a[_3b].edited==true){
+}
+if(_3b<len){
+this._iterator=_3b;
+this._populateDialog(_3b);
+this._selectWord(_3b);
+}else{
+this._iterator=-1;
+_39.set("unfoundWord",this._strings["msg"]);
+_39.set("suggestionList",null);
+_39.set("disabled",true);
+_39.set("inProgress",false);
 }
 setTimeout(function(){
-if(dojo.isWebKit){
-_37.skipButton.focus();
+if(_2.isWebKit){
+_39.skipButton.focus();
 }
-_37.focus();
-_37.ignoreChange=false;
-_37.closable=true;
+_39.focus();
+_39.ignoreChange=false;
+_39.closable=true;
 },0);
 },_skipAll:function(){
 this._dialogContent.closable=false;
 this._skipWordAll(this._iterator);
 this._skip();
 },_add:function(){
-var _3a=this._dialogContent;
-_3a.closable=false;
-_3a.isOpen=true;
-this._addWord(this._iterator,_3a.get("unfoundWord"));
+var _3c=this._dialogContent;
+_3c.closable=false;
+_3c.isOpen=true;
+this._addWord(this._iterator,_3c.get("unfoundWord"));
 this._skip();
 },_replace:function(){
-var _3b=this._dialogContent,_3c=this._iterator,_3d=_3b.get("selectedWord");
-_3b.closable=false;
-this._replaceWord(_3c,_3d);
+var _3d=this._dialogContent,_3e=this._iterator,_3f=_3d.get("selectedWord");
+_3d.closable=false;
+this._replaceWord(_3e,_3f);
 this._skip(null,true);
 },_replaceAll:function(){
-var _3e=this._dialogContent,_3f=this._spanList,len=_3f.length,_40=_3f[this._iterator].innerHTML.toLowerCase(),_41=_3e.get("selectedWord");
-_3e.closable=false;
-for(var _42=0;_42<len;_42++){
-if(_3f[_42].innerHTML.toLowerCase()==_40){
-this._replaceWord(_42,_41);
+var _40=this._dialogContent,_41=this._spanList,len=_41.length,_42=_41[this._iterator].innerHTML.toLowerCase(),_43=_40.get("selectedWord");
+_40.closable=false;
+for(var _44=0;_44<len;_44++){
+if(_41[_44].innerHTML.toLowerCase()==_42){
+this._replaceWord(_44,_43);
 }
 }
 this._skip(null,true);
@@ -366,262 +362,262 @@ this._replace();
 }else{
 this._skip();
 }
-},_query:function(_43){
-var _44=this._service,_45=this._cache,_46=this.parser.parseIntoWords(this._html2Text(_43))||[];
-var _47=[];
-dojo.forEach(_46,function(_48){
-_48=_48.toLowerCase();
-if(!_45[_48]){
-_45[_48]=[];
-_45[_48].correct=true;
-_47.push(_48);
+},_query:function(_45){
+var _46=this._service,_47=this._cache,_48=this.parser.parseIntoWords(this._html2Text(_45))||[];
+var _49=[];
+_2.forEach(_48,function(_4a){
+_4a=_4a.toLowerCase();
+if(!_47[_4a]){
+_47[_4a]=[];
+_47[_4a].correct=true;
+_49.push(_4a);
 }
 });
-if(_47.length>0){
-_44.send(_47.join(" "));
+if(_49.length>0){
+_46.send(_49.join(" "));
 }else{
-if(!_44.isWorking){
+if(!_46.isWorking){
 this._loadData([]);
 }
 }
-},_html2Text:function(_49){
-var _4a=[],_4b=false,len=_49?_49.length:0;
+},_html2Text:function(_4b){
+var _4c=[],_4d=false,len=_4b?_4b.length:0;
 for(var i=0;i<len;i++){
-if(_49.charAt(i)=="<"){
-_4b=true;
+if(_4b.charAt(i)=="<"){
+_4d=true;
 }
-if(_4b==true){
-_4a.push(" ");
+if(_4d==true){
+_4c.push(" ");
 }else{
-_4a.push(_49.charAt(i));
+_4c.push(_4b.charAt(i));
 }
-if(_49.charAt(i)==">"){
-_4b=false;
+if(_4b.charAt(i)==">"){
+_4d=false;
 }
 }
-return _4a.join("");
-},_getBookmark:function(_4c){
+return _4c.join("");
+},_getBookmark:function(_4e){
 var ed=this._editor,cp=this._cursorSpan;
 ed.execCommand("inserthtml",cp);
-var nv=ed.get("value"),_4d=nv.indexOf(cp),i=-1;
-while(++i<_4d&&_4c.charAt(i)==nv.charAt(i)){
+var nv=ed.get("value"),_4f=nv.indexOf(cp),i=-1;
+while(++i<_4f&&_4e.charAt(i)==nv.charAt(i)){
 }
 return i;
 },_moveToBookmark:function(){
-var ed=this._editor,cps=dojo.withGlobal(ed.window,"query",dojo,["."+this._cursorSelector]),_4e=cps&&cps[0];
-if(_4e){
-ed._sCall("selectElement",[_4e]);
-ed._sCall("collapse",[true]);
-var _4f=_4e.parentNode;
-if(_4f){
-_4f.removeChild(_4e);
-}
-}
-},_submitContent:function(_50){
+var ed=this._editor,cps=_2.withGlobal(ed.window,"query",_2,["."+this._cursorSelector]),_50=cps&&cps[0];
 if(_50){
-var _51=this,_52=3000;
+ed._sCall("selectElement",[_50]);
+ed._sCall("collapse",[true]);
+var _51=_50.parentNode;
+if(_51){
+_51.removeChild(_50);
+}
+}
+},_submitContent:function(_52){
+if(_52){
+var _53=this,_54=3000;
 if(this._delayHandler){
 clearTimeout(this._delayHandler);
 this._delayHandler=null;
 }
 setTimeout(function(){
-_51._query(_51._editor.get("value"));
-},_52);
+_53._query(_53._editor.get("value"));
+},_54);
 }else{
 this._query(this._editor.get("value"));
 }
-},_populateDialog:function(_53){
-var _54=this._spanList,_55=this._cache,_56=this._dialogContent;
-_56.set("disabled",false);
-if(_53<_54.length&&_54.length>0){
-var _57=_54[_53].innerHTML;
-_56.set("unfoundWord",_57);
-_56.set("suggestionList",_55[_57.toLowerCase()]);
-_56.set("inProgress",false);
+},_populateDialog:function(_55){
+var _56=this._spanList,_57=this._cache,_58=this._dialogContent;
+_58.set("disabled",false);
+if(_55<_56.length&&_56.length>0){
+var _59=_56[_55].innerHTML;
+_58.set("unfoundWord",_59);
+_58.set("suggestionList",_57[_59.toLowerCase()]);
+_58.set("inProgress",false);
 }
-},_markIncorrectWords:function(_58,_59){
-var _5a=this,_5b=this.parser,_5c=this._editor,_5d=this._incorrectWordsSpan,_5e=this._normalIncorrectStyle,_5f=this._selector,_60=_5b.parseIntoWords(this._html2Text(_58).toLowerCase()),_61=_5b.getIndices(),_62=this._cursorSpan,_63=this._getBookmark(_58),_64="<span class='incorrectWordPlaceHolder'>".length,_65=false,_66=_58.split(""),_67=null;
-for(var i=_60.length-1;i>=0;i--){
-var _68=_60[i];
-if(_59[_68]&&!_59[_68].correct){
-var _69=_61[i],len=_60[i].length,end=_69+len;
-if(end<=_63&&!_65){
-_66.splice(_63,0,_62);
-_65=true;
+},_markIncorrectWords:function(_5a,_5b){
+var _5c=this,_5d=this.parser,_5e=this._editor,_5f=this._incorrectWordsSpan,_60=this._normalIncorrectStyle,_61=this._selector,_62=_5d.parseIntoWords(this._html2Text(_5a).toLowerCase()),_63=_5d.getIndices(),_64=this._cursorSpan,_65=this._getBookmark(_5a),_66="<span class='incorrectWordPlaceHolder'>".length,_67=false,_68=_5a.split(""),_69=null;
+for(var i=_62.length-1;i>=0;i--){
+var _6a=_62[i];
+if(_5b[_6a]&&!_5b[_6a].correct){
+var _6b=_63[i],len=_62[i].length,end=_6b+len;
+if(end<=_65&&!_67){
+_68.splice(_65,0,_64);
+_67=true;
 }
-_66.splice(_69,len,dojo.string.substitute(_5d,{text:_58.substring(_69,end)}));
-if(_69<_63&&_63<end&&!_65){
-var tmp=_66[_69].split("");
-tmp.splice(_64+_63-_69,0,_62);
-_66[_69]=tmp.join("");
-_65=true;
+_68.splice(_6b,len,_2.string.substitute(_5f,{text:_5a.substring(_6b,end)}));
+if(_6b<_65&&_65<end&&!_67){
+var tmp=_68[_6b].split("");
+tmp.splice(_66+_65-_6b,0,_64);
+_68[_6b]=tmp.join("");
+_67=true;
 }
 }
 }
-if(!_65){
-_66.splice(_63,0,_62);
-_65=true;
+if(!_67){
+_68.splice(_65,0,_64);
+_67=true;
 }
-_5c.set("value",_66.join(""));
-_5c._cursorToStart=false;
+_5e.set("value",_68.join(""));
+_5e._cursorToStart=false;
 this._moveToBookmark();
-_67=this._spanList=dojo.withGlobal(_5c.window,"query",dojo,["."+this._selector]);
-dojo.forEach(_67,function(_6a,i){
-_6a.id=_5f+i;
+_69=this._spanList=_2.withGlobal(_5e.window,"query",_2,["."+this._selector]);
+_2.forEach(_69,function(_6c,i){
+_6c.id=_61+i;
 });
 if(!this.interactive){
-delete _5e.cursor;
+delete _60.cursor;
 }
-_67.style(_5e);
+_69.style(_60);
 if(this.interactive){
-if(_5a._contextMenu){
-_5a._contextMenu.uninitialize();
-_5a._contextMenu=null;
+if(_5c._contextMenu){
+_5c._contextMenu.uninitialize();
+_5c._contextMenu=null;
 }
-_5a._contextMenu=new dijit.Menu({targetNodeIds:[_5c.iframe],bindDomNode:function(_6b){
-_6b=dojo.byId(_6b);
+_5c._contextMenu=new _1.Menu({targetNodeIds:[_5e.iframe],bindDomNode:function(_6d){
+_6d=_2.byId(_6d);
 var cn;
-var _6c,win;
-if(_6b.tagName.toLowerCase()=="iframe"){
-_6c=_6b;
-win=this._iframeContentWindow(_6c);
-cn=dojo.withGlobal(win,dojo.body);
+var _6e,win;
+if(_6d.tagName.toLowerCase()=="iframe"){
+_6e=_6d;
+win=this._iframeContentWindow(_6e);
+cn=_2.withGlobal(win,_2.body);
 }else{
-cn=(_6b==dojo.body()?dojo.doc.documentElement:_6b);
+cn=(_6d==_2.body()?_2.doc.documentElement:_6d);
 }
-var _6d={node:_6b,iframe:_6c};
-dojo.attr(_6b,"_dijitMenu"+this.id,this._bindings.push(_6d));
-var _6e=dojo.hitch(this,function(cn){
-return [dojo.connect(cn,this.leftClickToOpen?"onclick":"oncontextmenu",this,function(evt){
-var _6f=evt.target,_70=_5a._strings;
-if(dojo.hasClass(_6f,_5f)&&!_6f.edited){
-dojo.stopEvent(evt);
-var _71=_5a._maxItemNumber,id=_6f.id,_72=id.substring(_5f.length),_73=_59[_6f.innerHTML.toLowerCase()],_74=_73.length;
+var _6f={node:_6d,iframe:_6e};
+_2.attr(_6d,"_dijitMenu"+this.id,this._bindings.push(_6f));
+var _70=_2.hitch(this,function(cn){
+return [_2.connect(cn,this.leftClickToOpen?"onclick":"oncontextmenu",this,function(evt){
+var _71=evt.target,_72=_5c._strings;
+if(_2.hasClass(_71,_61)&&!_71.edited){
+_2.stopEvent(evt);
+var _73=_5c._maxItemNumber,id=_71.id,_74=id.substring(_61.length),_75=_5b[_71.innerHTML.toLowerCase()],_76=_75.length;
 this.destroyDescendants();
-if(_74==0){
-this.addChild(new dijit.MenuItem({label:_70["iMsg"],disabled:true}));
+if(_76==0){
+this.addChild(new _1.MenuItem({label:_72["iMsg"],disabled:true}));
 }else{
-for(var i=0;i<_71&&i<_74;i++){
-this.addChild(new dijit.MenuItem({label:_73[i],onClick:(function(){
-var idx=_72,txt=_73[i];
+for(var i=0;i<_73&&i<_76;i++){
+this.addChild(new _1.MenuItem({label:_75[i],onClick:(function(){
+var idx=_74,txt=_75[i];
 return function(){
-_5a._replaceWord(idx,txt);
-_5c.focus();
+_5c._replaceWord(idx,txt);
+_5e.focus();
 };
 })()}));
 }
 }
-this.addChild(new dijit.MenuSeparator());
-this.addChild(new dijit.MenuItem({label:_70["iSkip"],onClick:function(){
-_5a._skipWord(_72);
-_5c.focus();
+this.addChild(new _1.MenuSeparator());
+this.addChild(new _1.MenuItem({label:_72["iSkip"],onClick:function(){
+_5c._skipWord(_74);
+_5e.focus();
 }}));
-this.addChild(new dijit.MenuItem({label:_70["iSkipAll"],onClick:function(){
-_5a._skipWordAll(_72);
-_5c.focus();
+this.addChild(new _1.MenuItem({label:_72["iSkipAll"],onClick:function(){
+_5c._skipWordAll(_74);
+_5e.focus();
 }}));
-this.addChild(new dijit.MenuSeparator());
-this.addChild(new dijit.MenuItem({label:_70["toDic"],onClick:function(){
-_5a._addWord(_72);
-_5c.focus();
+this.addChild(new _1.MenuSeparator());
+this.addChild(new _1.MenuItem({label:_72["toDic"],onClick:function(){
+_5c._addWord(_74);
+_5e.focus();
 }}));
-this._scheduleOpen(_6f,_6c,{x:evt.pageX,y:evt.pageY});
+this._scheduleOpen(_71,_6e,{x:evt.pageX,y:evt.pageY});
 }
-}),dojo.connect(cn,"onkeydown",this,function(evt){
-if(evt.shiftKey&&evt.keyCode==dojo.keys.F10){
-dojo.stopEvent(evt);
-this._scheduleOpen(evt.target,_6c);
+}),_2.connect(cn,"onkeydown",this,function(evt){
+if(evt.shiftKey&&evt.keyCode==_2.keys.F10){
+_2.stopEvent(evt);
+this._scheduleOpen(evt.target,_6e);
 }
 })];
 });
-_6d.connects=cn?_6e(cn):[];
-if(_6c){
-_6d.onloadHandler=dojo.hitch(this,function(){
-var win=this._iframeContentWindow(_6c);
-cn=dojo.withGlobal(win,dojo.body);
-_6d.connects=_6e(cn);
+_6f.connects=cn?_70(cn):[];
+if(_6e){
+_6f.onloadHandler=_2.hitch(this,function(){
+var win=this._iframeContentWindow(_6e);
+cn=_2.withGlobal(win,_2.body);
+_6f.connects=_70(cn);
 });
-if(_6c.addEventListener){
-_6c.addEventListener("load",_6d.onloadHandler,false);
+if(_6e.addEventListener){
+_6e.addEventListener("load",_6f.onloadHandler,false);
 }else{
-_6c.attachEvent("onload",_6d.onloadHandler);
+_6e.attachEvent("onload",_6f.onloadHandler);
 }
 }
 }});
 }
-},_selectWord:function(_75){
-var _76=this._spanList,win=this._editor.window;
-if(_75<_76.length&&_76.length>0){
-dojo.withGlobal(win,"selectElement",dijit._editor.selection,[_76[_75]]);
-dojo.withGlobal(win,"collapse",dijit._editor.selection,[true]);
-this._findText(_76[_75].innerHTML,false,false);
-if(dojo.isIE){
-dojo.style(_76[_75],this._highlightedIncorrectStyle);
+},_selectWord:function(_77){
+var _78=this._spanList,win=this._editor.window;
+if(_77<_78.length&&_78.length>0){
+_2.withGlobal(win,"selectElement",_1._editor.selection,[_78[_77]]);
+_2.withGlobal(win,"collapse",_1._editor.selection,[true]);
+this._findText(_78[_77].innerHTML,false,false);
+if(_2.isIE){
+_2.style(_78[_77],this._highlightedIncorrectStyle);
 }
 }
-},_replaceWord:function(_77,_78){
-var _79=this._spanList;
-_79[_77].innerHTML=_78;
-dojo.style(_79[_77],this._ignoredIncorrectStyle);
-_79[_77].edited=true;
-},_skipWord:function(_7a){
+},_replaceWord:function(_79,_7a){
 var _7b=this._spanList;
-dojo.style(_7b[_7a],this._ignoredIncorrectStyle);
-this._cache[_7b[_7a].innerHTML.toLowerCase()].correct=true;
-_7b[_7a].edited=true;
-},_skipWordAll:function(_7c,_7d){
-var _7e=this._spanList,len=_7e.length;
-_7d=_7d||_7e[_7c].innerHTML.toLowerCase();
+_7b[_79].innerHTML=_7a;
+_2.style(_7b[_79],this._ignoredIncorrectStyle);
+_7b[_79].edited=true;
+},_skipWord:function(_7c){
+var _7d=this._spanList;
+_2.style(_7d[_7c],this._ignoredIncorrectStyle);
+this._cache[_7d[_7c].innerHTML.toLowerCase()].correct=true;
+_7d[_7c].edited=true;
+},_skipWordAll:function(_7e,_7f){
+var _80=this._spanList,len=_80.length;
+_7f=_7f||_80[_7e].innerHTML.toLowerCase();
 for(var i=0;i<len;i++){
-if(!_7e[i].edited&&_7e[i].innerHTML.toLowerCase()==_7d){
+if(!_80[i].edited&&_80[i].innerHTML.toLowerCase()==_7f){
 this._skipWord(i);
 }
 }
-},_addWord:function(_7f,_80){
-var _81=this._service;
-_81.send(_80||this._spanList[_7f].innerHTML.toLowerCase(),_81.ACTION_UPDATE);
-this._skipWordAll(_7f,_80);
-},_findText:function(txt,_82,_83){
-var ed=this._editor,win=ed.window,_84=false;
+},_addWord:function(_81,_82){
+var _83=this._service;
+_83.send(_82||this._spanList[_81].innerHTML.toLowerCase(),_83.ACTION_UPDATE);
+this._skipWordAll(_81,_82);
+},_findText:function(txt,_84,_85){
+var ed=this._editor,win=ed.window,_86=false;
 if(txt){
 if(win.find){
-_84=win.find(txt,_82,_83,false,false,false,false);
+_86=win.find(txt,_84,_85,false,false,false,false);
 }else{
 var doc=ed.document;
 if(doc.selection){
 this._editor.focus();
-var _85=doc.body.createTextRange();
-var _86=doc.selection?doc.selection.createRange():null;
-if(_86){
-if(_83){
-_85.setEndPoint("EndToStart",_86);
+var _87=doc.body.createTextRange();
+var _88=doc.selection?doc.selection.createRange():null;
+if(_88){
+if(_85){
+_87.setEndPoint("EndToStart",_88);
 }else{
-_85.setEndPoint("StartToEnd",_86);
+_87.setEndPoint("StartToEnd",_88);
 }
 }
-var _87=_82?4:0;
-if(_83){
-_87=_87|1;
+var _89=_84?4:0;
+if(_85){
+_89=_89|1;
 }
-_84=_85.findText(txt,_85.text.length,_87);
-if(_84){
-_85.select();
-}
-}
+_86=_87.findText(txt,_87.text.length,_89);
+if(_86){
+_87.select();
 }
 }
-return _84;
-},_spellCheckFilter:function(_88){
-var _89=/<span class=["']incorrectWordPlaceHolder["'].*?>(.*?)<\/span>/g;
-return _88.replace(_89,"$1");
+}
+}
+return _86;
+},_spellCheckFilter:function(_8a){
+var _8b=/<span class=["']incorrectWordPlaceHolder["'].*?>(.*?)<\/span>/g;
+return _8a.replace(_8b,"$1");
 }});
-dojo.subscribe(dijit._scopeName+".Editor.getPlugin",null,function(o){
+_2.subscribe(_1._scopeName+".Editor.getPlugin",null,function(o){
 if(o.plugin){
 return;
 }
-var _8a=o.args.name.toLowerCase();
-if(_8a==="spellcheck"){
-o.plugin=new dojox.editor.plugins.SpellCheck({url:("url" in o.args)?o.args.url:"",interactive:("interactive" in o.args)?o.args.interactive:false,bufferLength:("bufferLength" in o.args)?o.args.bufferLength:100,timeout:("timeout" in o.args)?o.args.timeout:30,exArgs:o.args});
+var _8c=o.args.name.toLowerCase();
+if(_8c==="spellcheck"){
+o.plugin=new _3.editor.plugins.SpellCheck({url:("url" in o.args)?o.args.url:"",interactive:("interactive" in o.args)?o.args.interactive:false,bufferLength:("bufferLength" in o.args)?o.args.bufferLength:100,timeout:("timeout" in o.args)?o.args.timeout:30,exArgs:o.args});
 }
 });
-}
+});

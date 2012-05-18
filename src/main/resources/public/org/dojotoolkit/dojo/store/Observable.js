@@ -4,120 +4,122 @@
 	see: http://dojotoolkit.org/license for details
 */
 
-
-if(!dojo._hasResource["dojo.store.Observable"]){
-dojo._hasResource["dojo.store.Observable"]=true;
-dojo.provide("dojo.store.Observable");
-dojo.getObject("store",true,dojo);
-dojo.store.Observable=function(_1){
-var _2=[],_3=0;
-_1.notify=function(_4,_5){
-_3++;
-var _6=_2.slice();
-for(var i=0,l=_6.length;i<l;i++){
-_6[i](_4,_5);
+//>>built
+define("dojo/store/Observable",["../_base/kernel","../_base/lang","../_base/Deferred","../_base/array"],function(_1,_2,_3,_4){
+var ds=_2.getObject("dojo.store",true);
+return ds.Observable=function(_5){
+var _6,_7=[],_8=0;
+_5.notify=function(_9,_a){
+_8++;
+var _b=_7.slice();
+for(var i=0,l=_b.length;i<l;i++){
+_b[i](_9,_a);
 }
 };
-var _7=_1.query;
-_1.query=function(_8,_9){
-_9=_9||{};
-var _a=_7.apply(this,arguments);
-if(_a&&_a.forEach){
-var _b=dojo.mixin({},_9);
-delete _b.start;
-delete _b.count;
-var _c=_1.queryEngine&&_1.queryEngine(_8,_b);
-var _d=_3;
-var _e=[],_f;
-_a.observe=function(_10,_11){
-if(_e.push(_10)==1){
-_2.push(_f=function(_12,_13){
-dojo.when(_a,function(_14){
-var _15=_14.length!=_9.count;
-var i;
-if(++_d!=_3){
+var _c=_5.query;
+_5.query=function(_d,_e){
+_e=_e||{};
+var _f=_c.apply(this,arguments);
+if(_f&&_f.forEach){
+var _10=_2.mixin({},_e);
+delete _10.start;
+delete _10.count;
+var _11=_5.queryEngine&&_5.queryEngine(_d,_10);
+var _12=_8;
+var _13=[],_14;
+_f.observe=function(_15,_16){
+if(_13.push(_15)==1){
+_7.push(_14=function(_17,_18){
+_3.when(_f,function(_19){
+var _1a=_19.length!=_e.count;
+var i,l,_15;
+if(++_12!=_8){
 throw new Error("Query is out of date, you must observe() the query prior to any data modifications");
 }
-var _16,_17=-1,_18=-1;
-if(_13){
-for(i=0,l=_14.length;i<l;i++){
-var _19=_14[i];
-if(_1.getIdentity(_19)==_13){
-_16=_19;
-_17=i;
-if(_c||!_12){
-_14.splice(i,1);
+var _1b,_1c=-1,_1d=-1;
+if(_18!==_6){
+for(i=0,l=_19.length;i<l;i++){
+var _1e=_19[i];
+if(_5.getIdentity(_1e)==_18){
+_1b=_1e;
+_1c=i;
+if(_11||!_17){
+_19.splice(i,1);
 }
 break;
 }
 }
 }
-if(_c){
-if(_12&&(_c.matches?_c.matches(_12):_c([_12]).length)){
-if(_17>-1){
-_14.splice(_17,0,_12);
+if(_11){
+if(_17&&(_11.matches?_11.matches(_17):_11([_17]).length)){
+var _1f=_1c>-1?_1c:_19.length;
+_19.splice(_1f,0,_17);
+_1d=_4.indexOf(_11(_19),_17);
+_19.splice(_1f,1);
+if((_e.start&&_1d==0)||(!_1a&&_1d==_19.length)){
+_1d=-1;
 }else{
-_14.push(_12);
-}
-_18=dojo.indexOf(_c(_14),_12);
-if((_9.start&&_18==0)||(!_15&&_18==_14.length-1)){
-_18=-1;
+_19.splice(_1d,0,_17);
 }
 }
 }else{
-if(_12){
-_18=_17>=0?_17:(_1.defaultIndex||0);
+if(_17&&!_e.start){
+_1d=_1c>=0?_1c:(_5.defaultIndex||0);
 }
 }
-if((_17>-1||_18>-1)&&(_11||!_c||(_17!=_18))){
-var _1a=_e.slice();
-for(i=0;_10=_1a[i];i++){
-_10(_12||_16,_17,_18);
+if((_1c>-1||_1d>-1)&&(_16||!_11||(_1c!=_1d))){
+var _20=_13.slice();
+for(i=0;_15=_20[i];i++){
+_15(_17||_1b,_1c,_1d);
 }
 }
 });
 });
 }
 return {cancel:function(){
-_e.splice(dojo.indexOf(_e,_10),1);
-if(!_e.length){
-_2.splice(dojo.indexOf(_2,_f),1);
+var _21=_4.indexOf(_13,_15);
+if(_21>-1){
+_13.splice(_21,1);
+if(!_13.length){
+_7.splice(_4.indexOf(_7,_14),1);
+}
 }
 }};
 };
 }
-return _a;
+return _f;
 };
-var _1b;
-function _1c(_1d,_1e){
-var _1f=_1[_1d];
-if(_1f){
-_1[_1d]=function(_20){
-if(_1b){
-return _1f.apply(this,arguments);
+var _22;
+function _23(_24,_25){
+var _26=_5[_24];
+if(_26){
+_5[_24]=function(_27){
+if(_22){
+return _26.apply(this,arguments);
 }
-_1b=true;
+_22=true;
 try{
-return dojo.when(_1f.apply(this,arguments),function(_21){
-_1e((typeof _21=="object"&&_21)||_20);
-return _21;
+var _28=_26.apply(this,arguments);
+_3.when(_28,function(_29){
+_25((typeof _29=="object"&&_29)||_27);
 });
+return _28;
 }
 finally{
-_1b=false;
+_22=false;
 }
 };
 }
 };
-_1c("put",function(_22){
-_1.notify(_22,_1.getIdentity(_22));
+_23("put",function(_2a){
+_5.notify(_2a,_5.getIdentity(_2a));
 });
-_1c("add",function(_23){
-_1.notify(_23);
+_23("add",function(_2b){
+_5.notify(_2b);
 });
-_1c("remove",function(id){
-_1.notify(undefined,id);
+_23("remove",function(id){
+_5.notify(undefined,id);
 });
-return _1;
+return _5;
 };
-}
+});

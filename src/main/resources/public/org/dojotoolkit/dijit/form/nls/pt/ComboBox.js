@@ -1,1 +1,9 @@
-({"previousMessage":"Opções anteriores","nextMessage":"Mais opções"})
+//>>built
+define(
+"dijit/form/nls/pt/ComboBox", //begin v1.x content
+({
+		previousMessage: "Opções anteriores",
+		nextMessage: "Mais opções"
+})
+//end v1.x content
+);

@@ -1,63 +1,51 @@
-/*
-	Copyright (c) 2004-2011, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
-
-
-if(!dojo._hasResource["dijit.TooltipDialog"]){
-dojo._hasResource["dijit.TooltipDialog"]=true;
-dojo.provide("dijit.TooltipDialog");
-dojo.require("dijit.layout.ContentPane");
-dojo.require("dijit._Templated");
-dojo.require("dijit.form._FormMixin");
-dojo.require("dijit._DialogMixin");
-dojo.declare("dijit.TooltipDialog",[dijit.layout.ContentPane,dijit._Templated,dijit.form._FormMixin,dijit._DialogMixin],{title:"",doLayout:false,autofocus:true,baseClass:"dijitTooltipDialog",_firstFocusItem:null,_lastFocusItem:null,templateString:dojo.cache("dijit","templates/TooltipDialog.html","<div role=\"presentation\" tabIndex=\"-1\">\n\t<div class=\"dijitTooltipContainer\" role=\"presentation\">\n\t\t<div class =\"dijitTooltipContents dijitTooltipFocusNode\" dojoAttachPoint=\"containerNode\" role=\"dialog\"></div>\n\t</div>\n\t<div class=\"dijitTooltipConnector\" role=\"presentation\"></div>\n</div>\n"),_setTitleAttr:function(_1){
-this.containerNode.title=_1;
-this._set("title",_1);
+//>>built
+require({cache:{"url:dijit/templates/TooltipDialog.html":"<div role=\"presentation\" tabIndex=\"-1\">\n\t<div class=\"dijitTooltipContainer\" role=\"presentation\">\n\t\t<div class =\"dijitTooltipContents dijitTooltipFocusNode\" data-dojo-attach-point=\"containerNode\" role=\"dialog\"></div>\n\t</div>\n\t<div class=\"dijitTooltipConnector\" role=\"presentation\"></div>\n</div>\n"}});
+define("dijit/TooltipDialog",["dojo/_base/declare","dojo/dom-class","dojo/_base/event","dojo/keys","dojo/_base/lang","./focus","./layout/ContentPane","./_DialogMixin","./form/_FormMixin","./_TemplatedMixin","dojo/text!./templates/TooltipDialog.html","."],function(_1,_2,_3,_4,_5,_6,_7,_8,_9,_a,_b,_c){
+return _1("dijit.TooltipDialog",[_7,_a,_9,_8],{title:"",doLayout:false,autofocus:true,baseClass:"dijitTooltipDialog",_firstFocusItem:null,_lastFocusItem:null,templateString:_b,_setTitleAttr:function(_d){
+this.containerNode.title=_d;
+this._set("title",_d);
 },postCreate:function(){
 this.inherited(arguments);
 this.connect(this.containerNode,"onkeypress","_onKey");
-},orient:function(_2,_3,_4){
-var _5="dijitTooltipAB"+(_4.charAt(1)=="L"?"Left":"Right")+" dijitTooltip"+(_4.charAt(0)=="T"?"Below":"Above");
-dojo.replaceClass(this.domNode,_5,this._currentOrientClass||"");
-this._currentOrientClass=_5;
+},orient:function(_e,_f,_10){
+var _11="dijitTooltipAB"+(_10.charAt(1)=="L"?"Left":"Right")+" dijitTooltip"+(_10.charAt(0)=="T"?"Below":"Above");
+_2.replace(this.domNode,_11,this._currentOrientClass||"");
+this._currentOrientClass=_11;
 },focus:function(){
 this._getFocusItems(this.containerNode);
-dijit.focus(this._firstFocusItem);
-},onOpen:function(_6){
-this.orient(this.domNode,_6.aroundCorner,_6.corner);
+_6.focus(this._firstFocusItem);
+},onOpen:function(pos){
+this.orient(this.domNode,pos.aroundCorner,pos.corner);
 this._onShow();
 },onClose:function(){
 this.onHide();
-},_onKey:function(_7){
-var _8=_7.target;
-var dk=dojo.keys;
-if(_7.charOrCode===dk.TAB){
+},_onKey:function(evt){
+var _12=evt.target;
+if(evt.charOrCode===_4.TAB){
 this._getFocusItems(this.containerNode);
 }
-var _9=(this._firstFocusItem==this._lastFocusItem);
-if(_7.charOrCode==dk.ESCAPE){
-setTimeout(dojo.hitch(this,"onCancel"),0);
-dojo.stopEvent(_7);
+var _13=(this._firstFocusItem==this._lastFocusItem);
+if(evt.charOrCode==_4.ESCAPE){
+setTimeout(_5.hitch(this,"onCancel"),0);
+_3.stop(evt);
 }else{
-if(_8==this._firstFocusItem&&_7.shiftKey&&_7.charOrCode===dk.TAB){
-if(!_9){
-dijit.focus(this._lastFocusItem);
+if(_12==this._firstFocusItem&&evt.shiftKey&&evt.charOrCode===_4.TAB){
+if(!_13){
+_6.focus(this._lastFocusItem);
 }
-dojo.stopEvent(_7);
+_3.stop(evt);
 }else{
-if(_8==this._lastFocusItem&&_7.charOrCode===dk.TAB&&!_7.shiftKey){
-if(!_9){
-dijit.focus(this._firstFocusItem);
+if(_12==this._lastFocusItem&&evt.charOrCode===_4.TAB&&!evt.shiftKey){
+if(!_13){
+_6.focus(this._firstFocusItem);
 }
-dojo.stopEvent(_7);
+_3.stop(evt);
 }else{
-if(_7.charOrCode===dk.TAB){
-_7.stopPropagation();
+if(evt.charOrCode===_4.TAB){
+evt.stopPropagation();
 }
 }
 }
 }
 }});
-}
+});

@@ -1,184 +1,177 @@
-/*
-	Copyright (c) 2004-2011, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
-
-
-if(!dojo._hasResource["dojox.date.islamic"]){
-dojo._hasResource["dojox.date.islamic"]=true;
-dojo.provide("dojox.date.islamic");
-dojo.require("dojox.date.islamic.Date");
-dojo.require("dojo.date");
-dojox.date.islamic.getDaysInMonth=function(_1){
-return _1.getDaysInIslamicMonth(_1.getMonth(),_1.getFullYear());
+//>>built
+define("dojox/date/islamic",["dojo/_base/kernel","dojo/date","./islamic/Date"],function(_1,dd,_2){
+_1.getObject("date.islamic",true,dojox);
+_1.experimental("dojox.date.islamic");
+dojox.date.islamic.getDaysInMonth=function(_3){
+return _3.getDaysInIslamicMonth(_3.getMonth(),_3.getFullYear());
 };
-dojox.date.islamic.compare=function(_2,_3,_4){
-if(_2 instanceof dojox.date.islamic.Date){
-_2=_2.toGregorian();
+dojox.date.islamic.compare=function(_4,_5,_6){
+if(_4 instanceof _2){
+_4=_4.toGregorian();
 }
-if(_3 instanceof dojox.date.islamic.Date){
-_3=_3.toGregorian();
+if(_5 instanceof _2){
+_5=_5.toGregorian();
 }
-return dojo.date.compare.apply(null,arguments);
+return dd.compare.apply(null,arguments);
 };
-dojox.date.islamic.add=function(_5,_6,_7){
-var _8=new dojox.date.islamic.Date(_5);
-switch(_6){
+dojox.date.islamic.add=function(_7,_8,_9){
+var _a=new _2(_7);
+switch(_8){
 case "day":
-_8.setDate(_5.getDate()+_7);
+_a.setDate(_7.getDate()+_9);
 break;
 case "weekday":
-var _9=_5.getDay();
-if(((_9+_7)<5)&&((_9+_7)>0)){
-_8.setDate(_5.getDate()+_7);
+var _b=_7.getDay();
+if(((_b+_9)<5)&&((_b+_9)>0)){
+_a.setDate(_7.getDate()+_9);
 }else{
-var _a=0,_b=0;
-if(_9==5){
-_9=4;
-_b=(_7>0)?-1:1;
+var _c=0,_d=0;
+if(_b==5){
+_b=4;
+_d=(_9>0)?-1:1;
 }else{
-if(_9==6){
-_9=4;
-_b=(_7>0)?-2:2;
+if(_b==6){
+_b=4;
+_d=(_9>0)?-2:2;
 }
 }
-var _c=(_7>0)?(5-_9-1):-_9;
-var _d=_7-_c;
-var _e=parseInt(_d/5);
-if(_d%5!=0){
-_a=(_7>0)?2:-2;
+var _e=(_9>0)?(5-_b-1):-_b;
+var _f=_9-_e;
+var div=parseInt(_f/5);
+if(_f%5!=0){
+_c=(_9>0)?2:-2;
 }
-_a=_a+_e*7+_d%5+_c;
-_8.setDate(_5.getDate()+_a+_b);
+_c=_c+div*7+_f%5+_e;
+_a.setDate(_7.getDate()+_c+_d);
 }
 break;
 case "year":
-_8.setFullYear(_5.getFullYear()+_7);
+_a.setFullYear(_7.getFullYear()+_9);
 break;
 case "week":
-_7*=7;
-_8.setDate(_5.getDate()+_7);
+_9*=7;
+_a.setDate(_7.getDate()+_9);
 break;
 case "month":
-var _f=_5.getMonth();
-_8.setMonth(_f+_7);
+var _10=_7.getMonth();
+_a.setMonth(_10+_9);
 break;
 case "hour":
-_8.setHours(_5.getHours()+_7);
+_a.setHours(_7.getHours()+_9);
 break;
 case "minute":
-_8.setMinutes(_5.getMinutes()+_7);
+_a._addMinutes(_9);
 break;
 case "second":
-_8.setSeconds(_5.getSeconds()+_7);
+_a._addSeconds(_9);
 break;
 case "millisecond":
-_8.setMilliseconds(_5.getMilliseconds()+_7);
+_a._addMilliseconds(_9);
 break;
 }
-return _8;
+return _a;
 };
-dojox.date.islamic.difference=function(_10,_11,_12){
-_11=_11||new dojox.date.islamic.Date();
-_12=_12||"day";
-var _13=_10.getFullYear()-_11.getFullYear();
-var _14=1;
-switch(_12){
+dojox.date.islamic.difference=function(_11,_12,_13){
+_12=_12||new _2();
+_13=_13||"day";
+var _14=_12.getFullYear()-_11.getFullYear();
+var _15=1;
+switch(_13){
 case "weekday":
-var _15=Math.round(dojox.date.islamic.difference(_10,_11,"day"));
-var _16=parseInt(dojox.date.islamic.difference(_10,_11,"week"));
-var mod=_15%7;
+var _16=Math.round(dojox.date.islamic.difference(_11,_12,"day"));
+var _17=parseInt(dojox.date.islamic.difference(_11,_12,"week"));
+var mod=_16%7;
 if(mod==0){
-_15=_16*5;
+_16=_17*5;
 }else{
 var adj=0;
-var _17=_11.getDay();
-var _18=_10.getDay();
-_16=parseInt(_15/7);
-mod=_15%7;
-var _19=new dojox.date.islamic.Date(_11);
-_19.setDate(_19.getDate()+(_16*7));
-var _1a=_19.getDay();
-if(_15>0){
+var _18=_11.getDay();
+var _19=_12.getDay();
+_17=parseInt(_16/7);
+mod=_16%7;
+var _1a=new _2(_11);
+_1a.setDate(_1a.getDate()+(_17*7));
+var _1b=_1a.getDay();
+if(_16>0){
 switch(true){
-case _17==5:
-adj=-1;
-break;
-case _17==6:
-adj=0;
-break;
 case _18==5:
 adj=-1;
 break;
 case _18==6:
+adj=0;
+break;
+case _19==5:
+adj=-1;
+break;
+case _19==6:
 adj=-2;
 break;
-case (_1a+mod)>5:
+case (_1b+mod)>5:
 adj=-2;
 }
 }else{
-if(_15<0){
+if(_16<0){
 switch(true){
-case _17==5:
-adj=0;
-break;
-case _17==6:
-adj=1;
-break;
 case _18==5:
-adj=2;
+adj=0;
 break;
 case _18==6:
 adj=1;
 break;
-case (_1a+mod)<0:
+case _19==5:
+adj=2;
+break;
+case _19==6:
+adj=1;
+break;
+case (_1b+mod)<0:
 adj=2;
 }
 }
 }
-_15+=adj;
-_15-=(_16*2);
+_16+=adj;
+_16-=(_17*2);
 }
-_14=_15;
+_15=_16;
 break;
 case "year":
-_14=_13;
+_15=_14;
 break;
 case "month":
-var _1b=(_10.toGregorian()>_11.toGregorian())?_10:_11;
-var _1c=(_10.toGregorian()>_11.toGregorian())?_11:_10;
-var _1d=_1b.getMonth();
+var _1c=(_12.toGregorian()>_11.toGregorian())?_12:_11;
+var _1d=(_12.toGregorian()>_11.toGregorian())?_11:_12;
 var _1e=_1c.getMonth();
-if(_13==0){
-_14=_1b.getMonth()-_1c.getMonth();
+var _1f=_1d.getMonth();
+if(_14==0){
+_15=_1c.getMonth()-_1d.getMonth();
 }else{
-_14=12-_1e;
-_14+=_1d;
-var i=_1c.getFullYear()+1;
-var e=_1b.getFullYear();
+_15=12-_1f;
+_15+=_1e;
+var i=_1d.getFullYear()+1;
+var e=_1c.getFullYear();
 for(i;i<e;i++){
-_14+=12;
+_15+=12;
 }
 }
-if(_10.toGregorian()<_11.toGregorian()){
-_14=-_14;
+if(_12.toGregorian()<_11.toGregorian()){
+_15=-_15;
 }
 break;
 case "week":
-_14=parseInt(dojox.date.islamic.difference(_10,_11,"day")/7);
+_15=parseInt(dojox.date.islamic.difference(_11,_12,"day")/7);
 break;
 case "day":
-_14/=24;
+_15/=24;
 case "hour":
-_14/=60;
+_15/=60;
 case "minute":
-_14/=60;
+_15/=60;
 case "second":
-_14/=1000;
+_15/=1000;
 case "millisecond":
-_14*=_10.toGregorian().getTime()-_11.toGregorian().getTime();
+_15*=_12.toGregorian().getTime()-_11.toGregorian().getTime();
 }
-return Math.round(_14);
+return Math.round(_15);
 };
-}
+return dojox.date.islamic;
+});

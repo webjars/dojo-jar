@@ -4,38 +4,34 @@
 	see: http://dojotoolkit.org/license for details
 */
 
-
-if(!dojo._hasResource["dojo.dnd.Container"]){
-dojo._hasResource["dojo.dnd.Container"]=true;
-dojo.provide("dojo.dnd.Container");
-dojo.require("dojo.dnd.common");
-dojo.require("dojo.parser");
-dojo.declare("dojo.dnd.Container",null,{skipForm:false,constructor:function(_1,_2){
-this.node=dojo.byId(_1);
-if(!_2){
-_2={};
+//>>built
+define("dojo/dnd/Container",["../main","../Evented","./common","../parser"],function(_1,_2){
+_1.declare("dojo.dnd.Container",_2,{skipForm:false,constructor:function(_3,_4){
+this.node=_1.byId(_3);
+if(!_4){
+_4={};
 }
-this.creator=_2.creator||null;
-this.skipForm=_2.skipForm;
-this.parent=_2.dropParent&&dojo.byId(_2.dropParent);
+this.creator=_4.creator||null;
+this.skipForm=_4.skipForm;
+this.parent=_4.dropParent&&_1.byId(_4.dropParent);
 this.map={};
 this.current=null;
 this.containerState="";
-dojo.addClass(this.node,"dojoDndContainer");
-if(!(_2&&_2._skipStartup)){
+_1.addClass(this.node,"dojoDndContainer");
+if(!(_4&&_4._skipStartup)){
 this.startup();
 }
-this.events=[dojo.connect(this.node,"onmouseover",this,"onMouseOver"),dojo.connect(this.node,"onmouseout",this,"onMouseOut"),dojo.connect(this.node,"ondragstart",this,"onSelectStart"),dojo.connect(this.node,"onselectstart",this,"onSelectStart")];
+this.events=[_1.connect(this.node,"onmouseover",this,"onMouseOver"),_1.connect(this.node,"onmouseout",this,"onMouseOut"),_1.connect(this.node,"ondragstart",this,"onSelectStart"),_1.connect(this.node,"onselectstart",this,"onSelectStart")];
 },creator:function(){
-},getItem:function(_3){
-return this.map[_3];
-},setItem:function(_4,_5){
-this.map[_4]=_5;
-},delItem:function(_6){
-delete this.map[_6];
+},getItem:function(_5){
+return this.map[_5];
+},setItem:function(_6,_7){
+this.map[_6]=_7;
+},delItem:function(_8){
+delete this.map[_8];
 },forInItems:function(f,o){
-o=o||dojo.global;
-var m=this.map,e=dojo.dnd._empty;
+o=o||_1.global;
+var m=this.map,e=_1.dnd._empty;
 for(var i in m){
 if(i in e){
 continue;
@@ -46,59 +42,59 @@ return o;
 },clearItems:function(){
 this.map={};
 },getAllNodes:function(){
-return dojo.query("> .dojoDndItem",this.parent);
+return _1.query("> .dojoDndItem",this.parent);
 },sync:function(){
-var _7={};
-this.getAllNodes().forEach(function(_8){
-if(_8.id){
-var _9=this.getItem(_8.id);
-if(_9){
-_7[_8.id]=_9;
+var _9={};
+this.getAllNodes().forEach(function(_a){
+if(_a.id){
+var _b=this.getItem(_a.id);
+if(_b){
+_9[_a.id]=_b;
 return;
 }
 }else{
-_8.id=dojo.dnd.getUniqueId();
+_a.id=_1.dnd.getUniqueId();
 }
-var _a=_8.getAttribute("dndType"),_b=_8.getAttribute("dndData");
-_7[_8.id]={data:_b||_8.innerHTML,type:_a?_a.split(/\s*,\s*/):["text"]};
+var _c=_a.getAttribute("dndType"),_d=_a.getAttribute("dndData");
+_9[_a.id]={data:_d||_a.innerHTML,type:_c?_c.split(/\s*,\s*/):["text"]};
 },this);
-this.map=_7;
+this.map=_9;
 return this;
-},insertNodes:function(_c,_d,_e){
+},insertNodes:function(_e,_f,_10){
 if(!this.parent.firstChild){
-_e=null;
+_10=null;
 }else{
-if(_d){
-if(!_e){
-_e=this.parent.firstChild;
+if(_f){
+if(!_10){
+_10=this.parent.firstChild;
 }
 }else{
-if(_e){
-_e=_e.nextSibling;
+if(_10){
+_10=_10.nextSibling;
 }
 }
 }
-if(_e){
-for(var i=0;i<_c.length;++i){
-var t=this._normalizedCreator(_c[i]);
+if(_10){
+for(var i=0;i<_e.length;++i){
+var t=this._normalizedCreator(_e[i]);
 this.setItem(t.node.id,{data:t.data,type:t.type});
-this.parent.insertBefore(t.node,_e);
+this.parent.insertBefore(t.node,_10);
 }
 }else{
-for(var i=0;i<_c.length;++i){
-var t=this._normalizedCreator(_c[i]);
+for(var i=0;i<_e.length;++i){
+var t=this._normalizedCreator(_e[i]);
 this.setItem(t.node.id,{data:t.data,type:t.type});
 this.parent.appendChild(t.node);
 }
 }
 return this;
 },destroy:function(){
-dojo.forEach(this.events,dojo.disconnect);
+_1.forEach(this.events,_1.disconnect);
 this.clearItems();
 this.node=this.parent=this.current=null;
-},markupFactory:function(_f,_10){
-_f._skipStartup=true;
-return new dojo.dnd.Container(_10,_f);
+},markupFactory:function(_11,_12,_13){
+_11._skipStartup=true;
+return new _13(_12,_11);
 },startup:function(){
 if(!this.parent){
 this.parent=this.node;
@@ -109,7 +105,7 @@ this.parent=c[0];
 }
 }
 }
-this.defaultCreator=dojo.dnd._defaultCreator(this.parent);
+this.defaultCreator=_1.dnd._defaultCreator(this.parent);
 this.sync();
 },onMouseOver:function(e){
 var n=e.relatedTarget;
@@ -158,77 +154,78 @@ this.current=null;
 this._changeState("Container","");
 this.onOutEvent();
 },onSelectStart:function(e){
-if(!this.skipForm||!dojo.dnd.isFormElement(e)){
-dojo.stopEvent(e);
+if(!this.skipForm||!_1.dnd.isFormElement(e)){
+_1.stopEvent(e);
 }
 },onOverEvent:function(){
 },onOutEvent:function(){
-},_changeState:function(_11,_12){
-var _13="dojoDnd"+_11;
-var _14=_11.toLowerCase()+"State";
-dojo.replaceClass(this.node,_13+_12,_13+this[_14]);
-this[_14]=_12;
-},_addItemClass:function(_15,_16){
-dojo.addClass(_15,"dojoDndItem"+_16);
-},_removeItemClass:function(_17,_18){
-dojo.removeClass(_17,"dojoDndItem"+_18);
+},_changeState:function(_14,_15){
+var _16="dojoDnd"+_14;
+var _17=_14.toLowerCase()+"State";
+_1.replaceClass(this.node,_16+_15,_16+this[_17]);
+this[_17]=_15;
+},_addItemClass:function(_18,_19){
+_1.addClass(_18,"dojoDndItem"+_19);
+},_removeItemClass:function(_1a,_1b){
+_1.removeClass(_1a,"dojoDndItem"+_1b);
 },_getChildByEvent:function(e){
-var _19=e.target;
-if(_19){
-for(var _1a=_19.parentNode;_1a;_19=_1a,_1a=_19.parentNode){
-if(_1a==this.parent&&dojo.hasClass(_19,"dojoDndItem")){
-return _19;
+var _1c=e.target;
+if(_1c){
+for(var _1d=_1c.parentNode;_1d;_1c=_1d,_1d=_1c.parentNode){
+if(_1d==this.parent&&_1.hasClass(_1c,"dojoDndItem")){
+return _1c;
 }
 }
 }
 return null;
-},_normalizedCreator:function(_1b,_1c){
-var t=(this.creator||this.defaultCreator).call(this,_1b,_1c);
-if(!dojo.isArray(t.type)){
+},_normalizedCreator:function(_1e,_1f){
+var t=(this.creator||this.defaultCreator).call(this,_1e,_1f);
+if(!_1.isArray(t.type)){
 t.type=["text"];
 }
 if(!t.node.id){
-t.node.id=dojo.dnd.getUniqueId();
+t.node.id=_1.dnd.getUniqueId();
 }
-dojo.addClass(t.node,"dojoDndItem");
+_1.addClass(t.node,"dojoDndItem");
 return t;
 }});
-dojo.dnd._createNode=function(tag){
+_1.dnd._createNode=function(tag){
 if(!tag){
-return dojo.dnd._createSpan;
+return _1.dnd._createSpan;
 }
-return function(_1d){
-return dojo.create(tag,{innerHTML:_1d});
+return function(_20){
+return _1.create(tag,{innerHTML:_20});
 };
 };
-dojo.dnd._createTrTd=function(_1e){
-var tr=dojo.create("tr");
-dojo.create("td",{innerHTML:_1e},tr);
+_1.dnd._createTrTd=function(_21){
+var tr=_1.create("tr");
+_1.create("td",{innerHTML:_21},tr);
 return tr;
 };
-dojo.dnd._createSpan=function(_1f){
-return dojo.create("span",{innerHTML:_1f});
+_1.dnd._createSpan=function(_22){
+return _1.create("span",{innerHTML:_22});
 };
-dojo.dnd._defaultCreatorNodes={ul:"li",ol:"li",div:"div",p:"div"};
-dojo.dnd._defaultCreator=function(_20){
-var tag=_20.tagName.toLowerCase();
-var c=tag=="tbody"||tag=="thead"?dojo.dnd._createTrTd:dojo.dnd._createNode(dojo.dnd._defaultCreatorNodes[tag]);
-return function(_21,_22){
-var _23=_21&&dojo.isObject(_21),_24,_25,n;
-if(_23&&_21.tagName&&_21.nodeType&&_21.getAttribute){
-_24=_21.getAttribute("dndData")||_21.innerHTML;
-_25=_21.getAttribute("dndType");
-_25=_25?_25.split(/\s*,\s*/):["text"];
-n=_21;
+_1.dnd._defaultCreatorNodes={ul:"li",ol:"li",div:"div",p:"div"};
+_1.dnd._defaultCreator=function(_23){
+var tag=_23.tagName.toLowerCase();
+var c=tag=="tbody"||tag=="thead"?_1.dnd._createTrTd:_1.dnd._createNode(_1.dnd._defaultCreatorNodes[tag]);
+return function(_24,_25){
+var _26=_24&&_1.isObject(_24),_27,_28,n;
+if(_26&&_24.tagName&&_24.nodeType&&_24.getAttribute){
+_27=_24.getAttribute("dndData")||_24.innerHTML;
+_28=_24.getAttribute("dndType");
+_28=_28?_28.split(/\s*,\s*/):["text"];
+n=_24;
 }else{
-_24=(_23&&_21.data)?_21.data:_21;
-_25=(_23&&_21.type)?_21.type:["text"];
-n=(_22=="avatar"?dojo.dnd._createSpan:c)(String(_24));
+_27=(_26&&_24.data)?_24.data:_24;
+_28=(_26&&_24.type)?_24.type:["text"];
+n=(_25=="avatar"?_1.dnd._createSpan:c)(String(_27));
 }
 if(!n.id){
-n.id=dojo.dnd.getUniqueId();
+n.id=_1.dnd.getUniqueId();
 }
-return {node:n,data:_24,type:_25};
+return {node:n,data:_27,type:_28};
 };
 };
-}
+return _1.dnd.Container;
+});

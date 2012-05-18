@@ -1,60 +1,52 @@
-/*
-	Copyright (c) 2004-2011, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
-
-
-if(!dojo._hasResource["dojox.lang.functional.lambda"]){
-dojo._hasResource["dojox.lang.functional.lambda"]=true;
-dojo.provide("dojox.lang.functional.lambda");
-(function(){
-var df=dojox.lang.functional,_1={};
-var _2="ab".split(/a*/).length>1?String.prototype.split:function(_3){
-var r=this.split.call(this,_3),m=_3.exec(this);
+//>>built
+define("dojox/lang/functional/lambda",["../..","dojo/_base/kernel","dojo/_base/lang","dojo/_base/array"],function(_1,_2,_3,_4){
+var df=_3.getObject("lang.functional",true,_1);
+var _5={};
+var _6="ab".split(/a*/).length>1?String.prototype.split:function(_7){
+var r=this.split.call(this,_7),m=_7.exec(this);
 if(m&&m.index==0){
 r.unshift("");
 }
 return r;
 };
-var _4=function(s){
-var _5=[],_6=_2.call(s,/\s*->\s*/m);
-if(_6.length>1){
-while(_6.length){
-s=_6.pop();
-_5=_6.pop().split(/\s*,\s*|\s+/m);
-if(_6.length){
-_6.push("(function("+_5+"){return ("+s+")})");
+var _8=function(s){
+var _9=[],_a=_6.call(s,/\s*->\s*/m);
+if(_a.length>1){
+while(_a.length){
+s=_a.pop();
+_9=_a.pop().split(/\s*,\s*|\s+/m);
+if(_a.length){
+_a.push("(function("+_9+"){return ("+s+")})");
 }
 }
 }else{
 if(s.match(/\b_\b/)){
-_5=["_"];
+_9=["_"];
 }else{
 var l=s.match(/^\s*(?:[+*\/%&|\^\.=<>]|!=)/m),r=s.match(/[+\-*\/%&|\^\.=<>!]\s*$/m);
 if(l||r){
 if(l){
-_5.push("$1");
+_9.push("$1");
 s="$1"+s;
 }
 if(r){
-_5.push("$2");
+_9.push("$2");
 s=s+"$2";
 }
 }else{
-var _7=s.replace(/(?:\b[A-Z]|\.[a-zA-Z_$])[a-zA-Z_$\d]*|[a-zA-Z_$][a-zA-Z_$\d]*:|this|true|false|null|undefined|typeof|instanceof|in|delete|new|void|arguments|decodeURI|decodeURIComponent|encodeURI|encodeURIComponent|escape|eval|isFinite|isNaN|parseFloat|parseInt|unescape|dojo|dijit|dojox|window|document|'(?:[^'\\]|\\.)*'|"(?:[^"\\]|\\.)*"/g,"").match(/([a-z_$][a-z_$\d]*)/gi)||[],t={};
-dojo.forEach(_7,function(v){
+var _b=s.replace(/(?:\b[A-Z]|\.[a-zA-Z_$])[a-zA-Z_$\d]*|[a-zA-Z_$][a-zA-Z_$\d]*:|this|true|false|null|undefined|typeof|instanceof|in|delete|new|void|arguments|decodeURI|decodeURIComponent|encodeURI|encodeURIComponent|escape|eval|isFinite|isNaN|parseFloat|parseInt|unescape|dojo|dijit|dojox|window|document|'(?:[^'\\]|\\.)*'|"(?:[^"\\]|\\.)*"/g,"").match(/([a-z_$][a-z_$\d]*)/gi)||[],t={};
+_4.forEach(_b,function(v){
 if(!(v in t)){
-_5.push(v);
+_9.push(v);
 t[v]=1;
 }
 });
 }
 }
 }
-return {args:_5,body:s};
+return {args:_9,body:s};
 };
-var _8=function(a){
+var _c=function(a){
 return a.length?function(){
 var i=a.length-1,x=df.lambda(a[i]).apply(this,arguments);
 for(--i;i>=0;--i){
@@ -65,25 +57,25 @@ return x;
 return x;
 };
 };
-dojo.mixin(df,{rawLambda:function(s){
-return _4(s);
+_3.mixin(df,{rawLambda:function(s){
+return _8(s);
 },buildLambda:function(s){
-s=_4(s);
+s=_8(s);
 return "function("+s.args.join(",")+"){return ("+s.body+");}";
 },lambda:function(s){
 if(typeof s=="function"){
 return s;
 }
 if(s instanceof Array){
-return _8(s);
+return _c(s);
 }
-if(s in _1){
-return _1[s];
+if(s in _5){
+return _5[s];
 }
-s=_4(s);
-return _1[s]=new Function(s.args,"return ("+s.body+");");
+s=_8(s);
+return _5[s]=new Function(s.args,"return ("+s.body+");");
 },clearLambdaCache:function(){
-_1={};
+_5={};
 }});
-})();
-}
+return df;
+});

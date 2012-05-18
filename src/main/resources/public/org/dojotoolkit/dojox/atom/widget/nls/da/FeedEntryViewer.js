@@ -1,1 +1,16 @@
-({"close":"[luk]","title":"Titel","authors":"Forfattere","summary":"Resumé","content":"Indhold","contributors":"Bidragydere","updated":"Opdateret","displayOptions":"[fremvisningsvalg]","id":"Id"})
+//>>built
+define(
+"dojox/atom/widget/nls/da/FeedEntryViewer", //begin v1.x content
+({
+	displayOptions: "[fremvisningsvalg]",
+	title: "Titel",
+	authors: "Forfattere",
+	contributors: "Bidragydere",
+	id: "Id",
+	close: "[luk]",
+	updated: "Opdateret",
+	summary: "Resumé",
+	content: "Indhold"
+})
+//end v1.x content
+);

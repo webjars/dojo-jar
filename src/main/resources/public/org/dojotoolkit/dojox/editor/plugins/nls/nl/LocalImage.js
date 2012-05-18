@@ -1,1 +1,16 @@
-({"set":"Invoegen","text":"Beschrijving","insertImageTitle":"Afbeelding invoegen","invalidMessage":"Ongeldig bestandstype voor afbeelding","prePopuTextBrowse":" of navigeer naar een lokaal bestand.","browse":"Bladeren...","prePopuTextUrl":"Geef een afbeeldings-URL op","url":"Afbeelding"})
+//>>built
+define(
+"dojox/editor/plugins/nls/nl/LocalImage", //begin v1.x content
+({
+	insertImageTitle: "Afbeelding invoegen",
+	url: "Afbeelding",
+	browse: "Bladeren...",
+	text: "Beschrijving",
+	set: "Invoegen",
+	invalidMessage: "Ongeldig bestandstype voor afbeelding",
+	prePopuTextUrl: "Geef een afbeeldings-URL op",
+	prePopuTextBrowse: " of navigeer naar een lokaal bestand."
+})
+
+//end v1.x content
+);

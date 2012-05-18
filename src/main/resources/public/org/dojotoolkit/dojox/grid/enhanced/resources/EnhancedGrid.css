@@ -1,14 +1,6 @@
-.dojoxGrid {
-	border:1px solid #DBDBDB;
-}
-.dojoxGridCellContent {
-	padding:3px;
-}
-.dojoxGridSortNode {
-	padding:3px;
-}
-.dojoxGridInProgress {
-	cursor:progress;
+
+.dojoxGridRowSelector {
+	cursor: pointer;
 }
 .dojoxGridRowSelectorStatusText{
 	visibility:hidden;
@@ -212,7 +204,7 @@
 .dojoxGridFCBox .dojoxGridFCBoxColSelect, 
 .dojoxGridFCBox .dojoxGridFCBoxCondSelect, 
 .dojoxGridFCBox .dojoxGridFCBoxValueBox {
-	margin: 5px 0 0 0;
+	margin: 0.1em 0 0 0;
 	width: 100%;
 	
 	display: inline-table;
@@ -350,6 +342,7 @@
 	background: url(images/sprite_icons.png) no-repeat -77px 4px;
 }
 .dojoxGridPaginatorGotoDivDisabled {
+	cursor: not-allowed;
 	background: url(images/sprite_icons.png) no-repeat -77px -16px;
 }
 .dojoxGridWardButton {
@@ -373,6 +366,7 @@
 }
 .dojoxGridfirstPageBtnDisable {
 	margin-left: 1px;
+	cursor: not-allowed;
 	background-position: -57px -17px;
 }
 .dojoxGridprevPageBtn {
@@ -381,6 +375,7 @@
 	background-position: 3px 3px;
 }
 .dojoxGridprevPageBtnDisable {
+	cursor: not-allowed;
 	margin: 2px 2px 0 9px;
 	background-position: 3px -17px;
 }
@@ -390,6 +385,7 @@
 	background-position: -37px 3px;
 }
 .dojoxGridlastPageBtnDisable {
+	cursor: not-allowed;
 	margin: 2px 9px 0 9px;
 	background-position: -37px -17px;
 }
@@ -400,6 +396,7 @@
 }
 .dojoxGridnextPageBtnDisable {
 	margin-left: 3px;
+	cursor: not-allowed;
 	background-position: -17px -17px;
 }
 .dojoxGridInactived {
@@ -450,6 +447,10 @@
 .dojoxGridDialogButton {
 	width: 220px!important;
 	text-align: right;
+}
+.dojoxGridButtonFocus {
+	outline: none;
+	border: 0.5px dotted darkblue !important;
 }
 .dojoxGridBorderDIV {
 	width:2px;
@@ -532,6 +533,7 @@
 .dojoxGrid .dojoxGridSortNode {
 	position: relative;
 	border: 1px solid transparent;
+	cursor: pointer;
 }
 .dj_ie6 .dojoxGrid .dojoxGridSortNode,
 .dj_ie7 .dojoxGrid .dojoxGridSortNode {
@@ -540,7 +542,7 @@
 }
 .dojoxGrid .dojoxGridSortNoWrap {
 	white-space:nowrap;
-	cursor: pointer;
+	word-wrap: normal;
 }
 .dojoxGridSortBtn {
 	width: 10px;
@@ -693,13 +695,9 @@ html > body .dojoxGridSorted .dojoxGridCellSortFocus .dojoxGridSortBtnNested {
 	color:#fff;
 }
 .dijitToasterWarning .dijitToasterContent{
-	padding:1em;
-	padding-top:0.25em;
 	background:#d4d943;
 } 
 .dijitToasterError .dijitToasterContent{
-	padding:1em;
-	padding-top:0.25em;
 	background:#c46600;
 }
  
@@ -713,9 +711,8 @@ html > body .dojoxGridSorted .dojoxGridCellSortFocus .dojoxGridSortBtnNested {
 	position: absolute;
 	width: 17.5em;
 	margin: 0px;
-	font:0.75em Tahoma, Helvetica, Verdana, Arial;
+	font:0.75em;
 }
- 
 .dojoxEllipsis,
 .dojoxEllipsisShown {
 	white-space: nowrap;

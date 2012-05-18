@@ -4,56 +4,52 @@
 	see: http://dojotoolkit.org/license for details
 */
 
-
-if(!dojo._hasResource["dojo.dnd.Selector"]){
-dojo._hasResource["dojo.dnd.Selector"]=true;
-dojo.provide("dojo.dnd.Selector");
-dojo.require("dojo.dnd.common");
-dojo.require("dojo.dnd.Container");
-dojo.declare("dojo.dnd.Selector",dojo.dnd.Container,{constructor:function(_1,_2){
-if(!_2){
-_2={};
+//>>built
+define("dojo/dnd/Selector",["../main","./common","./Container"],function(_1){
+_1.declare("dojo.dnd.Selector",_1.dnd.Container,{constructor:function(_2,_3){
+if(!_3){
+_3={};
 }
-this.singular=_2.singular;
-this.autoSync=_2.autoSync;
+this.singular=_3.singular;
+this.autoSync=_3.autoSync;
 this.selection={};
 this.anchor=null;
 this.simpleSelection=false;
-this.events.push(dojo.connect(this.node,"onmousedown",this,"onMouseDown"),dojo.connect(this.node,"onmouseup",this,"onMouseUp"));
+this.events.push(_1.connect(this.node,"onmousedown",this,"onMouseDown"),_1.connect(this.node,"onmouseup",this,"onMouseUp"));
 },singular:false,getSelectedNodes:function(){
-var t=new dojo.NodeList();
-var e=dojo.dnd._empty;
+var t=new _1.NodeList();
+var e=_1.dnd._empty;
 for(var i in this.selection){
 if(i in e){
 continue;
 }
-t.push(dojo.byId(i));
+t.push(_1.byId(i));
 }
 return t;
 },selectNone:function(){
 return this._removeSelection()._removeAnchor();
 },selectAll:function(){
-this.forInItems(function(_3,id){
-this._addItemClass(dojo.byId(id),"Selected");
+this.forInItems(function(_4,id){
+this._addItemClass(_1.byId(id),"Selected");
 this.selection[id]=1;
 },this);
 return this._removeAnchor();
 },deleteSelectedNodes:function(){
-var e=dojo.dnd._empty;
+var e=_1.dnd._empty;
 for(var i in this.selection){
 if(i in e){
 continue;
 }
-var n=dojo.byId(i);
+var n=_1.byId(i);
 this.delItem(i);
-dojo.destroy(n);
+_1.destroy(n);
 }
 this.anchor=null;
 this.selection={};
 return this;
 },forInSelectedItems:function(f,o){
-o=o||dojo.global;
-var s=this.selection,e=dojo.dnd._empty;
+o=o||_1.global;
+var s=this.selection,e=_1.dnd._empty;
 for(var i in s){
 if(i in e){
 continue;
@@ -61,13 +57,13 @@ continue;
 f.call(o,this.getItem(i),i,this);
 }
 },sync:function(){
-dojo.dnd.Selector.superclass.sync.call(this);
+_1.dnd.Selector.superclass.sync.call(this);
 if(this.anchor){
 if(!this.getItem(this.anchor.id)){
 this.anchor=null;
 }
 }
-var t=[],e=dojo.dnd._empty;
+var t=[],e=_1.dnd._empty;
 for(var i in this.selection){
 if(i in e){
 continue;
@@ -76,15 +72,15 @@ if(!this.getItem(i)){
 t.push(i);
 }
 }
-dojo.forEach(t,function(i){
+_1.forEach(t,function(i){
 delete this.selection[i];
 },this);
 return this;
-},insertNodes:function(_4,_5,_6,_7){
-var _8=this._normalizedCreator;
-this._normalizedCreator=function(_9,_a){
-var t=_8.call(this,_9,_a);
-if(_4){
+},insertNodes:function(_5,_6,_7,_8){
+var _9=this._normalizedCreator;
+this._normalizedCreator=function(_a,_b){
+var t=_9.call(this,_a,_b);
+if(_5){
 if(!this.anchor){
 this.anchor=t.node;
 this._removeItemClass(t.node,"Selected");
@@ -102,15 +98,12 @@ this._removeItemClass(t.node,"Anchor");
 }
 return t;
 };
-dojo.dnd.Selector.superclass.insertNodes.call(this,_5,_6,_7);
-this._normalizedCreator=_8;
+_1.dnd.Selector.superclass.insertNodes.call(this,_6,_7,_8);
+this._normalizedCreator=_9;
 return this;
 },destroy:function(){
-dojo.dnd.Selector.superclass.destroy.call(this);
+_1.dnd.Selector.superclass.destroy.call(this);
 this.selection=this.anchor=null;
-},markupFactory:function(_b,_c){
-_b._skipStartup=true;
-return new dojo.dnd.Selector(_c,_b);
 },onMouseDown:function(e){
 if(this.autoSync){
 this.sync();
@@ -118,15 +111,15 @@ this.sync();
 if(!this.current){
 return;
 }
-if(!this.singular&&!dojo.isCopyKey(e)&&!e.shiftKey&&(this.current.id in this.selection)){
+if(!this.singular&&!_1.isCopyKey(e)&&!e.shiftKey&&(this.current.id in this.selection)){
 this.simpleSelection=true;
-if(e.button===dojo.mouseButtons.LEFT){
-dojo.stopEvent(e);
+if(e.button===_1.mouseButtons.LEFT){
+_1.stopEvent(e);
 }
 return;
 }
 if(!this.singular&&e.shiftKey){
-if(!dojo.isCopyKey(e)){
+if(!_1.isCopyKey(e)){
 this._removeSelection();
 }
 var c=this.getAllNodes();
@@ -139,18 +132,18 @@ this.selection[this.anchor.id]=1;
 if(this.anchor!=this.current){
 var i=0;
 for(;i<c.length;++i){
-var _d=c[i];
-if(_d==this.anchor||_d==this.current){
+var _c=c[i];
+if(_c==this.anchor||_c==this.current){
 break;
 }
 }
 for(++i;i<c.length;++i){
-var _d=c[i];
-if(_d==this.anchor||_d==this.current){
+var _c=c[i];
+if(_c==this.anchor||_c==this.current){
 break;
 }
-this._addItemClass(_d,"Selected");
-this.selection[_d.id]=1;
+this._addItemClass(_c,"Selected");
+this.selection[_c.id]=1;
 }
 this._addItemClass(this.current,"Selected");
 this.selection[this.current.id]=1;
@@ -159,7 +152,7 @@ this.selection[this.current.id]=1;
 }else{
 if(this.singular){
 if(this.anchor==this.current){
-if(dojo.isCopyKey(e)){
+if(_1.isCopyKey(e)){
 this.selectNone();
 }
 }else{
@@ -169,7 +162,7 @@ this._addItemClass(this.anchor,"Anchor");
 this.selection[this.current.id]=1;
 }
 }else{
-if(dojo.isCopyKey(e)){
+if(_1.isCopyKey(e)){
 if(this.anchor==this.current){
 delete this.selection[this.anchor.id];
 this._removeAnchor();
@@ -197,7 +190,7 @@ this.selection[this.current.id]=1;
 }
 }
 }
-dojo.stopEvent(e);
+_1.stopEvent(e);
 },onMouseUp:function(e){
 if(!this.simpleSelection){
 return;
@@ -212,19 +205,19 @@ this.selection[this.current.id]=1;
 },onMouseMove:function(e){
 this.simpleSelection=false;
 },onOverEvent:function(){
-this.onmousemoveEvent=dojo.connect(this.node,"onmousemove",this,"onMouseMove");
+this.onmousemoveEvent=_1.connect(this.node,"onmousemove",this,"onMouseMove");
 },onOutEvent:function(){
-dojo.disconnect(this.onmousemoveEvent);
+_1.disconnect(this.onmousemoveEvent);
 delete this.onmousemoveEvent;
 },_removeSelection:function(){
-var e=dojo.dnd._empty;
+var e=_1.dnd._empty;
 for(var i in this.selection){
 if(i in e){
 continue;
 }
-var _e=dojo.byId(i);
-if(_e){
-this._removeItemClass(_e,"Selected");
+var _d=_1.byId(i);
+if(_d){
+this._removeItemClass(_d,"Selected");
 }
 }
 this.selection={};
@@ -236,4 +229,5 @@ this.anchor=null;
 }
 return this;
 }});
-}
+return _1.dnd.Selector;
+});

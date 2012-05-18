@@ -4,61 +4,59 @@
 	see: http://dojotoolkit.org/license for details
 */
 
-
-if(!dojo._hasResource["dojo.dnd.Avatar"]){
-dojo._hasResource["dojo.dnd.Avatar"]=true;
-dojo.provide("dojo.dnd.Avatar");
-dojo.require("dojo.dnd.common");
-dojo.declare("dojo.dnd.Avatar",null,{constructor:function(_1){
-this.manager=_1;
+//>>built
+define("dojo/dnd/Avatar",["../main","./common"],function(_1){
+_1.declare("dojo.dnd.Avatar",null,{constructor:function(_2){
+this.manager=_2;
 this.construct();
 },construct:function(){
-this.isA11y=dojo.hasClass(dojo.body(),"dijit_a11y");
-var a=dojo.create("table",{"class":"dojoDndAvatar",style:{position:"absolute",zIndex:"1999",margin:"0px"}}),_2=this.manager.source,_3,b=dojo.create("tbody",null,a),tr=dojo.create("tr",null,b),td=dojo.create("td",null,tr),_4=this.isA11y?dojo.create("span",{id:"a11yIcon",innerHTML:this.manager.copy?"+":"<"},td):null,_5=dojo.create("span",{innerHTML:_2.generateText?this._generateText():""},td),k=Math.min(5,this.manager.nodes.length),i=0;
-dojo.attr(tr,{"class":"dojoDndAvatarHeader",style:{opacity:0.9}});
+this.isA11y=_1.hasClass(_1.body(),"dijit_a11y");
+var a=_1.create("table",{"class":"dojoDndAvatar",style:{position:"absolute",zIndex:"1999",margin:"0px"}}),_3=this.manager.source,_4,b=_1.create("tbody",null,a),tr=_1.create("tr",null,b),td=_1.create("td",null,tr),_5=this.isA11y?_1.create("span",{id:"a11yIcon",innerHTML:this.manager.copy?"+":"<"},td):null,_6=_1.create("span",{innerHTML:_3.generateText?this._generateText():""},td),k=Math.min(5,this.manager.nodes.length),i=0;
+_1.attr(tr,{"class":"dojoDndAvatarHeader",style:{opacity:0.9}});
 for(;i<k;++i){
-if(_2.creator){
-_3=_2._normalizedCreator(_2.getItem(this.manager.nodes[i].id).data,"avatar").node;
+if(_3.creator){
+_4=_3._normalizedCreator(_3.getItem(this.manager.nodes[i].id).data,"avatar").node;
 }else{
-_3=this.manager.nodes[i].cloneNode(true);
-if(_3.tagName.toLowerCase()=="tr"){
-var _6=dojo.create("table"),_7=dojo.create("tbody",null,_6);
-_7.appendChild(_3);
-_3=_6;
+_4=this.manager.nodes[i].cloneNode(true);
+if(_4.tagName.toLowerCase()=="tr"){
+var _7=_1.create("table"),_8=_1.create("tbody",null,_7);
+_8.appendChild(_4);
+_4=_7;
 }
 }
-_3.id="";
-tr=dojo.create("tr",null,b);
-td=dojo.create("td",null,tr);
-td.appendChild(_3);
-dojo.attr(tr,{"class":"dojoDndAvatarItem",style:{opacity:(9-i)/10}});
+_4.id="";
+tr=_1.create("tr",null,b);
+td=_1.create("td",null,tr);
+td.appendChild(_4);
+_1.attr(tr,{"class":"dojoDndAvatarItem",style:{opacity:(9-i)/10}});
 }
 this.node=a;
 },destroy:function(){
-dojo.destroy(this.node);
+_1.destroy(this.node);
 this.node=false;
 },update:function(){
-dojo[(this.manager.canDropFlag?"add":"remove")+"Class"](this.node,"dojoDndAvatarCanDrop");
+_1[(this.manager.canDropFlag?"add":"remove")+"Class"](this.node,"dojoDndAvatarCanDrop");
 if(this.isA11y){
-var _8=dojo.byId("a11yIcon");
-var _9="+";
+var _9=_1.byId("a11yIcon");
+var _a="+";
 if(this.manager.canDropFlag&&!this.manager.copy){
-_9="< ";
+_a="< ";
 }else{
 if(!this.manager.canDropFlag&&!this.manager.copy){
-_9="o";
+_a="o";
 }else{
 if(!this.manager.canDropFlag){
-_9="x";
+_a="x";
 }
 }
 }
-_8.innerHTML=_9;
+_9.innerHTML=_a;
 }
-dojo.query(("tr.dojoDndAvatarHeader td span"+(this.isA11y?" span":"")),this.node).forEach(function(_a){
-_a.innerHTML=this._generateText();
+_1.query(("tr.dojoDndAvatarHeader td span"+(this.isA11y?" span":"")),this.node).forEach(function(_b){
+_b.innerHTML=this._generateText();
 },this);
 },_generateText:function(){
 return this.manager.nodes.length.toString();
 }});
-}
+return _1.dnd.Avatar;
+});

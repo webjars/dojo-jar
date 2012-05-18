@@ -1,59 +1,46 @@
-/*
-	Copyright (c) 2004-2011, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
-
-
-if(!dojo._hasResource["dijit.form.SimpleTextarea"]){
-dojo._hasResource["dijit.form.SimpleTextarea"]=true;
-dojo.provide("dijit.form.SimpleTextarea");
-dojo.require("dijit.form.TextBox");
-dojo.declare("dijit.form.SimpleTextarea",dijit.form.TextBox,{baseClass:"dijitTextBox dijitTextArea",attributeMap:dojo.delegate(dijit.form._FormValueWidget.prototype.attributeMap,{rows:"textbox",cols:"textbox"}),rows:"3",cols:"20",templateString:"<textarea ${!nameAttrSetting} dojoAttachPoint='focusNode,containerNode,textbox' autocomplete='off'></textarea>",postMixInProperties:function(){
+//>>built
+define("dijit/form/SimpleTextarea",["dojo/_base/declare","dojo/dom-class","dojo/_base/sniff","dojo/_base/window","./TextBox"],function(_1,_2,_3,_4,_5){
+return _1("dijit.form.SimpleTextarea",_5,{baseClass:"dijitTextBox dijitTextArea",rows:"3",cols:"20",templateString:"<textarea ${!nameAttrSetting} data-dojo-attach-point='focusNode,containerNode,textbox' autocomplete='off'></textarea>",postMixInProperties:function(){
 if(!this.value&&this.srcNodeRef){
 this.value=this.srcNodeRef.value;
 }
 this.inherited(arguments);
 },buildRendering:function(){
 this.inherited(arguments);
-if(dojo.isIE&&this.cols){
-dojo.addClass(this.textbox,"dijitTextAreaCols");
+if(_3("ie")&&this.cols){
+_2.add(this.textbox,"dijitTextAreaCols");
 }
-},filter:function(_1){
-if(_1){
-_1=_1.replace(/\r/g,"");
+},filter:function(_6){
+if(_6){
+_6=_6.replace(/\r/g,"");
 }
 return this.inherited(arguments);
-},_previousValue:"",_onInput:function(e){
+},_onInput:function(e){
 if(this.maxLength){
-var _2=parseInt(this.maxLength);
-var _3=this.textbox.value.replace(/\r/g,"");
-var _4=_3.length-_2;
-if(_4>0){
-if(e){
-dojo.stopEvent(e);
-}
-var _5=this.textbox;
-if(_5.selectionStart){
-var _6=_5.selectionStart;
+var _7=parseInt(this.maxLength);
+var _8=this.textbox.value.replace(/\r/g,"");
+var _9=_8.length-_7;
+if(_9>0){
+var _a=this.textbox;
+if(_a.selectionStart){
+var _b=_a.selectionStart;
 var cr=0;
-if(dojo.isOpera){
-cr=(this.textbox.value.substring(0,_6).match(/\r/g)||[]).length;
+if(_3("opera")){
+cr=(this.textbox.value.substring(0,_b).match(/\r/g)||[]).length;
 }
-this.textbox.value=_3.substring(0,_6-_4-cr)+_3.substring(_6-cr);
-_5.setSelectionRange(_6-_4,_6-_4);
+this.textbox.value=_8.substring(0,_b-_9-cr)+_8.substring(_b-cr);
+_a.setSelectionRange(_b-_9,_b-_9);
 }else{
-if(dojo.doc.selection){
-_5.focus();
-var _7=dojo.doc.selection.createRange();
-_7.moveStart("character",-_4);
-_7.text="";
-_7.select();
+if(_4.doc.selection){
+_a.focus();
+var _c=_4.doc.selection.createRange();
+_c.moveStart("character",-_9);
+_c.text="";
+_c.select();
 }
 }
 }
-this._previousValue=this.textbox.value;
 }
 this.inherited(arguments);
 }});
-}
+});

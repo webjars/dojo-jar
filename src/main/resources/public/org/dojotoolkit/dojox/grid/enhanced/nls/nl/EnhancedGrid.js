@@ -1,1 +1,17 @@
-({"singleSort":"Enkelvoudig sorteren","indirectSelectionRadio":"Rij ${0}, enkele selectie, keuzerondje","ascending":"Oplopend","indirectSelectionCheckBox":"Rij ${0}, meerdere selecties, selectievakje","selectAll":"Alles selecteren","descending":"Aflopend","nestedSort":"Genest sorteren","unsorted":"Deze kolom niet sorteren","sortingState":"${0} - ${1}"})
+//>>built
+define(
+"dojox/grid/enhanced/nls/nl/EnhancedGrid", //begin v1.x content
+({
+	singleSort: "Enkelvoudig sorteren",
+	nestedSort: "Genest sorteren",
+	ascending: "Oplopend",
+	descending: "Aflopend",
+	sortingState: "${0} - ${1}",
+	unsorted: "Deze kolom niet sorteren",
+	indirectSelectionRadio: "Rij ${0}, enkele selectie, keuzerondje",
+	indirectSelectionCheckBox: "Rij ${0}, meerdere selecties, selectievakje",
+	selectAll: "Alles selecteren"
+})
+//end v1.x content
+);
+

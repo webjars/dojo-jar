@@ -1,1 +1,13 @@
-({"set":"設定","insertAnchor":"插入錨點","title":"錨點內容","text":"說明：","cancel":"取消","anchor":"名稱："})
+//>>built
+define(
+"dojox/editor/plugins/nls/zh-tw/InsertAnchor", //begin v1.x content
+({
+	insertAnchor: "插入錨點",
+	title: "錨點內容",
+	anchor: "名稱：",
+	text: "說明：",
+	set: "設定",
+	cancel: "取消"
+})
+//end v1.x content
+);

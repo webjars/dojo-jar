@@ -1,43 +1,35 @@
-/*
-	Copyright (c) 2004-2011, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
-
-
-if(!dojo._hasResource["dojox.string.Builder"]){
-dojo._hasResource["dojox.string.Builder"]=true;
-dojo.provide("dojox.string.Builder");
-dojox.string.Builder=function(_1){
+//>>built
+define("dojox/string/Builder",["dojo/_base/lang"],function(_1){
+_1.getObject("string",true,dojox).Builder=function(_2){
 var b="";
 this.length=0;
 this.append=function(s){
 if(arguments.length>1){
-var _2="",l=arguments.length;
+var _3="",l=arguments.length;
 switch(l){
 case 9:
-_2=""+arguments[8]+_2;
+_3=""+arguments[8]+_3;
 case 8:
-_2=""+arguments[7]+_2;
+_3=""+arguments[7]+_3;
 case 7:
-_2=""+arguments[6]+_2;
+_3=""+arguments[6]+_3;
 case 6:
-_2=""+arguments[5]+_2;
+_3=""+arguments[5]+_3;
 case 5:
-_2=""+arguments[4]+_2;
+_3=""+arguments[4]+_3;
 case 4:
-_2=""+arguments[3]+_2;
+_3=""+arguments[3]+_3;
 case 3:
-_2=""+arguments[2]+_2;
+_3=""+arguments[2]+_3;
 case 2:
-b+=""+arguments[0]+arguments[1]+_2;
+b+=""+arguments[0]+arguments[1]+_3;
 break;
 default:
 var i=0;
 while(i<arguments.length){
-_2+=arguments[i++];
+_3+=arguments[i++];
 }
-b+=_2;
+b+=_3;
 }
 }else{
 b+=s;
@@ -48,35 +40,35 @@ return this;
 this.concat=function(s){
 return this.append.apply(this,arguments);
 };
-this.appendArray=function(_3){
-return this.append.apply(this,_3);
+this.appendArray=function(_4){
+return this.append.apply(this,_4);
 };
 this.clear=function(){
 b="";
 this.length=0;
 return this;
 };
-this.replace=function(_4,_5){
-b=b.replace(_4,_5);
+this.replace=function(_5,_6){
+b=b.replace(_5,_6);
 this.length=b.length;
 return this;
 };
-this.remove=function(_6,_7){
-if(_7===undefined){
-_7=b.length;
+this.remove=function(_7,_8){
+if(_8===undefined){
+_8=b.length;
 }
-if(_7==0){
-return this;
-}
-b=b.substr(0,_6)+b.substr(_6+_7);
-this.length=b.length;
-return this;
-};
-this.insert=function(_8,_9){
 if(_8==0){
-b=_9+b;
+return this;
+}
+b=b.substr(0,_7)+b.substr(_7+_8);
+this.length=b.length;
+return this;
+};
+this.insert=function(_9,_a){
+if(_9==0){
+b=_a+b;
 }else{
-b=b.slice(0,_8)+_9+b.slice(_8);
+b=b.slice(0,_9)+_a+b.slice(_9);
 }
 this.length=b.length;
 return this;
@@ -84,8 +76,9 @@ return this;
 this.toString=function(){
 return b;
 };
-if(_1){
-this.append(_1);
+if(_2){
+this.append(_2);
 }
 };
-}
+return dojox.string.Builder;
+});

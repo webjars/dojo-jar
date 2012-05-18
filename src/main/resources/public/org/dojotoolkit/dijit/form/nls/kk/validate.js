@@ -1,1 +1,11 @@
-({"rangeMessage":"Бұл мән ауқымнан тыс.","invalidMessage":"Енгізілген мән жарамды емес.","missingMessage":"Бұл мән міндетті."})
+//>>built
+define(
+"dijit/form/nls/kk/validate", //begin v1.x content
+({
+	invalidMessage: "Енгізілген мән жарамды емес.",
+	missingMessage: "Бұл мән міндетті.",
+	rangeMessage: "Бұл мән ауқымнан тыс."
+})
+//end v1.x content
+);
+

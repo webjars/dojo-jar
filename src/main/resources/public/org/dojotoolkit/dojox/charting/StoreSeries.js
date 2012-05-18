@@ -1,37 +1,29 @@
-/*
-	Copyright (c) 2004-2011, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
-
-
-if(!dojo._hasResource["dojox.charting.StoreSeries"]){
-dojo._hasResource["dojox.charting.StoreSeries"]=true;
-dojo.provide("dojox.charting.StoreSeries");
-dojo.declare("dojox.charting.StoreSeries",null,{constructor:function(_1,_2,_3){
-this.store=_1;
-this.kwArgs=_2;
-if(_3){
-if(typeof _3=="function"){
-this.value=_3;
+//>>built
+define("dojox/charting/StoreSeries",["dojo/_base/array","dojo/_base/declare","dojo/_base/Deferred"],function(_1,_2,_3){
+return _2("dojox.charting.StoreSeries",null,{constructor:function(_4,_5,_6){
+this.store=_4;
+this.kwArgs=_5;
+if(_6){
+if(typeof _6=="function"){
+this.value=_6;
 }else{
-if(typeof _3=="object"){
-this.value=function(_4){
+if(typeof _6=="object"){
+this.value=function(_7){
 var o={};
-for(var _5 in _3){
-o[_5]=_4[_3[_5]];
+for(var _8 in _6){
+o[_8]=_7[_6[_8]];
 }
 return o;
 };
 }else{
-this.value=function(_6){
-return _6[_3];
+this.value=function(_9){
+return _9[_6];
 };
 }
 }
 }else{
-this.value=function(_7){
-return _7.value;
+this.value=function(_a){
+return _a.value;
 };
 }
 this.data=[];
@@ -40,27 +32,27 @@ this.fetch();
 if(this.observeHandle){
 this.observeHandle.dismiss();
 }
-},setSeriesObject:function(_8){
-this.series=_8;
+},setSeriesObject:function(_b){
+this.series=_b;
 },fetch:function(){
-var _9=this.objects=[];
-var _a=this;
+var _c=this.objects=[];
+var _d=this;
 if(this.observeHandle){
 this.observeHandle.dismiss();
 }
-var _b=this.store.query(this.kwArgs.query,this.kwArgs);
-dojo.when(_b,function(_c){
-_a.objects=_c;
-_d();
+var _e=this.store.query(this.kwArgs.query,this.kwArgs);
+_3.when(_e,function(_f){
+_d.objects=_f;
+_10();
 });
-if(_b.observe){
-this.observeHandle=_b.observe(_d,true);
+if(_e.observe){
+this.observeHandle=_e.observe(_10,true);
 }
-function _d(){
-_a.data=dojo.map(_a.objects,function(_e){
-return _a.value(_e,_a.store);
+function _10(){
+_d.data=_1.map(_d.objects,function(_11){
+return _d.value(_11,_d.store);
 });
-_a._pushDataChanges();
+_d._pushDataChanges();
 };
 },_pushDataChanges:function(){
 if(this.series){
@@ -68,4 +60,4 @@ this.series.chart.updateSeries(this.series.name,this);
 this.series.chart.delayedRender();
 }
 }});
-}
+});

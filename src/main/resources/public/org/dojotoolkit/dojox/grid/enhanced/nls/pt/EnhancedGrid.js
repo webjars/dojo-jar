@@ -1,1 +1,17 @@
-({"descending":"Descendente","ascending":"Ascendente","nestedSort":"Classificação Aninhada","unsorted":"Não classificar esta coluna","singleSort":"Classificação Única","indirectSelectionRadio":"Row ${0}, single selection, radio box","indirectSelectionCheckBox":"Row ${0}, multiple selection, check box","selectAll":"Select all","sortingState":"${0} - ${1}"})
+//>>built
+define(
+"dojox/grid/enhanced/nls/pt/EnhancedGrid", //begin v1.x content
+({
+	singleSort: "Classificação Única",
+	nestedSort: "Classificação Aninhada",
+	ascending: "Ascendente",
+	descending: "Descendente",
+	sortingState: "${0} - ${1}",
+	unsorted: "Não classificar esta coluna",
+	indirectSelectionRadio: "Linha ${0}, seleção única, botão de seleção",
+	indirectSelectionCheckBox: "Linha ${0}, seleção múltipla, caixa de seleção",
+	selectAll: "Selecionar todos"
+})
+//end v1.x content
+);
+

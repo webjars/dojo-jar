@@ -1,1 +1,10 @@
-({"rangeMessage":"Az érték kívül van a megengedett tartományon.","invalidMessage":"A megadott érték érvénytelen.","missingMessage":"Meg kell adni egy értéket."})
+//>>built
+define(
+"dijit/form/nls/hu/validate", //begin v1.x content
+({
+	invalidMessage: "A megadott érték érvénytelen.",
+	missingMessage: "Meg kell adni egy értéket.",
+	rangeMessage: "Az érték kívül van a megengedett tartományon."
+})
+//end v1.x content
+);

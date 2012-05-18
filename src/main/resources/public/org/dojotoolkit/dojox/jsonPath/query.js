@@ -1,142 +1,135 @@
-/*
-	Copyright (c) 2004-2011, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
-
-
-if(!dojo._hasResource["dojox.jsonPath.query"]){
-dojo._hasResource["dojox.jsonPath.query"]=true;
-dojo.provide("dojox.jsonPath.query");
-dojox.jsonPath.query=function(_1,_2,_3){
-var re=dojox.jsonPath._regularExpressions;
-if(!_3){
-_3={};
+//>>built
+define(["dijit","dojo","dojox"],function(_1,_2,_3){
+_2.provide("dojox.jsonPath.query");
+_3.jsonPath.query=function(_4,_5,_6){
+var re=_3.jsonPath._regularExpressions;
+if(!_6){
+_6={};
 }
-var _4=[];
-function _5(i){
-return _4[i];
+var _7=[];
+function _8(i){
+return _7[i];
 };
-var _6;
-if(_3.resultType=="PATH"&&_3.evalType=="RESULT"){
+var _9;
+if(_6.resultType=="PATH"&&_6.evalType=="RESULT"){
 throw Error("RESULT based evaluation not supported with PATH based results");
 }
-var P={resultType:_3.resultType||"VALUE",normalize:function(_7){
-var _8=[];
-_7=_7.replace(/'([^']|'')*'/g,function(t){
-return "_str("+(_4.push(eval(t))-1)+")";
+var P={resultType:_6.resultType||"VALUE",normalize:function(_a){
+var _b=[];
+_a=_a.replace(/'([^']|'')*'/g,function(t){
+return "_str("+(_7.push(eval(t))-1)+")";
 });
 var ll=-1;
-while(ll!=_8.length){
-ll=_8.length;
-_7=_7.replace(/(\??\([^\(\)]*\))/g,function($0){
-return "#"+(_8.push($0)-1);
+while(ll!=_b.length){
+ll=_b.length;
+_a=_a.replace(/(\??\([^\(\)]*\))/g,function($0){
+return "#"+(_b.push($0)-1);
 });
 }
-_7=_7.replace(/[\['](#[0-9]+)[\]']/g,"[$1]").replace(/'?\.'?|\['?/g,";").replace(/;;;|;;/g,";..;").replace(/;$|'?\]|'$/g,"");
+_a=_a.replace(/[\['](#[0-9]+)[\]']/g,"[$1]").replace(/'?\.'?|\['?/g,";").replace(/;;;|;;/g,";..;").replace(/;$|'?\]|'$/g,"");
 ll=-1;
-while(ll!=_7){
-ll=_7;
-_7=_7.replace(/#([0-9]+)/g,function($0,$1){
-return _8[$1];
+while(ll!=_a){
+ll=_a;
+_a=_a.replace(/#([0-9]+)/g,function($0,$1){
+return _b[$1];
 });
 }
-return _7.split(";");
-},asPaths:function(_9){
-for(var j=0;j<_9.length;j++){
+return _a.split(";");
+},asPaths:function(_c){
+for(var j=0;j<_c.length;j++){
 var p="$";
-var x=_9[j];
+var x=_c[j];
 for(var i=1,n=x.length;i<n;i++){
 p+=/^[0-9*]+$/.test(x[i])?("["+x[i]+"]"):("['"+x[i]+"']");
 }
-_9[j]=p;
+_c[j]=p;
 }
-return _9;
-},exec:function(_a,_b,rb){
-var _c=["$"];
-var _d=rb?_b:[_b];
-var _e=[_c];
-function _f(v,p,def){
+return _c;
+},exec:function(_d,_e,rb){
+var _f=["$"];
+var _10=rb?_e:[_e];
+var _11=[_f];
+function add(v,p,def){
 if(v&&v.hasOwnProperty(p)&&P.resultType!="VALUE"){
-_e.push(_c.concat([p]));
+_11.push(_f.concat([p]));
 }
 if(def){
-_d=v[p];
+_10=v[p];
 }else{
 if(v&&v.hasOwnProperty(p)){
-_d.push(v[p]);
+_10.push(v[p]);
 }
 }
 };
-function _10(v){
-_d.push(v);
-_e.push(_c);
+function _12(v){
+_10.push(v);
+_11.push(_f);
 P.walk(v,function(i){
 if(typeof v[i]==="object"){
-var _11=_c;
-_c=_c.concat(i);
-_10(v[i]);
-_c=_11;
+var _13=_f;
+_f=_f.concat(i);
+_12(v[i]);
+_f=_13;
 }
 });
 };
-function _12(loc,val){
+function _14(loc,val){
 if(val instanceof Array){
-var len=val.length,_13=0,end=len,_14=1;
+var len=val.length,_15=0,end=len,_16=1;
 loc.replace(/^(-?[0-9]*):(-?[0-9]*):?(-?[0-9]*)$/g,function($0,$1,$2,$3){
-_13=parseInt($1||_13);
+_15=parseInt($1||_15);
 end=parseInt($2||end);
-_14=parseInt($3||_14);
+_16=parseInt($3||_16);
 });
-_13=(_13<0)?Math.max(0,_13+len):Math.min(len,_13);
+_15=(_15<0)?Math.max(0,_15+len):Math.min(len,_15);
 end=(end<0)?Math.max(0,end+len):Math.min(len,end);
-for(var i=_13;i<end;i+=_14){
-_f(val,i);
+for(var i=_15;i<end;i+=_16){
+add(val,i);
 }
 }
 };
-function _15(str){
+function _17(str){
 var i=loc.match(/^_str\(([0-9]+)\)$/);
-return i?_4[i[1]]:str;
+return i?_7[i[1]]:str;
 };
-function _16(val){
+function _18(val){
 if(/^\(.*?\)$/.test(loc)){
-_f(val,P.eval(loc,val),rb);
+add(val,P.eval(loc,val),rb);
 }else{
 if(loc==="*"){
 P.walk(val,rb&&val instanceof Array?function(i){
 P.walk(val[i],function(j){
-_f(val[i],j);
+add(val[i],j);
 });
 }:function(i){
-_f(val,i);
+add(val,i);
 });
 }else{
 if(loc===".."){
-_10(val);
+_12(val);
 }else{
 if(/,/.test(loc)){
 for(var s=loc.split(/'?,'?/),i=0,n=s.length;i<n;i++){
-_f(val,_15(s[i]));
+add(val,_17(s[i]));
 }
 }else{
 if(/^\?\(.*?\)$/.test(loc)){
 P.walk(val,function(i){
 if(P.eval(loc.replace(/^\?\((.*?)\)$/,"$1"),val[i])){
-_f(val,i);
+add(val,i);
 }
 });
 }else{
 if(/^(-?[0-9]*):(-?[0-9]*):?([0-9]*)$/.test(loc)){
-_12(loc,val);
+_14(loc,val);
 }else{
-loc=_15(loc);
+loc=_17(loc);
 if(rb&&val instanceof Array&&!/^[0-9*]+$/.test(loc)){
 P.walk(val,function(i){
-_f(val[i],loc);
+add(val[i],loc);
 });
 }else{
-_f(val,loc,rb);
+add(val,loc,rb);
 }
 }
 }
@@ -145,32 +138,32 @@ _f(val,loc,rb);
 }
 }
 };
-while(_a.length){
-var loc=_a.shift();
-if((_b=_d)===null||_b===undefined){
-return _b;
+while(_d.length){
+var loc=_d.shift();
+if((_e=_10)===null||_e===undefined){
+return _e;
 }
-_d=[];
-var _17=_e;
-_e=[];
+_10=[];
+var _19=_11;
+_11=[];
 if(rb){
-_16(_b);
+_18(_e);
 }else{
-P.walk(_b,function(i){
-_c=_17[i]||_c;
-_16(_b[i]);
+P.walk(_e,function(i){
+_f=_19[i]||_f;
+_18(_e[i]);
 });
 }
 }
 if(P.resultType=="BOTH"){
-_e=P.asPaths(_e);
-var _18=[];
-for(var i=0;i<_e.length;i++){
-_18.push({path:_e[i],value:_d[i]});
+_11=P.asPaths(_11);
+var _1a=[];
+for(var i=0;i<_11.length;i++){
+_1a.push({path:_11[i],value:_10[i]});
 }
-return _18;
+return _1a;
 }
-return P.resultType=="PATH"?P.asPaths(_e):_d;
+return P.resultType=="PATH"?P.asPaths(_11):_10;
 },walk:function(val,f){
 if(val instanceof Array){
 for(var i=0,n=val.length;i<n;i++){
@@ -187,18 +180,18 @@ f(m);
 }
 }
 }
-},eval:function(x,_19){
+},eval:function(x,_1b){
 try{
-return $&&_19&&eval(x.replace(/@/g,"_v"));
+return $&&_1b&&eval(x.replace(/@/g,"_v"));
 }
 catch(e){
 throw new SyntaxError("jsonPath: "+e.message+": "+x.replace(/@/g,"_v").replace(/\^/g,"_a"));
 }
 }};
-var $=_1;
-if(_2&&_1){
-return P.exec(P.normalize(_2).slice(1),_1,_3.evalType=="RESULT");
+var $=_4;
+if(_5&&_4){
+return P.exec(P.normalize(_5).slice(1),_4,_6.evalType=="RESULT");
 }
 return false;
 };
-}
+});

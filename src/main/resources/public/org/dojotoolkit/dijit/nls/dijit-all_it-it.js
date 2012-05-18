@@ -1,1 +1,598 @@
-dojo.provide("dijit.nls.dijit-all_it-it");dojo.provide("dojo.nls.colors");dojo.nls.colors._built=true;dojo.provide("dojo.nls.colors.it_it");dojo.nls.colors.it_it={"lightsteelblue":"blu acciao chiaro","orangered":"vermiglio","midnightblue":"blu melanzana scuro","cadetblue":"verde acqua","seashell":"sabbia rosa","slategrey":"grigio ardesia","coral":"corallo","darkturquoise":"turchese scuro","antiquewhite":"bianco antico","mediumspringgreen":"verde primavera medio","salmon":"salmone","darkgrey":"grigio scuro","ivory":"avorio","greenyellow":"giallo verde","mistyrose":"rosa pallido","lightsalmon":"salmone chiaro","silver":"grigio 25%","dimgrey":"grigio 80%","orange":"arancione","white":"bianco","navajowhite":"pesca chiaro","royalblue":"blu reale","deeppink":"ciclamino","lime":"verde fluorescente","oldlace":"mandorla","chartreuse":"verde brillante","darkcyan":"ciano scuro","yellow":"giallo","linen":"lino","olive":"verde oliva","gold":"oro","lawngreen":"verde prato","lightyellow":"giallo chiaro","tan":"grigio bruno","darkviolet":"viola scuro","lightslategrey":"grigio ardesia chiaro","grey":"grigio","darkkhaki":"kaki scuro","green":"verde","deepskyblue":"azzurro cielo scuro","aqua":"acqua","sienna":"cuoio","mintcream":"bianco nuvola","rosybrown":"marrone rosato","mediumslateblue":"blu ardesia medio","magenta":"magenta","lightseagreen":"verde mare chiaro","cyan":"ciano","olivedrab":"marrone oliva","darkgoldenrod":"ocra scuro","slateblue":"blu ardesia","mediumaquamarine":"acquamarina medio","lavender":"lavanda","mediumseagreen":"verde mare medio","maroon":"scarlatto","darkslategray":"grigio ardesia scuro","mediumturquoise":"turchese medio","ghostwhite":"bianco gesso","darkblue":"blu scuro","mediumvioletred":"vinaccia","brown":"marrone","lightgray":"grigio chiaro","sandybrown":"marrone sabbia","pink":"rosa","firebrick":"rosso mattone","indigo":"indaco","snow":"neve","darkorchid":"orchidea scuro","turquoise":"turchese","chocolate":"cioccolato","springgreen":"verde primavera","moccasin":"mocassino","navy":"blu notte","lemonchiffon":"caffelatte chiaro","teal":"verde turchese","floralwhite":"bianco giglio","cornflowerblue":"blu fiordaliso","paleturquoise":"turchese pallido","purple":"porpora","gainsboro":"grigio 10%","plum":"prugna","red":"rosso","blue":"blu","forestgreen":"verde foresta","darkgreen":"verde scuro","honeydew":"bianco germoglio","darkseagreen":"verde mare scuro","lightcoral":"rosa corallo","palevioletred":"vinaccia chiaro","mediumpurple":"porpora medio","saddlebrown":"cacao","darkmagenta":"magenta scuro","thistle":"rosa cenere","whitesmoke":"bianco fumo","wheat":"sabbia","violet":"viola","lightskyblue":"azzurro cielo chiaro","goldenrod":"ocra gialla","mediumblue":"blu medio","skyblue":"azzurro cielo","crimson":"cremisi","darksalmon":"salmone scuro","darkred":"rosso scuro","darkslategrey":"grigio ardesia scuro","peru":"marrone terra bruciata","lightgrey":"grigio chiaro","lightgoldenrodyellow":"giallo tenue","blanchedalmond":"mandorla chiaro","aliceblue":"blu alice","bisque":"incarnato","slategray":"grigio ardesia","palegoldenrod":"giallo zolfo chiaro","darkorange":"arancione scuro","aquamarine":"acquamarina","lightgreen":"verde chiaro","burlywood":"tabacco","dodgerblue":"blu d'oriente","darkgray":"grigio scuro","lightcyan":"ciano chiaro","powderblue":"azzurro polvere","blueviolet":"blu violetto","orchid":"orchidea","dimgray":"grigio 80%","beige":"beige","fuchsia":"fucsia","lavenderblush":"bianco rosato","hotpink":"rosa acceso","steelblue":"blu acciao","tomato":"pomodoro","lightpink":"rosa chiaro","limegreen":"verde lime","indianred":"terra indiana","papayawhip":"cipria","lightslategray":"grigio ardesia chiaro","gray":"grigio","mediumorchid":"orchidea medio","cornsilk":"crema","black":"nero","seagreen":"verde mare","darkslateblue":"blu ardesia scuro","khaki":"kaki","lightblue":"azzurro","palegreen":"verde pallido","azure":"azzurro ghiaccio","peachpuff":"pesca","darkolivegreen":"verde oliva scuro","yellowgreen":"giallo verde"};dojo.provide("dijit.nls.loading");dijit.nls.loading._built=true;dojo.provide("dijit.nls.loading.it_it");dijit.nls.loading.it_it={"loadingState":"Caricamento in corso...","errorState":"Si è verificato un errore"};dojo.provide("dijit.nls.common");dijit.nls.common._built=true;dojo.provide("dijit.nls.common.it_it");dijit.nls.common.it_it={"buttonOk":"OK","buttonCancel":"Annulla","buttonSave":"Salva","itemClose":"Chiudi"};dojo.provide("dijit._editor.nls.commands");dijit._editor.nls.commands._built=true;dojo.provide("dijit._editor.nls.commands.it_it");dijit._editor.nls.commands.it_it={"removeFormat":"Rimuovi formato","copy":"Copia","paste":"Incolla","selectAll":"Seleziona tutto","insertOrderedList":"Elenco numerato","insertTable":"Inserisci/Modifica tabella","print":"Stampa","underline":"Sottolineato","foreColor":"Colore primo piano","htmlToggle":"Origine HTML","formatBlock":"Stile paragrafo","newPage":"Nuova pagina","insertHorizontalRule":"Righello orizzontale","delete":"Elimina","insertUnorderedList":"Elenco puntato","tableProp":"Proprietà tabella","insertImage":"Inserisci immagine","superscript":"Apice","subscript":"Pedice","createLink":"Crea collegamento","undo":"Annulla","fullScreen":"Attiva/Disattiva schermo intero","italic":"Corsivo","fontName":"Nome carattere","justifyLeft":"Allinea a sinistra","unlink":"Rimuovi collegamento","toggleTableBorder":"Mostra/Nascondi margine tabella","viewSource":"Visualizza origine HTML","fontSize":"Dimensione carattere","systemShortcut":"Azione \"${0}\" disponibile sul proprio browser solo mediante i tasti di scelta rapida della tastiera. Utilizzare ${1}.","indent":"Rientra","redo":"Ripristina","strikethrough":"Barrato","justifyFull":"Giustifica","justifyCenter":"Allinea al centro","hiliteColor":"Colore sfondo","deleteTable":"Elimina tabella","outdent":"Rimuovi rientro","cut":"Taglia","plainFormatBlock":"Stile paragrafo","toggleDir":"Inverti direzione","bold":"Grassetto","tabIndent":"Rientranza tabulazione","justifyRight":"Allinea a destra","appleKey":"⌘${0}","ctrlKey":"ctrl+${0}"};dojo.provide("dijit.form.nls.validate");dijit.form.nls.validate._built=true;dojo.provide("dijit.form.nls.validate.it_it");dijit.form.nls.validate.it_it={"rangeMessage":"Questo valore non è compreso nell'intervallo.","invalidMessage":"Il valore immesso non è valido.","missingMessage":"Questo valore è obbligatorio."};dojo.provide("dijit.form.nls.ComboBox");dijit.form.nls.ComboBox._built=true;dojo.provide("dijit.form.nls.ComboBox.it_it");dijit.form.nls.ComboBox.it_it={"previousMessage":"Scelte precedenti","nextMessage":"Altre scelte"};dojo.provide("dijit._editor.nls.FontChoice");dijit._editor.nls.FontChoice._built=true;dojo.provide("dijit._editor.nls.FontChoice.it_it");dijit._editor.nls.FontChoice.it_it={"noFormat":"Nessuna","1":"xx-small","2":"x-small","formatBlock":"Formato","3":"small","4":"medium","5":"large","6":"x-large","7":"xx-large","fantasy":"fantasy","serif":"serif","p":"Paragrafo","pre":"Preformattato","sans-serif":"sans-serif","fontName":"Carattere","h1":"Intestazione","h2":"Sottointestazione","h3":"Sottointestazione secondaria","monospace":"spaziatura fissa","fontSize":"Dimensione","cursive":"corsivo"};dojo.provide("dijit._editor.nls.LinkDialog");dijit._editor.nls.LinkDialog._built=true;dojo.provide("dijit._editor.nls.LinkDialog.it_it");dijit._editor.nls.LinkDialog.it_it={"text":"Descrizione:","insertImageTitle":"Proprietà immagine","set":"Imposta","newWindow":"Nuova finestra","topWindow":"Finestra in primo piano","target":"Destinazione:","createLinkTitle":"Proprietà collegamento","parentWindow":"Finestra parent","currentWindow":"Finestra corrente","url":"URL:"};dojo.provide("dojo.cldr.nls.number");dojo.cldr.nls.number._built=true;dojo.provide("dojo.cldr.nls.number.it_it");dojo.cldr.nls.number.it_it={"decimalFormat":"#,##0.###","group":".","scientificFormat":"#E0","percentFormat":"#,##0%","currencyFormat":"¤ #,##0.00","decimal":",","currencySpacing-afterCurrency-currencyMatch":"[:letter:]","infinity":"∞","list":";","percentSign":"%","minusSign":"-","currencySpacing-beforeCurrency-surroundingMatch":"[:digit:]","decimalFormat-short":"000T","currencySpacing-afterCurrency-insertBetween":" ","nan":"NaN","nativeZeroDigit":"0","plusSign":"+","currencySpacing-afterCurrency-surroundingMatch":"[:digit:]","currencySpacing-beforeCurrency-currencyMatch":"[:letter:]","perMille":"‰","patternDigit":"#","currencySpacing-beforeCurrency-insertBetween":" ","exponential":"E"};dojo.provide("dojo.cldr.nls.currency");dojo.cldr.nls.currency._built=true;dojo.provide("dojo.cldr.nls.currency.it_it");dojo.cldr.nls.currency.it_it={"HKD_displayName":"Dollaro di Hong Kong","CHF_displayName":"Franco Svizzero","CAD_displayName":"Dollaro Canadese","CNY_displayName":"Renmimbi Cinese","AUD_displayName":"Dollaro Australiano","JPY_displayName":"Yen Giapponese","USD_displayName":"Dollaro Statunitense","GBP_displayName":"Sterlina Inglese","EUR_displayName":"Euro","USD_symbol":"US$","CAD_symbol":"CA$","GBP_symbol":"£","HKD_symbol":"HK$","JPY_symbol":"JP¥","AUD_symbol":"AU$","CNY_symbol":"CN¥","EUR_symbol":"€"};dojo.provide("dojo.cldr.nls.gregorian");dojo.cldr.nls.gregorian._built=true;dojo.provide("dojo.cldr.nls.gregorian.it_it");dojo.cldr.nls.gregorian.it_it={"months-format-narrow":["G","F","M","A","M","G","L","A","S","O","N","D"],"field-weekday":"giorno della settimana","dateFormatItem-yyQQQQ":"QQQQ yy","dateFormatItem-yQQQ":"QQQ y","dateFormatItem-yMEd":"EEE, d/M/y","dateFormatItem-MMMEd":"EEE d MMM","eraNarrow":["aC","dC"],"dateFormat-long":"dd MMMM y","months-format-wide":["gennaio","febbraio","marzo","aprile","maggio","giugno","luglio","agosto","settembre","ottobre","novembre","dicembre"],"dayPeriods-format-wide-pm":"p.","dateFormat-full":"EEEE d MMMM y","dateFormatItem-Md":"d/M","field-era":"era","dateFormatItem-yM":"M/y","months-standAlone-wide":["Gennaio","Febbraio","Marzo","Aprile","Maggio","Giugno","Luglio","Agosto","Settembre","Ottobre","Novembre","Dicembre"],"timeFormat-short":"HH:mm","quarters-format-wide":["1o trimestre","2o trimestre","3o trimestre","4o trimestre"],"timeFormat-long":"HH:mm:ss z","field-year":"anno","dateFormatItem-yMMM":"MMM y","dateFormatItem-yQ":"Q-yyyy","dateFormatItem-yyyyMMMM":"MMMM y","field-hour":"ora","dateFormatItem-MMdd":"dd/MM","months-format-abbr":["gen","feb","mar","apr","mag","giu","lug","ago","set","ott","nov","dic"],"dateFormatItem-yyQ":"Q yy","timeFormat-full":"HH:mm:ss zzzz","field-day-relative+0":"oggi","field-day-relative+1":"domani","field-day-relative+2":"dopodomani","field-day-relative+3":"tra tre giorni","months-standAlone-abbr":["gen","feb","mar","apr","mag","giu","lug","ago","set","ott","nov","dic"],"quarters-format-abbr":["T1","T2","T3","T4"],"quarters-standAlone-wide":["1o trimestre","2o trimestre","3o trimestre","4o trimestre"],"dateFormatItem-M":"L","days-standAlone-wide":["Domenica","Lunedì","Martedì","Mercoledì","Giovedì","Venerdì","Sabato"],"timeFormat-medium":"HH:mm:ss","dateFormatItem-Hm":"HH:mm","quarters-standAlone-abbr":["T1","T2","T3","T4"],"eraAbbr":["aC","dC"],"field-minute":"minuto","field-dayperiod":"periodo del giorno","days-standAlone-abbr":["dom","lun","mar","mer","gio","ven","sab"],"dateFormatItem-d":"d","dateFormatItem-ms":"mm:ss","field-day-relative+-1":"ieri","dateFormatItem-h":"hh a","field-day-relative+-2":"l'altro ieri","field-day-relative+-3":"tre giorni fa","dateFormatItem-MMMd":"d MMM","dateFormatItem-MEd":"EEE d/M","field-day":"giorno","days-format-wide":["domenica","lunedì","martedì","mercoledì","giovedì","venerdì","sabato"],"field-zone":"zona","dateFormatItem-y":"y","months-standAlone-narrow":["G","F","M","A","M","G","L","A","S","O","N","D"],"dateFormatItem-yyMM":"MM/yy","dateFormatItem-hm":"hh:mm a","days-format-abbr":["dom","lun","mar","mer","gio","ven","sab"],"eraNames":["a.C.","d.C"],"days-format-narrow":["D","L","M","M","G","V","S"],"field-month":"mese","days-standAlone-narrow":["D","L","M","M","G","V","S"],"dateFormatItem-MMM":"LLL","dayPeriods-format-wide-am":"m.","dateFormatItem-MMMMdd":"dd MMMM","dateFormat-short":"dd/MM/yy","field-second":"secondo","dateFormatItem-yMMMEd":"EEE d MMM y","dateFormatItem-Ed":"E d","field-week":"settimana","dateFormat-medium":"dd/MMM/y","dateFormatItem-Hms":"HH:mm:ss","dateFormatItem-hms":"hh:mm:ss a","quarters-standAlone-narrow":["1","2","3","4"],"dateTimeFormats-appendItem-Day-Of-Week":"{0} {1}","dateTimeFormat-medium":"{1} {0}","dateFormatItem-EEEd":"d EEE","dayPeriods-format-abbr-am":"AM","dateTimeFormats-appendItem-Second":"{0} ({2}: {1})","dateTimeFormats-appendItem-Era":"{0} {1}","dateTimeFormats-appendItem-Week":"{0} ({2}: {1})","dateFormatItem-H":"HH","quarters-format-narrow":["1","2","3","4"],"dateTimeFormat-long":"{1} {0}","dayPeriods-format-narrow-am":"AM","dateTimeFormat-full":"{1} {0}","dateTimeFormats-appendItem-Day":"{0} ({2}: {1})","dateTimeFormats-appendItem-Year":"{0} {1}","dateTimeFormats-appendItem-Hour":"{0} ({2}: {1})","dayPeriods-format-abbr-pm":"PM","dateTimeFormats-appendItem-Quarter":"{0} ({2}: {1})","dateTimeFormats-appendItem-Month":"{0} ({2}: {1})","dateTimeFormats-appendItem-Minute":"{0} ({2}: {1})","dateTimeFormats-appendItem-Timezone":"{0} {1}","dayPeriods-format-narrow-pm":"PM","dateTimeFormat-short":"{1} {0}"};
+require({cache:{
+'dijit/form/nls/it/validate':function(){
+define(
+//begin v1.x content
+({
+	invalidMessage: "Il valore immesso non è valido.",
+	missingMessage: "Questo valore è obbligatorio.",
+	rangeMessage: "Questo valore non è compreso nell'intervallo."
+})
+//end v1.x content
+);
+
+},
+'dijit/form/nls/it-it/validate':function(){
+define('dijit/form/nls/it-it/validate',{});
+},
+'dijit/_editor/nls/it/commands':function(){
+define(
+//begin v1.x content
+({
+	'bold': 'Grassetto',
+	'copy': 'Copia',
+	'cut': 'Taglia',
+	'delete': 'Elimina',
+	'indent': 'Rientra',
+	'insertHorizontalRule': 'Righello orizzontale',
+	'insertOrderedList': 'Elenco numerato',
+	'insertUnorderedList': 'Elenco puntato',
+	'italic': 'Corsivo',
+	'justifyCenter': 'Allinea al centro',
+	'justifyFull': 'Giustifica',
+	'justifyLeft': 'Allinea a sinistra',
+	'justifyRight': 'Allinea a destra',
+	'outdent': 'Rimuovi rientro',
+	'paste': 'Incolla',
+	'redo': 'Ripristina',
+	'removeFormat': 'Rimuovi formato',
+	'selectAll': 'Seleziona tutto',
+	'strikethrough': 'Barrato',
+	'subscript': 'Pedice',
+	'superscript': 'Apice',
+	'underline': 'Sottolineato',
+	'undo': 'Annulla',
+	'unlink': 'Rimuovi collegamento',
+	'createLink': 'Crea collegamento',
+	'toggleDir': 'Inverti direzione',
+	'insertImage': 'Inserisci immagine',
+	'insertTable': 'Inserisci/Modifica tabella',
+	'toggleTableBorder': 'Mostra/Nascondi margine tabella',
+	'deleteTable': 'Elimina tabella',
+	'tableProp': 'Proprietà tabella',
+	'htmlToggle': 'Origine HTML',
+	'foreColor': 'Colore primo piano',
+	'hiliteColor': 'Colore sfondo',
+	'plainFormatBlock': 'Stile paragrafo',
+	'formatBlock': 'Stile paragrafo',
+	'fontSize': 'Dimensione carattere',
+	'fontName': 'Nome carattere',
+	'tabIndent': 'Rientranza tabulazione',
+	"fullScreen": "Attiva/Disattiva schermo intero",
+	"viewSource": "Visualizza origine HTML",
+	"print": "Stampa",
+	"newPage": "Nuova pagina",
+	/* Error messages */
+	'systemShortcut': 'Azione "${0}" disponibile sul proprio browser solo mediante i tasti di scelta rapida della tastiera. Utilizzare ${1}.'
+})
+
+//end v1.x content
+);
+
+},
+'dijit/_editor/nls/it-it/commands':function(){
+define('dijit/_editor/nls/it-it/commands',{});
+},
+'dojo/cldr/nls/it/gregorian':function(){
+define(
+//begin v1.x content
+{
+	"months-format-narrow": [
+		"G",
+		"F",
+		"M",
+		"A",
+		"M",
+		"G",
+		"L",
+		"A",
+		"S",
+		"O",
+		"N",
+		"D"
+	],
+	"field-weekday": "giorno della settimana",
+	"dateFormatItem-yyQQQQ": "QQQQ yy",
+	"dateFormatItem-yQQQ": "QQQ y",
+	"dateFormatItem-yMEd": "EEE, d/M/y",
+	"dateFormatItem-MMMEd": "EEE d MMM",
+	"eraNarrow": [
+		"aC",
+		"dC"
+	],
+	"dateFormat-long": "dd MMMM y",
+	"months-format-wide": [
+		"gennaio",
+		"febbraio",
+		"marzo",
+		"aprile",
+		"maggio",
+		"giugno",
+		"luglio",
+		"agosto",
+		"settembre",
+		"ottobre",
+		"novembre",
+		"dicembre"
+	],
+	"dayPeriods-format-wide-pm": "p.",
+	"dateFormat-full": "EEEE d MMMM y",
+	"dateFormatItem-Md": "d/M",
+	"field-era": "era",
+	"dateFormatItem-yM": "M/y",
+	"months-standAlone-wide": [
+		"Gennaio",
+		"Febbraio",
+		"Marzo",
+		"Aprile",
+		"Maggio",
+		"Giugno",
+		"Luglio",
+		"Agosto",
+		"Settembre",
+		"Ottobre",
+		"Novembre",
+		"Dicembre"
+	],
+	"timeFormat-short": "HH:mm",
+	"quarters-format-wide": [
+		"1o trimestre",
+		"2o trimestre",
+		"3o trimestre",
+		"4o trimestre"
+	],
+	"timeFormat-long": "HH:mm:ss z",
+	"field-year": "anno",
+	"dateFormatItem-yMMM": "MMM y",
+	"dateFormatItem-yQ": "Q-yyyy",
+	"dateFormatItem-yyyyMMMM": "MMMM y",
+	"field-hour": "ora",
+	"dateFormatItem-MMdd": "dd/MM",
+	"months-format-abbr": [
+		"gen",
+		"feb",
+		"mar",
+		"apr",
+		"mag",
+		"giu",
+		"lug",
+		"ago",
+		"set",
+		"ott",
+		"nov",
+		"dic"
+	],
+	"dateFormatItem-yyQ": "Q yy",
+	"timeFormat-full": "HH:mm:ss zzzz",
+	"field-day-relative+0": "oggi",
+	"field-day-relative+1": "domani",
+	"field-day-relative+2": "dopodomani",
+	"field-day-relative+3": "tra tre giorni",
+	"months-standAlone-abbr": [
+		"gen",
+		"feb",
+		"mar",
+		"apr",
+		"mag",
+		"giu",
+		"lug",
+		"ago",
+		"set",
+		"ott",
+		"nov",
+		"dic"
+	],
+	"quarters-format-abbr": [
+		"T1",
+		"T2",
+		"T3",
+		"T4"
+	],
+	"quarters-standAlone-wide": [
+		"1o trimestre",
+		"2o trimestre",
+		"3o trimestre",
+		"4o trimestre"
+	],
+	"dateFormatItem-M": "L",
+	"days-standAlone-wide": [
+		"Domenica",
+		"Lunedì",
+		"Martedì",
+		"Mercoledì",
+		"Giovedì",
+		"Venerdì",
+		"Sabato"
+	],
+	"timeFormat-medium": "HH:mm:ss",
+	"dateFormatItem-Hm": "HH:mm",
+	"quarters-standAlone-abbr": [
+		"T1",
+		"T2",
+		"T3",
+		"T4"
+	],
+	"eraAbbr": [
+		"aC",
+		"dC"
+	],
+	"field-minute": "minuto",
+	"field-dayperiod": "periodo del giorno",
+	"days-standAlone-abbr": [
+		"dom",
+		"lun",
+		"mar",
+		"mer",
+		"gio",
+		"ven",
+		"sab"
+	],
+	"dateFormatItem-d": "d",
+	"dateFormatItem-ms": "mm:ss",
+	"field-day-relative+-1": "ieri",
+	"dateFormatItem-h": "hh a",
+	"field-day-relative+-2": "l'altro ieri",
+	"field-day-relative+-3": "tre giorni fa",
+	"dateFormatItem-MMMd": "d MMM",
+	"dateFormatItem-MEd": "EEE d/M",
+	"field-day": "giorno",
+	"days-format-wide": [
+		"domenica",
+		"lunedì",
+		"martedì",
+		"mercoledì",
+		"giovedì",
+		"venerdì",
+		"sabato"
+	],
+	"field-zone": "zona",
+	"dateFormatItem-y": "y",
+	"months-standAlone-narrow": [
+		"G",
+		"F",
+		"M",
+		"A",
+		"M",
+		"G",
+		"L",
+		"A",
+		"S",
+		"O",
+		"N",
+		"D"
+	],
+	"dateFormatItem-yyMM": "MM/yy",
+	"dateFormatItem-hm": "hh:mm a",
+	"days-format-abbr": [
+		"dom",
+		"lun",
+		"mar",
+		"mer",
+		"gio",
+		"ven",
+		"sab"
+	],
+	"eraNames": [
+		"a.C.",
+		"d.C"
+	],
+	"days-format-narrow": [
+		"D",
+		"L",
+		"M",
+		"M",
+		"G",
+		"V",
+		"S"
+	],
+	"field-month": "mese",
+	"days-standAlone-narrow": [
+		"D",
+		"L",
+		"M",
+		"M",
+		"G",
+		"V",
+		"S"
+	],
+	"dateFormatItem-MMM": "LLL",
+	"dayPeriods-format-wide-am": "m.",
+	"dateFormatItem-MMMMdd": "dd MMMM",
+	"dateFormat-short": "dd/MM/yy",
+	"field-second": "secondo",
+	"dateFormatItem-yMMMEd": "EEE d MMM y",
+	"dateFormatItem-Ed": "E d",
+	"field-week": "settimana",
+	"dateFormat-medium": "dd/MMM/y",
+	"dateFormatItem-Hms": "HH:mm:ss",
+	"dateFormatItem-hms": "hh:mm:ss a"
+}
+//end v1.x content
+);
+},
+'dojo/cldr/nls/it-it/gregorian':function(){
+define('dojo/cldr/nls/it-it/gregorian',{});
+},
+'dijit/nls/it/loading':function(){
+define(
+//begin v1.x content
+({
+	loadingState: "Caricamento in corso...",
+	errorState: "Si è verificato un errore"
+})
+//end v1.x content
+);
+
+},
+'dijit/nls/it-it/loading':function(){
+define('dijit/nls/it-it/loading',{});
+},
+'dojo/nls/it/colors':function(){
+define(
+//begin v1.x content
+({
+// local representation of all CSS3 named colors, companion to dojo.colors.  To be used where descriptive information
+// is required for each color, such as a palette widget, and not for specifying color programatically.
+
+//Note: due to the SVG 1.0 spec additions, some of these are alternate spellings for the same color e.g. gray vs. gray.
+//TODO: should we be using unique rgb values as keys instead and avoid these duplicates, or rely on the caller to do the reverse mapping?
+aliceblue: "blu alice",
+antiquewhite: "bianco antico",
+aqua: "acqua",
+aquamarine: "acquamarina",
+azure: "azzurro ghiaccio",
+beige: "beige",
+bisque: "incarnato",
+black: "nero",
+blanchedalmond: "mandorla chiaro",
+blue: "blu",
+blueviolet: "blu violetto",
+brown: "marrone",
+burlywood: "tabacco",
+cadetblue: "verde acqua",
+chartreuse: "verde brillante",
+chocolate: "cioccolato",
+coral: "corallo",
+cornflowerblue: "blu fiordaliso",
+cornsilk: "crema",
+crimson: "cremisi",
+cyan: "ciano",
+darkblue: "blu scuro",
+darkcyan: "ciano scuro",
+darkgoldenrod: "ocra scuro",
+darkgray: "grigio scuro",
+darkgreen: "verde scuro",
+darkgrey: "grigio scuro", // same as darkgray
+darkkhaki: "kaki scuro",
+darkmagenta: "magenta scuro",
+darkolivegreen: "verde oliva scuro",
+darkorange: "arancione scuro",
+darkorchid: "orchidea scuro",
+darkred: "rosso scuro",
+darksalmon: "salmone scuro",
+darkseagreen: "verde mare scuro",
+darkslateblue: "blu ardesia scuro",
+darkslategray: "grigio ardesia scuro",
+darkslategrey: "grigio ardesia scuro", // same as darkslategray
+darkturquoise: "turchese scuro",
+darkviolet: "viola scuro",
+deeppink: "ciclamino",
+deepskyblue: "azzurro cielo scuro",
+dimgray: "grigio 80%",
+dimgrey: "grigio 80%", // same as dimgray
+dodgerblue: "blu d'oriente",
+firebrick: "rosso mattone",
+floralwhite: "bianco giglio",
+forestgreen: "verde foresta",
+fuchsia: "fucsia",
+gainsboro: "grigio 10%",
+ghostwhite: "bianco gesso",
+gold: "oro",
+goldenrod: "ocra gialla",
+gray: "grigio",
+green: "verde",
+greenyellow: "giallo verde",
+grey: "grigio", // same as gray
+honeydew: "bianco germoglio",
+hotpink: "rosa acceso",
+indianred: "terra indiana",
+indigo: "indaco",
+ivory: "avorio",
+khaki: "kaki",
+lavender: "lavanda",
+lavenderblush: "bianco rosato",
+lawngreen: "verde prato",
+lemonchiffon: "caffelatte chiaro",
+lightblue: "azzurro",
+lightcoral: "rosa corallo",
+lightcyan: "ciano chiaro",
+lightgoldenrodyellow: "giallo tenue",
+lightgray: "grigio chiaro",
+lightgreen: "verde chiaro",
+lightgrey: "grigio chiaro", // same as lightgray
+lightpink: "rosa chiaro",
+lightsalmon: "salmone chiaro",
+lightseagreen: "verde mare chiaro",
+lightskyblue: "azzurro cielo chiaro",
+lightslategray: "grigio ardesia chiaro",
+lightslategrey: "grigio ardesia chiaro", // same as lightslategray
+lightsteelblue: "blu acciao chiaro",
+lightyellow: "giallo chiaro",
+lime: "verde fluorescente",
+limegreen: "verde lime",
+linen: "lino",
+magenta: "magenta",
+maroon: "scarlatto",
+mediumaquamarine: "acquamarina medio",
+mediumblue: "blu medio",
+mediumorchid: "orchidea medio",
+mediumpurple: "porpora medio",
+mediumseagreen: "verde mare medio",
+mediumslateblue: "blu ardesia medio",
+mediumspringgreen: "verde primavera medio",
+mediumturquoise: "turchese medio",
+mediumvioletred: "vinaccia",
+midnightblue: "blu melanzana scuro",
+mintcream: "bianco nuvola",
+mistyrose: "rosa pallido",
+moccasin: "mocassino",
+navajowhite: "pesca chiaro",
+navy: "blu notte",
+oldlace: "mandorla",
+olive: "verde oliva",
+olivedrab: "marrone oliva",
+orange: "arancione",
+orangered: "vermiglio",
+orchid: "orchidea",
+palegoldenrod: "giallo zolfo chiaro",
+palegreen: "verde pallido",
+paleturquoise: "turchese pallido",
+palevioletred: "vinaccia chiaro",
+papayawhip: "cipria",
+peachpuff: "pesca",
+peru: "marrone terra bruciata",
+pink: "rosa",
+plum: "prugna",
+powderblue: "azzurro polvere",
+purple: "porpora",
+red: "rosso",
+rosybrown: "marrone rosato",
+royalblue: "blu reale",
+saddlebrown: "cacao",
+salmon: "salmone",
+sandybrown: "marrone sabbia",
+seagreen: "verde mare",
+seashell: "sabbia rosa",
+sienna: "cuoio",
+silver: "grigio 25%",
+skyblue: "azzurro cielo",
+slateblue: "blu ardesia",
+slategray: "grigio ardesia",
+slategrey: "grigio ardesia", // same as slategray
+snow: "neve",
+springgreen: "verde primavera",
+steelblue: "blu acciao",
+tan: "grigio bruno",
+teal: "verde turchese",
+thistle: "rosa cenere",
+tomato: "pomodoro",
+transparent: "trasparente",
+turquoise: "turchese",
+violet: "viola",
+wheat: "sabbia",
+white: "bianco",
+whitesmoke: "bianco fumo",
+yellow: "giallo",
+yellowgreen: "giallo verde"
+})
+//end v1.x content
+);
+
+},
+'dojo/nls/it-it/colors':function(){
+define('dojo/nls/it-it/colors',{});
+},
+'dojo/cldr/nls/it/number':function(){
+define(
+//begin v1.x content
+{
+	"decimalFormat": "#,##0.###",
+	"group": ".",
+	"scientificFormat": "#E0",
+	"percentFormat": "#,##0%",
+	"currencyFormat": "¤ #,##0.00",
+	"decimal": ","
+}
+//end v1.x content
+);
+},
+'dojo/cldr/nls/it-it/number':function(){
+define('dojo/cldr/nls/it-it/number',{});
+},
+'dijit/_editor/nls/it/FontChoice':function(){
+define(
+"dijit/_editor/nls/it/FontChoice", //begin v1.x content
+({
+	fontSize: "Dimensione",
+	fontName: "Carattere",
+	formatBlock: "Formato",
+
+	serif: "serif",
+	"sans-serif": "sans-serif",
+	monospace: "spaziatura fissa",
+	cursive: "corsivo",
+	fantasy: "fantasy",
+
+	noFormat: "Nessuna",
+	p: "Paragrafo",
+	h1: "Intestazione",
+	h2: "Sottointestazione",
+	h3: "Sottointestazione secondaria",
+	pre: "Preformattato",
+
+	1: "xx-small",
+	2: "x-small",
+	3: "small",
+	4: "medium",
+	5: "large",
+	6: "x-large",
+	7: "xx-large"
+})
+
+//end v1.x content
+);
+
+},
+'dijit/_editor/nls/it-it/FontChoice':function(){
+define('dijit/_editor/nls/it-it/FontChoice',{});
+},
+'dojo/cldr/nls/it/currency':function(){
+define(
+//begin v1.x content
+{
+	"HKD_displayName": "Dollaro di Hong Kong",
+	"CHF_displayName": "Franco Svizzero",
+	"CAD_displayName": "Dollaro Canadese",
+	"CNY_displayName": "Renmimbi Cinese",
+	"AUD_displayName": "Dollaro Australiano",
+	"JPY_displayName": "Yen Giapponese",
+	"USD_displayName": "Dollaro Statunitense",
+	"GBP_displayName": "Sterlina Inglese",
+	"EUR_displayName": "Euro"
+}
+//end v1.x content
+);
+},
+'dojo/cldr/nls/it-it/currency':function(){
+define('dojo/cldr/nls/it-it/currency',{});
+},
+'dijit/form/nls/it/ComboBox':function(){
+define(
+//begin v1.x content
+({
+		previousMessage: "Scelte precedenti",
+		nextMessage: "Altre scelte"
+})
+//end v1.x content
+);
+
+},
+'dijit/form/nls/it-it/ComboBox':function(){
+define('dijit/form/nls/it-it/ComboBox',{});
+},
+'dijit/nls/it/common':function(){
+define(
+//begin v1.x content
+({
+	buttonOk: "OK",
+	buttonCancel: "Annulla",
+	buttonSave: "Salva",
+	itemClose: "Chiudi"
+})
+//end v1.x content
+);
+
+},
+'dijit/nls/it-it/common':function(){
+define('dijit/nls/it-it/common',{});
+}}});
+define("dijit/nls/dijit-all_it-it", [], 1);

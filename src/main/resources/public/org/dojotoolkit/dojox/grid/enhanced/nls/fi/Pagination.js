@@ -1,1 +1,24 @@
-({"gotoButtonTitle":"Siirry tietylle sivulle","prevTip":"Edellinen sivu","pageCountIndication":" (${0} sivua)","pageStepLabelTemplate":"Sivu ${0}","descTemplate":"${2} - ${3} / ${1} ${0}","lastTip":"Viimeinen sivu","nextTip":"Seuraava sivu","pageSizeLabelTemplate":"${0} nimikettä sivua kohti","dialogCancel":"Peruuta","itemTitle":"nimikkeet","dialogConfirm":"Siirry","firstTip":"Ensimmäinen sivu","allItemsLabelTemplate":"Kaikki nimikkeet","dialogIndication":"Kirjoita sivunumero","dialogTitle":"Siirry sivulle"})
+//>>built
+define(
+"dojox/grid/enhanced/nls/fi/Pagination", //begin v1.x content
+({
+	"descTemplate": "${2} - ${3} / ${1} ${0}",
+	"firstTip": "Ensimmäinen sivu",
+	"lastTip": "Viimeinen sivu",
+	"nextTip": "Seuraava sivu",
+	"prevTip": "Edellinen sivu",
+	"itemTitle": "nimikkeet",
+	"singularItemTitle": "kohde",
+	"pageStepLabelTemplate": "Sivu ${0}",
+	"pageSizeLabelTemplate": "${0} nimikettä sivua kohti",
+	"allItemsLabelTemplate": "Kaikki nimikkeet",
+	"gotoButtonTitle": "Siirry tietylle sivulle",
+	"dialogTitle": "Siirry sivulle",
+	"dialogIndication": "Kirjoita sivunumero",
+	"pageCountIndication": " (${0} sivua)",
+	"dialogConfirm": "Siirry",
+	"dialogCancel": "Peruuta",
+	"all": "kaikki"
+})
+//end v1.x content
+);

@@ -4,38 +4,36 @@
 	see: http://dojotoolkit.org/license for details
 */
 
-
-if(!dojo._hasResource["dojo.NodeList-fx"]){
-dojo._hasResource["dojo.NodeList-fx"]=true;
-dojo.provide("dojo.NodeList-fx");
-dojo.require("dojo.fx");
-dojo.extend(dojo.NodeList,{_anim:function(_1,_2,_3){
-_3=_3||{};
-var a=dojo.fx.combine(this.map(function(_4){
-var _5={node:_4};
-dojo.mixin(_5,_3);
-return _1[_2](_5);
+//>>built
+define("dojo/NodeList-fx",["dojo/_base/NodeList","./_base/lang","./_base/connect","./_base/fx","./fx"],function(_1,_2,_3,_4,_5){
+_2.extend(_1,{_anim:function(_6,_7,_8){
+_8=_8||{};
+var a=_5.combine(this.map(function(_9){
+var _a={node:_9};
+_2.mixin(_a,_8);
+return _6[_7](_a);
 }));
-return _3.auto?a.play()&&this:a;
-},wipeIn:function(_6){
-return this._anim(dojo.fx,"wipeIn",_6);
-},wipeOut:function(_7){
-return this._anim(dojo.fx,"wipeOut",_7);
-},slideTo:function(_8){
-return this._anim(dojo.fx,"slideTo",_8);
-},fadeIn:function(_9){
-return this._anim(dojo,"fadeIn",_9);
-},fadeOut:function(_a){
-return this._anim(dojo,"fadeOut",_a);
-},animateProperty:function(_b){
-return this._anim(dojo,"animateProperty",_b);
-},anim:function(_c,_d,_e,_f,_10){
-var _11=dojo.fx.combine(this.map(function(_12){
-return dojo.animateProperty({node:_12,properties:_c,duration:_d||350,easing:_e});
+return _8.auto?a.play()&&this:a;
+},wipeIn:function(_b){
+return this._anim(_5,"wipeIn",_b);
+},wipeOut:function(_c){
+return this._anim(_5,"wipeOut",_c);
+},slideTo:function(_d){
+return this._anim(_5,"slideTo",_d);
+},fadeIn:function(_e){
+return this._anim(_4,"fadeIn",_e);
+},fadeOut:function(_f){
+return this._anim(_4,"fadeOut",_f);
+},animateProperty:function(_10){
+return this._anim(_4,"animateProperty",_10);
+},anim:function(_11,_12,_13,_14,_15){
+var _16=_5.combine(this.map(function(_17){
+return _4.animateProperty({node:_17,properties:_11,duration:_12||350,easing:_13});
 }));
-if(_f){
-dojo.connect(_11,"onEnd",_f);
+if(_14){
+_3.connect(_16,"onEnd",_14);
 }
-return _11.play(_10||0);
+return _16.play(_15||0);
 }});
-}
+return _1;
+});

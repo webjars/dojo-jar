@@ -1,1 +1,11 @@
-({"rangeMessage":"Această valoare este în afara intervalului. ","invalidMessage":"Valoarea introdusă nu este validă.","missingMessage":"Această valoare este necesară."})
+//>>built
+define(
+"dijit/form/nls/ro/validate", //begin v1.x content
+({
+	invalidMessage: "Valoarea introdusă nu este validă.",
+	missingMessage: "Această valoare este necesară.",
+	rangeMessage: "Această valoare este în afara intervalului. "
+})
+
+//end v1.x content
+);

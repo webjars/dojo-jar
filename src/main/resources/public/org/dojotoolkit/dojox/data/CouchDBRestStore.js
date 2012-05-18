@@ -1,65 +1,57 @@
-/*
-	Copyright (c) 2004-2011, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
-
-
-if(!dojo._hasResource["dojox.data.CouchDBRestStore"]){
-dojo._hasResource["dojox.data.CouchDBRestStore"]=true;
-dojo.provide("dojox.data.CouchDBRestStore");
-dojo.require("dojox.data.JsonRestStore");
-dojo.declare("dojox.data.CouchDBRestStore",dojox.data.JsonRestStore,{save:function(_1){
-var _2=this.inherited(arguments);
-var _3=this.service.servicePath;
-for(var i=0;i<_2.length;i++){
-(function(_4,_5){
-_5.addCallback(function(_6){
-if(_6){
-_4.__id=_3+_6.id;
-_4._rev=_6.rev;
+//>>built
+define("dojox/data/CouchDBRestStore",["dojo","dojox","dojox/data/JsonRestStore"],function(_1,_2){
+_1.declare("dojox.data.CouchDBRestStore",_2.data.JsonRestStore,{save:function(_3){
+var _4=this.inherited(arguments);
+var _5=this.service.servicePath;
+for(var i=0;i<_4.length;i++){
+(function(_6,_7){
+_7.addCallback(function(_8){
+if(_8){
+_6.__id=_5+_8.id;
+_6._rev=_8.rev;
 }
-return _6;
+return _8;
 });
-})(_2[i].content,_2[i].deferred);
+})(_4[i].content,_4[i].deferred);
 }
-},fetch:function(_7){
-_7.query=_7.query||"_all_docs?";
-if(_7.start){
-_7.query=(_7.query?(_7.query+"&"):"")+"startkey="+_7.start;
-delete _7.start;
+},fetch:function(_9){
+_9.query=_9.query||"_all_docs?";
+if(_9.start){
+_9.query=(_9.query?(_9.query+"&"):"")+"startkey="+_9.start;
+delete _9.start;
 }
-if(_7.count){
-_7.query=(_7.query?(_7.query+"&"):"")+"limit="+_7.count;
-delete _7.count;
+if(_9.count){
+_9.query=(_9.query?(_9.query+"&"):"")+"limit="+_9.count;
+delete _9.count;
 }
 return this.inherited(arguments);
-},_processResults:function(_8){
-var _9=_8.rows;
-if(_9){
-var _a=this.service.servicePath;
-var _b=this;
-for(var i=0;i<_9.length;i++){
-var _c=_9[i].value;
-_c.__id=_a+_9[i].id;
-_c._id=_9[i].id;
-_c._loadObject=dojox.rpc.JsonRest._loader;
-_9[i]=_c;
+},_processResults:function(_a){
+var _b=_a.rows;
+if(_b){
+var _c=this.service.servicePath;
+var _d=this;
+for(var i=0;i<_b.length;i++){
+var _e=_b[i].value;
+_e.__id=_c+_b[i].id;
+_e._id=_b[i].id;
+_e._loadObject=_2.rpc.JsonRest._loader;
+_b[i]=_e;
 }
-return {totalCount:_8.total_rows,items:_8.rows};
+return {totalCount:_a.total_rows,items:_a.rows};
 }else{
-return {items:_8};
+return {items:_a};
 }
 }});
-dojox.data.CouchDBRestStore.getStores=function(_d){
-var _e=dojo.xhrGet({url:_d+"_all_dbs",handleAs:"json",sync:true});
-var _f={};
-_e.addBoth(function(dbs){
+_2.data.CouchDBRestStore.getStores=function(_f){
+var dfd=_1.xhrGet({url:_f+"_all_dbs",handleAs:"json",sync:true});
+var _10={};
+dfd.addBoth(function(dbs){
 for(var i=0;i<dbs.length;i++){
-_f[dbs[i]]=new dojox.data.CouchDBRestStore({target:_d+dbs[i],idAttribute:"_id"});
+_10[dbs[i]]=new _2.data.CouchDBRestStore({target:_f+dbs[i],idAttribute:"_id"});
 }
-return _f;
+return _10;
 });
-return _f;
+return _10;
 };
-}
+return _2.data.CouchDBRestStore;
+});

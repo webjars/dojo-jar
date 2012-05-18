@@ -1,1 +1,16 @@
-({"close":"[κλείσιμο]","title":"Τίτλος","authors":"Συντάκτες","summary":"Περίληψη","content":"Περιεχόμενο","contributors":"Συνεισφέροντες","updated":"Ενημερώθηκε","displayOptions":"[επιλογές παρουσίασης]","id":"Ταυτότητα"})
+//>>built
+define(
+"dojox/atom/widget/nls/el/FeedEntryViewer", //begin v1.x content
+({
+	displayOptions: "[επιλογές παρουσίασης]",
+	title: "Τίτλος",
+	authors: "Συντάκτες",
+	contributors: "Συνεισφέροντες",
+	id: "Ταυτότητα",
+	close: "[κλείσιμο]",
+	updated: "Ενημερώθηκε",
+	summary: "Περίληψη",
+	content: "Περιεχόμενο"
+})
+//end v1.x content
+);

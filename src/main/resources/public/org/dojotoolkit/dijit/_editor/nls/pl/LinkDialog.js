@@ -1,1 +1,18 @@
-({"text":"Opis:","insertImageTitle":"Właściwości obrazu","set":"Ustaw","newWindow":"Nowe okno","topWindow":"Okno najwyższego poziomu","target":"Cel:","createLinkTitle":"Właściwości odsyłacza","parentWindow":"Okno macierzyste","currentWindow":"Bieżące okno","url":"Adres URL:"})
+//>>built
+define(
+"dijit/_editor/nls/pl/LinkDialog", //begin v1.x content
+({
+	createLinkTitle: "Właściwości odsyłacza",
+	insertImageTitle: "Właściwości obrazu",
+	url: "Adres URL:",
+	text: "Opis:",
+	target: "Cel:",
+	set: "Ustaw",
+	currentWindow: "Bieżące okno",
+	parentWindow: "Okno macierzyste",
+	topWindow: "Okno najwyższego poziomu",
+	newWindow: "Nowe okno"
+})
+
+//end v1.x content
+);

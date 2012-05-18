@@ -4,130 +4,126 @@
 	see: http://dojotoolkit.org/license for details
 */
 
-
-if(!dojo._hasResource["dojo._base.Deferred"]){
-dojo._hasResource["dojo._base.Deferred"]=true;
-dojo.provide("dojo._base.Deferred");
-dojo.require("dojo._base.lang");
-(function(){
-var _1=function(){
+//>>built
+define("dojo/_base/Deferred",["./kernel","./lang"],function(_1,_2){
+var _3=function(){
 };
-var _2=Object.freeze||function(){
+var _4=Object.freeze||function(){
 };
-dojo.Deferred=function(_3){
-var _4,_5,_6,_7,_8;
-var _9=(this.promise={});
-function _a(_b){
-if(_5){
+_1.Deferred=function(_5){
+var _6,_7,_8,_9,_a;
+var _b=(this.promise={});
+function _c(_d){
+if(_7){
 throw new Error("This deferred has already been resolved");
 }
-_4=_b;
-_5=true;
-_c();
+_6=_d;
+_7=true;
+_e();
 };
-function _c(){
-var _d;
-while(!_d&&_8){
-var _e=_8;
-_8=_8.next;
-if((_d=(_e.progress==_1))){
-_5=false;
+function _e(){
+var _f;
+while(!_f&&_a){
+var _10=_a;
+_a=_a.next;
+if((_f=(_10.progress==_3))){
+_7=false;
 }
-var _f=(_6?_e.error:_e.resolved);
-if(_f){
+var _11=(_8?_10.error:_10.resolved);
+if(_11){
 try{
-var _10=_f(_4);
-if(_10&&typeof _10.then==="function"){
-_10.then(dojo.hitch(_e.deferred,"resolve"),dojo.hitch(_e.deferred,"reject"));
+var _12=_11(_6);
+if(_12&&typeof _12.then==="function"){
+_12.then(_2.hitch(_10.deferred,"resolve"),_2.hitch(_10.deferred,"reject"),_2.hitch(_10.deferred,"progress"));
 continue;
 }
-var _11=_d&&_10===undefined;
-if(_d&&!_11){
-_6=_10 instanceof Error;
+var _13=_f&&_12===undefined;
+if(_f&&!_13){
+_8=_12 instanceof Error;
 }
-_e.deferred[_11&&_6?"reject":"resolve"](_11?_4:_10);
+_10.deferred[_13&&_8?"reject":"resolve"](_13?_6:_12);
 }
 catch(e){
-_e.deferred.reject(e);
+_10.deferred.reject(e);
 }
 }else{
-if(_6){
-_e.deferred.reject(_4);
+if(_8){
+_10.deferred.reject(_6);
 }else{
-_e.deferred.resolve(_4);
+_10.deferred.resolve(_6);
 }
 }
 }
 };
-this.resolve=this.callback=function(_12){
+this.resolve=this.callback=function(_14){
 this.fired=0;
-this.results=[_12,null];
-_a(_12);
+this.results=[_14,null];
+_c(_14);
 };
-this.reject=this.errback=function(_13){
-_6=true;
+this.reject=this.errback=function(_15){
+_8=true;
 this.fired=1;
-_a(_13);
-this.results=[null,_13];
-if(!_13||_13.log!==false){
-(dojo.config.deferredOnError||function(x){
+_c(_15);
+this.results=[null,_15];
+if(!_15||_15.log!==false){
+(_1.config.deferredOnError||function(x){
 console.error(x);
-})(_13);
+})(_15);
 }
 };
-this.progress=function(_14){
-var _15=_8;
-while(_15){
-var _16=_15.progress;
-_16&&_16(_14);
-_15=_15.next;
+this.progress=function(_16){
+var _17=_a;
+while(_17){
+var _18=_17.progress;
+_18&&_18(_16);
+_17=_17.next;
 }
 };
-this.addCallbacks=function(_17,_18){
-this.then(_17,_18,_1);
+this.addCallbacks=function(_19,_1a){
+this.then(_19,_1a,_3);
 return this;
 };
-this.then=_9.then=function(_19,_1a,_1b){
-var _1c=_1b==_1?this:new dojo.Deferred(_9.cancel);
-var _1d={resolved:_19,error:_1a,progress:_1b,deferred:_1c};
-if(_8){
-_7=_7.next=_1d;
+_b.then=this.then=function(_1b,_1c,_1d){
+var _1e=_1d==_3?this:new _1.Deferred(_b.cancel);
+var _1f={resolved:_1b,error:_1c,progress:_1d,deferred:_1e};
+if(_a){
+_9=_9.next=_1f;
 }else{
-_8=_7=_1d;
+_a=_9=_1f;
 }
-if(_5){
-_c();
+if(_7){
+_e();
 }
-return _1c.promise;
+return _1e.promise;
 };
-var _1e=this;
-this.cancel=_9.cancel=function(){
-if(!_5){
-var _1f=_3&&_3(_1e);
-if(!_5){
-if(!(_1f instanceof Error)){
-_1f=new Error(_1f);
+var _20=this;
+_b.cancel=this.cancel=function(){
+if(!_7){
+var _21=_5&&_5(_20);
+if(!_7){
+if(!(_21 instanceof Error)){
+_21=new Error(_21);
 }
-_1f.log=false;
-_1e.reject(_1f);
+_21.log=false;
+_20.reject(_21);
 }
 }
 };
-_2(_9);
+_4(_b);
 };
-dojo.extend(dojo.Deferred,{addCallback:function(_20){
-return this.addCallbacks(dojo.hitch.apply(dojo,arguments));
-},addErrback:function(_21){
-return this.addCallbacks(null,dojo.hitch.apply(dojo,arguments));
-},addBoth:function(_22){
-var _23=dojo.hitch.apply(dojo,arguments);
-return this.addCallbacks(_23,_23);
+_2.extend(_1.Deferred,{addCallback:function(_22){
+return this.addCallbacks(_2.hitch.apply(_1,arguments));
+},addErrback:function(_23){
+return this.addCallbacks(null,_2.hitch.apply(_1,arguments));
+},addBoth:function(_24){
+var _25=_2.hitch.apply(_1,arguments);
+return this.addCallbacks(_25,_25);
 },fired:-1});
-})();
-dojo.when=function(_24,_25,_26,_27){
-if(_24&&typeof _24.then==="function"){
-return _24.then(_25,_26,_27);
+_1.Deferred.when=_1.when=function(_26,_27,_28,_29){
+if(_26&&typeof _26.then==="function"){
+return _26.then(_27,_28,_29);
 }
-return _25(_24);
+return _27?_27(_26):_26;
 };
-}
+return _1.Deferred;
+});

@@ -4,110 +4,116 @@
 	see: http://dojotoolkit.org/license for details
 */
 
-
-if(!dojo._hasResource["dojo.window"]){
-dojo._hasResource["dojo.window"]=true;
-dojo.provide("dojo.window");
-dojo.getObject("window",true,dojo);
-dojo.window.getBox=function(){
-var _1=(dojo.doc.compatMode=="BackCompat")?dojo.body():dojo.doc.documentElement;
-var _2=dojo._docScroll();
-return {w:_1.clientWidth,h:_1.clientHeight,l:_2.x,t:_2.y};
-};
-dojo.window.get=function(_3){
-if(dojo.isIE&&window!==document.parentWindow){
-_3.parentWindow.execScript("document._parentWindow = window;","Javascript");
-var _4=_3._parentWindow;
-_3._parentWindow=null;
-return _4;
+//>>built
+define("dojo/window",["./_base/lang","./_base/sniff","./_base/window","./dom","./dom-geometry","./dom-style"],function(_1,_2,_3,_4,_5,_6){
+var _7=_1.getObject("dojo.window",true);
+_7.getBox=function(){
+var _8=(_3.doc.compatMode=="BackCompat")?_3.body():_3.doc.documentElement,_9=_5.docScroll(),w,h;
+if(_2("touch")){
+var _a=_3.doc.parentWindow||_3.doc.defaultView;
+w=_a.innerWidth||_8.clientWidth;
+h=_a.innerHeight||_8.clientHeight;
+}else{
+w=_8.clientWidth;
+h=_8.clientHeight;
 }
-return _3.parentWindow||_3.defaultView;
+return {l:_9.x,t:_9.y,w:w,h:h};
 };
-dojo.window.scrollIntoView=function(_5,_6){
+_7.get=function(_b){
+if(_2("ie")&&_7!==document.parentWindow){
+_b.parentWindow.execScript("document._parentWindow = window;","Javascript");
+var _c=_b._parentWindow;
+_b._parentWindow=null;
+return _c;
+}
+return _b.parentWindow||_b.defaultView;
+};
+_7.scrollIntoView=function(_d,_e){
 try{
-_5=dojo.byId(_5);
-var _7=_5.ownerDocument||dojo.doc,_8=_7.body||dojo.body(),_9=_7.documentElement||_8.parentNode,_a=dojo.isIE,_b=dojo.isWebKit;
-if((!(dojo.isMoz||_a||_b||dojo.isOpera)||_5==_8||_5==_9)&&(typeof _5.scrollIntoView!="undefined")){
-_5.scrollIntoView(false);
+_d=_4.byId(_d);
+var _f=_d.ownerDocument||_3.doc,_10=_f.body||_3.body(),_11=_f.documentElement||_10.parentNode,_12=_2("ie"),_13=_2("webkit");
+if((!(_2("mozilla")||_12||_13||_2("opera"))||_d==_10||_d==_11)&&(typeof _d.scrollIntoView!="undefined")){
+_d.scrollIntoView(false);
 return;
 }
-var _c=_7.compatMode=="BackCompat",_d=(_a>=9&&_5.ownerDocument.parentWindow.frameElement)?((_9.clientHeight>0&&_9.clientWidth>0&&(_8.clientHeight==0||_8.clientWidth==0||_8.clientHeight>_9.clientHeight||_8.clientWidth>_9.clientWidth))?_9:_8):(_c?_8:_9),_e=_b?_8:_d,_f=_d.clientWidth,_10=_d.clientHeight,rtl=!dojo._isBodyLtr(),_11=_6||dojo.position(_5),el=_5.parentNode,_12=function(el){
-return ((_a<=6||(_a&&_c))?false:(dojo.style(el,"position").toLowerCase()=="fixed"));
+var _14=_f.compatMode=="BackCompat",_15=(_12>=9&&_d.ownerDocument.parentWindow.frameElement)?((_11.clientHeight>0&&_11.clientWidth>0&&(_10.clientHeight==0||_10.clientWidth==0||_10.clientHeight>_11.clientHeight||_10.clientWidth>_11.clientWidth))?_11:_10):(_14?_10:_11),_16=_13?_10:_15,_17=_15.clientWidth,_18=_15.clientHeight,rtl=!_5.isBodyLtr(),_19=_e||_5.position(_d),el=_d.parentNode,_1a=function(el){
+return ((_12<=6||(_12&&_14))?false:(_6.get(el,"position").toLowerCase()=="fixed"));
 };
-if(_12(_5)){
+if(_1a(_d)){
 return;
 }
 while(el){
-if(el==_8){
-el=_e;
+if(el==_10){
+el=_16;
 }
-var _13=dojo.position(el),_14=_12(el);
-if(el==_e){
-_13.w=_f;
-_13.h=_10;
-if(_e==_9&&_a&&rtl){
-_13.x+=_e.offsetWidth-_13.w;
+var _1b=_5.position(el),_1c=_1a(el);
+if(el==_16){
+_1b.w=_17;
+_1b.h=_18;
+if(_16==_11&&_12&&rtl){
+_1b.x+=_16.offsetWidth-_1b.w;
 }
-if(_13.x<0||!_a){
-_13.x=0;
+if(_1b.x<0||!_12){
+_1b.x=0;
 }
-if(_13.y<0||!_a){
-_13.y=0;
+if(_1b.y<0||!_12){
+_1b.y=0;
 }
 }else{
-var pb=dojo._getPadBorderExtents(el);
-_13.w-=pb.w;
-_13.h-=pb.h;
-_13.x+=pb.l;
-_13.y+=pb.t;
-var _15=el.clientWidth,_16=_13.w-_15;
-if(_15>0&&_16>0){
-_13.w=_15;
-_13.x+=(rtl&&(_a||el.clientLeft>pb.l))?_16:0;
+var pb=_5.getPadBorderExtents(el);
+_1b.w-=pb.w;
+_1b.h-=pb.h;
+_1b.x+=pb.l;
+_1b.y+=pb.t;
+var _1d=el.clientWidth,_1e=_1b.w-_1d;
+if(_1d>0&&_1e>0){
+_1b.w=_1d;
+_1b.x+=(rtl&&(_12||el.clientLeft>pb.l))?_1e:0;
 }
-_15=el.clientHeight;
-_16=_13.h-_15;
-if(_15>0&&_16>0){
-_13.h=_15;
-}
-}
-if(_14){
-if(_13.y<0){
-_13.h+=_13.y;
-_13.y=0;
-}
-if(_13.x<0){
-_13.w+=_13.x;
-_13.x=0;
-}
-if(_13.y+_13.h>_10){
-_13.h=_10-_13.y;
-}
-if(_13.x+_13.w>_f){
-_13.w=_f-_13.x;
+_1d=el.clientHeight;
+_1e=_1b.h-_1d;
+if(_1d>0&&_1e>0){
+_1b.h=_1d;
 }
 }
-var l=_11.x-_13.x,t=_11.y-Math.max(_13.y,0),r=l+_11.w-_13.w,bot=t+_11.h-_13.h;
+if(_1c){
+if(_1b.y<0){
+_1b.h+=_1b.y;
+_1b.y=0;
+}
+if(_1b.x<0){
+_1b.w+=_1b.x;
+_1b.x=0;
+}
+if(_1b.y+_1b.h>_18){
+_1b.h=_18-_1b.y;
+}
+if(_1b.x+_1b.w>_17){
+_1b.w=_17-_1b.x;
+}
+}
+var l=_19.x-_1b.x,t=_19.y-Math.max(_1b.y,0),r=l+_19.w-_1b.w,bot=t+_19.h-_1b.h;
 if(r*l>0){
 var s=Math[l<0?"max":"min"](l,r);
-if(rtl&&((_a==8&&!_c)||_a>=9)){
+if(rtl&&((_12==8&&!_14)||_12>=9)){
 s=-s;
 }
-_11.x+=el.scrollLeft;
+_19.x+=el.scrollLeft;
 el.scrollLeft+=s;
-_11.x-=el.scrollLeft;
+_19.x-=el.scrollLeft;
 }
 if(bot*t>0){
-_11.y+=el.scrollTop;
+_19.y+=el.scrollTop;
 el.scrollTop+=Math[t<0?"max":"min"](t,bot);
-_11.y-=el.scrollTop;
+_19.y-=el.scrollTop;
 }
-el=(el!=_e)&&!_14&&el.parentNode;
+el=(el!=_16)&&!_1c&&el.parentNode;
 }
 }
 catch(error){
 console.error("scrollIntoView: "+error);
-_5.scrollIntoView(false);
+_d.scrollIntoView(false);
 }
 };
-}
+return _7;
+});

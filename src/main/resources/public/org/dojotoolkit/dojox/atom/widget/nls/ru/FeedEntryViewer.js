@@ -1,1 +1,16 @@
-({"close":"[закрыть]","title":"Название","authors":"Авторы","summary":"Сводка","content":"Информационное наполнение","contributors":"Участники","updated":"Обновлено","displayOptions":"[показать опции]","id":"ИД"})
+//>>built
+define(
+"dojox/atom/widget/nls/ru/FeedEntryViewer", //begin v1.x content
+({
+	displayOptions: "[показать опции]",
+	title: "Название",
+	authors: "Авторы",
+	contributors: "Участники",
+	id: "ИД",
+	close: "[закрыть]",
+	updated: "Обновлено",
+	summary: "Сводка",
+	content: "Информационное наполнение"
+})
+//end v1.x content
+);

@@ -1,1 +1,16 @@
-dojo.provide("dojox.grid.nls.DataGrid_fr-fr");dojo.provide("dijit.nls.loading");dijit.nls.loading._built=true;dojo.provide("dijit.nls.loading.fr_fr");dijit.nls.loading.fr_fr={"loadingState":"Chargement...","errorState":"Une erreur est survenue"};
+require({cache:{
+'dijit/nls/fr/loading':function(){
+define(
+"dijit/nls/fr/loading", //begin v1.x content
+({
+	loadingState: "Chargement...",
+	errorState: "Une erreur est survenue"
+})
+//end v1.x content
+);
+
+},
+'dijit/nls/fr-fr/loading':function(){
+define('dijit/nls/fr-fr/loading',{});
+}}});
+define("dojox/grid/nls/DataGrid_fr-fr", [], 1);

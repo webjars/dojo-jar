@@ -1,1 +1,18 @@
-({"text":"Opis:","insertImageTitle":"Vlastnosti obrázka ","set":"Nastaviť","newWindow":"Nové okno ","topWindow":"Najvrchnejšie okno ","target":"Cieľ:","createLinkTitle":"Pripojiť vlastnosti","parentWindow":"Rodičovské okno ","currentWindow":"Aktuálne okno ","url":"URL:"})
+//>>built
+define(
+"dijit/_editor/nls/sk/LinkDialog", //begin v1.x content
+({
+	createLinkTitle: "Pripojiť vlastnosti",
+	insertImageTitle: "Vlastnosti obrázka ",
+	url: "URL:",
+	text: "Opis:",
+	target: "Cieľ:",
+	set: "Nastaviť",
+	currentWindow: "Aktuálne okno ",
+	parentWindow: "Rodičovské okno ",
+	topWindow: "Najvrchnejšie okno ",
+	newWindow: "Nové okno "
+})
+
+//end v1.x content
+);

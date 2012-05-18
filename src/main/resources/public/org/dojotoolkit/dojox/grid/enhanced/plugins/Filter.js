@@ -1,40 +1,26 @@
-/*
-	Copyright (c) 2004-2011, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
-
-
-if(!dojo._hasResource["dojox.grid.enhanced.plugins.Filter"]){
-dojo._hasResource["dojox.grid.enhanced.plugins.Filter"]=true;
-dojo.provide("dojox.grid.enhanced.plugins.Filter");
-dojo.requireLocalization("dojox.grid.enhanced","Filter",null,"ROOT,ar,ca,cs,da,de,el,es,fi,fr,he,hr,hu,it,ja,kk,ko,nb,nl,pl,pt,pt-pt,ro,ru,sk,sl,sv,th,tr,zh,zh-tw");
-dojo.require("dojox.grid.enhanced._Plugin");
-dojo.require("dojox.grid.enhanced.plugins.Dialog");
-dojo.require("dojox.grid.enhanced.plugins.filter.FilterLayer");
-dojo.require("dojox.grid.enhanced.plugins.filter.FilterBar");
-dojo.require("dojox.grid.enhanced.plugins.filter.FilterDefDialog");
-dojo.require("dojox.grid.enhanced.plugins.filter.FilterStatusTip");
-dojo.require("dojox.grid.enhanced.plugins.filter.ClearFilterConfirm");
-(function(){
-var ns=dojox.grid.enhanced.plugins,_1=ns.filter;
-dojo.declare("dojox.grid.enhanced.plugins.Filter",dojox.grid.enhanced._Plugin,{name:"filter",constructor:function(_2,_3){
-this.grid=_2;
-this.nls=dojo.i18n.getLocalization("dojox.grid.enhanced","Filter");
-_3=this.args=dojo.isObject(_3)?_3:{};
-if(typeof _3.ruleCount!="number"||_3.ruleCount<0){
-_3.ruleCount=3;
+//>>built
+define("dojox/grid/enhanced/plugins/Filter",["dojo/_base/declare","dojo/_base/lang","dojo/i18n","../_Plugin","./Dialog","./filter/FilterLayer","./filter/FilterBar","./filter/FilterDefDialog","./filter/FilterStatusTip","./filter/ClearFilterConfirm","../../EnhancedGrid","dojo/i18n!../nls/Filter"],function(_1,_2,_3,_4,_5,_6,_7,_8,_9,_a,_b){
+var _c=_1("dojox.grid.enhanced.plugins.Filter",_4,{name:"filter",constructor:function(_d,_e){
+this.grid=_d;
+this.nls=_3.getLocalization("dojox.grid.enhanced","Filter");
+_e=this.args=_2.isObject(_e)?_e:{};
+if(typeof _e.ruleCount!="number"||_e.ruleCount<0){
+_e.ruleCount=3;
+}
+var rc=this.ruleCountToConfirmClearFilter=_e.ruleCountToConfirmClearFilter;
+if(rc===undefined){
+this.ruleCountToConfirmClearFilter=2;
 }
 this._wrapStore();
-var _4={"plugin":this};
-this.clearFilterDialog=new dojox.grid.enhanced.plugins.Dialog({refNode:this.grid.domNode,title:this.nls["clearFilterDialogTitle"],content:new _1.ClearFilterConfirm(_4)});
-this.filterDefDialog=new _1.FilterDefDialog(_4);
-this.filterBar=new _1.FilterBar(_4);
-this.filterStatusTip=new _1.FilterStatusTip(_4);
-_2.onFilterDefined=function(){
+var _f={"plugin":this};
+this.clearFilterDialog=new _5({refNode:this.grid.domNode,title:this.nls["clearFilterDialogTitle"],content:new _a(_f)});
+this.filterDefDialog=new _8(_f);
+this.filterBar=new _7(_f);
+this.filterStatusTip=new _9(_f);
+_d.onFilterDefined=function(){
 };
-this.connect(_2.layer("filter"),"onFilterDefined",function(_5){
-_2.onFilterDefined(_2.getFilter(),_2.getFilterRelation());
+this.connect(_d.layer("filter"),"onFilterDefined",function(_10){
+_d.onFilterDefined(_d.getFilter(),_d.getFilterRelation());
 });
 },destroy:function(){
 this.inherited(arguments);
@@ -57,15 +43,15 @@ console.warn("Filter.destroy() error:",e);
 }
 },_wrapStore:function(){
 var g=this.grid;
-var _6=this.args;
-var _7=_6.isServerSide?new _1.ServerSideFilterLayer(_6):new _1.ClientSideFilterLayer({cacheSize:_6.filterCacheSize,fetchAll:_6.fetchAllOnFirstFilter,getter:this._clientFilterGetter});
-ns.wrap(g,"_storeLayerFetch",_7);
-this.connect(g,"_onDelete",dojo.hitch(_7,"invalidate"));
-},onSetStore:function(_8){
+var _11=this.args;
+var _12=_11.isServerSide?new _6.ServerSideFilterLayer(_11):new _6.ClientSideFilterLayer({cacheSize:_11.filterCacheSize,fetchAll:_11.fetchAllOnFirstFilter,getter:this._clientFilterGetter});
+_6.wrap(g,"_storeLayerFetch",_12);
+this.connect(g,"_onDelete",_2.hitch(_12,"invalidate"));
+},onSetStore:function(_13){
 this.filterDefDialog.clearFilter(true);
-},_clientFilterGetter:function(_9,_a,_b){
-return _a.get(_b,_9);
+},_clientFilterGetter:function(_14,_15,_16){
+return _15.get(_16,_14);
 }});
-})();
-dojox.grid.EnhancedGrid.registerPlugin(dojox.grid.enhanced.plugins.Filter);
-}
+_b.registerPlugin(_c);
+return _c;
+});

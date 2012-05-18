@@ -1,1 +1,10 @@
-({"name":"Nume","size":"Dimensiune (în octeţi)","path":"Cale "})
+//>>built
+define(
+"dojox/widget/nls/ro/FilePicker", ({
+name: "Nume",
+path: "Cale ",
+size: "Dimensiune (în octeţi)"
+})
+
+
+);

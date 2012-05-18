@@ -1,1 +1,8 @@
-({"saturationPickerTitle":"Izbirnik nasičenosti","huePickerTitle":"Izbirnik odtenka ","valueLabel":"v","blueLabel":"b","saturationLabel":"s","greenLabel":"g","redLabel":"r","hueLabel":"h","hexLabel":"hex","degLabel":"°"})
+//>>built
+define(
+"dojox/widget/nls/sl/ColorPicker", //begin v1.x content
+({
+huePickerTitle: "Izbirnik odtenka ",
+saturationPickerTitle: "Izbirnik nasičenosti"
+})
+);

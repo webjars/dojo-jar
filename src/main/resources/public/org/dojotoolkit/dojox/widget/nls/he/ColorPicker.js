@@ -1,1 +1,16 @@
-({"saturationPickerTitle":"בורר רוויה","valueLabel":"ע","blueLabel":"כ","saturationLabel":"ר","greenLabel":"י","redLabel":"א","hueLabel":"ג","hexLabel":"הקס","huePickerTitle":"בורר גוון","degLabel":"°"})
+//>>built
+define(
+"dojox/widget/nls/he/ColorPicker", //begin v1.x content
+({
+redLabel: "א",
+greenLabel: "י",
+blueLabel: "כ",
+hueLabel: "ג",
+saturationLabel: "ר",
+valueLabel: "ע", /* aka intensity or brightness */
+degLabel: "\u00B0",
+hexLabel: "הקס",
+huePickerTitle: "בורר גוון",
+saturationPickerTitle: "בורר רוויה"
+})
+);

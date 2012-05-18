@@ -1,30 +1,20 @@
-/*
-	Copyright (c) 2004-2011, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
-
-
-if(!dojo._hasResource["dojox.av.widget.Status"]){
-dojo._hasResource["dojox.av.widget.Status"]=true;
-dojo.provide("dojox.av.widget.Status");
-dojo.require("dijit._Widget");
-dojo.require("dijit._Templated");
-dojo.declare("dojox.av.widget.Status",[dijit._Widget,dijit._Templated],{templateString:dojo.cache("dojox.av.widget","resources/Status.html","<table class=\"Status\">\n    <tr>\n        <td class=\"Time\"><span dojoAttachPoint=\"timeNode\">0.00</span></td>\n        <td class=\"Status\"><div dojoAttachPoint=\"titleNode\">Loading...</div></td>\n        <td class=\"Duration\"><span dojoAttachPoint=\"durNode\">0.00</span></td>\n    </tr>\n</table>\n"),setMedia:function(_1){
-this.media=_1;
-dojo.connect(this.media,"onMetaData",this,function(_2){
-this.duration=_2.duration;
+//>>built
+define("dojox/av/widget/Status",["dojo","dijit","dijit/_Widget","dijit/_TemplatedMixin"],function(_1,_2){
+_1.declare("dojox.av.widget.Status",[_2._Widget,_2._TemplatedMixin],{templateString:_1.cache("dojox.av.widget","resources/Status.html"),setMedia:function(_3){
+this.media=_3;
+_1.connect(this.media,"onMetaData",this,function(_4){
+this.duration=_4.duration;
 this.durNode.innerHTML=this.toSeconds(this.duration);
 });
-dojo.connect(this.media,"onPosition",this,function(_3){
-this.timeNode.innerHTML=this.toSeconds(_3);
+_1.connect(this.media,"onPosition",this,function(_5){
+this.timeNode.innerHTML=this.toSeconds(_5);
 });
-var _4=["onMetaData","onPosition","onStart","onBuffer","onPlay","onPaused","onStop","onEnd","onError","onLoad"];
-dojo.forEach(_4,function(c){
-dojo.connect(this.media,c,this,c);
+var _6=["onMetaData","onPosition","onStart","onBuffer","onPlay","onPaused","onStop","onEnd","onError","onLoad"];
+_1.forEach(_6,function(c){
+_1.connect(this.media,c,this,c);
 },this);
-},onMetaData:function(_5){
-this.duration=_5.duration;
+},onMetaData:function(_7){
+this.duration=_7.duration;
 this.durNode.innerHTML=this.toSeconds(this.duration);
 if(this.media.title){
 this.title=this.media.title;
@@ -33,15 +23,15 @@ var a=this.media.mediaUrl.split("/");
 var b=a[a.length-1].split(".")[0];
 this.title=b;
 }
-},onBuffer:function(_6){
-this.isBuffering=_6;
+},onBuffer:function(_8){
+this.isBuffering=_8;
 console.warn("status onBuffer",this.isBuffering);
 if(this.isBuffering){
 this.setStatus("buffering...");
 }else{
 this.setStatus("Playing");
 }
-},onPosition:function(_7){
+},onPosition:function(_9){
 },onStart:function(){
 this.setStatus("Starting");
 },onPlay:function(){
@@ -52,26 +42,26 @@ this.setStatus("Paused");
 this.setStatus("Stopped");
 },onEnd:function(){
 this.setStatus("Stopped");
-},onError:function(_8){
-var _9=_8.info.code;
-if(_9=="NetStream.Play.StreamNotFound"){
-_9="Stream Not Found";
+},onError:function(_a){
+var _b=_a.info.code;
+if(_b=="NetStream.Play.StreamNotFound"){
+_b="Stream Not Found";
 }
-this.setStatus("ERROR: "+_9,true);
+this.setStatus("ERROR: "+_b,true);
 },onLoad:function(){
 this.setStatus("Loading...");
-},setStatus:function(_a,_b){
-if(_b){
-dojo.addClass(this.titleNode,"statusError");
+},setStatus:function(_c,_d){
+if(_d){
+_1.addClass(this.titleNode,"statusError");
 }else{
-dojo.removeClass(this.titleNode,"statusError");
+_1.removeClass(this.titleNode,"statusError");
 if(this.isBuffering){
-_a="buffering...";
+_c="buffering...";
 }
 }
-this.titleNode.innerHTML="<span class=\"statusTitle\">"+this.title+"</span> <span class=\"statusInfo\">"+_a+"</span>";
-},toSeconds:function(_c){
-var ts=_c.toString();
+this.titleNode.innerHTML="<span class=\"statusTitle\">"+this.title+"</span> <span class=\"statusInfo\">"+_c+"</span>";
+},toSeconds:function(_e){
+var ts=_e.toString();
 if(ts.indexOf(".")<0){
 ts+=".00";
 }else{
@@ -85,4 +75,5 @@ ts=ts.substring(0,ts.indexOf(".")+3);
 }
 return ts;
 }});
-}
+return dojox.av.widget.Status;
+});

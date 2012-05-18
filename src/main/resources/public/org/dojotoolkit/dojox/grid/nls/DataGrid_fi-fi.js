@@ -1,1 +1,16 @@
-dojo.provide("dojox.grid.nls.DataGrid_fi-fi");dojo.provide("dijit.nls.loading");dijit.nls.loading._built=true;dojo.provide("dijit.nls.loading.fi_fi");dijit.nls.loading.fi_fi={"loadingState":"Lataus on meneillään...","errorState":"On ilmennyt virhe."};
+require({cache:{
+'dijit/nls/fi/loading':function(){
+define(
+"dijit/nls/fi/loading", //begin v1.x content
+({
+	loadingState: "Lataus on meneillään...",
+	errorState: "On ilmennyt virhe."
+})
+//end v1.x content
+);
+
+},
+'dijit/nls/fi-fi/loading':function(){
+define('dijit/nls/fi-fi/loading',{});
+}}});
+define("dojox/grid/nls/DataGrid_fi-fi", [], 1);

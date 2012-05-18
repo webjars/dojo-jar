@@ -1,1 +1,16 @@
-({"close":"[sulje]","title":"Otsikko","authors":"Tekijät","summary":"Tiivistelmä","content":"Sisältö","contributors":"Lisääjät","updated":"Päivitetty","displayOptions":"[näyttöasetukset]","id":"Tunnus"})
+//>>built
+define(
+"dojox/atom/widget/nls/fi/FeedEntryViewer", //begin v1.x content
+({
+	displayOptions: "[näyttöasetukset]",
+	title: "Otsikko",
+	authors: "Tekijät",
+	contributors: "Lisääjät",
+	id: "Tunnus",
+	close: "[sulje]",
+	updated: "Päivitetty",
+	summary: "Tiivistelmä",
+	content: "Sisältö"
+})
+//end v1.x content
+);

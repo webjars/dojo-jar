@@ -1,124 +1,112 @@
-/*
-	Copyright (c) 2004-2011, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
-
-
-if(!dojo._hasResource["dojox.editor.plugins.Blockquote"]){
-dojo._hasResource["dojox.editor.plugins.Blockquote"]=true;
-dojo.provide("dojox.editor.plugins.Blockquote");
-dojo.require("dijit._editor._Plugin");
-dojo.require("dijit.form.Button");
-dojo.require("dojo.i18n");
-dojo.requireLocalization("dojox.editor.plugins","Blockquote",null,"ROOT,ar,ca,cs,da,de,el,es,fi,fr,he,hu,it,ja,kk,ko,nb,nl,pl,pt,pt-pt,ro,ru,sk,sl,sv,th,tr,zh,zh-tw");
-dojo.declare("dojox.editor.plugins.Blockquote",dijit._editor._Plugin,{iconClassPrefix:"dijitAdditionalEditorIcon",_initButton:function(){
-this._nlsResources=dojo.i18n.getLocalization("dojox.editor.plugins","Blockquote");
-this.button=new dijit.form.ToggleButton({label:this._nlsResources["blockquote"],showLabel:false,iconClass:this.iconClassPrefix+" "+this.iconClassPrefix+"Blockquote",tabIndex:"-1",onClick:dojo.hitch(this,"_toggleQuote")});
-},setEditor:function(_1){
-this.editor=_1;
+//>>built
+define("dojox/editor/plugins/Blockquote",["dojo","dijit","dojox","dijit/_editor/range","dijit/_editor/selection","dijit/_editor/_Plugin","dijit/form/ToggleButton","dojo/_base/connect","dojo/_base/declare","dojo/i18n","dojo/i18n!dojox/editor/plugins/nls/Blockquote"],function(_1,_2,_3){
+_1.declare("dojox.editor.plugins.Blockquote",_2._editor._Plugin,{iconClassPrefix:"dijitAdditionalEditorIcon",_initButton:function(){
+this._nlsResources=_1.i18n.getLocalization("dojox.editor.plugins","Blockquote");
+this.button=new _2.form.ToggleButton({label:this._nlsResources["blockquote"],showLabel:false,iconClass:this.iconClassPrefix+" "+this.iconClassPrefix+"Blockquote",tabIndex:"-1",onClick:_1.hitch(this,"_toggleQuote")});
+},setEditor:function(_4){
+this.editor=_4;
 this._initButton();
 this.connect(this.editor,"onNormalizedDisplayChanged","updateState");
-_1.customUndo=true;
-},_toggleQuote:function(_2){
+_4.customUndo=true;
+},_toggleQuote:function(_5){
 try{
 var ed=this.editor;
 ed.focus();
-var _3=this.button.get("checked");
-var _4=dijit.range.getSelection(ed.window);
-var _5,_6,_7,_8;
-if(_4&&_4.rangeCount>0){
-_5=_4.getRangeAt(0);
+var _6=this.button.get("checked");
+var _7=_2.range.getSelection(ed.window);
+var _8,_9,_a,_b;
+if(_7&&_7.rangeCount>0){
+_8=_7.getRangeAt(0);
 }
-if(_5){
+if(_8){
 ed.beginEditing();
-if(_3){
-var bq,_9;
-if(_5.startContainer===_5.endContainer){
-if(this._isRootInline(_5.startContainer)){
-_7=_5.startContainer;
-while(_7&&_7.parentNode!==ed.editNode){
-_7=_7.parentNode;
+if(_6){
+var bq,_c;
+if(_8.startContainer===_8.endContainer){
+if(this._isRootInline(_8.startContainer)){
+_a=_8.startContainer;
+while(_a&&_a.parentNode!==ed.editNode){
+_a=_a.parentNode;
 }
-while(_7&&_7.previousSibling&&(this._isTextElement(_7)||(_7.nodeType===1&&this._isInlineFormat(this._getTagName(_7))))){
-_7=_7.previousSibling;
+while(_a&&_a.previousSibling&&(this._isTextElement(_a)||(_a.nodeType===1&&this._isInlineFormat(this._getTagName(_a))))){
+_a=_a.previousSibling;
 }
-if(_7&&_7.nodeType===1&&!this._isInlineFormat(this._getTagName(_7))){
-_7=_7.nextSibling;
+if(_a&&_a.nodeType===1&&!this._isInlineFormat(this._getTagName(_a))){
+_a=_a.nextSibling;
 }
-if(_7){
+if(_a){
 bq=ed.document.createElement("blockquote");
-dojo.place(bq,_7,"after");
-bq.appendChild(_7);
-_8=bq.nextSibling;
-while(_8&&(this._isTextElement(_8)||(_8.nodeType===1&&this._isInlineFormat(this._getTagName(_8))))){
-bq.appendChild(_8);
-_8=bq.nextSibling;
+_1.place(bq,_a,"after");
+bq.appendChild(_a);
+_b=bq.nextSibling;
+while(_b&&(this._isTextElement(_b)||(_b.nodeType===1&&this._isInlineFormat(this._getTagName(_b))))){
+bq.appendChild(_b);
+_b=bq.nextSibling;
 }
 }
 }else{
-var _a=_5.startContainer;
-while((this._isTextElement(_a)||this._isInlineFormat(this._getTagName(_a))||this._getTagName(_a)==="li")&&_a!==ed.editNode&&_a!==ed.document.body){
-_a=_a.parentNode;
+var _d=_8.startContainer;
+while((this._isTextElement(_d)||this._isInlineFormat(this._getTagName(_d))||this._getTagName(_d)==="li")&&_d!==ed.editNode&&_d!==ed.document.body){
+_d=_d.parentNode;
 }
-if(_a!==ed.editNode&&_a!==_a.ownerDocument.documentElement){
+if(_d!==ed.editNode&&_d!==_d.ownerDocument.documentElement){
 bq=ed.document.createElement("blockquote");
-dojo.place(bq,_a,"after");
-bq.appendChild(_a);
+_1.place(bq,_d,"after");
+bq.appendChild(_d);
 }
 }
 if(bq){
-dojo.withGlobal(ed.window,"selectElementChildren",dijit._editor.selection,[bq]);
-dojo.withGlobal(ed.window,"collapse",dijit._editor.selection,[true]);
+_1.withGlobal(ed.window,"selectElementChildren",_2._editor.selection,[bq]);
+_1.withGlobal(ed.window,"collapse",_2._editor.selection,[true]);
 }
 }else{
-var _b;
-_7=_5.startContainer;
-_8=_5.endContainer;
-while(_7&&this._isTextElement(_7)&&_7.parentNode!==ed.editNode){
-_7=_7.parentNode;
+var _e;
+_a=_8.startContainer;
+_b=_8.endContainer;
+while(_a&&this._isTextElement(_a)&&_a.parentNode!==ed.editNode){
+_a=_a.parentNode;
 }
-_b=_7;
-while(_b.nextSibling&&dojo.withGlobal(ed.window,"inSelection",dijit._editor.selection,[_b])){
-_b=_b.nextSibling;
+_e=_a;
+while(_e.nextSibling&&_1.withGlobal(ed.window,"inSelection",_2._editor.selection,[_e])){
+_e=_e.nextSibling;
 }
-_8=_b;
-if(_8===ed.editNode||_8===ed.document.body){
+_b=_e;
+if(_b===ed.editNode||_b===ed.document.body){
 bq=ed.document.createElement("blockquote");
-dojo.place(bq,_7,"after");
-_9=this._getTagName(_7);
-if(this._isTextElement(_7)||this._isInlineFormat(_9)){
-var _c=_7;
-while(_c&&(this._isTextElement(_c)||(_c.nodeType===1&&this._isInlineFormat(this._getTagName(_c))))){
-bq.appendChild(_c);
-_c=bq.nextSibling;
+_1.place(bq,_a,"after");
+_c=this._getTagName(_a);
+if(this._isTextElement(_a)||this._isInlineFormat(_c)){
+var _f=_a;
+while(_f&&(this._isTextElement(_f)||(_f.nodeType===1&&this._isInlineFormat(this._getTagName(_f))))){
+bq.appendChild(_f);
+_f=bq.nextSibling;
 }
 }else{
-bq.appendChild(_7);
+bq.appendChild(_a);
 }
 return;
 }
-_8=_8.nextSibling;
-_b=_7;
-while(_b&&_b!==_8){
-if(_b.nodeType===1){
-_9=this._getTagName(_b);
-if(_9!=="br"){
-if(!window.getSelection){
-if(_9==="p"&&this._isEmpty(_b)){
 _b=_b.nextSibling;
+_e=_a;
+while(_e&&_e!==_b){
+if(_e.nodeType===1){
+_c=this._getTagName(_e);
+if(_c!=="br"){
+if(!window.getSelection){
+if(_c==="p"&&this._isEmpty(_e)){
+_e=_e.nextSibling;
 continue;
 }
 }
-if(this._isInlineFormat(_9)){
+if(this._isInlineFormat(_c)){
 if(!bq){
 bq=ed.document.createElement("blockquote");
-dojo.place(bq,_b,"after");
-bq.appendChild(_b);
+_1.place(bq,_e,"after");
+bq.appendChild(_e);
 }else{
-bq.appendChild(_b);
+bq.appendChild(_e);
 }
-_b=bq;
+_e=bq;
 }else{
 if(bq){
 if(this._isEmpty(bq)){
@@ -126,80 +114,80 @@ bq.parentNode.removeChild(bq);
 }
 }
 bq=ed.document.createElement("blockquote");
-dojo.place(bq,_b,"after");
-bq.appendChild(_b);
-_b=bq;
+_1.place(bq,_e,"after");
+bq.appendChild(_e);
+_e=bq;
 }
 }
 }else{
-if(this._isTextElement(_b)){
+if(this._isTextElement(_e)){
 if(!bq){
 bq=ed.document.createElement("blockquote");
-dojo.place(bq,_b,"after");
-bq.appendChild(_b);
+_1.place(bq,_e,"after");
+bq.appendChild(_e);
 }else{
-bq.appendChild(_b);
+bq.appendChild(_e);
 }
-_b=bq;
+_e=bq;
 }
 }
-_b=_b.nextSibling;
+_e=_e.nextSibling;
 }
 if(bq){
 if(this._isEmpty(bq)){
 bq.parentNode.removeChild(bq);
 }else{
-dojo.withGlobal(ed.window,"selectElementChildren",dijit._editor.selection,[bq]);
-dojo.withGlobal(ed.window,"collapse",dijit._editor.selection,[true]);
+_1.withGlobal(ed.window,"selectElementChildren",_2._editor.selection,[bq]);
+_1.withGlobal(ed.window,"collapse",_2._editor.selection,[true]);
 }
 bq=null;
 }
 }
 }else{
-var _d=false;
-if(_5.startContainer===_5.endContainer){
-_6=_5.endContainer;
-while(_6&&_6!==ed.editNode&&_6!==ed.document.body){
-var tg=_6.tagName?_6.tagName.toLowerCase():"";
+var _10=false;
+if(_8.startContainer===_8.endContainer){
+_9=_8.endContainer;
+while(_9&&_9!==ed.editNode&&_9!==ed.document.body){
+var tg=_9.tagName?_9.tagName.toLowerCase():"";
 if(tg==="blockquote"){
-_d=true;
+_10=true;
 break;
 }
-_6=_6.parentNode;
+_9=_9.parentNode;
 }
-if(_d){
-var _e;
-while(_6.firstChild){
-_e=_6.firstChild;
-dojo.place(_e,_6,"before");
+if(_10){
+var _11;
+while(_9.firstChild){
+_11=_9.firstChild;
+_1.place(_11,_9,"before");
 }
-_6.parentNode.removeChild(_6);
-if(_e){
-dojo.withGlobal(ed.window,"selectElementChildren",dijit._editor.selection,[_e]);
-dojo.withGlobal(ed.window,"collapse",dijit._editor.selection,[true]);
+_9.parentNode.removeChild(_9);
+if(_11){
+_1.withGlobal(ed.window,"selectElementChildren",_2._editor.selection,[_11]);
+_1.withGlobal(ed.window,"collapse",_2._editor.selection,[true]);
 }
 }
 }else{
-_7=_5.startContainer;
-_8=_5.endContainer;
-while(_7&&this._isTextElement(_7)&&_7.parentNode!==ed.editNode){
-_7=_7.parentNode;
+_a=_8.startContainer;
+_b=_8.endContainer;
+while(_a&&this._isTextElement(_a)&&_a.parentNode!==ed.editNode){
+_a=_a.parentNode;
 }
-var _f=[];
-var _10=_7;
-while(_10&&_10.nextSibling&&dojo.withGlobal(ed.window,"inSelection",dijit._editor.selection,[_10])){
-if(_10.parentNode&&this._getTagName(_10.parentNode)==="blockquote"){
-_10=_10.parentNode;
+var _12=[];
+var _13=_a;
+while(_13&&_13.nextSibling&&_1.withGlobal(ed.window,"inSelection",_2._editor.selection,[_13])){
+if(_13.parentNode&&this._getTagName(_13.parentNode)==="blockquote"){
+_13=_13.parentNode;
 }
-_f.push(_10);
-_10=_10.nextSibling;
+_12.push(_13);
+_13=_13.nextSibling;
 }
-var _11=this._findBlockQuotes(_f);
-while(_11.length){
-var bn=_11.pop();
+var _14=this._findBlockQuotes(_12);
+while(_14.length){
+var bn=_14.pop();
 if(bn.parentNode){
 while(bn.firstChild){
-dojo.place(bn.firstChild,bn,"before");
+_1.place(bn.firstChild,bn,"before");
 }
 bn.parentNode.removeChild(bn);
 }
@@ -214,110 +202,110 @@ catch(e){
 }
 },updateState:function(){
 var ed=this.editor;
-var _12=this.get("disabled");
+var _15=this.get("disabled");
 if(!ed||!ed.isLoaded){
 return;
 }
 if(this.button){
-this.button.set("disabled",_12);
-if(_12){
+this.button.set("disabled",_15);
+if(_15){
 return;
 }
-var _13;
-var _14=false;
-var sel=dijit.range.getSelection(ed.window);
+var _16;
+var _17=false;
+var sel=_2.range.getSelection(ed.window);
 if(sel&&sel.rangeCount>0){
-var _15=sel.getRangeAt(0);
-if(_15){
-_13=_15.endContainer;
+var _18=sel.getRangeAt(0);
+if(_18){
+_16=_18.endContainer;
 }
 }
-while(_13&&_13!==ed.editNode&&_13!==ed.document){
-var tg=_13.tagName?_13.tagName.toLowerCase():"";
+while(_16&&_16!==ed.editNode&&_16!==ed.document){
+var tg=_16.tagName?_16.tagName.toLowerCase():"";
 if(tg==="blockquote"){
-_14=true;
+_17=true;
 break;
 }
-_13=_13.parentNode;
+_16=_16.parentNode;
 }
-this.button.set("checked",_14);
+this.button.set("checked",_17);
 }
-},_findBlockQuotes:function(_16){
-var _17=[];
-if(_16){
+},_findBlockQuotes:function(_19){
+var _1a=[];
+if(_19){
 var i;
-for(i=0;i<_16.length;i++){
-var _18=_16[i];
-if(_18.nodeType===1){
-if(this._getTagName(_18)==="blockquote"){
-_17.push(_18);
+for(i=0;i<_19.length;i++){
+var _1b=_19[i];
+if(_1b.nodeType===1){
+if(this._getTagName(_1b)==="blockquote"){
+_1a.push(_1b);
 }
-if(_18.childNodes&&_18.childNodes.length>0){
-_17=_17.concat(this._findBlockQuotes(_18.childNodes));
-}
-}
+if(_1b.childNodes&&_1b.childNodes.length>0){
+_1a=_1a.concat(this._findBlockQuotes(_1b.childNodes));
 }
 }
-return _17;
-},_getTagName:function(_19){
+}
+}
+return _1a;
+},_getTagName:function(_1c){
 var tag="";
-if(_19&&_19.nodeType===1){
-tag=_19.tagName?_19.tagName.toLowerCase():"";
+if(_1c&&_1c.nodeType===1){
+tag=_1c.tagName?_1c.tagName.toLowerCase():"";
 }
 return tag;
-},_isRootInline:function(_1a){
+},_isRootInline:function(_1d){
 var ed=this.editor;
-if(this._isTextElement(_1a)&&_1a.parentNode===ed.editNode){
+if(this._isTextElement(_1d)&&_1d.parentNode===ed.editNode){
 return true;
 }else{
-if(_1a.nodeType===1&&this._isInlineFormat(_1a)&&_1a.parentNode===ed.editNode){
+if(_1d.nodeType===1&&this._isInlineFormat(_1d)&&_1d.parentNode===ed.editNode){
 return true;
 }else{
-if(this._isTextElement(_1a)&&this._isInlineFormat(this._getTagName(_1a.parentNode))){
-_1a=_1a.parentNode;
-while(_1a&&_1a!==ed.editNode&&this._isInlineFormat(this._getTagName(_1a))){
-_1a=_1a.parentNode;
+if(this._isTextElement(_1d)&&this._isInlineFormat(this._getTagName(_1d.parentNode))){
+_1d=_1d.parentNode;
+while(_1d&&_1d!==ed.editNode&&this._isInlineFormat(this._getTagName(_1d))){
+_1d=_1d.parentNode;
 }
-if(_1a===ed.editNode){
+if(_1d===ed.editNode){
 return true;
 }
 }
 }
 }
 return false;
-},_isTextElement:function(_1b){
-if(_1b&&_1b.nodeType===3||_1b.nodeType===4){
+},_isTextElement:function(_1e){
+if(_1e&&_1e.nodeType===3||_1e.nodeType===4){
 return true;
 }
 return false;
-},_isEmpty:function(_1c){
-if(_1c.childNodes){
-var _1d=true;
+},_isEmpty:function(_1f){
+if(_1f.childNodes){
+var _20=true;
 var i;
-for(i=0;i<_1c.childNodes.length;i++){
-var n=_1c.childNodes[i];
+for(i=0;i<_1f.childNodes.length;i++){
+var n=_1f.childNodes[i];
 if(n.nodeType===1){
 if(this._getTagName(n)==="p"){
-if(!dojo.trim(n.innerHTML)){
+if(!_1.trim(n.innerHTML)){
 continue;
 }
 }
-_1d=false;
+_20=false;
 break;
 }else{
 if(this._isTextElement(n)){
-var nv=dojo.trim(n.nodeValue);
+var nv=_1.trim(n.nodeValue);
 if(nv&&nv!=="&nbsp;"&&nv!==" "){
-_1d=false;
+_20=false;
 break;
 }
 }else{
-_1d=false;
+_20=false;
 break;
 }
 }
 }
-return _1d;
+return _20;
 }else{
 return true;
 }
@@ -345,13 +333,14 @@ default:
 return false;
 }
 }});
-dojo.subscribe(dijit._scopeName+".Editor.getPlugin",null,function(o){
+_1.subscribe(_2._scopeName+".Editor.getPlugin",null,function(o){
 if(o.plugin){
 return;
 }
-var _1e=o.args.name.toLowerCase();
-if(_1e==="blockquote"){
-o.plugin=new dojox.editor.plugins.Blockquote({});
+var _21=o.args.name.toLowerCase();
+if(_21==="blockquote"){
+o.plugin=new _3.editor.plugins.Blockquote({});
 }
 });
-}
+return _3.editor.plugins.Blockquote;
+});

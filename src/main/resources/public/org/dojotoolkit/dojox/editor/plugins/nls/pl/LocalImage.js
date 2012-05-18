@@ -1,1 +1,16 @@
-({"set":"Wstaw","text":"Opis","insertImageTitle":"Wstaw obraz","invalidMessage":"Niepoprawny typ pliku graficznego","prePopuTextBrowse":" lub wskaż plik lokalny. ","browse":"Przeglądaj...","prePopuTextUrl":"Wprowadź adres URL obrazu","url":"Obraz"})
+//>>built
+define(
+"dojox/editor/plugins/nls/pl/LocalImage", //begin v1.x content
+({
+	insertImageTitle: "Wstaw obraz",
+	url: "Obraz",
+	browse: "Przeglądaj...",
+	text: "Opis",
+	set: "Wstaw",
+	invalidMessage: "Niepoprawny typ pliku graficznego",
+	prePopuTextUrl: "Wprowadź adres URL obrazu",
+	prePopuTextBrowse: " lub wskaż plik lokalny. "
+})
+
+//end v1.x content
+);

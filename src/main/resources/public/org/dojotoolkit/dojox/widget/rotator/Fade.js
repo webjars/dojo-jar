@@ -1,25 +1,18 @@
-/*
-	Copyright (c) 2004-2011, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
-
-
-if(!dojo._hasResource["dojox.widget.rotator.Fade"]){
-dojo._hasResource["dojox.widget.rotator.Fade"]=true;
-dojo.provide("dojox.widget.rotator.Fade");
-dojo.require("dojo.fx");
+//>>built
+define(["dijit","dojo","dojox","dojo/require!dojo/fx"],function(_1,_2,_3){
+_2.provide("dojox.widget.rotator.Fade");
+_2.require("dojo.fx");
 (function(d){
-function _1(_2,_3){
-var n=_2.next.node;
+function _4(_5,_6){
+var n=_5.next.node;
 d.style(n,{display:"",opacity:0});
-_2.node=_2.current.node;
-return d.fx[_3]([d.fadeOut(_2),d.fadeIn(d.mixin(_2,{node:n}))]);
+_5.node=_5.current.node;
+return d.fx[_6]([d.fadeOut(_5),d.fadeIn(d.mixin(_5,{node:n}))]);
 };
-d.mixin(dojox.widget.rotator,{fade:function(_4){
-return _1(_4,"chain");
-},crossFade:function(_5){
-return _1(_5,"combine");
+d.mixin(_3.widget.rotator,{fade:function(_7){
+return _4(_7,"chain");
+},crossFade:function(_8){
+return _4(_8,"combine");
 }});
-})(dojo);
-}
+})(_2);
+});

@@ -4,32 +4,27 @@
 	see: http://dojotoolkit.org/license for details
 */
 
-
-if(!dojo._hasResource["dojo.dnd.Mover"]){
-dojo._hasResource["dojo.dnd.Mover"]=true;
-dojo.provide("dojo.dnd.Mover");
-dojo.require("dojo.dnd.common");
-dojo.require("dojo.dnd.autoscroll");
-dojo.declare("dojo.dnd.Mover",null,{constructor:function(_1,e,_2){
-this.node=dojo.byId(_1);
-var _3=e.touches?e.touches[0]:e;
-this.marginBox={l:_3.pageX,t:_3.pageY};
+//>>built
+define("dojo/dnd/Mover",["../main","../Evented","../touch","./common","./autoscroll"],function(_1,_2,_3){
+_1.declare("dojo.dnd.Mover",[_2],{constructor:function(_4,e,_5){
+this.node=_1.byId(_4);
+this.marginBox={l:e.pageX,t:e.pageY};
 this.mouseButton=e.button;
-var h=(this.host=_2),d=_1.ownerDocument;
-this.events=[dojo.connect(d,"onmousemove",this,"onFirstMove"),dojo.connect(d,"ontouchmove",this,"onFirstMove"),dojo.connect(d,"onmousemove",this,"onMouseMove"),dojo.connect(d,"ontouchmove",this,"onMouseMove"),dojo.connect(d,"onmouseup",this,"onMouseUp"),dojo.connect(d,"ontouchend",this,"onMouseUp"),dojo.connect(d,"ondragstart",dojo.stopEvent),dojo.connect(d.body,"onselectstart",dojo.stopEvent)];
+var h=(this.host=_5),d=_4.ownerDocument;
+this.events=[_1.connect(d,_3.move,this,"onFirstMove"),_1.connect(d,_3.move,this,"onMouseMove"),_1.connect(d,_3.release,this,"onMouseUp"),_1.connect(d,"ondragstart",_1.stopEvent),_1.connect(d.body,"onselectstart",_1.stopEvent)];
 if(h&&h.onMoveStart){
 h.onMoveStart(this);
 }
 },onMouseMove:function(e){
-dojo.dnd.autoScroll(e);
-var m=this.marginBox,_4=e.touches?e.touches[0]:e;
-this.host.onMove(this,{l:m.l+_4.pageX,t:m.t+_4.pageY},e);
-dojo.stopEvent(e);
+_1.dnd.autoScroll(e);
+var m=this.marginBox;
+this.host.onMove(this,{l:m.l+e.pageX,t:m.t+e.pageY},e);
+_1.stopEvent(e);
 },onMouseUp:function(e){
-if(dojo.isWebKit&&dojo.isMac&&this.mouseButton==2?e.button==0:this.mouseButton==e.button){
+if(_1.isWebKit&&_1.isMac&&this.mouseButton==2?e.button==0:this.mouseButton==e.button){
 this.destroy();
 }
-dojo.stopEvent(e);
+_1.stopEvent(e);
 },onFirstMove:function(e){
 var s=this.node.style,l,t,h=this.host;
 switch(s.position){
@@ -40,11 +35,11 @@ t=Math.round(parseFloat(s.top))||0;
 break;
 default:
 s.position="absolute";
-var m=dojo.marginBox(this.node);
-var b=dojo.doc.body;
-var bs=dojo.getComputedStyle(b);
-var bm=dojo._getMarginBox(b,bs);
-var bc=dojo._getContentBox(b,bs);
+var m=_1.marginBox(this.node);
+var b=_1.doc.body;
+var bs=_1.getComputedStyle(b);
+var bm=_1._getMarginBox(b,bs);
+var bc=_1._getContentBox(b,bs);
 l=m.l-(bc.l-bm.l);
 t=m.t-(bc.t-bm.t);
 break;
@@ -54,14 +49,14 @@ this.marginBox.t=t-this.marginBox.t;
 if(h&&h.onFirstMove){
 h.onFirstMove(this,e);
 }
-dojo.disconnect(this.events.shift());
-dojo.disconnect(this.events.shift());
+_1.disconnect(this.events.shift());
 },destroy:function(){
-dojo.forEach(this.events,dojo.disconnect);
+_1.forEach(this.events,_1.disconnect);
 var h=this.host;
 if(h&&h.onMoveStop){
 h.onMoveStop(this);
 }
 this.events=this.node=this.host=null;
 }});
-}
+return _1.dnd.Mover;
+});

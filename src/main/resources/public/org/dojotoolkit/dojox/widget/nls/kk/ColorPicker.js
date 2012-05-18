@@ -1,1 +1,15 @@
-({"saturationPickerTitle":"Қанықтықты іріктеу","valueLabel":"п","blueLabel":"ә","saturationLabel":"ң","greenLabel":"д","redLabel":"r","hueLabel":"е","hexLabel":"алтылық","huePickerTitle":"Реңкті іріктеу","degLabel":"°"})
+//>>built
+define(
+"dojox/widget/nls/kk/ColorPicker", //begin v1.x content
+({
+redLabel: "r",
+greenLabel: "д",
+blueLabel: "ә",
+hueLabel: "е",
+saturationLabel: "ң",
+valueLabel: "п", /* aka intensity or brightness */
+hexLabel: "алтылық",
+huePickerTitle: "Реңкті іріктеу",
+saturationPickerTitle: "Қанықтықты іріктеу"
+})
+);

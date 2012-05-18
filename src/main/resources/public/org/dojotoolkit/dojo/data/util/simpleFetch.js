@@ -4,62 +4,60 @@
 	see: http://dojotoolkit.org/license for details
 */
 
-
-if(!dojo._hasResource["dojo.data.util.simpleFetch"]){
-dojo._hasResource["dojo.data.util.simpleFetch"]=true;
-dojo.provide("dojo.data.util.simpleFetch");
-dojo.require("dojo.data.util.sorter");
-dojo.getObject("data.util.simpleFetch",true,dojo);
-dojo.data.util.simpleFetch.fetch=function(_1){
-_1=_1||{};
-if(!_1.store){
-_1.store=this;
+//>>built
+define("dojo/data/util/simpleFetch",["dojo/_base/lang","dojo/_base/window","./sorter"],function(_1,_2,_3){
+var _4=_1.getObject("dojo.data.util.simpleFetch",true);
+_4.fetch=function(_5){
+_5=_5||{};
+if(!_5.store){
+_5.store=this;
 }
-var _2=this;
-var _3=function(_4,_5){
-if(_5.onError){
-var _6=_5.scope||dojo.global;
-_5.onError.call(_6,_4,_5);
-}
-};
+var _6=this;
 var _7=function(_8,_9){
-var _a=_9.abort||null;
-var _b=false;
-var _c=_9.start?_9.start:0;
-var _d=(_9.count&&(_9.count!==Infinity))?(_c+_9.count):_8.length;
-_9.abort=function(){
-_b=true;
-if(_a){
-_a.call(_9);
+if(_9.onError){
+var _a=_9.scope||_2.global;
+_9.onError.call(_a,_8,_9);
 }
 };
-var _e=_9.scope||dojo.global;
-if(!_9.store){
-_9.store=_2;
-}
-if(_9.onBegin){
-_9.onBegin.call(_e,_8.length,_9);
-}
-if(_9.sort){
-_8.sort(dojo.data.util.sorter.createSortFunction(_9.sort,_2));
-}
-if(_9.onItem){
-for(var i=_c;(i<_8.length)&&(i<_d);++i){
-var _f=_8[i];
-if(!_b){
-_9.onItem.call(_e,_f,_9);
-}
-}
-}
-if(_9.onComplete&&!_b){
-var _10=null;
-if(!_9.onItem){
-_10=_8.slice(_c,_d);
-}
-_9.onComplete.call(_e,_10,_9);
+var _b=function(_c,_d){
+var _e=_d.abort||null;
+var _f=false;
+var _10=_d.start?_d.start:0;
+var _11=(_d.count&&(_d.count!==Infinity))?(_10+_d.count):_c.length;
+_d.abort=function(){
+_f=true;
+if(_e){
+_e.call(_d);
 }
 };
-this._fetchItems(_1,_7,_3);
-return _1;
-};
+var _12=_d.scope||_2.global;
+if(!_d.store){
+_d.store=_6;
 }
+if(_d.onBegin){
+_d.onBegin.call(_12,_c.length,_d);
+}
+if(_d.sort){
+_c.sort(_3.createSortFunction(_d.sort,_6));
+}
+if(_d.onItem){
+for(var i=_10;(i<_c.length)&&(i<_11);++i){
+var _13=_c[i];
+if(!_f){
+_d.onItem.call(_12,_13,_d);
+}
+}
+}
+if(_d.onComplete&&!_f){
+var _14=null;
+if(!_d.onItem){
+_14=_c.slice(_10,_11);
+}
+_d.onComplete.call(_12,_14,_d);
+}
+};
+this._fetchItems(_5,_b,_7);
+return _5;
+};
+return _4;
+});

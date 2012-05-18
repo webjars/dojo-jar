@@ -1,27 +1,20 @@
-/*
-	Copyright (c) 2004-2011, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
-
-
-if(!dojo._hasResource["dojox.drawing.stencil.Text"]){
-dojo._hasResource["dojox.drawing.stencil.Text"]=true;
-dojo.provide("dojox.drawing.stencil.Text");
-dojox.drawing.stencil.Text=dojox.drawing.util.oo.declare(dojox.drawing.stencil._Base,function(_1){
-},{type:"dojox.drawing.stencil.Text",anchorType:"none",baseRender:true,align:"start",valign:"top",_lineHeight:1,typesetter:function(_2){
-if(dojox.drawing.util.typeset){
-this._rawText=_2;
-return dojox.drawing.util.typeset.convertLaTeX(_2);
+//>>built
+define(["dijit","dojo","dojox"],function(_1,_2,_3){
+_2.provide("dojox.drawing.stencil.Text");
+_3.drawing.stencil.Text=_3.drawing.util.oo.declare(_3.drawing.stencil._Base,function(_4){
+},{type:"dojox.drawing.stencil.Text",anchorType:"none",baseRender:true,align:"start",valign:"top",_lineHeight:1,typesetter:function(_5){
+if(_3.drawing.util.typeset){
+this._rawText=_5;
+return _3.drawing.util.typeset.convertLaTeX(_5);
 }
-return _2;
-},setText:function(_3){
+return _5;
+},setText:function(_6){
 if(this.enabled){
-_3=this.typesetter(_3);
+_6=this.typesetter(_6);
 }
-this._text=_3;
+this._text=_6;
 this._textArray=[];
-this.created&&this.render(_3);
+this.created&&this.render(_6);
 },getText:function(){
 return this._rawText||this._text;
 },dataToPoints:function(o){
@@ -36,11 +29,11 @@ var s=p[0];
 var e=p[2];
 this.data={x:s.x,y:s.y,width:e.x-s.x,height:e.y-s.y};
 return this.data;
-},render:function(_4){
+},render:function(_7){
 this.remove(this.shape,this.hit);
 !this.annotation&&this.renderHit&&this._renderOutline();
-if(_4!=undefined){
-this._text=_4;
+if(_7!=undefined){
+this._text=_7;
 this._textArray=this._text.split("\n");
 }
 var d=this.pointsToData();
@@ -51,8 +44,8 @@ if(this.valign=="middle"){
 y-=h/2;
 }
 this.shape=this.container.createGroup();
-dojo.forEach(this._textArray,function(_5,i){
-var tb=this.shape.createText({x:x,y:y+(h*i),text:unescape(_5),align:this.align}).setFont(this.style.currentText).setFill(this.style.currentText.color);
+_2.forEach(this._textArray,function(_8,i){
+var tb=this.shape.createText({x:x,y:y+(h*i),text:unescape(_8),align:this.align}).setFont(this.style.currentText).setFill(this.style.currentText.color);
 this._setNodeAtts(tb);
 },this);
 this._setNodeAtts(this.shape);
@@ -78,22 +71,22 @@ d.y-=(this._lineHeight)/2-this.style.text.pad;
 this.hit=this.container.createRect(d).setStroke(this.style.currentHit).setFill(this.style.currentHit.fill);
 this._setNodeAtts(this.hit);
 this.hit.moveToBack();
-},makeFit:function(_6,w){
-var _7=dojo.create("span",{innerHTML:_6,id:"foo"},document.body);
+},makeFit:function(_9,w){
+var _a=_2.create("span",{innerHTML:_9,id:"foo"},document.body);
 var sz=1;
-dojo.style(_7,"fontSize",sz+"px");
-var _8=30;
-while(dojo.marginBox(_7).w<w){
+_2.style(_a,"fontSize",sz+"px");
+var _b=30;
+while(_2.marginBox(_a).w<w){
 sz++;
-dojo.style(_7,"fontSize",sz+"px");
-if(_8--<=0){
+_2.style(_a,"fontSize",sz+"px");
+if(_b--<=0){
 break;
 }
 }
 sz--;
-var _9=dojo.marginBox(_7);
-dojo.destroy(_7);
-return {size:sz,box:_9};
+var _c=_2.marginBox(_a);
+_2.destroy(_a);
+return {size:sz,box:_c};
 }});
-dojox.drawing.register({name:"dojox.drawing.stencil.Text"},"stencil");
-}
+_3.drawing.register({name:"dojox.drawing.stencil.Text"},"stencil");
+});

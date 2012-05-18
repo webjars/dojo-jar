@@ -1,1 +1,16 @@
-({"set":"Vstavi ","text":"Opis ","insertImageTitle":"Vstavi sliko","invalidMessage":"Neveljavna vrsta slikovne datoteke ","prePopuTextBrowse":" ali prebrskajte in izberite lokalno datoteko. ","browse":"Prebrskaj ... ","prePopuTextUrl":"Vnesite URL slike","url":"Slika "})
+//>>built
+define(
+"dojox/editor/plugins/nls/sl/LocalImage", //begin v1.x content
+({
+	insertImageTitle: "Vstavi sliko",
+	url: "Slika ",
+	browse: "Prebrskaj ... ",
+	text: "Opis ",
+	set: "Vstavi ",
+	invalidMessage: "Neveljavna vrsta slikovne datoteke ",
+	prePopuTextUrl: "Vnesite URL slike",
+	prePopuTextBrowse: " ali prebrskajte in izberite lokalno datoteko. "
+})
+
+//end v1.x content
+);

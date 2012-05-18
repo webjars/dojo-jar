@@ -4,29 +4,26 @@
 	see: http://dojotoolkit.org/license for details
 */
 
-
-if(!dojo._hasResource["dojo.rpc.JsonpService"]){
-dojo._hasResource["dojo.rpc.JsonpService"]=true;
-dojo.provide("dojo.rpc.JsonpService");
-dojo.require("dojo.rpc.RpcService");
-dojo.require("dojo.io.script");
-dojo.declare("dojo.rpc.JsonpService",dojo.rpc.RpcService,{constructor:function(_1,_2){
+//>>built
+define("dojo/rpc/JsonpService",["../main","./RpcService","../io/script"],function(_1){
+_1.declare("dojo.rpc.JsonpService",_1.rpc.RpcService,{constructor:function(_2,_3){
 if(this.required){
-if(_2){
-dojo.mixin(this.required,_2);
+if(_3){
+_1.mixin(this.required,_3);
 }
-dojo.forEach(this.required,function(_3){
-if(_3==""||_3==undefined){
-throw new Error("Required Service Argument not found: "+_3);
+_1.forEach(this.required,function(_4){
+if(_4==""||_4==undefined){
+throw new Error("Required Service Argument not found: "+_4);
 }
 });
 }
-},strictArgChecks:false,bind:function(_4,_5,_6,_7){
-var _8=dojo.io.script.get({url:_7||this.serviceUrl,callbackParamName:this.callbackParamName||"callback",content:this.createRequest(_5),timeout:this.timeout,handleAs:"json",preventCache:true});
-_8.addCallbacks(this.resultCallback(_6),this.errorCallback(_6));
-},createRequest:function(_9){
-var _a=(dojo.isArrayLike(_9)&&_9.length==1)?_9[0]:{};
-dojo.mixin(_a,this.required);
-return _a;
+},strictArgChecks:false,bind:function(_5,_6,_7,_8){
+var _9=_1.io.script.get({url:_8||this.serviceUrl,callbackParamName:this.callbackParamName||"callback",content:this.createRequest(_6),timeout:this.timeout,handleAs:"json",preventCache:true});
+_9.addCallbacks(this.resultCallback(_7),this.errorCallback(_7));
+},createRequest:function(_a){
+var _b=(_1.isArrayLike(_a)&&_a.length==1)?_a[0]:{};
+_1.mixin(_b,this.required);
+return _b;
 }});
-}
+return _1.rpc.JsonpService;
+});

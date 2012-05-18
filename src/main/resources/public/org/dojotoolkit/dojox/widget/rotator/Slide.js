@@ -1,32 +1,25 @@
-/*
-	Copyright (c) 2004-2011, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
-
-
-if(!dojo._hasResource["dojox.widget.rotator.Slide"]){
-dojo._hasResource["dojox.widget.rotator.Slide"]=true;
-dojo.provide("dojox.widget.rotator.Slide");
+//>>built
+define(["dijit","dojo","dojox"],function(_1,_2,_3){
+_2.provide("dojox.widget.rotator.Slide");
 (function(d){
-var _1=0,_2=1,UP=2,_3=3;
-function _4(_5,_6){
-var _7=_6.node=_6.next.node,r=_6.rotatorBox,m=_5%2,s=(m?r.w:r.h)*(_5<2?-1:1);
-d.style(_7,{display:"",zIndex:(d.style(_6.current.node,"zIndex")||1)+1});
-if(!_6.properties){
-_6.properties={};
+var _4=0,_5=1,UP=2,_6=3;
+function _7(_8,_9){
+var _a=_9.node=_9.next.node,r=_9.rotatorBox,m=_8%2,s=(m?r.w:r.h)*(_8<2?-1:1);
+d.style(_a,{display:"",zIndex:(d.style(_9.current.node,"zIndex")||1)+1});
+if(!_9.properties){
+_9.properties={};
 }
-_6.properties[m?"left":"top"]={start:s,end:0};
-return d.animateProperty(_6);
+_9.properties[m?"left":"top"]={start:s,end:0};
+return d.animateProperty(_9);
 };
-d.mixin(dojox.widget.rotator,{slideDown:function(_8){
-return _4(_1,_8);
-},slideRight:function(_9){
-return _4(_2,_9);
-},slideUp:function(_a){
-return _4(UP,_a);
-},slideLeft:function(_b){
-return _4(_3,_b);
+d.mixin(_3.widget.rotator,{slideDown:function(_b){
+return _7(_4,_b);
+},slideRight:function(_c){
+return _7(_5,_c);
+},slideUp:function(_d){
+return _7(UP,_d);
+},slideLeft:function(_e){
+return _7(_6,_e);
 }});
-})(dojo);
-}
+})(_2);
+});

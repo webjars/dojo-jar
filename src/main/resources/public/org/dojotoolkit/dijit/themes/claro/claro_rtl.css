@@ -6,7 +6,7 @@
 .dijitMenuItemRtl {
 	text-align: right;
 }
-.dj_iequirks .dijitComboButtonRtl BUTTON {
+.dj_iequirks .dijitComboButtonRtl button {
 	
 	float:left;
 }
@@ -20,6 +20,10 @@
 .dijitSpinnerRtl .dijitSpinnerButtonContainer .dijitArrowButton {
 	right: 0;
 	left: auto;
+}
+.dj_ie7 .dijitInputContainer {
+	
+	display: inline-block;
 }
 .dijitTextBoxRtl .dijitSpinnerButtonContainer,
 .dijitTextBoxRtl .dijitValidationContainer,
@@ -60,9 +64,13 @@
 	right:0;
 	left:auto;
 }
-.dijitRtl .dijitContentPaneLoading, .dijitRtl .dijitContentPaneError {
-	background-position:right;
-	padding-right:25px;
+.dijitRtl .dijitContentPaneLoading .dijitIconLoading,
+.dijitRtl .dijitContentPaneError .dijitIconError {
+	margin-right: 0;
+	margin-left: 9px;
+}
+.dijitTabControllerRtl .nowrapTabStrip {
+    text-align: right;  
 }
 .dijitTabRtl .dijitTabCloseButton {
 	margin-left: 0;
@@ -236,7 +244,7 @@
 .dijitRtl .dijitIconFolderClosed,
 .dijitRtl .dijitFolderOpened,
 .dijitRtl .dijitIconFolderOpen,
-.dijitRtl .dijitIconError, .dijitRtl .dijitContentPaneError { 
+.dijitRtl .dijitIconError { 
 	background-image: url(../../icons/images/commonIconsObjActEnabled_rtl.png); 
 	width: 16px;
 	height: 16px;
@@ -275,7 +283,7 @@
 .dj_ie6 .dijitRtl .dijitIconFolderClosed,
 .dj_ie6 .dijitRtl .dijitFolderOpened,
 .dj_ie6 .dijitRtl .dijitIconFolderOpen,
-.dj_ie6 .dijitRtl .dijitIconError, .dj_ie6 .dijitRtl .dijitContentPaneError {
+.dj_ie6 .dijitRtl .dijitIconError {
 	background-image: url(../../icons/images/commonIconsObjActEnabled8bit_rtl.png);
 }
 .dijitRtl .dijitDisabled .dijitIconSave,
@@ -312,11 +320,8 @@
 .dijitRtl .dijitDisabled .dijitIconFolderClosed,
 .dijitRtl .dijitDisabled .dijitFolderOpened,
 .dijitRtl .dijitDisabled .dijitIconFolderOpen,
-.dijitRtl .dijitDisabled .dijitIconError, .dijitRtl .dijitDisabled .dijitContentPaneError {
+.dijitRtl .dijitDisabled .dijitIconError {
 	background-image: url(../../icons/images/commonIconsObjActDisabled_rtl.png); 
-}
-.dijitRtl .dijitContentPaneLoading {
-	background:url(../../icons/images/loadingAnimation_rtl.gif) no-repeat;
 }
 .claro .dijitTitlePaneRtl .dijitClosed .dijitArrowNode {
   background-position: -7px 0;

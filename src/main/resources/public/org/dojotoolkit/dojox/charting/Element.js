@@ -1,220 +1,214 @@
-/*
-	Copyright (c) 2004-2011, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
-
-
-if(!dojo._hasResource["dojox.charting.Element"]){
-dojo._hasResource["dojox.charting.Element"]=true;
-dojo.provide("dojox.charting.Element");
-dojo.require("dojox.gfx");
-dojo.declare("dojox.charting.Element",null,{chart:null,group:null,htmlElements:null,dirty:true,constructor:function(_1){
-this.chart=_1;
+//>>built
+define("dojox/charting/Element",["dojo/_base/lang","dojo/_base/array","dojo/dom-construct","dojo/_base/declare","dojox/gfx","dojox/gfx/utils","dojox/gfx/shape"],function(_1,_2,_3,_4,_5,_6,_7){
+return _4("dojox.charting.Element",null,{chart:null,group:null,htmlElements:null,dirty:true,constructor:function(_8){
+this.chart=_8;
 this.group=null;
 this.htmlElements=[];
 this.dirty=true;
 this.trailingSymbol="...";
 this._events=[];
-},createGroup:function(_2){
-if(!_2){
-_2=this.chart.surface;
+},createGroup:function(_9){
+if(!_9){
+_9=this.chart.surface;
 }
 if(!this.group){
-this.group=_2.createGroup();
+this.group=_9.createGroup();
 }
 return this;
 },purgeGroup:function(){
 this.destroyHtmlElements();
 if(this.group){
+_6.forEach(this.group,function(_a){
+_7.dispose(_a);
+});
 this.group.clear();
 this.group.removeShape();
 this.group=null;
 }
 this.dirty=true;
 if(this._events.length){
-dojo.forEach(this._events,function(_3){
-_3.shape.disconnect(_3.handle);
+_2.forEach(this._events,function(_b){
+_b.shape.disconnect(_b.handle);
 });
 this._events=[];
 }
 return this;
-},cleanGroup:function(_4){
+},cleanGroup:function(_c){
 this.destroyHtmlElements();
-if(!_4){
-_4=this.chart.surface;
+if(!_c){
+_c=this.chart.surface;
 }
 if(this.group){
 this.group.clear();
 }else{
-this.group=_4.createGroup();
+this.group=_c.createGroup();
 }
 this.dirty=true;
 return this;
 },destroyHtmlElements:function(){
 if(this.htmlElements.length){
-dojo.forEach(this.htmlElements,dojo.destroy);
+_2.forEach(this.htmlElements,_3.destroy);
 this.htmlElements=[];
 }
 },destroy:function(){
 this.purgeGroup();
-},getTextWidth:function(s,_5){
-return dojox.gfx._base._getTextBox(s,{font:_5}).w||0;
-},getTextWithLimitLength:function(s,_6,_7,_8){
+},getTextWidth:function(s,_d){
+return _5._base._getTextBox(s,{font:_d}).w||0;
+},getTextWithLimitLength:function(s,_e,_f,_10){
 if(!s||s.length<=0){
-return {text:"",truncated:_8||false};
+return {text:"",truncated:_10||false};
 }
-if(!_7||_7<=0){
-return {text:s,truncated:_8||false};
+if(!_f||_f<=0){
+return {text:s,truncated:_10||false};
 }
-var _9=2,_a=0.618,_b=s.substring(0,1)+this.trailingSymbol,_c=this.getTextWidth(_b,_6);
-if(_7<=_c){
-return {text:_b,truncated:true};
+var _11=2,_12=0.618,_13=s.substring(0,1)+this.trailingSymbol,_14=this.getTextWidth(_13,_e);
+if(_f<=_14){
+return {text:_13,truncated:true};
 }
-var _d=this.getTextWidth(s,_6);
-if(_d<=_7){
-return {text:s,truncated:_8||false};
+var _15=this.getTextWidth(s,_e);
+if(_15<=_f){
+return {text:s,truncated:_10||false};
 }else{
-var _e=0,_f=s.length;
-while(_e<_f){
-if(_f-_e<=_9){
-while(this.getTextWidth(s.substring(0,_e)+this.trailingSymbol,_6)>_7){
-_e-=1;
+var _16=0,end=s.length;
+while(_16<end){
+if(end-_16<=_11){
+while(this.getTextWidth(s.substring(0,_16)+this.trailingSymbol,_e)>_f){
+_16-=1;
 }
-return {text:(s.substring(0,_e)+this.trailingSymbol),truncated:true};
+return {text:(s.substring(0,_16)+this.trailingSymbol),truncated:true};
 }
-var _10=_e+Math.round((_f-_e)*_a),_11=this.getTextWidth(s.substring(0,_10),_6);
-if(_11<_7){
-_e=_10;
-_f=_f;
+var _17=_16+Math.round((end-_16)*_12),_18=this.getTextWidth(s.substring(0,_17),_e);
+if(_18<_f){
+_16=_17;
+end=end;
 }else{
-_e=_e;
-_f=_10;
+_16=_16;
+end=_17;
 }
 }
 }
-},getTextWithLimitCharCount:function(s,_12,_13,_14){
+},getTextWithLimitCharCount:function(s,_19,_1a,_1b){
 if(!s||s.length<=0){
-return {text:"",truncated:_14||false};
+return {text:"",truncated:_1b||false};
 }
-if(!_13||_13<=0||s.length<=_13){
-return {text:s,truncated:_14||false};
+if(!_1a||_1a<=0||s.length<=_1a){
+return {text:s,truncated:_1b||false};
 }
-return {text:s.substring(0,_13)+this.trailingSymbol,truncated:true};
-},_plotFill:function(_15,dim,_16){
-if(!_15||!_15.type||!_15.space){
-return _15;
+return {text:s.substring(0,_1a)+this.trailingSymbol,truncated:true};
+},_plotFill:function(_1c,dim,_1d){
+if(!_1c||!_1c.type||!_1c.space){
+return _1c;
 }
-var _17=_15.space;
-switch(_15.type){
+var _1e=_1c.space;
+switch(_1c.type){
 case "linear":
-if(_17==="plot"||_17==="shapeX"||_17==="shapeY"){
-_15=dojox.gfx.makeParameters(dojox.gfx.defaultLinearGradient,_15);
-_15.space=_17;
-if(_17==="plot"||_17==="shapeX"){
-var _18=dim.height-_16.t-_16.b;
-_15.y1=_16.t+_18*_15.y1/100;
-_15.y2=_16.t+_18*_15.y2/100;
+if(_1e==="plot"||_1e==="shapeX"||_1e==="shapeY"){
+_1c=_5.makeParameters(_5.defaultLinearGradient,_1c);
+_1c.space=_1e;
+if(_1e==="plot"||_1e==="shapeX"){
+var _1f=dim.height-_1d.t-_1d.b;
+_1c.y1=_1d.t+_1f*_1c.y1/100;
+_1c.y2=_1d.t+_1f*_1c.y2/100;
 }
-if(_17==="plot"||_17==="shapeY"){
-var _18=dim.width-_16.l-_16.r;
-_15.x1=_16.l+_18*_15.x1/100;
-_15.x2=_16.l+_18*_15.x2/100;
+if(_1e==="plot"||_1e==="shapeY"){
+var _1f=dim.width-_1d.l-_1d.r;
+_1c.x1=_1d.l+_1f*_1c.x1/100;
+_1c.x2=_1d.l+_1f*_1c.x2/100;
 }
 }
 break;
 case "radial":
-if(_17==="plot"){
-_15=dojox.gfx.makeParameters(dojox.gfx.defaultRadialGradient,_15);
-_15.space=_17;
-var _19=dim.width-_16.l-_16.r,_1a=dim.height-_16.t-_16.b;
-_15.cx=_16.l+_19*_15.cx/100;
-_15.cy=_16.t+_1a*_15.cy/100;
-_15.r=_15.r*Math.sqrt(_19*_19+_1a*_1a)/200;
+if(_1e==="plot"){
+_1c=_5.makeParameters(_5.defaultRadialGradient,_1c);
+_1c.space=_1e;
+var _20=dim.width-_1d.l-_1d.r,_21=dim.height-_1d.t-_1d.b;
+_1c.cx=_1d.l+_20*_1c.cx/100;
+_1c.cy=_1d.t+_21*_1c.cy/100;
+_1c.r=_1c.r*Math.sqrt(_20*_20+_21*_21)/200;
 }
 break;
 case "pattern":
-if(_17==="plot"||_17==="shapeX"||_17==="shapeY"){
-_15=dojox.gfx.makeParameters(dojox.gfx.defaultPattern,_15);
-_15.space=_17;
-if(_17==="plot"||_17==="shapeX"){
-var _18=dim.height-_16.t-_16.b;
-_15.y=_16.t+_18*_15.y/100;
-_15.height=_18*_15.height/100;
+if(_1e==="plot"||_1e==="shapeX"||_1e==="shapeY"){
+_1c=_5.makeParameters(_5.defaultPattern,_1c);
+_1c.space=_1e;
+if(_1e==="plot"||_1e==="shapeX"){
+var _1f=dim.height-_1d.t-_1d.b;
+_1c.y=_1d.t+_1f*_1c.y/100;
+_1c.height=_1f*_1c.height/100;
 }
-if(_17==="plot"||_17==="shapeY"){
-var _18=dim.width-_16.l-_16.r;
-_15.x=_16.l+_18*_15.x/100;
-_15.width=_18*_15.width/100;
+if(_1e==="plot"||_1e==="shapeY"){
+var _1f=dim.width-_1d.l-_1d.r;
+_1c.x=_1d.l+_1f*_1c.x/100;
+_1c.width=_1f*_1c.width/100;
 }
 }
 break;
 }
-return _15;
-},_shapeFill:function(_1b,_1c){
-if(!_1b||!_1b.space){
-return _1b;
+return _1c;
+},_shapeFill:function(_22,_23){
+if(!_22||!_22.space){
+return _22;
 }
-var _1d=_1b.space;
-switch(_1b.type){
+var _24=_22.space;
+switch(_22.type){
 case "linear":
-if(_1d==="shape"||_1d==="shapeX"||_1d==="shapeY"){
-_1b=dojox.gfx.makeParameters(dojox.gfx.defaultLinearGradient,_1b);
-_1b.space=_1d;
-if(_1d==="shape"||_1d==="shapeX"){
-var _1e=_1c.width;
-_1b.x1=_1c.x+_1e*_1b.x1/100;
-_1b.x2=_1c.x+_1e*_1b.x2/100;
+if(_24==="shape"||_24==="shapeX"||_24==="shapeY"){
+_22=_5.makeParameters(_5.defaultLinearGradient,_22);
+_22.space=_24;
+if(_24==="shape"||_24==="shapeX"){
+var _25=_23.width;
+_22.x1=_23.x+_25*_22.x1/100;
+_22.x2=_23.x+_25*_22.x2/100;
 }
-if(_1d==="shape"||_1d==="shapeY"){
-var _1e=_1c.height;
-_1b.y1=_1c.y+_1e*_1b.y1/100;
-_1b.y2=_1c.y+_1e*_1b.y2/100;
+if(_24==="shape"||_24==="shapeY"){
+var _25=_23.height;
+_22.y1=_23.y+_25*_22.y1/100;
+_22.y2=_23.y+_25*_22.y2/100;
 }
 }
 break;
 case "radial":
-if(_1d==="shape"){
-_1b=dojox.gfx.makeParameters(dojox.gfx.defaultRadialGradient,_1b);
-_1b.space=_1d;
-_1b.cx=_1c.x+_1c.width/2;
-_1b.cy=_1c.y+_1c.height/2;
-_1b.r=_1b.r*_1c.width/200;
+if(_24==="shape"){
+_22=_5.makeParameters(_5.defaultRadialGradient,_22);
+_22.space=_24;
+_22.cx=_23.x+_23.width/2;
+_22.cy=_23.y+_23.height/2;
+_22.r=_22.r*_23.width/200;
 }
 break;
 case "pattern":
-if(_1d==="shape"||_1d==="shapeX"||_1d==="shapeY"){
-_1b=dojox.gfx.makeParameters(dojox.gfx.defaultPattern,_1b);
-_1b.space=_1d;
-if(_1d==="shape"||_1d==="shapeX"){
-var _1e=_1c.width;
-_1b.x=_1c.x+_1e*_1b.x/100;
-_1b.width=_1e*_1b.width/100;
+if(_24==="shape"||_24==="shapeX"||_24==="shapeY"){
+_22=_5.makeParameters(_5.defaultPattern,_22);
+_22.space=_24;
+if(_24==="shape"||_24==="shapeX"){
+var _25=_23.width;
+_22.x=_23.x+_25*_22.x/100;
+_22.width=_25*_22.width/100;
 }
-if(_1d==="shape"||_1d==="shapeY"){
-var _1e=_1c.height;
-_1b.y=_1c.y+_1e*_1b.y/100;
-_1b.height=_1e*_1b.height/100;
+if(_24==="shape"||_24==="shapeY"){
+var _25=_23.height;
+_22.y=_23.y+_25*_22.y/100;
+_22.height=_25*_22.height/100;
 }
 }
 break;
 }
-return _1b;
-},_pseudoRadialFill:function(_1f,_20,_21,_22,end){
-if(!_1f||_1f.type!=="radial"||_1f.space!=="shape"){
-return _1f;
+return _22;
+},_pseudoRadialFill:function(_26,_27,_28,_29,end){
+if(!_26||_26.type!=="radial"||_26.space!=="shape"){
+return _26;
 }
-var _23=_1f.space;
-_1f=dojox.gfx.makeParameters(dojox.gfx.defaultRadialGradient,_1f);
-_1f.space=_23;
+var _2a=_26.space;
+_26=_5.makeParameters(_5.defaultRadialGradient,_26);
+_26.space=_2a;
 if(arguments.length<4){
-_1f.cx=_20.x;
-_1f.cy=_20.y;
-_1f.r=_1f.r*_21/100;
-return _1f;
+_26.cx=_27.x;
+_26.cy=_27.y;
+_26.r=_26.r*_28/100;
+return _26;
 }
-var _24=arguments.length<5?_22:(end+_22)/2;
-return {type:"linear",x1:_20.x,y1:_20.y,x2:_20.x+_1f.r*_21*Math.cos(_24)/100,y2:_20.y+_1f.r*_21*Math.sin(_24)/100,colors:_1f.colors};
-return _1f;
+var _2b=arguments.length<5?_29:(end+_29)/2;
+return {type:"linear",x1:_27.x,y1:_27.y,x2:_27.x+_26.r*_28*Math.cos(_2b)/100,y2:_27.y+_26.r*_28*Math.sin(_2b)/100,colors:_26.colors};
+return _26;
 }});
-}
+});

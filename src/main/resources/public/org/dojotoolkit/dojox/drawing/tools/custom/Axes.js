@@ -1,45 +1,38 @@
-/*
-	Copyright (c) 2004-2011, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
-
-
-if(!dojo._hasResource["dojox.drawing.tools.custom.Axes"]){
-dojo._hasResource["dojox.drawing.tools.custom.Axes"]=true;
-dojo.provide("dojox.drawing.tools.custom.Axes");
-dojo.require("dojox.drawing.stencil.Path");
-dojox.drawing.tools.custom.Axes=dojox.drawing.util.oo.declare(dojox.drawing.stencil.Path,function(_1){
+//>>built
+define(["dijit","dojo","dojox","dojo/require!dojox/drawing/stencil/Path"],function(_1,_2,_3){
+_2.provide("dojox.drawing.tools.custom.Axes");
+_2.require("dojox.drawing.stencil.Path");
+_3.drawing.tools.custom.Axes=_3.drawing.util.oo.declare(_3.drawing.stencil.Path,function(_4){
 this.closePath=false;
-this.xArrow=new dojox.drawing.annotations.Arrow({stencil:this,idx1:0,idx2:1});
-this.yArrow=new dojox.drawing.annotations.Arrow({stencil:this,idx1:2,idx2:1});
-if(_1.data){
-this.style.zAxisEnabled=_1.data.cosphi==1?true:false;
-this.setData(_1.data);
+this.xArrow=new _3.drawing.annotations.Arrow({stencil:this,idx1:0,idx2:1});
+this.yArrow=new _3.drawing.annotations.Arrow({stencil:this,idx1:2,idx2:1});
+if(_4.data){
+this.style.zAxisEnabled=_4.data.cosphi==1?true:false;
+this.setData(_4.data);
 }
 if(this.style.zAxisEnabled){
 this.data.cosphi=1;
-var _2={};
-dojo.mixin(_2,_1);
-dojo.mixin(_2,{container:this.container.createGroup(),style:this.style,showAngle:false,label:null});
-if(_1.data&&(!_2.data.radius||!_2.data.angle)){
-_2.data.x2=_2.data.x4;
-_2.data.y2=_2.data.y4;
+var _5={};
+_2.mixin(_5,_4);
+_2.mixin(_5,{container:this.container.createGroup(),style:this.style,showAngle:false,label:null});
+if(_4.data&&(!_5.data.radius||!_5.data.angle)){
+_5.data.x2=_5.data.x4;
+_5.data.y2=_5.data.y4;
 }
-_2.style.zAxis=true;
-this.zAxis=new dojox.drawing.tools.custom.Vector(_2);
+_5.style.zAxis=true;
+this.zAxis=new _3.drawing.tools.custom.Vector(_5);
 this.zAxis.minimumSize=5;
 this.connectMult([[this,"onChangeStyle",this.zAxis,"onChangeStyle"],[this,"select",this.zAxis,"select"],[this,"deselect",this.zAxis,"deselect"],[this,"onDelete",this.zAxis,"destroy"],[this,"onDrag",this,"zSet"],[this,"onTransform",this,"zSet"],[this.zAxis,"onBeforeRender",this,"zSet"],[this,"_onPostRender",this.zAxis,"render"]]);
 }
 if(this.points&&this.points.length){
 this.setPoints=this._postSetPoints;
 this.render();
-_1.label&&this.setLabel(_1.label);
-_1.shadow&&this.addShadow(_1.shadow);
+_4.label&&this.setLabel(_4.label);
+_4.shadow&&this.addShadow(_4.shadow);
 }
-},{draws:true,type:"dojox.drawing.tools.custom.Axes",minimumSize:30,showAngle:true,closePath:false,baseRender:false,zScale:0.5,zPoint:function(_3){
-_3.radius=this.util.length(_3);
-var pt=this.util.pointOnCircle(_3.start.x,_3.start.y,_3.radius*this.zScale,this.style.zAngle);
+},{draws:true,type:"dojox.drawing.tools.custom.Axes",minimumSize:30,showAngle:true,closePath:false,baseRender:false,zScale:0.5,zPoint:function(_6){
+_6.radius=this.util.length(_6);
+var pt=this.util.pointOnCircle(_6.start.x,_6.start.y,_6.radius*this.zScale,this.style.zAngle);
 return {x:pt.x,y:pt.y,skip:true,noAnchor:true};
 },zSet:function(){
 if(!this.zAxis){
@@ -48,50 +41,50 @@ return;
 var c=this.points[1];
 var z=this.points[3];
 var p=[{x:c.x,y:c.y},{x:z.x,y:z.y}];
-var _4=this.util.length({start:{x:c.x,y:c.y},x:z.x,y:z.y});
-_4>this.zAxis.minimumSize?this.zAxis.setPoints(p):false;
+var _7=this.util.length({start:{x:c.x,y:c.y},x:z.x,y:z.y});
+_7>this.zAxis.minimumSize?this.zAxis.setPoints(p):false;
 this.zAxis.cosphi=1;
 },createLabels:function(){
-var _5={align:"middle",valign:"middle",util:this.util,annotation:true,container:this.container,mouse:this.mouse,stencil:this};
-this.labelX=new dojox.drawing.annotations.Label(dojo.mixin(_5,{labelPosition:this.setLabelX}));
-this.labelY=new dojox.drawing.annotations.Label(dojo.mixin(_5,{labelPosition:this.setLabelY}));
+var _8={align:"middle",valign:"middle",util:this.util,annotation:true,container:this.container,mouse:this.mouse,stencil:this};
+this.labelX=new _3.drawing.annotations.Label(_2.mixin(_8,{labelPosition:this.setLabelX}));
+this.labelY=new _3.drawing.annotations.Label(_2.mixin(_8,{labelPosition:this.setLabelY}));
 if(this.style.zAxisEnabled){
-this.labelZ=new dojox.drawing.annotations.Label(dojo.mixin(_5,{labelPosition:this.setLabelZ}));
+this.labelZ=new _3.drawing.annotations.Label(_2.mixin(_8,{labelPosition:this.setLabelZ}));
 }
 },setLabelX:function(){
 var ax=this.points[0];
 var c=this.points[1];
-var _6=40;
-var _7=20;
-var pt,px,py,_8;
-pt=this.util.lineSub(c.x,c.y,ax.x,ax.y,_6);
-px=pt.x+(pt.y-ax.y);
-py=pt.y+(ax.x-pt.x);
-_8=this.util.lineSub(pt.x,pt.y,px,py,(_6-_7));
-return {x:_8.x,y:_8.y,width:20};
-},setLabelY:function(){
-var c=this.points[1];
-var ay=this.points[2];
 var _9=40;
 var _a=20;
 var pt,px,py,_b;
-pt=this.util.lineSub(c.x,c.y,ay.x,ay.y,_9);
-px=pt.x+(ay.y-pt.y);
-py=pt.y+(pt.x-ay.x);
+pt=this.util.lineSub(c.x,c.y,ax.x,ax.y,_9);
+px=pt.x+(pt.y-ax.y);
+py=pt.y+(ax.x-pt.x);
 _b=this.util.lineSub(pt.x,pt.y,px,py,(_9-_a));
 return {x:_b.x,y:_b.y,width:20};
-},setLabelZ:function(){
+},setLabelY:function(){
 var c=this.points[1];
-var z=this.points[3];
+var ay=this.points[2];
 var _c=40;
 var _d=20;
 var pt,px,py,_e;
-pt=this.util.lineSub(c.x,c.y,z.x,z.y,_c);
-px=pt.x+(pt.y-z.y);
-py=pt.y+(z.x-pt.x);
+pt=this.util.lineSub(c.x,c.y,ay.x,ay.y,_c);
+px=pt.x+(ay.y-pt.y);
+py=pt.y+(pt.x-ay.x);
 _e=this.util.lineSub(pt.x,pt.y,px,py,(_c-_d));
 return {x:_e.x,y:_e.y,width:20};
-},setLabel:function(_f){
+},setLabelZ:function(){
+var c=this.points[1];
+var z=this.points[3];
+var _f=40;
+var _10=20;
+var pt,px,py,pt2;
+pt=this.util.lineSub(c.x,c.y,z.x,z.y,_f);
+px=pt.x+(pt.y-z.y);
+py=pt.y+(z.x-pt.x);
+pt2=this.util.lineSub(pt.x,pt.y,px,py,(_f-_10));
+return {x:pt2.x,y:pt2.y,width:20};
+},setLabel:function(_11){
 if(this._labelsCreated){
 return;
 }
@@ -99,19 +92,19 @@ return;
 var x="x";
 var y="y";
 var z="z";
-if(_f){
+if(_11){
 if(this.labelZ){
-var _10=_f.match(/(.*?)(and|&)(.*?)(and|&)(.*)/i);
-if(_10.length>4){
-x=_10[1].replace(/^\s+/,"").replace(/\s+$/,"");
-y=_10[3].replace(/^\s+/,"").replace(/\s+$/,"");
-z=_10[5].replace(/^\s+/,"").replace(/\s+$/,"");
+var _12=_11.match(/(.*?)(and|&)(.*?)(and|&)(.*)/i);
+if(_12.length>4){
+x=_12[1].replace(/^\s+/,"").replace(/\s+$/,"");
+y=_12[3].replace(/^\s+/,"").replace(/\s+$/,"");
+z=_12[5].replace(/^\s+/,"").replace(/\s+$/,"");
 }
 }else{
-var _10=_f.match(/(.*?)(and|&)(.*)/i);
-if(_10.length>2){
-x=_10[1].replace(/^\s+/,"").replace(/\s+$/,"");
-y=_10[3].replace(/^\s+/,"").replace(/\s+$/,"");
+var _12=_11.match(/(.*?)(and|&)(.*)/i);
+if(_12.length>2){
+x=_12[1].replace(/^\s+/,"").replace(/\s+$/,"");
+y=_12[3].replace(/^\s+/,"").replace(/\s+$/,"");
 }
 }
 }
@@ -126,19 +119,19 @@ if(!this.labelX){
 return null;
 }
 return {x:this.labelX.getText(),y:this.labelY.getText(),z:this.labelZ?this.labelZ.getText():null};
-},anchorPositionCheck:function(x,y,_11){
+},anchorPositionCheck:function(x,y,_13){
 var pm=this.container.getParent().getTransform();
-var am=_11.shape.getTransform();
+var am=_13.shape.getTransform();
 var p=this.points;
-var o={x:am.dx+_11.org.x+pm.dx,y:am.dy+_11.org.y+pm.dy};
+var o={x:am.dx+_13.org.x+pm.dx,y:am.dy+_13.org.y+pm.dy};
 var c={x:p[1].x+pm.dx,y:p[1].y+pm.dy};
 var ox=c.x-(c.y-o.y);
 var oy=c.y-(o.x-c.x);
 return {x:ox,y:oy};
-},onTransformBegin:function(_12){
+},onTransformBegin:function(_14){
 this._isBeingModified=true;
-},onTransformEnd:function(_13){
-if(!_13){
+},onTransformEnd:function(_15){
+if(!_15){
 return;
 }
 this._isBeingModified=false;
@@ -183,18 +176,18 @@ if(this.labelZ){
 this.labelZ.setLabel();
 }
 this.onModify(this);
-},getBounds:function(_14){
+},getBounds:function(_16){
 var px=this.points[0],pc=this.points[1],py=this.points[2];
 if(this.style.zAxisEnabled){
 var pz=this.points[3];
 }
-if(_14){
-var _15={x:pc.x,y:pc.y,x1:pc.x,y1:pc.y,x2:px.x,y2:px.y,x3:py.x,y3:py.y};
+if(_16){
+var _17={x:pc.x,y:pc.y,x1:pc.x,y1:pc.y,x2:px.x,y2:px.y,x3:py.x,y3:py.y};
 if(this.style.zAxisEnabled){
-_15.x4=pz.x;
-_15.y4=pz.y;
+_17.x4=pz.x;
+_17.y4=pz.y;
 }
-return _15;
+return _17;
 }
 var x1=this.style.zAxisEnabled?(py.x<pz.x?py.x:pz.x):py.x;
 y1=py.y<px.y?py.y:px.y,x2=px.x,y2=this.style.zAxisEnabled?pz.y:pc.y;
@@ -204,7 +197,7 @@ this.points[0]=pts[0];
 if(this.pointsToData){
 this.data=this.pointsToData();
 }
-},onTransform:function(_16){
+},onTransform:function(_18){
 var o=this.points[0];
 var c=this.points[1];
 var ox=c.x-(c.y-o.y);
@@ -229,8 +222,8 @@ d.cosphi=1;
 return d;
 },getRadius:function(){
 var p=this.points;
-var _17={start:{x:p[1].x,y:p[1].y},x:p[0].x,y:p[0].y};
-return this.util.length(_17);
+var _19={start:{x:p[1].x,y:p[1].y},x:p[0].x,y:p[0].y};
+return this.util.length(_19);
 },dataToPoints:function(o){
 o=o||this.data;
 if(o.radius||o.angle){
@@ -321,6 +314,6 @@ this.points.push(this.zPoint(obj));
 this.onRender(this);
 this.setPoints=this._postSetPoints;
 }});
-dojox.drawing.tools.custom.Axes.setup={name:"dojox.drawing.tools.custom.Axes",tooltip:"Axes Tool",iconClass:"iconAxes"};
-dojox.drawing.register(dojox.drawing.tools.custom.Axes.setup,"tool");
-}
+_3.drawing.tools.custom.Axes.setup={name:"dojox.drawing.tools.custom.Axes",tooltip:"Axes Tool",iconClass:"iconAxes"};
+_3.drawing.register(_3.drawing.tools.custom.Axes.setup,"tool");
+});

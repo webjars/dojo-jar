@@ -1,40 +1,29 @@
-/*
-	Copyright (c) 2004-2011, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
-
-
-if(!dojo._hasResource["dijit.DialogUnderlay"]){
-dojo._hasResource["dijit.DialogUnderlay"]=true;
-dojo.provide("dijit.DialogUnderlay");
-dojo.require("dojo.window");
-dojo.require("dijit._Widget");
-dojo.require("dijit._Templated");
-dojo.declare("dijit.DialogUnderlay",[dijit._Widget,dijit._Templated],{templateString:"<div class='dijitDialogUnderlayWrapper'><div class='dijitDialogUnderlay' dojoAttachPoint='node'></div></div>",dialogId:"","class":"",attributeMap:{id:"domNode"},_setDialogIdAttr:function(id){
-dojo.attr(this.node,"id",id+"_underlay");
+//>>built
+define("dijit/DialogUnderlay",["dojo/_base/declare","dojo/dom-attr","dojo/_base/window","dojo/window","./_Widget","./_TemplatedMixin","./BackgroundIframe"],function(_1,_2,_3,_4,_5,_6,_7){
+return _1("dijit.DialogUnderlay",[_5,_6],{templateString:"<div class='dijitDialogUnderlayWrapper'><div class='dijitDialogUnderlay' data-dojo-attach-point='node'></div></div>",dialogId:"","class":"",_setDialogIdAttr:function(id){
+_2.set(this.node,"id",id+"_underlay");
 this._set("dialogId",id);
-},_setClassAttr:function(_1){
-this.node.className="dijitDialogUnderlay "+_1;
-this._set("class",_1);
+},_setClassAttr:function(_8){
+this.node.className="dijitDialogUnderlay "+_8;
+this._set("class",_8);
 },postCreate:function(){
-dojo.body().appendChild(this.domNode);
+_3.body().appendChild(this.domNode);
 },layout:function(){
 var is=this.node.style,os=this.domNode.style;
 os.display="none";
-var _2=dojo.window.getBox();
-os.top=_2.t+"px";
-os.left=_2.l+"px";
-is.width=_2.w+"px";
-is.height=_2.h+"px";
+var _9=_4.getBox();
+os.top=_9.t+"px";
+os.left=_9.l+"px";
+is.width=_9.w+"px";
+is.height=_9.h+"px";
 os.display="block";
 },show:function(){
 this.domNode.style.display="block";
 this.layout();
-this.bgIframe=new dijit.BackgroundIframe(this.domNode);
+this.bgIframe=new _7(this.domNode);
 },hide:function(){
 this.bgIframe.destroy();
 delete this.bgIframe;
 this.domNode.style.display="none";
 }});
-}
+});

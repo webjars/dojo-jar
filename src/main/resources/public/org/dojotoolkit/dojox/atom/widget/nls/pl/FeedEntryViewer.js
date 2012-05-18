@@ -1,1 +1,16 @@
-({"close":"[zamknij]","title":"Tytuł","authors":"Autorzy","summary":"Podsumowanie","content":"Treść","contributors":"Kontrybutorzy","updated":"Zaktualizowano","displayOptions":"[opcje wyświetlania]","id":"Identyfikator"})
+//>>built
+define(
+"dojox/atom/widget/nls/pl/FeedEntryViewer", //begin v1.x content
+({
+	displayOptions: "[opcje wyświetlania]",
+	title: "Tytuł",
+	authors: "Autorzy",
+	contributors: "Kontrybutorzy",
+	id: "Identyfikator",
+	close: "[zamknij]",
+	updated: "Zaktualizowano",
+	summary: "Podsumowanie",
+	content: "Treść"
+})
+//end v1.x content
+);

@@ -1,70 +1,57 @@
-/*
-	Copyright (c) 2004-2011, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
-
-
-if(!dojo._hasResource["dojox.editor.plugins.StatusBar"]){
-dojo._hasResource["dojox.editor.plugins.StatusBar"]=true;
-dojo.provide("dojox.editor.plugins.StatusBar");
-dojo.require("dijit.Toolbar");
-dojo.require("dijit._editor._Plugin");
-dojo.require("dojox.layout.ResizeHandle");
-dojo.require("dojo.i18n");
-dojo.requireLocalization("dojox.editor.plugins","StatusBar",null,"");
-dojo.experimental("dojox.editor.plugins.StatusBar");
-dojo.declare("dojox.editor.plugins._StatusBar",[dijit._Widget,dijit._Templated],{templateString:"<div class=\"dojoxEditorStatusBar\">"+"<table><tbody><tr>"+"<td class=\"dojoxEditorStatusBarText\" tabindex=\"-1\" aria-role=\"presentation\" aria-live=\"aggressive\"><span dojoAttachPoint=\"barContent\">&nbsp;</span></td>"+"<td><span dojoAttachPoint=\"handle\"></span></td>"+"</tr></tbody><table>"+"</div>",_getValueAttr:function(){
+//>>built
+define("dojox/editor/plugins/StatusBar",["dojo","dijit","dojox","dijit/_Widget","dijit/_TemplatedMixin","dijit/_editor/_Plugin","dojo/_base/connect","dojo/_base/declare","dojox/layout/ResizeHandle"],function(_1,_2,_3){
+_1.experimental("dojox.editor.plugins.StatusBar");
+_1.declare("dojox.editor.plugins._StatusBar",[_2._Widget,_2._TemplatedMixin],{templateString:"<div class=\"dojoxEditorStatusBar\">"+"<table><tbody><tr>"+"<td class=\"dojoxEditorStatusBarText\" tabindex=\"-1\" aria-role=\"presentation\" aria-live=\"aggressive\"><span dojoAttachPoint=\"barContent\">&nbsp;</span></td>"+"<td><span dojoAttachPoint=\"handle\"></span></td>"+"</tr></tbody><table>"+"</div>",_getValueAttr:function(){
 return this.barContent.innerHTML;
-},_setValueAttr:function(_1){
-if(_1){
-_1=dojo.trim(_1);
-if(!_1){
-_1="&nbsp;";
+},_setValueAttr:function(_4){
+if(_4){
+_4=_1.trim(_4);
+if(!_4){
+_4="&nbsp;";
 }
 }else{
-_1="&nbsp;";
+_4="&nbsp;";
 }
-this.barContent.innerHTML=_1;
+this.barContent.innerHTML=_4;
 }});
-dojo.declare("dojox.editor.plugins.StatusBar",dijit._editor._Plugin,{statusBar:null,resizer:true,setEditor:function(_2){
-this.editor=_2;
-this.statusBar=new dojox.editor.plugins._StatusBar();
+_1.declare("dojox.editor.plugins.StatusBar",_2._editor._Plugin,{statusBar:null,resizer:true,setEditor:function(_5){
+this.editor=_5;
+this.statusBar=new _3.editor.plugins._StatusBar();
 if(this.resizer){
-this.resizeHandle=new dojox.layout.ResizeHandle({targetId:this.editor,activeResize:true},this.statusBar.handle);
+this.resizeHandle=new _3.layout.ResizeHandle({targetId:this.editor,activeResize:true},this.statusBar.handle);
 this.resizeHandle.startup();
 }else{
-dojo.style(this.statusBar.handle.parentNode,"display","none");
+_1.style(this.statusBar.handle.parentNode,"display","none");
 }
-var _3=null;
-if(_2.footer.lastChild){
-_3="after";
+var _6=null;
+if(_5.footer.lastChild){
+_6="after";
 }
-dojo.place(this.statusBar.domNode,_2.footer.lastChild||_2.footer,_3);
+_1.place(this.statusBar.domNode,_5.footer.lastChild||_5.footer,_6);
 this.statusBar.startup();
 this.editor.statusBar=this;
-this._msgListener=dojo.subscribe(this.editor.id+"_statusBar",dojo.hitch(this,this._setValueAttr));
+this._msgListener=_1.subscribe(this.editor.id+"_statusBar",_1.hitch(this,this._setValueAttr));
 },_getValueAttr:function(){
 return this.statusBar.get("value");
-},_setValueAttr:function(_4){
-this.statusBar.set("value",_4);
-},set:function(_5,_6){
-if(_5){
-var _7="_set"+_5.charAt(0).toUpperCase()+_5.substring(1,_5.length)+"Attr";
-if(dojo.isFunction(this[_7])){
-this[_7](_6);
-}else{
-this[_5]=_6;
-}
-}
-},get:function(_8){
+},_setValueAttr:function(_7){
+this.statusBar.set("value",_7);
+},set:function(_8,_9){
 if(_8){
-var _9="_get"+_8.charAt(0).toUpperCase()+_8.substring(1,_8.length)+"Attr";
-var f=this[_9];
-if(dojo.isFunction(f)){
-return this[_9]();
+var _a="_set"+_8.charAt(0).toUpperCase()+_8.substring(1,_8.length)+"Attr";
+if(_1.isFunction(this[_a])){
+this[_a](_9);
 }else{
-return this[_8];
+this[_8]=_9;
+}
+}
+},get:function(_b){
+if(_b){
+var _c="_get"+_b.charAt(0).toUpperCase()+_b.substring(1,_b.length)+"Attr";
+var f=this[_c];
+if(_1.isFunction(f)){
+return this[_c]();
+}else{
+return this[_b];
 }
 }
 return null;
@@ -78,19 +65,20 @@ this.resizeHandle.destroy();
 delete this.resizeHandle;
 }
 if(this._msgListener){
-dojo.unsubscribe(this._msgListener);
+_1.unsubscribe(this._msgListener);
 delete this._msgListener;
 }
 delete this.editor.statusBar;
 }});
-dojo.subscribe(dijit._scopeName+".Editor.getPlugin",null,function(o){
+_1.subscribe(_2._scopeName+".Editor.getPlugin",null,function(o){
 if(o.plugin){
 return;
 }
-var _a=o.args.name.toLowerCase();
-if(_a==="statusbar"){
-var _b=("resizer" in o.args)?o.args.resizer:true;
-o.plugin=new dojox.editor.plugins.StatusBar({resizer:_b});
+var _d=o.args.name.toLowerCase();
+if(_d==="statusbar"){
+var _e=("resizer" in o.args)?o.args.resizer:true;
+o.plugin=new _3.editor.plugins.StatusBar({resizer:_e});
 }
 });
-}
+return _3.editor.plugins.StatusBar;
+});

@@ -4,11 +4,10 @@
 	see: http://dojotoolkit.org/license for details
 */
 
-
-if(!dojo._hasResource["dojo.data.api.Request"]){
-dojo._hasResource["dojo.data.api.Request"]=true;
-dojo.provide("dojo.data.api.Request");
-dojo.declare("dojo.data.api.Request",null,{abort:function(){
+//>>built
+define("dojo/data/api/Request",["../.."],function(_1){
+_1.declare("dojo.data.api.Request",null,{abort:function(){
 throw new Error("Unimplemented API: dojo.data.api.Request.abort");
 }});
-}
+return _1.data.api.Request;
+});

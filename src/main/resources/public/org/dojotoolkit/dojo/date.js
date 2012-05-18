@@ -4,211 +4,210 @@
 	see: http://dojotoolkit.org/license for details
 */
 
-
-if(!dojo._hasResource["dojo.date"]){
-dojo._hasResource["dojo.date"]=true;
-dojo.provide("dojo.date");
-dojo.getObject("date",true,dojo);
-dojo.date.getDaysInMonth=function(_1){
-var _2=_1.getMonth();
-var _3=[31,28,31,30,31,30,31,31,30,31,30,31];
-if(_2==1&&dojo.date.isLeapYear(_1)){
+//>>built
+define("dojo/date",["./_base/kernel","./_base/lang"],function(_1,_2){
+_2.getObject("date",true,_1);
+_1.date.getDaysInMonth=function(_3){
+var _4=_3.getMonth();
+var _5=[31,28,31,30,31,30,31,31,30,31,30,31];
+if(_4==1&&_1.date.isLeapYear(_3)){
 return 29;
 }
-return _3[_2];
+return _5[_4];
 };
-dojo.date.isLeapYear=function(_4){
-var _5=_4.getFullYear();
-return !(_5%400)||(!(_5%4)&&!!(_5%100));
+_1.date.isLeapYear=function(_6){
+var _7=_6.getFullYear();
+return !(_7%400)||(!(_7%4)&&!!(_7%100));
 };
-dojo.date.getTimezoneName=function(_6){
-var _7=_6.toString();
+_1.date.getTimezoneName=function(_8){
+var _9=_8.toString();
 var tz="";
-var _8;
-var _9=_7.indexOf("(");
-if(_9>-1){
-tz=_7.substring(++_9,_7.indexOf(")"));
+var _a;
+var _b=_9.indexOf("(");
+if(_b>-1){
+tz=_9.substring(++_b,_9.indexOf(")"));
 }else{
-var _a=/([A-Z\/]+) \d{4}$/;
-if((_8=_7.match(_a))){
-tz=_8[1];
+var _c=/([A-Z\/]+) \d{4}$/;
+if((_a=_9.match(_c))){
+tz=_a[1];
 }else{
-_7=_6.toLocaleString();
-_a=/ ([A-Z\/]+)$/;
-if((_8=_7.match(_a))){
-tz=_8[1];
+_9=_8.toLocaleString();
+_c=/ ([A-Z\/]+)$/;
+if((_a=_9.match(_c))){
+tz=_a[1];
 }
 }
 }
 return (tz=="AM"||tz=="PM")?"":tz;
 };
-dojo.date.compare=function(_b,_c,_d){
-_b=new Date(+_b);
-_c=new Date(+(_c||new Date()));
-if(_d=="date"){
-_b.setHours(0,0,0,0);
-_c.setHours(0,0,0,0);
+_1.date.compare=function(_d,_e,_f){
+_d=new Date(+_d);
+_e=new Date(+(_e||new Date()));
+if(_f=="date"){
+_d.setHours(0,0,0,0);
+_e.setHours(0,0,0,0);
 }else{
-if(_d=="time"){
-_b.setFullYear(0,0,0);
-_c.setFullYear(0,0,0);
+if(_f=="time"){
+_d.setFullYear(0,0,0);
+_e.setFullYear(0,0,0);
 }
 }
-if(_b>_c){
+if(_d>_e){
 return 1;
 }
-if(_b<_c){
+if(_d<_e){
 return -1;
 }
 return 0;
 };
-dojo.date.add=function(_e,_f,_10){
-var sum=new Date(+_e);
-var _11=false;
-var _12="Date";
-switch(_f){
+_1.date.add=function(_10,_11,_12){
+var sum=new Date(+_10);
+var _13=false;
+var _14="Date";
+switch(_11){
 case "day":
 break;
 case "weekday":
-var _13,_14;
-var mod=_10%5;
+var _15,_16;
+var mod=_12%5;
 if(!mod){
-_13=(_10>0)?5:-5;
-_14=(_10>0)?((_10-5)/5):((_10+5)/5);
+_15=(_12>0)?5:-5;
+_16=(_12>0)?((_12-5)/5):((_12+5)/5);
 }else{
-_13=mod;
-_14=parseInt(_10/5);
+_15=mod;
+_16=parseInt(_12/5);
 }
-var _15=_e.getDay();
+var _17=_10.getDay();
 var adj=0;
-if(_15==6&&_10>0){
+if(_17==6&&_12>0){
 adj=1;
 }else{
-if(_15==0&&_10<0){
+if(_17==0&&_12<0){
 adj=-1;
 }
 }
-var _16=_15+_13;
-if(_16==0||_16==6){
-adj=(_10>0)?2:-2;
+var _18=_17+_15;
+if(_18==0||_18==6){
+adj=(_12>0)?2:-2;
 }
-_10=(7*_14)+_13+adj;
+_12=(7*_16)+_15+adj;
 break;
 case "year":
-_12="FullYear";
-_11=true;
+_14="FullYear";
+_13=true;
 break;
 case "week":
-_10*=7;
+_12*=7;
 break;
 case "quarter":
-_10*=3;
+_12*=3;
 case "month":
-_11=true;
-_12="Month";
+_13=true;
+_14="Month";
 break;
 default:
-_12="UTC"+_f.charAt(0).toUpperCase()+_f.substring(1)+"s";
+_14="UTC"+_11.charAt(0).toUpperCase()+_11.substring(1)+"s";
 }
-if(_12){
-sum["set"+_12](sum["get"+_12]()+_10);
+if(_14){
+sum["set"+_14](sum["get"+_14]()+_12);
 }
-if(_11&&(sum.getDate()<_e.getDate())){
+if(_13&&(sum.getDate()<_10.getDate())){
 sum.setDate(0);
 }
 return sum;
 };
-dojo.date.difference=function(_17,_18,_19){
-_18=_18||new Date();
-_19=_19||"day";
-var _1a=_18.getFullYear()-_17.getFullYear();
-var _1b=1;
-switch(_19){
+_1.date.difference=function(_19,_1a,_1b){
+_1a=_1a||new Date();
+_1b=_1b||"day";
+var _1c=_1a.getFullYear()-_19.getFullYear();
+var _1d=1;
+switch(_1b){
 case "quarter":
-var m1=_17.getMonth();
-var m2=_18.getMonth();
+var m1=_19.getMonth();
+var m2=_1a.getMonth();
 var q1=Math.floor(m1/3)+1;
 var q2=Math.floor(m2/3)+1;
-q2+=(_1a*4);
-_1b=q2-q1;
+q2+=(_1c*4);
+_1d=q2-q1;
 break;
 case "weekday":
-var _1c=Math.round(dojo.date.difference(_17,_18,"day"));
-var _1d=parseInt(dojo.date.difference(_17,_18,"week"));
-var mod=_1c%7;
+var _1e=Math.round(_1.date.difference(_19,_1a,"day"));
+var _1f=parseInt(_1.date.difference(_19,_1a,"week"));
+var mod=_1e%7;
 if(mod==0){
-_1c=_1d*5;
+_1e=_1f*5;
 }else{
 var adj=0;
-var _1e=_17.getDay();
-var _1f=_18.getDay();
-_1d=parseInt(_1c/7);
-mod=_1c%7;
-var _20=new Date(_17);
-_20.setDate(_20.getDate()+(_1d*7));
-var _21=_20.getDay();
-if(_1c>0){
+var _20=_19.getDay();
+var _21=_1a.getDay();
+_1f=parseInt(_1e/7);
+mod=_1e%7;
+var _22=new Date(_19);
+_22.setDate(_22.getDate()+(_1f*7));
+var _23=_22.getDay();
+if(_1e>0){
 switch(true){
-case _1e==6:
+case _20==6:
 adj=-1;
 break;
-case _1e==0:
+case _20==0:
 adj=0;
 break;
-case _1f==6:
+case _21==6:
 adj=-1;
 break;
-case _1f==0:
+case _21==0:
 adj=-2;
 break;
-case (_21+mod)>5:
+case (_23+mod)>5:
 adj=-2;
 }
 }else{
-if(_1c<0){
+if(_1e<0){
 switch(true){
-case _1e==6:
+case _20==6:
 adj=0;
 break;
-case _1e==0:
+case _20==0:
 adj=1;
 break;
-case _1f==6:
+case _21==6:
 adj=2;
 break;
-case _1f==0:
+case _21==0:
 adj=1;
 break;
-case (_21+mod)<0:
+case (_23+mod)<0:
 adj=2;
 }
 }
 }
-_1c+=adj;
-_1c-=(_1d*2);
+_1e+=adj;
+_1e-=(_1f*2);
 }
-_1b=_1c;
+_1d=_1e;
 break;
 case "year":
-_1b=_1a;
+_1d=_1c;
 break;
 case "month":
-_1b=(_18.getMonth()-_17.getMonth())+(_1a*12);
+_1d=(_1a.getMonth()-_19.getMonth())+(_1c*12);
 break;
 case "week":
-_1b=parseInt(dojo.date.difference(_17,_18,"day")/7);
+_1d=parseInt(_1.date.difference(_19,_1a,"day")/7);
 break;
 case "day":
-_1b/=24;
+_1d/=24;
 case "hour":
-_1b/=60;
+_1d/=60;
 case "minute":
-_1b/=60;
+_1d/=60;
 case "second":
-_1b/=1000;
+_1d/=1000;
 case "millisecond":
-_1b*=_18.getTime()-_17.getTime();
+_1d*=_1a.getTime()-_19.getTime();
 }
-return Math.round(_1b);
+return Math.round(_1d);
 };
-}
+return _1.date;
+});

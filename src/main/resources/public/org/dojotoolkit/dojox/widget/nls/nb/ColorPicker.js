@@ -1,1 +1,8 @@
-({"saturationPickerTitle":"Metningsvelger","huePickerTitle":"Nyansevelger","valueLabel":"v","blueLabel":"b","saturationLabel":"s","greenLabel":"g","redLabel":"r","hueLabel":"h","hexLabel":"hex","degLabel":"°"})
+//>>built
+define(
+"dojox/widget/nls/nb/ColorPicker", //begin v1.x content
+({
+huePickerTitle: "Nyansevelger",
+saturationPickerTitle: "Metningsvelger"
+})
+);

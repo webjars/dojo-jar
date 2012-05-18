@@ -1,1 +1,22 @@
-({"cancel":"Annuler","toDic":"Ajouter au dictionnaire","skip":"Ignorer","iMsg":"Aucune suggestion orthographique","replaceAll":"Remplacer tout","widgetLabel":"Vérification orthographique par lots","skipAll":"Ignorer tout","suggestions":"Suggestions","iSkipAll":"Ignorer chaque fois","replaceWith":"Remplacer par","msg":"Aucune faute d'orthographe trouvée","replace":"Remplacer","unfound":"Introuvable","iSkip":"Ignorer une fois"})
+//>>built
+define(
+"dojox/editor/plugins/nls/fr/SpellCheck", //begin v1.x content
+({
+	widgetLabel: "Vérification orthographique par lots",
+	unfound: "Introuvable",
+	skip: "Ignorer",
+	skipAll: "Ignorer tout",
+	toDic: "Ajouter au dictionnaire",
+	suggestions: "Suggestions",
+	replace: "Remplacer",
+	replaceWith: "Remplacer par",
+	replaceAll: "Remplacer tout",
+	cancel: "Annuler",
+	msg: "Aucune faute d'orthographe trouvée",
+	iSkip: "Ignorer une fois",
+	iSkipAll: "Ignorer chaque fois",
+	iMsg: "Aucune suggestion orthographique"
+})
+
+//end v1.x content
+);

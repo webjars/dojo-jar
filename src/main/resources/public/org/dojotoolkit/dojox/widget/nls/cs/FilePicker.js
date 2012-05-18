@@ -1,1 +1,9 @@
-({"name":"Název","size":"Velikost (v bajtech)","path":"Cesta"})
+//>>built
+define(
+"dojox/widget/nls/cs/FilePicker", ({
+name: "Název",
+path: "Cesta",
+size: "Velikost (v bajtech)"
+})
+
+);

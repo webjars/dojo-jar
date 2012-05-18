@@ -1,23 +1,13 @@
-/*
-	Copyright (c) 2004-2011, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
-
-
-if(!dojo._hasResource["dojox.charting.Chart3D"]){
-dojo._hasResource["dojox.charting.Chart3D"]=true;
-dojo.provide("dojox.charting.Chart3D");
-dojo.require("dojox.gfx3d");
-(function(){
-var _1={x:0,y:0,z:1},v=dojox.gfx3d.vector,n=dojox.gfx.normalizedLength;
-dojo.declare("dojox.charting.Chart3D",null,{constructor:function(_2,_3,_4,_5){
-this.node=dojo.byId(_2);
-this.surface=dojox.gfx.createSurface(this.node,n(this.node.style.width),n(this.node.style.height));
+//>>built
+define("dojox/charting/Chart3D",["dojo/_base/array","dojo/dom","dojo/_base/declare","dojo/_base/html","dojox/gfx","dojox/gfx3d"],function(_1,_2,_3,_4,_5,_6){
+var _7={x:0,y:0,z:1},v=_6.vector,n=_5.normalizedLength;
+return _3("dojox.charting.Chart3D",null,{constructor:function(_8,_9,_a,_b){
+this.node=_2.byId(_8);
+this.surface=_5.createSurface(this.node,n(this.node.style.width),n(this.node.style.height));
 this.view=this.surface.createViewport();
-this.view.setLights(_3.lights,_3.ambient,_3.specular);
-this.view.setCameraTransform(_4);
-this.theme=_5;
+this.view.setLights(_9.lights,_9.ambient,_9.specular);
+this.view.setCameraTransform(_a);
+this.theme=_b;
 this.walls=[];
 this.plots=[];
 },generate:function(){
@@ -28,46 +18,45 @@ return this;
 },render:function(){
 this.view.render();
 return this;
-},addPlot:function(_6){
-return this._add(this.plots,_6);
-},removePlot:function(_7){
-return this._remove(this.plots,_7);
-},addWall:function(_8){
-return this._add(this.walls,_8);
-},removeWall:function(_9){
-return this._remove(this.walls,_9);
-},_add:function(_a,_b){
-if(!dojo.some(_a,function(i){
-return i==_b;
+},addPlot:function(_c){
+return this._add(this.plots,_c);
+},removePlot:function(_d){
+return this._remove(this.plots,_d);
+},addWall:function(_e){
+return this._add(this.walls,_e);
+},removeWall:function(_f){
+return this._remove(this.walls,_f);
+},_add:function(_10,_11){
+if(!_1.some(_10,function(i){
+return i==_11;
 })){
-_a.push(_b);
+_10.push(_11);
 this.view.invalidate();
 }
 return this;
-},_remove:function(_c,_d){
-var a=dojo.filter(_c,function(i){
-return i!=_d;
+},_remove:function(_12,_13){
+var a=_1.filter(_12,function(i){
+return i!=_13;
 });
-return a.length<_c.length?(_c=a,this.invalidate()):this;
+return a.length<_12.length?(_12=a,this.invalidate()):this;
 },_generateWalls:function(){
 for(var i=0;i<this.walls.length;++i){
-if(v.dotProduct(_1,this.walls[i].normal)>0){
+if(v.dotProduct(_7,this.walls[i].normal)>0){
 this.walls[i].generate(this);
 }
 }
 return this;
 },_generatePlots:function(){
-var _e=0,m=dojox.gfx3d.matrix,i=0;
+var _14=0,m=_6.matrix,i=0;
 for(;i<this.plots.length;++i){
-_e+=this.plots[i].getDepth();
+_14+=this.plots[i].getDepth();
 }
 for(--i;i>=0;--i){
-var _f=this.view.createScene();
-_f.setTransform(m.translate(0,0,-_e));
-this.plots[i].generate(this,_f);
-_e-=this.plots[i].getDepth();
+var _15=this.view.createScene();
+_15.setTransform(m.translate(0,0,-_14));
+this.plots[i].generate(this,_15);
+_14-=this.plots[i].getDepth();
 }
 return this;
 }});
-})();
-}
+});

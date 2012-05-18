@@ -4,10 +4,8 @@
 	see: http://dojotoolkit.org/license for details
 */
 
-
-if(!dojo._hasResource["dojo.jaxer"]){
-dojo._hasResource["dojo.jaxer"]=true;
-dojo.provide("dojo.jaxer");
+//>>built
+define("dojo/jaxer",["./main"],function(_1){
 if(typeof print=="function"){
 console.debug=Jaxer.Log.debug;
 console.warn=Jaxer.Log.warn;
@@ -15,5 +13,6 @@ console.error=Jaxer.Log.error;
 console.info=Jaxer.Log.info;
 console.log=Jaxer.Log.warn;
 }
-onserverload=dojo._loadInit;
-}
+onserverload=_1._loadInit;
+return _1;
+});

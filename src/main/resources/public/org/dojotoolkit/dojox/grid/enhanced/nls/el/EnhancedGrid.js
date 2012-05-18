@@ -1,1 +1,17 @@
-({"descending":"Φθίνουσα","ascending":"Αύξουσα","nestedSort":"Ένθετη ταξινόμηση","unsorted":"Χωρίς ταξινόμηση αυτής της στήλης","singleSort":"Απλή ταξινόμηση","indirectSelectionRadio":"Row ${0}, single selection, radio box","indirectSelectionCheckBox":"Row ${0}, multiple selection, check box","selectAll":"Select all","sortingState":"${0} - ${1}"})
+//>>built
+define(
+"dojox/grid/enhanced/nls/el/EnhancedGrid", //begin v1.x content
+({
+	singleSort: "Απλή ταξινόμηση",
+	nestedSort: "Ένθετη ταξινόμηση",
+	ascending: "Αύξουσα",
+	descending: "Φθίνουσα",
+	sortingState: "${0} - ${1}",
+	unsorted: "Χωρίς ταξινόμηση αυτής της στήλης",
+	indirectSelectionRadio: "Γραμμή ${0}, μονή επιλογή, κουμπί επιλογής",
+	indirectSelectionCheckBox: "Γραμμή ${0}, πολλαπλές επιλογές, τετραγωνίδιο επιλογής",
+	selectAll: "Επιλογή όλων"
+})
+//end v1.x content
+);
+

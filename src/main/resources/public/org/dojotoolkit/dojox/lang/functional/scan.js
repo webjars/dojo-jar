@@ -1,16 +1,6 @@
-/*
-	Copyright (c) 2004-2011, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
-
-
-if(!dojo._hasResource["dojox.lang.functional.scan"]){
-dojo._hasResource["dojox.lang.functional.scan"]=true;
-dojo.provide("dojox.lang.functional.scan");
-dojo.require("dojox.lang.functional.lambda");
-(function(){
-var d=dojo,df=dojox.lang.functional,_1={};
+//>>built
+define("dojox/lang/functional/scan",["dojo/_base/kernel","dojo/_base/lang","./lambda"],function(d,_1,df){
+var _2={};
 d.mixin(df,{scanl:function(a,f,z,o){
 if(typeof a=="string"){
 a=a.split("");
@@ -31,7 +21,7 @@ for(i=0;a.hasNext();t.push(z=f.call(o,z,a.next(),i++,a))){
 }else{
 t=[z];
 for(i in a){
-if(!(i in _1)){
+if(!(i in _2)){
 t.push(z=f.call(o,z,a[i],i,a));
 }
 }
@@ -44,7 +34,7 @@ a=a.split("");
 }
 o=o||d.global;
 f=df.lambda(f);
-var t,n,z,_2=true;
+var t,n,z,_3=true;
 if(d.isArray(a)){
 t=new Array(n=a.length);
 t[0]=z=a[0];
@@ -54,15 +44,15 @@ for(var i=1;i<n;t[i]=z=f.call(o,z,a[i],i,a),++i){
 if(typeof a.hasNext=="function"&&typeof a.next=="function"){
 if(a.hasNext()){
 t=[z=a.next()];
-for(var i=1;a.hasNext();t.push(z=f.call(o,z,a.next(),i++,a))){
+for(i=1;a.hasNext();t.push(z=f.call(o,z,a.next(),i++,a))){
 }
 }
 }else{
-for(var i in a){
-if(!(i in _1)){
-if(_2){
+for(i in a){
+if(!(i in _2)){
+if(_3){
 t=[z=a[i]];
-_2=false;
+_3=false;
 }else{
 t.push(z=f.call(o,z,a[i],i,a));
 }
@@ -94,5 +84,4 @@ for(;i>0;--i,z=f.call(o,z,a[i],i,a),t[i]=z){
 }
 return t;
 }});
-})();
-}
+});

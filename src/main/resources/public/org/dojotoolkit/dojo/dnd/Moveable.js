@@ -4,76 +4,72 @@
 	see: http://dojotoolkit.org/license for details
 */
 
-
-if(!dojo._hasResource["dojo.dnd.Moveable"]){
-dojo._hasResource["dojo.dnd.Moveable"]=true;
-dojo.provide("dojo.dnd.Moveable");
-dojo.require("dojo.dnd.Mover");
-dojo.declare("dojo.dnd.Moveable",null,{handle:"",delay:0,skip:false,constructor:function(_1,_2){
-this.node=dojo.byId(_1);
-if(!_2){
-_2={};
+//>>built
+define("dojo/dnd/Moveable",["../main","../Evented","../touch","./Mover"],function(_1,_2,_3){
+_1.declare("dojo.dnd.Moveable",[_2],{handle:"",delay:0,skip:false,constructor:function(_4,_5){
+this.node=_1.byId(_4);
+if(!_5){
+_5={};
 }
-this.handle=_2.handle?dojo.byId(_2.handle):null;
+this.handle=_5.handle?_1.byId(_5.handle):null;
 if(!this.handle){
 this.handle=this.node;
 }
-this.delay=_2.delay>0?_2.delay:0;
-this.skip=_2.skip;
-this.mover=_2.mover?_2.mover:dojo.dnd.Mover;
-this.events=[dojo.connect(this.handle,"onmousedown",this,"onMouseDown"),dojo.connect(this.handle,"ontouchstart",this,"onMouseDown"),dojo.connect(this.handle,"ondragstart",this,"onSelectStart"),dojo.connect(this.handle,"onselectstart",this,"onSelectStart")];
-},markupFactory:function(_3,_4){
-return new dojo.dnd.Moveable(_4,_3);
+this.delay=_5.delay>0?_5.delay:0;
+this.skip=_5.skip;
+this.mover=_5.mover?_5.mover:_1.dnd.Mover;
+this.events=[_1.connect(this.handle,_3.press,this,"onMouseDown"),_1.connect(this.handle,"ondragstart",this,"onSelectStart"),_1.connect(this.handle,"onselectstart",this,"onSelectStart")];
+},markupFactory:function(_6,_7,_8){
+return new _8(_7,_6);
 },destroy:function(){
-dojo.forEach(this.events,dojo.disconnect);
+_1.forEach(this.events,_1.disconnect);
 this.events=this.node=this.handle=null;
 },onMouseDown:function(e){
-if(this.skip&&dojo.dnd.isFormElement(e)){
+if(this.skip&&_1.dnd.isFormElement(e)){
 return;
 }
 if(this.delay){
-this.events.push(dojo.connect(this.handle,"onmousemove",this,"onMouseMove"),dojo.connect(this.handle,"ontouchmove",this,"onMouseMove"),dojo.connect(this.handle,"onmouseup",this,"onMouseUp"),dojo.connect(this.handle,"ontouchend",this,"onMouseUp"));
-var _5=e.touches?e.touches[0]:e;
-this._lastX=_5.pageX;
-this._lastY=_5.pageY;
+this.events.push(_1.connect(this.handle,_3.move,this,"onMouseMove"),_1.connect(this.handle,_3.release,this,"onMouseUp"));
+this._lastX=e.pageX;
+this._lastY=e.pageY;
 }else{
 this.onDragDetected(e);
 }
-dojo.stopEvent(e);
+_1.stopEvent(e);
 },onMouseMove:function(e){
-var _6=e.touches?e.touches[0]:e;
-if(Math.abs(_6.pageX-this._lastX)>this.delay||Math.abs(_6.pageY-this._lastY)>this.delay){
+if(Math.abs(e.pageX-this._lastX)>this.delay||Math.abs(e.pageY-this._lastY)>this.delay){
 this.onMouseUp(e);
 this.onDragDetected(e);
 }
-dojo.stopEvent(e);
+_1.stopEvent(e);
 },onMouseUp:function(e){
 for(var i=0;i<2;++i){
-dojo.disconnect(this.events.pop());
+_1.disconnect(this.events.pop());
 }
-dojo.stopEvent(e);
+_1.stopEvent(e);
 },onSelectStart:function(e){
-if(!this.skip||!dojo.dnd.isFormElement(e)){
-dojo.stopEvent(e);
+if(!this.skip||!_1.dnd.isFormElement(e)){
+_1.stopEvent(e);
 }
 },onDragDetected:function(e){
 new this.mover(this.node,e,this);
-},onMoveStart:function(_7){
-dojo.publish("/dnd/move/start",[_7]);
-dojo.addClass(dojo.body(),"dojoMove");
-dojo.addClass(this.node,"dojoMoveItem");
-},onMoveStop:function(_8){
-dojo.publish("/dnd/move/stop",[_8]);
-dojo.removeClass(dojo.body(),"dojoMove");
-dojo.removeClass(this.node,"dojoMoveItem");
-},onFirstMove:function(_9,e){
-},onMove:function(_a,_b,e){
-this.onMoving(_a,_b);
-var s=_a.node.style;
-s.left=_b.l+"px";
-s.top=_b.t+"px";
-this.onMoved(_a,_b);
-},onMoving:function(_c,_d){
-},onMoved:function(_e,_f){
+},onMoveStart:function(_9){
+_1.publish("/dnd/move/start",[_9]);
+_1.addClass(_1.body(),"dojoMove");
+_1.addClass(this.node,"dojoMoveItem");
+},onMoveStop:function(_a){
+_1.publish("/dnd/move/stop",[_a]);
+_1.removeClass(_1.body(),"dojoMove");
+_1.removeClass(this.node,"dojoMoveItem");
+},onFirstMove:function(_b,e){
+},onMove:function(_c,_d,e){
+this.onMoving(_c,_d);
+var s=_c.node.style;
+s.left=_d.l+"px";
+s.top=_d.t+"px";
+this.onMoved(_c,_d);
+},onMoving:function(_e,_f){
+},onMoved:function(_10,_11){
 }});
-}
+return _1.dnd.Moveable;
+});

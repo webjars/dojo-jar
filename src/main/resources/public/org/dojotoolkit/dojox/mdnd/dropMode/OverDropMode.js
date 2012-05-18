@@ -1,151 +1,142 @@
-/*
-	Copyright (c) 2004-2011, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
-
-
-if(!dojo._hasResource["dojox.mdnd.dropMode.OverDropMode"]){
-dojo._hasResource["dojox.mdnd.dropMode.OverDropMode"]=true;
-dojo.provide("dojox.mdnd.dropMode.OverDropMode");
-dojo.require("dojox.mdnd.AreaManager");
-dojo.declare("dojox.mdnd.dropMode.OverDropMode",null,{_oldXPoint:null,_oldYPoint:null,_oldBehaviour:"up",constructor:function(){
-this._dragHandler=[dojo.connect(dojox.mdnd.areaManager(),"onDragEnter",function(_1,_2){
+//>>built
+define("dojox/mdnd/dropMode/OverDropMode",["dojo/_base/kernel","dojo/_base/declare","dojo/_base/connect","dojo/_base/html","dojo/_base/array","dojox/mdnd/AreaManager"],function(_1){
+var _2=_1.declare("dojox.mdnd.dropMode.OverDropMode",null,{_oldXPoint:null,_oldYPoint:null,_oldBehaviour:"up",constructor:function(){
+this._dragHandler=[_1.connect(dojox.mdnd.areaManager(),"onDragEnter",function(_3,_4){
 var m=dojox.mdnd.areaManager();
 if(m._oldIndexArea==-1){
 m._oldIndexArea=m._lastValidIndexArea;
 }
 })];
-},addArea:function(_3,_4){
-var _5=_3.length,_6=dojo.position(_4.node,true);
-_4.coords={"x":_6.x,"y":_6.y};
-if(_5==0){
-_3.push(_4);
+},addArea:function(_5,_6){
+var _7=_5.length,_8=_1.position(_6.node,true);
+_6.coords={"x":_8.x,"y":_8.y};
+if(_7==0){
+_5.push(_6);
 }else{
-var x=_4.coords.x;
-for(var i=0;i<_5;i++){
-if(x<_3[i].coords.x){
-for(var j=_5-1;j>=i;j--){
-_3[j+1]=_3[j];
+var x=_6.coords.x;
+for(var i=0;i<_7;i++){
+if(x<_5[i].coords.x){
+for(var j=_7-1;j>=i;j--){
+_5[j+1]=_5[j];
 }
-_3[i]=_4;
+_5[i]=_6;
 break;
 }
 }
-if(i==_5){
-_3.push(_4);
+if(i==_7){
+_5.push(_6);
 }
 }
-return _3;
-},updateAreas:function(_7){
-var _8=_7.length;
-for(var i=0;i<_8;i++){
-this._updateArea(_7[i]);
+return _5;
+},updateAreas:function(_9){
+var _a=_9.length;
+for(var i=0;i<_a;i++){
+this._updateArea(_9[i]);
 }
-},_updateArea:function(_9){
-var _a=dojo.position(_9.node,true);
-_9.coords.x=_a.x;
-_9.coords.x2=_a.x+_a.w;
-_9.coords.y=_a.y;
-},initItems:function(_b){
-dojo.forEach(_b.items,function(_c){
-var _d=_c.item.node;
-var _e=dojo.position(_d,true);
-var y=_e.y+_e.h/2;
-_c.y=y;
+},_updateArea:function(_b){
+var _c=_1.position(_b.node,true);
+_b.coords.x=_c.x;
+_b.coords.x2=_c.x+_c.w;
+_b.coords.y=_c.y;
+},initItems:function(_d){
+_1.forEach(_d.items,function(_e){
+var _f=_e.item.node;
+var _10=_1.position(_f,true);
+var y=_10.y+_10.h/2;
+_e.y=y;
 });
-_b.initItems=true;
-},refreshItems:function(_f,_10,_11,_12){
-if(_10==-1){
+_d.initItems=true;
+},refreshItems:function(_11,_12,_13,_14){
+if(_12==-1){
 return;
 }else{
-if(_f&&_11&&_11.h){
-var _13=_11.h;
-if(_f.margin){
-_13+=_f.margin.t;
+if(_11&&_13&&_13.h){
+var _15=_13.h;
+if(_11.margin){
+_15+=_11.margin.t;
 }
-var _14=_f.items.length;
-for(var i=_10;i<_14;i++){
-var _15=_f.items[i];
-if(_12){
-_15.y+=_13;
+var _16=_11.items.length;
+for(var i=_12;i<_16;i++){
+var _17=_11.items[i];
+if(_14){
+_17.y+=_15;
 }else{
-_15.y-=_13;
+_17.y-=_15;
 }
 }
 }
 }
-},getDragPoint:function(_16,_17,_18){
-return {"x":_18.x,"y":_18.y};
-},getTargetArea:function(_19,_1a,_1b){
-var _1c=0;
-var x=_1a.x;
-var y=_1a.y;
-var end=_19.length;
-var _1d=0,_1e="right",_1f=false;
-if(_1b==-1||arguments.length<3){
-_1f=true;
+},getDragPoint:function(_18,_19,_1a){
+return {"x":_1a.x,"y":_1a.y};
+},getTargetArea:function(_1b,_1c,_1d){
+var _1e=0;
+var x=_1c.x;
+var y=_1c.y;
+var end=_1b.length;
+var _1f=0,_20="right",_21=false;
+if(_1d==-1||arguments.length<3){
+_21=true;
 }else{
-if(this._checkInterval(_19,_1b,x,y)){
-_1c=_1b;
+if(this._checkInterval(_1b,_1d,x,y)){
+_1e=_1d;
 }else{
 if(this._oldXPoint<x){
-_1d=_1b+1;
+_1f=_1d+1;
 }else{
-_1d=_1b-1;
+_1f=_1d-1;
 end=0;
-_1e="left";
+_20="left";
 }
-_1f=true;
+_21=true;
 }
 }
-if(_1f){
-if(_1e==="right"){
-for(var i=_1d;i<end;i++){
-if(this._checkInterval(_19,i,x,y)){
-_1c=i;
+if(_21){
+if(_20==="right"){
+for(var i=_1f;i<end;i++){
+if(this._checkInterval(_1b,i,x,y)){
+_1e=i;
 break;
 }
 }
 if(i==end){
-_1c=-1;
+_1e=-1;
 }
 }else{
-for(var i=_1d;i>=end;i--){
-if(this._checkInterval(_19,i,x,y)){
-_1c=i;
+for(var i=_1f;i>=end;i--){
+if(this._checkInterval(_1b,i,x,y)){
+_1e=i;
 break;
 }
 }
 if(i==end-1){
-_1c=-1;
+_1e=-1;
 }
 }
 }
 this._oldXPoint=x;
-return _1c;
-},_checkInterval:function(_20,_21,x,y){
-var _22=_20[_21];
-var _23=_22.node;
-var _24=_22.coords;
-var _25=_24.x;
-var _26=_24.x2;
-var _27=_24.y;
-var _28=_27+_23.offsetHeight;
-if(_25<=x&&x<=_26&&_27<=y&&y<=_28){
+return _1e;
+},_checkInterval:function(_22,_23,x,y){
+var _24=_22[_23];
+var _25=_24.node;
+var _26=_24.coords;
+var _27=_26.x;
+var _28=_26.x2;
+var _29=_26.y;
+var _2a=_29+_25.offsetHeight;
+if(_27<=x&&x<=_28&&_29<=y&&y<=_2a){
 return true;
 }
 return false;
-},getDropIndex:function(_29,_2a){
-var _2b=_29.items.length;
-var _2c=_29.coords;
-var y=_2a.y;
-if(_2b>0){
-for(var i=0;i<_2b;i++){
-if(y<_29.items[i].y){
+},getDropIndex:function(_2b,_2c){
+var _2d=_2b.items.length;
+var _2e=_2b.coords;
+var y=_2c.y;
+if(_2d>0){
+for(var i=0;i<_2d;i++){
+if(y<_2b.items[i].y){
 return i;
 }else{
-if(i==_2b-1){
+if(i==_2d-1){
 return -1;
 }
 }
@@ -153,9 +144,8 @@ return -1;
 }
 return -1;
 },destroy:function(){
-dojo.forEach(this._dragHandler,dojo.disconnect);
+_1.forEach(this._dragHandler,_1.disconnect);
 }});
-(function(){
 dojox.mdnd.areaManager()._dropMode=new dojox.mdnd.dropMode.OverDropMode();
-}());
-}
+return _2;
+});

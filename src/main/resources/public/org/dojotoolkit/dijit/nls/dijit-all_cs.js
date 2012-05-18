@@ -1,1 +1,556 @@
-dojo.provide("dijit.nls.dijit-all_cs");dojo.provide("dojo.nls.colors");dojo.nls.colors._built=true;dojo.provide("dojo.nls.colors.cs");dojo.nls.colors.cs={"lightsteelblue":"světlá ocelová modrá","orangered":"oranžovočervená","midnightblue":"temně modrá","cadetblue":"šedomodrá","seashell":"lasturová","slategrey":"břidlicová šedá","coral":"korálová červená","darkturquoise":"tmavě tyrkysová","antiquewhite":"krémově bílá","mediumspringgreen":"střední jarní zelená","salmon":"lososová","darkgrey":"tmavě šedá","ivory":"slonovinová","greenyellow":"zelenožlutá","mistyrose":"růžovobílá","lightsalmon":"světle lososová","silver":"stříbrná","dimgrey":"kouřově šedá","orange":"oranžová","white":"bílá","navajowhite":"světle krémová","royalblue":"královská modrá","deeppink":"sytě růžová","lime":"limetková","oldlace":"světle béžová","chartreuse":"chartreuska","darkcyan":"tmavě azurová","yellow":"žlutá","linen":"bledě šedobéžová","olive":"olivová","gold":"zlatá","lawngreen":"jasně zelená","lightyellow":"bledě žlutá","tan":"šedobéžová","darkviolet":"tmavě fialová","lightslategrey":"světlá břidlicová šedá","grey":"šedá","darkkhaki":"pískově hnědá","green":"zelená","deepskyblue":"sytá nebeská modrá","aqua":"azurová","sienna":"siena","mintcream":"mentolová","rosybrown":"růžovohnědá","mediumslateblue":"střední břidlicová modrá","magenta":"purpurová","lightseagreen":"světlá mořská zelená","cyan":"azurová","olivedrab":"khaki","darkgoldenrod":"tmavě béžová","slateblue":"břidlicová modrá","mediumaquamarine":"střední akvamarínová","lavender":"levandulová","mediumseagreen":"střední mořská zelená","maroon":"kaštanová","darkslategray":"tmavá břidlicová šedá","mediumturquoise":"středně tyrkysová","ghostwhite":"modravě bílá","darkblue":"tmavě modrá","mediumvioletred":"středně fialovočervená","brown":"červenohnědá","lightgray":"světle šedá","sandybrown":"oranžovohnědá","pink":"růžová","firebrick":"cihlová","indigo":"indigově modrá","snow":"sněhobílá","darkorchid":"tmavě orchidejová","turquoise":"tyrkysová","chocolate":"hnědobéžová","springgreen":"jarní zelená","moccasin":"bledě krémová","navy":"námořnická modrá","lemonchiffon":"světle citrónová","teal":"šedozelená","floralwhite":"květinově bílá","cornflowerblue":"chrpově modrá","paleturquoise":"bledě tyrkysová","purple":"nachová","gainsboro":"bledě šedá","plum":"švestková","red":"červená","blue":"modrá","forestgreen":"lesní zelená","darkgreen":"tmavě zelená","honeydew":"nazelenalá","darkseagreen":"tmavá mořská zelená","lightcoral":"světle korálová","palevioletred":"bledě fialovočervená","mediumpurple":"středně nachová","saddlebrown":"hnědá","darkmagenta":"tmavě purpurová","thistle":"bodláková","whitesmoke":"kouřově bílá","wheat":"zlatohnědá","violet":"fialová","lightskyblue":"světlá nebeská modrá","goldenrod":"béžová","mediumblue":"středně modrá","skyblue":"nebeská modrá","crimson":"karmínová","darksalmon":"tmavě lososová","darkred":"tmavě červená","darkslategrey":"tmavá břidlicová šedá","peru":"karamelová","lightgrey":"světle šedá","lightgoldenrodyellow":"světle žlutá","blanchedalmond":"mandlová","aliceblue":"modravá","bisque":"bledě oranžová","slategray":"břidlicová šedá","palegoldenrod":"bledě písková","darkorange":"tmavě oranžová","aquamarine":"akvamarínová","lightgreen":"světle zelená","burlywood":"krémová","dodgerblue":"jasně modrá","darkgray":"tmavě šedá","lightcyan":"světle azurová","powderblue":"bledě modrá","blueviolet":"modrofialová","orchid":"orchidejová","dimgray":"kouřově šedá","beige":"bledě béžová","fuchsia":"fuchsiová","lavenderblush":"levandulová růžová","hotpink":"jasně růžová","steelblue":"ocelová modrá","tomato":"tomatová","lightpink":"světle růžová","limegreen":"limetkově zelená","indianred":"indiánská červená","papayawhip":"papájová","lightslategray":"světlá břidlicová šedá","gray":"šedá","mediumorchid":"středně orchidejová","cornsilk":"režná","black":"černá","seagreen":"mořská zelená","darkslateblue":"tmavá břidlicová modrá","khaki":"písková","lightblue":"světle modrá","palegreen":"bledě zelená","azure":"bledě azurová","peachpuff":"broskvová","darkolivegreen":"tmavě olivová","yellowgreen":"žlutozelená"};dojo.provide("dijit.nls.loading");dijit.nls.loading._built=true;dojo.provide("dijit.nls.loading.cs");dijit.nls.loading.cs={"loadingState":"Probíhá načítání...","errorState":"Omlouváme se, došlo k chybě"};dojo.provide("dijit.nls.common");dijit.nls.common._built=true;dojo.provide("dijit.nls.common.cs");dijit.nls.common.cs={"buttonOk":"OK","buttonCancel":"Storno","buttonSave":"Uložit","itemClose":"Zavřít"};dojo.provide("dijit._editor.nls.commands");dijit._editor.nls.commands._built=true;dojo.provide("dijit._editor.nls.commands.cs");dijit._editor.nls.commands.cs={"removeFormat":"Odebrat formát","copy":"Kopírovat","paste":"Vložit","selectAll":"Vybrat vše","insertOrderedList":"Číslovaný seznam","insertTable":"Vložit/upravit tabulku","print":"Tisk","underline":"Podtržení","foreColor":"Barva popředí","htmlToggle":"Zdroj HTML","formatBlock":"Styl odstavce","newPage":"Nová stránka","insertHorizontalRule":"Vodorovná čára","delete":"Odstranit","insertUnorderedList":"Seznam s odrážkami","tableProp":"Vlastnost tabulky","insertImage":"Vložit obrázek","superscript":"Horní index","subscript":"Dolní index","createLink":"Vytvořit odkaz","undo":"Zpět","fullScreen":"Přepnout celou obrazovku","italic":"Kurzíva","fontName":"Název písma","justifyLeft":"Zarovnat vlevo","unlink":"Odebrat odkaz","toggleTableBorder":"Přepnout ohraničení tabulky","viewSource":"Zobrazit zdroj HTML","fontSize":"Velikost písma","systemShortcut":"Akce \"${0}\" je v prohlížeči dostupná pouze prostřednictvím klávesové zkratky. Použijte klávesovou zkratku ${1}.","indent":"Odsadit","redo":"Opakovat","strikethrough":"Přeškrtnutí","justifyFull":"Do bloku","justifyCenter":"Zarovnat na střed","hiliteColor":"Barva pozadí","deleteTable":"Odstranit tabulku","outdent":"Předsadit","cut":"Vyjmout","plainFormatBlock":"Styl odstavce","toggleDir":"Přepnout směr","bold":"Tučné","tabIndent":"Odsazení tabulátoru","justifyRight":"Zarovnat vpravo","appleKey":"⌘${0}","ctrlKey":"ctrl+${0}"};dojo.provide("dijit.form.nls.validate");dijit.form.nls.validate._built=true;dojo.provide("dijit.form.nls.validate.cs");dijit.form.nls.validate.cs={"rangeMessage":"Tato hodnota je mimo rozsah.","invalidMessage":"Zadaná hodnota není platná.","missingMessage":"Tato hodnota je vyžadována."};dojo.provide("dijit.form.nls.ComboBox");dijit.form.nls.ComboBox._built=true;dojo.provide("dijit.form.nls.ComboBox.cs");dijit.form.nls.ComboBox.cs={"previousMessage":"Předchozí volby","nextMessage":"Další volby"};dojo.provide("dijit._editor.nls.FontChoice");dijit._editor.nls.FontChoice._built=true;dojo.provide("dijit._editor.nls.FontChoice.cs");dijit._editor.nls.FontChoice.cs={"noFormat":"Žádný","1":"extra malé","2":"velmi malé","formatBlock":"Formát","3":"malé","4":"střední","5":"velké","6":"velmi velké","7":"extra velké","fantasy":"fantasy","serif":"serif","p":"Odstavec","pre":"Předformátované","sans-serif":"sans-serif","fontName":"Písmo","h1":"Nadpis","h2":"Podnadpis","h3":"Podnadpis 2","monospace":"monospace","fontSize":"Velikost","cursive":"cursive"};dojo.provide("dijit._editor.nls.LinkDialog");dijit._editor.nls.LinkDialog._built=true;dojo.provide("dijit._editor.nls.LinkDialog.cs");dijit._editor.nls.LinkDialog.cs={"text":"Popis:","insertImageTitle":"Vlastnosti obrázku","set":"Nastavit","newWindow":"Nové okno","topWindow":"Okno nejvyšší úrovně","target":"Cíl:","createLinkTitle":"Vlastnosti odkazu","parentWindow":"Nadřízené okno","currentWindow":"Aktuální okno","url":"Adresa URL:"};dojo.provide("dojo.cldr.nls.number");dojo.cldr.nls.number._built=true;dojo.provide("dojo.cldr.nls.number.cs");dojo.cldr.nls.number.cs={"group":" ","percentSign":"%","exponential":"E","percentFormat":"#,##0 %","scientificFormat":"#E0","list":";","infinity":"∞","patternDigit":"#","minusSign":"-","decimal":",","nan":"NaN","nativeZeroDigit":"0","perMille":"‰","decimalFormat":"#,##0.###","currencyFormat":"#,##0.00 ¤","plusSign":"+","currencySpacing-afterCurrency-currencyMatch":"[:letter:]","currencySpacing-beforeCurrency-surroundingMatch":"[:digit:]","decimalFormat-short":"000T","currencySpacing-afterCurrency-insertBetween":" ","currencySpacing-afterCurrency-surroundingMatch":"[:digit:]","currencySpacing-beforeCurrency-currencyMatch":"[:letter:]","currencySpacing-beforeCurrency-insertBetween":" "};dojo.provide("dojo.cldr.nls.currency");dojo.cldr.nls.currency._built=true;dojo.provide("dojo.cldr.nls.currency.cs");dojo.cldr.nls.currency.cs={"HKD_displayName":"Dolar hongkongský","CHF_displayName":"Frank švýcarský","CAD_displayName":"Dolar kanadský","CNY_displayName":"Juan renminbi","AUD_displayName":"Dolar australský","JPY_displayName":"Jen","USD_displayName":"Dolar americký","GBP_displayName":"Libra šterlinků","EUR_displayName":"Euro","USD_symbol":"US$","CAD_symbol":"CA$","GBP_symbol":"£","HKD_symbol":"HK$","JPY_symbol":"JP¥","AUD_symbol":"AU$","CNY_symbol":"CN¥","EUR_symbol":"€"};dojo.provide("dojo.cldr.nls.gregorian");dojo.cldr.nls.gregorian._built=true;dojo.provide("dojo.cldr.nls.gregorian.cs");dojo.cldr.nls.gregorian.cs={"dateFormatItem-yM":"M.y","dateFormatItem-yQ":"Q yyyy","dayPeriods-format-wide-pm":"odp.","eraNames":["př.Kr.","po Kr."],"dateFormatItem-MMMEd":"E, d. MMM","field-day-relative+-1":"Včera","dateFormatItem-yQQQ":"QQQ y","field-day-relative+-2":"Předevčírem","days-standAlone-wide":["neděle","pondělí","úterý","středa","čtvrtek","pátek","sobota"],"months-standAlone-narrow":["l","ú","b","d","k","č","č","s","z","ř","l","p"],"dayPeriods-format-wide-am":"dop.","quarters-standAlone-abbr":["1. čtvrtletí","2. čtvrtletí","3. čtvrtletí","4. čtvrtletí"],"timeFormat-full":"H:mm:ss zzzz","dateFormatItem-yyyy":"y","months-standAlone-abbr":["1.","2.","3.","4.","5.","6.","7.","8.","9.","10.","11.","12."],"dateFormatItem-yMMM":"LLL y","field-day-relative+0":"Dnes","field-day-relative+1":"Zítra","days-standAlone-narrow":["N","P","Ú","S","Č","P","S"],"eraAbbr":["př.Kr.","po Kr."],"field-day-relative+2":"Pozítří","dateFormatItem-yyyyMMMM":"LLLL y","dateFormat-long":"d. MMMM y","timeFormat-medium":"H:mm:ss","dateFormatItem-EEEd":"EEE, d.","dateFormatItem-Hm":"H:mm","dateFormat-medium":"d.M.yyyy","dateFormatItem-Hms":"H:mm:ss","dateFormatItem-yMd":"d.M.y","quarters-standAlone-wide":["1. čtvrtletí","2. čtvrtletí","3. čtvrtletí","4. čtvrtletí"],"months-standAlone-wide":["leden","únor","březen","duben","květen","červen","červenec","srpen","září","říjen","listopad","prosinec"],"dateFormatItem-MMMd":"d. MMM","dateFormatItem-yyQ":"Q yy","timeFormat-long":"H:mm:ss z","months-format-abbr":["ledna","února","března","dubna","května","června","července","srpna","září","října","listopadu","prosince"],"timeFormat-short":"H:mm","dateFormatItem-H":"H","quarters-format-abbr":["1. čtvrtletí","2. čtvrtletí","3. čtvrtletí","4. čtvrtletí"],"days-format-abbr":["ne","po","út","st","čt","pá","so"],"days-format-narrow":["N","P","Ú","S","Č","P","S"],"dateFormatItem-MEd":"E, d.M","months-format-narrow":["l","ú","b","d","k","č","č","s","z","ř","l","p"],"days-standAlone-abbr":["ne","po","út","st","čt","pá","so"],"dateFormat-short":"d.M.yy","dateFormatItem-yyyyM":"M.yyyy","dateFormatItem-yMMMEd":"EEE, d. MMM y","dateFormat-full":"EEEE, d. MMMM y","dateFormatItem-Md":"d.M","dateFormatItem-yMEd":"EEE, d.M.y","months-format-wide":["ledna","února","března","dubna","května","června","července","srpna","září","října","listopadu","prosince"],"dateFormatItem-d":"d.","quarters-format-wide":["1. čtvrtletí","2. čtvrtletí","3. čtvrtletí","4. čtvrtletí"],"days-format-wide":["neděle","pondělí","úterý","středa","čtvrtek","pátek","sobota"],"eraNarrow":["př.Kr.","po Kr."],"quarters-standAlone-narrow":["1","2","3","4"],"field-weekday":"Day of the Week","dateTimeFormats-appendItem-Day-Of-Week":"{0} {1}","dateTimeFormat-medium":"{1} {0}","dayPeriods-format-abbr-am":"AM","dateTimeFormats-appendItem-Second":"{0} ({2}: {1})","field-era":"Era","field-year":"Year","dateTimeFormats-appendItem-Era":"{0} {1}","field-hour":"Hour","dateTimeFormats-appendItem-Week":"{0} ({2}: {1})","dateFormatItem-M":"L","field-minute":"Minute","field-dayperiod":"Dayperiod","dateFormatItem-ms":"mm:ss","quarters-format-narrow":["1","2","3","4"],"dateFormatItem-h":"h a","dateTimeFormat-long":"{1} {0}","dayPeriods-format-narrow-am":"AM","dateTimeFormat-full":"{1} {0}","field-day":"Day","field-zone":"Zone","dateTimeFormats-appendItem-Day":"{0} ({2}: {1})","dateFormatItem-y":"y","dateFormatItem-hm":"h:mm a","dateTimeFormats-appendItem-Year":"{0} {1}","dateTimeFormats-appendItem-Hour":"{0} ({2}: {1})","dayPeriods-format-abbr-pm":"PM","dateFormatItem-MMM":"LLL","field-month":"Month","dateTimeFormats-appendItem-Quarter":"{0} ({2}: {1})","dateTimeFormats-appendItem-Month":"{0} ({2}: {1})","dateTimeFormats-appendItem-Minute":"{0} ({2}: {1})","field-second":"Second","dateTimeFormats-appendItem-Timezone":"{0} {1}","field-week":"Week","dayPeriods-format-narrow-pm":"PM","dateTimeFormat-short":"{1} {0}","dateFormatItem-hms":"h:mm:ss a"};
+require({cache:{
+'dijit/form/nls/cs/validate':function(){
+define(
+//begin v1.x content
+({
+	invalidMessage: "Zadaná hodnota není platná.",
+	missingMessage: "Tato hodnota je vyžadována.",
+	rangeMessage: "Tato hodnota je mimo rozsah."
+})
+//end v1.x content
+);
+
+},
+'dijit/_editor/nls/cs/commands':function(){
+define(
+//begin v1.x content
+({
+	'bold': 'Tučné',
+	'copy': 'Kopírovat',
+	'cut': 'Vyjmout',
+	'delete': 'Odstranit',
+	'indent': 'Odsadit',
+	'insertHorizontalRule': 'Vodorovná čára',
+	'insertOrderedList': 'Číslovaný seznam',
+	'insertUnorderedList': 'Seznam s odrážkami',
+	'italic': 'Kurzíva',
+	'justifyCenter': 'Zarovnat na střed',
+	'justifyFull': 'Do bloku',
+	'justifyLeft': 'Zarovnat vlevo',
+	'justifyRight': 'Zarovnat vpravo',
+	'outdent': 'Předsadit',
+	'paste': 'Vložit',
+	'redo': 'Opakovat',
+	'removeFormat': 'Odebrat formát',
+	'selectAll': 'Vybrat vše',
+	'strikethrough': 'Přeškrtnutí',
+	'subscript': 'Dolní index',
+	'superscript': 'Horní index',
+	'underline': 'Podtržení',
+	'undo': 'Zpět',
+	'unlink': 'Odebrat odkaz',
+	'createLink': 'Vytvořit odkaz',
+	'toggleDir': 'Přepnout směr',
+	'insertImage': 'Vložit obrázek',
+	'insertTable': 'Vložit/upravit tabulku',
+	'toggleTableBorder': 'Přepnout ohraničení tabulky',
+	'deleteTable': 'Odstranit tabulku',
+	'tableProp': 'Vlastnost tabulky',
+	'htmlToggle': 'Zdroj HTML',
+	'foreColor': 'Barva popředí',
+	'hiliteColor': 'Barva pozadí',
+	'plainFormatBlock': 'Styl odstavce',
+	'formatBlock': 'Styl odstavce',
+	'fontSize': 'Velikost písma',
+	'fontName': 'Název písma',
+	'tabIndent': 'Odsazení tabulátoru',
+	"fullScreen": "Přepnout celou obrazovku",
+	"viewSource": "Zobrazit zdroj HTML",
+	"print": "Tisk",
+	"newPage": "Nová stránka",
+	/* Error messages */
+	'systemShortcut': 'Akce "${0}" je v prohlížeči dostupná pouze prostřednictvím klávesové zkratky. Použijte klávesovou zkratku ${1}.'
+})
+//end v1.x content
+);
+
+},
+'dojo/cldr/nls/cs/gregorian':function(){
+define(
+//begin v1.x content
+{
+	"dateFormatItem-yM": "M.y",
+	"dateFormatItem-yQ": "Q yyyy",
+	"dayPeriods-format-wide-pm": "odp.",
+	"eraNames": [
+		"př.Kr.",
+		"po Kr."
+	],
+	"dateFormatItem-MMMEd": "E, d. MMM",
+	"field-day-relative+-1": "Včera",
+	"dateFormatItem-yQQQ": "QQQ y",
+	"field-day-relative+-2": "Předevčírem",
+	"days-standAlone-wide": [
+		"neděle",
+		"pondělí",
+		"úterý",
+		"středa",
+		"čtvrtek",
+		"pátek",
+		"sobota"
+	],
+	"months-standAlone-narrow": [
+		"l",
+		"ú",
+		"b",
+		"d",
+		"k",
+		"č",
+		"č",
+		"s",
+		"z",
+		"ř",
+		"l",
+		"p"
+	],
+	"dayPeriods-format-wide-am": "dop.",
+	"quarters-standAlone-abbr": [
+		"1. čtvrtletí",
+		"2. čtvrtletí",
+		"3. čtvrtletí",
+		"4. čtvrtletí"
+	],
+	"timeFormat-full": "H:mm:ss zzzz",
+	"dateFormatItem-yyyy": "y",
+	"months-standAlone-abbr": [
+		"1.",
+		"2.",
+		"3.",
+		"4.",
+		"5.",
+		"6.",
+		"7.",
+		"8.",
+		"9.",
+		"10.",
+		"11.",
+		"12."
+	],
+	"dateFormatItem-yMMM": "LLL y",
+	"field-day-relative+0": "Dnes",
+	"field-day-relative+1": "Zítra",
+	"days-standAlone-narrow": [
+		"N",
+		"P",
+		"Ú",
+		"S",
+		"Č",
+		"P",
+		"S"
+	],
+	"eraAbbr": [
+		"př.Kr.",
+		"po Kr."
+	],
+	"field-day-relative+2": "Pozítří",
+	"dateFormatItem-yyyyMMMM": "LLLL y",
+	"dateFormat-long": "d. MMMM y",
+	"timeFormat-medium": "H:mm:ss",
+	"dateFormatItem-EEEd": "EEE, d.",
+	"dateFormatItem-Hm": "H:mm",
+	"dateFormat-medium": "d.M.yyyy",
+	"dateFormatItem-Hms": "H:mm:ss",
+	"dateFormatItem-yMd": "d.M.y",
+	"quarters-standAlone-wide": [
+		"1. čtvrtletí",
+		"2. čtvrtletí",
+		"3. čtvrtletí",
+		"4. čtvrtletí"
+	],
+	"months-standAlone-wide": [
+		"leden",
+		"únor",
+		"březen",
+		"duben",
+		"květen",
+		"červen",
+		"červenec",
+		"srpen",
+		"září",
+		"říjen",
+		"listopad",
+		"prosinec"
+	],
+	"dateFormatItem-MMMd": "d. MMM",
+	"dateFormatItem-yyQ": "Q yy",
+	"timeFormat-long": "H:mm:ss z",
+	"months-format-abbr": [
+		"ledna",
+		"února",
+		"března",
+		"dubna",
+		"května",
+		"června",
+		"července",
+		"srpna",
+		"září",
+		"října",
+		"listopadu",
+		"prosince"
+	],
+	"timeFormat-short": "H:mm",
+	"dateFormatItem-H": "H",
+	"quarters-format-abbr": [
+		"1. čtvrtletí",
+		"2. čtvrtletí",
+		"3. čtvrtletí",
+		"4. čtvrtletí"
+	],
+	"days-format-abbr": [
+		"ne",
+		"po",
+		"út",
+		"st",
+		"čt",
+		"pá",
+		"so"
+	],
+	"days-format-narrow": [
+		"N",
+		"P",
+		"Ú",
+		"S",
+		"Č",
+		"P",
+		"S"
+	],
+	"dateFormatItem-MEd": "E, d.M",
+	"months-format-narrow": [
+		"l",
+		"ú",
+		"b",
+		"d",
+		"k",
+		"č",
+		"č",
+		"s",
+		"z",
+		"ř",
+		"l",
+		"p"
+	],
+	"days-standAlone-abbr": [
+		"ne",
+		"po",
+		"út",
+		"st",
+		"čt",
+		"pá",
+		"so"
+	],
+	"dateFormat-short": "d.M.yy",
+	"dateFormatItem-yyyyM": "M.yyyy",
+	"dateFormatItem-yMMMEd": "EEE, d. MMM y",
+	"dateFormat-full": "EEEE, d. MMMM y",
+	"dateFormatItem-Md": "d.M",
+	"dateFormatItem-yMEd": "EEE, d.M.y",
+	"months-format-wide": [
+		"ledna",
+		"února",
+		"března",
+		"dubna",
+		"května",
+		"června",
+		"července",
+		"srpna",
+		"září",
+		"října",
+		"listopadu",
+		"prosince"
+	],
+	"dateFormatItem-d": "d.",
+	"quarters-format-wide": [
+		"1. čtvrtletí",
+		"2. čtvrtletí",
+		"3. čtvrtletí",
+		"4. čtvrtletí"
+	],
+	"days-format-wide": [
+		"neděle",
+		"pondělí",
+		"úterý",
+		"středa",
+		"čtvrtek",
+		"pátek",
+		"sobota"
+	],
+	"eraNarrow": [
+		"př.Kr.",
+		"po Kr."
+	]
+}
+//end v1.x content
+);
+},
+'dijit/nls/cs/loading':function(){
+define(
+//begin v1.x content
+({
+	loadingState: "Probíhá načítání...",
+	errorState: "Omlouváme se, došlo k chybě"
+})
+//end v1.x content
+);
+
+},
+'dojo/nls/cs/colors':function(){
+define(
+//begin v1.x content
+({
+// local representation of all CSS3 named colors, companion to dojo.colors.  To be used where descriptive information
+// is required for each color, such as a palette widget, and not for specifying color programatically.
+
+//Note: due to the SVG 1.0 spec additions, some of these are alternate spellings for the same color e.g. gray vs. gray.
+//TODO: should we be using unique rgb values as keys instead and avoid these duplicates, or rely on the caller to do the reverse mapping?
+aliceblue: "modravá",
+antiquewhite: "krémově bílá",
+aqua: "azurová",
+aquamarine: "akvamarínová",
+azure: "bledě azurová",
+beige: "bledě béžová",
+bisque: "bledě oranžová",
+black: "černá",
+blanchedalmond: "mandlová",
+blue: "modrá",
+blueviolet: "modrofialová",
+brown: "červenohnědá",
+burlywood: "krémová",
+cadetblue: "šedomodrá",
+chartreuse: "chartreuska",
+chocolate: "hnědobéžová",
+coral: "korálová červená",
+cornflowerblue: "chrpově modrá",
+cornsilk: "režná",
+crimson: "karmínová",
+cyan: "azurová",
+darkblue: "tmavě modrá",
+darkcyan: "tmavě azurová",
+darkgoldenrod: "tmavě béžová",
+darkgray: "tmavě šedá",
+darkgreen: "tmavě zelená",
+darkgrey: "tmavě šedá", // same as darkgray
+darkkhaki: "pískově hnědá",
+darkmagenta: "tmavě purpurová",
+darkolivegreen: "tmavě olivová",
+darkorange: "tmavě oranžová",
+darkorchid: "tmavě orchidejová",
+darkred: "tmavě červená",
+darksalmon: "tmavě lososová",
+darkseagreen: "tmavá mořská zelená",
+darkslateblue: "tmavá břidlicová modrá",
+darkslategray: "tmavá břidlicová šedá",
+darkslategrey: "tmavá břidlicová šedá", // same as darkslategray
+darkturquoise: "tmavě tyrkysová",
+darkviolet: "tmavě fialová",
+deeppink: "sytě růžová",
+deepskyblue: "sytá nebeská modrá",
+dimgray: "kouřově šedá",
+dimgrey: "kouřově šedá", // same as dimgray
+dodgerblue: "jasně modrá",
+firebrick: "cihlová",
+floralwhite: "květinově bílá",
+forestgreen: "lesní zelená",
+fuchsia: "fuchsiová",
+gainsboro: "bledě šedá",
+ghostwhite: "modravě bílá",
+gold: "zlatá",
+goldenrod: "béžová",
+gray: "šedá",
+green: "zelená",
+greenyellow: "zelenožlutá",
+grey: "šedá", // same as gray
+honeydew: "nazelenalá",
+hotpink: "jasně růžová",
+indianred: "indiánská červená",
+indigo: "indigově modrá",
+ivory: "slonovinová",
+khaki: "písková",
+lavender: "levandulová",
+lavenderblush: "levandulová růžová",
+lawngreen: "jasně zelená",
+lemonchiffon: "světle citrónová",
+lightblue: "světle modrá",
+lightcoral: "světle korálová",
+lightcyan: "světle azurová",
+lightgoldenrodyellow: "světle žlutá",
+lightgray: "světle šedá",
+lightgreen: "světle zelená",
+lightgrey: "světle šedá", // same as lightgray
+lightpink: "světle růžová",
+lightsalmon: "světle lososová",
+lightseagreen: "světlá mořská zelená",
+lightskyblue: "světlá nebeská modrá",
+lightslategray: "světlá břidlicová šedá",
+lightslategrey: "světlá břidlicová šedá", // same as lightslategray
+lightsteelblue: "světlá ocelová modrá",
+lightyellow: "bledě žlutá",
+lime: "limetková",
+limegreen: "limetkově zelená",
+linen: "bledě šedobéžová",
+magenta: "purpurová",
+maroon: "kaštanová",
+mediumaquamarine: "střední akvamarínová",
+mediumblue: "středně modrá",
+mediumorchid: "středně orchidejová",
+mediumpurple: "středně nachová",
+mediumseagreen: "střední mořská zelená",
+mediumslateblue: "střední břidlicová modrá",
+mediumspringgreen: "střední jarní zelená",
+mediumturquoise: "středně tyrkysová",
+mediumvioletred: "středně fialovočervená",
+midnightblue: "temně modrá",
+mintcream: "mentolová",
+mistyrose: "růžovobílá",
+moccasin: "bledě krémová",
+navajowhite: "světle krémová",
+navy: "námořnická modrá",
+oldlace: "světle béžová",
+olive: "olivová",
+olivedrab: "khaki",
+orange: "oranžová",
+orangered: "oranžovočervená",
+orchid: "orchidejová",
+palegoldenrod: "bledě písková",
+palegreen: "bledě zelená",
+paleturquoise: "bledě tyrkysová",
+palevioletred: "bledě fialovočervená",
+papayawhip: "papájová",
+peachpuff: "broskvová",
+peru: "karamelová",
+pink: "růžová",
+plum: "švestková",
+powderblue: "bledě modrá",
+purple: "nachová",
+red: "červená",
+rosybrown: "růžovohnědá",
+royalblue: "královská modrá",
+saddlebrown: "hnědá",
+salmon: "lososová",
+sandybrown: "oranžovohnědá",
+seagreen: "mořská zelená",
+seashell: "lasturová",
+sienna: "siena",
+silver: "stříbrná",
+skyblue: "nebeská modrá",
+slateblue: "břidlicová modrá",
+slategray: "břidlicová šedá",
+slategrey: "břidlicová šedá", // same as slategray
+snow: "sněhobílá",
+springgreen: "jarní zelená",
+steelblue: "ocelová modrá",
+tan: "šedobéžová",
+teal: "šedozelená",
+thistle: "bodláková",
+tomato: "tomatová",
+transparent: "průhledná",
+turquoise: "tyrkysová",
+violet: "fialová",
+wheat: "zlatohnědá",
+white: "bílá",
+whitesmoke: "kouřově bílá",
+yellow: "žlutá",
+yellowgreen: "žlutozelená"
+})
+//end v1.x content
+);
+
+},
+'dojo/cldr/nls/cs/number':function(){
+define(
+//begin v1.x content
+{
+	"group": " ",
+	"percentSign": "%",
+	"exponential": "E",
+	"scientificFormat": "#E0",
+	"percentFormat": "#,##0 %",
+	"list": ";",
+	"infinity": "∞",
+	"patternDigit": "#",
+	"minusSign": "-",
+	"decimal": ",",
+	"nan": "NaN",
+	"nativeZeroDigit": "0",
+	"perMille": "‰",
+	"decimalFormat": "#,##0.###",
+	"currencyFormat": "#,##0.00 ¤",
+	"plusSign": "+"
+}
+//end v1.x content
+);
+},
+'dijit/_editor/nls/cs/FontChoice':function(){
+define(
+"dijit/_editor/nls/cs/FontChoice", //begin v1.x content
+({
+	fontSize: "Velikost",
+	fontName: "Písmo",
+	formatBlock: "Formát",
+
+	serif: "serif",
+	"sans-serif": "sans-serif",
+	monospace: "monospace",
+	cursive: "cursive",
+	fantasy: "fantasy",
+
+	noFormat: "Žádný",
+	p: "Odstavec",
+	h1: "Nadpis",
+	h2: "Podnadpis",
+	h3: "Podnadpis 2",
+	pre: "Předformátované",
+
+	1: "extra malé",
+	2: "velmi malé",
+	3: "malé",
+	4: "střední",
+	5: "velké",
+	6: "velmi velké",
+	7: "extra velké"
+})
+//end v1.x content
+);
+
+},
+'dojo/cldr/nls/cs/currency':function(){
+define(
+//begin v1.x content
+{
+	"HKD_displayName": "Dolar hongkongský",
+	"CHF_displayName": "Frank švýcarský",
+	"CAD_displayName": "Dolar kanadský",
+	"CNY_displayName": "Juan renminbi",
+	"AUD_displayName": "Dolar australský",
+	"JPY_displayName": "Jen",
+	"USD_displayName": "Dolar americký",
+	"GBP_displayName": "Libra šterlinků",
+	"EUR_displayName": "Euro"
+}
+//end v1.x content
+);
+},
+'dijit/form/nls/cs/ComboBox':function(){
+define(
+//begin v1.x content
+({
+		previousMessage: "Předchozí volby",
+		nextMessage: "Další volby"
+})
+//end v1.x content
+);
+
+},
+'dijit/nls/cs/common':function(){
+define(
+//begin v1.x content
+({
+	buttonOk: "OK",
+	buttonCancel: "Storno",
+	buttonSave: "Uložit",
+	itemClose: "Zavřít"
+})
+//end v1.x content
+);
+
+}}});
+define("dijit/nls/dijit-all_cs", [], 1);

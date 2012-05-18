@@ -1,110 +1,95 @@
-/*
-	Copyright (c) 2004-2011, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
-
-
-if(!dojo._hasResource["dojox.charting.plot2d.StackedBars"]){
-dojo._hasResource["dojox.charting.plot2d.StackedBars"]=true;
-dojo.provide("dojox.charting.plot2d.StackedBars");
-dojo.require("dojox.charting.plot2d.common");
-dojo.require("dojox.charting.plot2d.Bars");
-dojo.require("dojox.lang.functional");
-dojo.require("dojox.lang.functional.reversed");
-dojo.require("dojox.lang.functional.sequence");
-(function(){
-var df=dojox.lang.functional,dc=dojox.charting.plot2d.common,_1=df.lambda("item.purgeGroup()");
-dojo.declare("dojox.charting.plot2d.StackedBars",dojox.charting.plot2d.Bars,{getSeriesStats:function(){
-var _2=dc.collectStackedStats(this.series),t;
-this._maxRunLength=_2.hmax;
-_2.hmin-=0.5;
-_2.hmax+=0.5;
-t=_2.hmin,_2.hmin=_2.vmin,_2.vmin=t;
-t=_2.hmax,_2.hmax=_2.vmax,_2.vmax=t;
-return _2;
-},render:function(_3,_4){
+//>>built
+define("dojox/charting/plot2d/StackedBars",["dojo/_base/lang","dojo/_base/array","dojo/_base/declare","./Bars","./common","dojox/lang/functional","dojox/lang/functional/reversed","dojox/lang/functional/sequence"],function(_1,_2,_3,_4,dc,df,_5,_6){
+var _7=_5.lambda("item.purgeGroup()");
+return _3("dojox.charting.plot2d.StackedBars",_4,{getSeriesStats:function(){
+var _8=dc.collectStackedStats(this.series),t;
+this._maxRunLength=_8.hmax;
+_8.hmin-=0.5;
+_8.hmax+=0.5;
+t=_8.hmin,_8.hmin=_8.vmin,_8.vmin=t;
+t=_8.hmax,_8.hmax=_8.vmax,_8.vmax=t;
+return _8;
+},render:function(_9,_a){
 if(this._maxRunLength<=0){
 return this;
 }
-var _5=df.repeat(this._maxRunLength,"-> 0",0);
+var _b=df.repeat(this._maxRunLength,"-> 0",0);
 for(var i=0;i<this.series.length;++i){
-var _6=this.series[i];
-for(var j=0;j<_6.data.length;++j){
-var _7=_6.data[j];
-if(_7!==null){
-var v=typeof _7=="number"?_7:_7.y;
+var _c=this.series[i];
+for(var j=0;j<_c.data.length;++j){
+var _d=_c.data[j];
+if(_d!==null){
+var v=typeof _d=="number"?_d:_d.y;
 if(isNaN(v)){
 v=0;
 }
-_5[j]+=v;
+_b[j]+=v;
 }
 }
 }
 if(this.zoom&&!this.isDataDirty()){
-return this.performZoom(_3,_4);
+return this.performZoom(_9,_a);
 }
 this.resetEvents();
 this.dirty=this.isDirty();
 if(this.dirty){
-dojo.forEach(this.series,_1);
+_2.forEach(this.series,_7);
 this._eventSeries={};
 this.cleanGroup();
 var s=this.group;
-df.forEachRev(this.series,function(_8){
-_8.cleanGroup(s);
+df.forEachRev(this.series,function(_e){
+_e.cleanGroup(s);
 });
 }
-var t=this.chart.theme,f,_9,_a,ht=this._hScaler.scaler.getTransformerFromModel(this._hScaler),vt=this._vScaler.scaler.getTransformerFromModel(this._vScaler),_b=this.events();
+var t=this.chart.theme,f,_f,_10,ht=this._hScaler.scaler.getTransformerFromModel(this._hScaler),vt=this._vScaler.scaler.getTransformerFromModel(this._vScaler),_11=this.events();
 f=dc.calculateBarSize(this._vScaler.bounds.scale,this.opt);
-_9=f.gap;
-_a=f.size;
+_f=f.gap;
+_10=f.size;
 for(var i=this.series.length-1;i>=0;--i){
-var _6=this.series[i];
-if(!this.dirty&&!_6.dirty){
+var _c=this.series[i];
+if(!this.dirty&&!_c.dirty){
 t.skip();
-this._reconnectEvents(_6.name);
+this._reconnectEvents(_c.name);
 continue;
 }
-_6.cleanGroup();
-var _c=t.next("bar",[this.opt,_6]),s=_6.group,_d=new Array(_5.length);
-for(var j=0;j<_5.length;++j){
-var _7=_6.data[j];
-if(_7!==null){
-var v=_5[j],_e=ht(v),_f=typeof _7!="number"?t.addMixin(_c,"bar",_7,true):t.post(_c,"bar");
-if(_e>=1&&_a>=1){
-var _10={x:_4.l,y:_3.height-_4.b-vt(j+1.5)+_9,width:_e,height:_a};
-var _11=this._plotFill(_f.series.fill,_3,_4);
-_11=this._shapeFill(_11,_10);
-var _12=s.createRect(_10).setFill(_11).setStroke(_f.series.stroke);
-_6.dyn.fill=_12.getFill();
-_6.dyn.stroke=_12.getStroke();
-if(_b){
-var o={element:"bar",index:j,run:_6,shape:_12,x:v,y:j+1.5};
+_c.cleanGroup();
+var _12=t.next("bar",[this.opt,_c]),s=_c.group,_13=new Array(_b.length);
+for(var j=0;j<_b.length;++j){
+var _d=_c.data[j];
+if(_d!==null){
+var v=_b[j],_14=ht(v),_15=typeof _d!="number"?t.addMixin(_12,"bar",_d,true):t.post(_12,"bar");
+if(_14>=0&&_10>=1){
+var _16={x:_a.l,y:_9.height-_a.b-vt(j+1.5)+_f,width:_14,height:_10};
+var _17=this._plotFill(_15.series.fill,_9,_a);
+_17=this._shapeFill(_17,_16);
+var _18=s.createRect(_16).setFill(_17).setStroke(_15.series.stroke);
+_c.dyn.fill=_18.getFill();
+_c.dyn.stroke=_18.getStroke();
+if(_11){
+var o={element:"bar",index:j,run:_c,shape:_18,x:v,y:j+1.5};
 this._connectEvents(o);
-_d[j]=o;
+_13[j]=o;
 }
 if(this.animate){
-this._animateBar(_12,_4.l,-_e);
+this._animateBar(_18,_a.l,-_14);
 }
 }
 }
 }
-this._eventSeries[_6.name]=_d;
-_6.dirty=false;
-for(var j=0;j<_6.data.length;++j){
-var _7=_6.data[j];
-if(_7!==null){
-var v=typeof _7=="number"?_7:_7.y;
+this._eventSeries[_c.name]=_13;
+_c.dirty=false;
+for(var j=0;j<_c.data.length;++j){
+var _d=_c.data[j];
+if(_d!==null){
+var v=typeof _d=="number"?_d:_d.y;
 if(isNaN(v)){
 v=0;
 }
-_5[j]-=v;
+_b[j]-=v;
 }
 }
 }
 this.dirty=false;
 return this;
 }});
-})();
-}
+});

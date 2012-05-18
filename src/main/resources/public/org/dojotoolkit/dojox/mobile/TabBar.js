@@ -1,164 +1,84 @@
-/*
-	Copyright (c) 2004-2011, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
-
-
-if(!dojo._hasResource["dojox.mobile.TabBar"]){
-dojo._hasResource["dojox.mobile.TabBar"]=true;
-dojo.provide("dojox.mobile.TabBar");
-dojo.require("dojox.mobile");
-dojo.declare("dojox.mobile.TabBar",dijit._WidgetBase,{iconBase:"",iconPos:"",barType:"tabBar",inHeading:false,_fixedButtonWidth:76,_fixedButtonMargin:17,_largeScreenWidth:500,buildRendering:function(){
+//>>built
+define("dojox/mobile/TabBar",["dojo/_base/array","dojo/_base/declare","dojo/dom-class","dojo/dom-construct","dojo/dom-geometry","dojo/dom-style","dijit/_Contained","dijit/_Container","dijit/_WidgetBase","./Heading","./TabBarButton"],function(_1,_2,_3,_4,_5,_6,_7,_8,_9,_a,_b){
+return _2("dojox.mobile.TabBar",[_9,_8,_7],{iconBase:"",iconPos:"",barType:"tabBar",inHeading:false,tag:"UL",_fixedButtonWidth:76,_fixedButtonMargin:17,_largeScreenWidth:500,buildRendering:function(){
 this._clsName=this.barType=="segmentedControl"?"mblTabButton":"mblTabBarButton";
-this.domNode=this.containerNode=this.srcNodeRef||dojo.doc.createElement("H1");
+this.domNode=this.containerNode=this.srcNodeRef||_4.create(this.tag);
 this.domNode.className=this.barType=="segmentedControl"?"mblTabPanelHeader":"mblTabBar";
-},postCreate:function(){
-if(dojo.global.onorientationchange!==undefined){
-this.connect(dojo.global,"onorientationchange","onResize");
-}else{
-this.connect(dojo.global,"onresize","onResize");
-}
 },startup:function(){
-var _1=this;
-setTimeout(function(){
-_1.onResize();
-},0);
-},onResize:function(){
-var i;
-var w=dojo.marginBox(this.domNode.parentNode).w;
+if(this._started){
+return;
+}
+this.inherited(arguments);
+this.resize();
+},resize:function(_c){
+var i,w;
+if(_c&&_c.w){
+_5.setMarginBox(this.domNode,_c);
+w=_c.w;
+}else{
+w=_6.get(this.domNode,"position")==="absolute"?_5.getContentBox(this.domNode).w:_5.getMarginBox(this.domNode).w;
+}
 var bw=this._fixedButtonWidth;
 var bm=this._fixedButtonMargin;
-var _2=this.containerNode.childNodes;
-var _3=[];
-for(i=0;i<_2.length;i++){
-var c=_2[i];
+var _d=this.containerNode.childNodes;
+var _e=[];
+for(i=0;i<_d.length;i++){
+var c=_d[i];
 if(c.nodeType!=1){
 continue;
 }
-if(dojo.hasClass(c,this._clsName)){
-_3.push(c);
+if(_3.contains(c,this._clsName)){
+_e.push(c);
 }
 }
-var _4;
+var _f;
 if(this.barType=="segmentedControl"){
-_4=w;
-var _5=0;
-for(i=0;i<_3.length;i++){
-_4-=dojo.marginBox(_3[i]).w;
-_3[i].style.marginTop="3px";
-_5+=_3[i].offsetWidth;
+_f=w;
+var _10=0;
+for(i=0;i<_e.length;i++){
+_f-=_5.getMarginBox(_e[i]).w;
+_10+=_e[i].offsetWidth;
 }
-_4=Math.floor(_4/2);
-var _6=dijit.getEnclosingWidget(this.domNode.parentNode);
-var _7=this.inHeading||_6 instanceof dojox.mobile.Heading;
-this.containerNode.style.padding="3px 0px 0px "+(_7?0:_4)+"px";
-if(_7){
-dojo.style(this.domNode,{background:"none",border:"none",width:_5+2+"px"});
+_f=Math.floor(_f/2);
+var _11=this.getParent();
+var _12=this.inHeading||_11 instanceof _a;
+this.containerNode.style.padding=(_12?0:3)+"px 0px 0px "+(_12?0:_f)+"px";
+if(_12){
+_6.set(this.domNode,{background:"none",border:"none",width:_10+2+"px"});
 }
+_3.add(this.domNode,"mblTabBar"+(_12?"Head":"Top"));
 }else{
-_4=Math.floor((w-(bw+bm*2)*_3.length)/2);
-if(w<this._largeScreenWidth||_4<0){
-for(i=0;i<_3.length;i++){
-_3[i].style.width=Math.round(98/_3.length)+"%";
-_3[i].style.margin="0px";
+_f=Math.floor((w-(bw+bm*2)*_e.length)/2);
+if(w<this._largeScreenWidth||_f<0){
+for(i=0;i<_e.length;i++){
+_e[i].style.width=Math.round(98/_e.length)+"%";
+_e[i].style.margin="0px";
 }
 this.containerNode.style.padding="0px 0px 0px 1%";
 }else{
-for(i=0;i<_3.length;i++){
-_3[i].style.width=bw+"px";
-_3[i].style.margin="0 "+bm+"px";
+for(i=0;i<_e.length;i++){
+_e[i].style.width=bw+"px";
+_e[i].style.margin="0 "+bm+"px";
 }
-this.containerNode.style.padding="0px 0px 0px "+_4+"px";
+if(_e.length>0){
+_e[0].style.marginLeft=_f+bm+"px";
 }
-}
-}});
-dojo.declare("dojox.mobile.TabBarButton",dojox.mobile.AbstractItem,{icon1:"",icon2:"",iconPos1:"",iconPos2:"",selected:false,transition:"none",tag:"LI",selectOne:true,inheritParams:function(){
-var _8=this.getParentWidget();
-this.parent=_8;
-if(_8){
-if(!this.transition){
-this.transition=_8.transition;
-}
-if(!this.icon1){
-this.icon1=_8.iconBase;
-}
-if(!this.iconPos1){
-this.iconPos1=_8.iconPos;
-}
-if(!this.icon2){
-this.icon2=_8.iconBase||this.icon1;
-}
-if(!this.iconPos2){
-this.iconPos2=_8.iconPos||this.iconPos1;
+this.containerNode.style.padding="0px";
 }
 }
-},buildRendering:function(){
-this.inheritParams();
-this.anchorNode=dojo.create("A",{className:"mblTabBarButtonAnchor"});
-var a=this.anchorNode;
-this.connect(a,"onclick","onClick");
-var _9=dojo.create("DIV",{className:"mblTabBarButtonDiv"},a);
-var _a=dojo.create("DIV",{className:"mblTabBarButtonDiv mblTabBarButtonDivInner"},_9);
-this.img1=dojo.create("IMG",{className:"mblTabBarButtonIcon",src:this.icon1},_a);
-this.img1.style.visibility=this.selected?"hidden":"";
-dojox.mobile.setupIcon(this.img1,this.iconPos1);
-this.img1.onload=function(){
-this.style.width=this.width+"px";
-this.style.height=this.height+"px";
-};
-this.img2=dojo.create("IMG",{className:"mblTabBarButtonIcon",src:this.icon2},_a);
-this.img2.style.visibility=this.selected?"":"hidden";
-dojox.mobile.setupIcon(this.img2,this.iconPos2);
-this.img2.onload=function(){
-this.style.width=this.width+"px";
-this.style.height=this.height+"px";
-};
-this.box=dojo.create("DIV",{className:"mblTabBarButtonTextBox"},a);
-var _b=this.box;
-var r=this.srcNodeRef;
-if(r){
-for(var i=0,_c=r.childNodes.length;i<_c;i++){
-_b.appendChild(r.firstChild);
-}
-}
-if(this.label){
-_b.appendChild(dojo.doc.createTextNode(this.label));
-}
-this.domNode=this.srcNodeRef||dojo.create(this.tag);
-this.containerNode=this.domNode;
-var _d=this.parent?this.parent._clsName:"mblTabBarButton";
-dojo.addClass(this.domNode,_d+(this.selected?" mblTabButtonSelected":""));
-this.domNode.appendChild(a);
-this.createDomButton(this.domNode,a);
-},startup:function(){
-var _e=this.getParentWidget();
-this.parent=_e;
-if(_e&&_e.barType=="segmentedControl"){
-dojo.removeClass(this.domNode,"mblTabBarButton");
-dojo.addClass(this.domNode,_e._clsName);
-this.box.className="";
-}
-},select:function(_f){
-if(_f){
-this.selected=false;
-dojo.removeClass(this.domNode,"mblTabButtonSelected");
+if(!_1.some(this.getChildren(),function(_13){
+return _13.iconNode1;
+})){
+_3.add(this.domNode,"mblTabBarNoIcons");
 }else{
-this.selected=true;
-dojo.addClass(this.domNode,"mblTabButtonSelected");
-for(var i=0,c=this.domNode.parentNode.childNodes;i<c.length;i++){
-if(c[i].nodeType!=1){
-continue;
+_3.remove(this.domNode,"mblTabBarNoIcons");
 }
-var w=dijit.byNode(c[i]);
-if(w&&w!=this){
-w.select(true);
+if(!_1.some(this.getChildren(),function(_14){
+return _14.label;
+})){
+_3.add(this.domNode,"mblTabBarNoText");
+}else{
+_3.remove(this.domNode,"mblTabBarNoText");
 }
-}
-}
-this.img1.style.visibility=this.selected?"hidden":"";
-this.img2.style.visibility=this.selected?"":"hidden";
-},onClick:function(e){
-this.defaultClickAction();
 }});
-}
+});

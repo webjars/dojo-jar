@@ -11,205 +11,44 @@
 		http://dojotoolkit.org
 */
 
-if(!dojo._hasResource["dojox.string.Builder"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
-dojo._hasResource["dojox.string.Builder"] = true;
-dojo.provide("dojox.string.Builder");
-
-dojox.string.Builder = function(/*String?*/str){
-	//	summary:
-	//		A fast buffer for creating large strings.
-	//
-	//	length: Number
-	//		The current length of the internal string.
-
-	//	N.B. the public nature of the internal buffer is no longer
-	//	needed because the IE-specific fork is no longer needed--TRT.
-	var b = "";
-	this.length = 0;
-	
-	this.append = function(/* String... */s){
-		// summary: Append all arguments to the end of the buffer
-		if(arguments.length>1){
-			/*
-				This is a loop unroll was designed specifically for Firefox;
-				it would seem that static index access on an Arguments
-				object is a LOT faster than doing dynamic index access.
-				Therefore, we create a buffer string and take advantage
-				of JS's switch fallthrough.  The peformance of this method
-				comes very close to straight up string concatenation (+=).
-
-				If the arguments object length is greater than 9, we fall
-				back to standard dynamic access.
-
-				This optimization seems to have no real effect on either
-				Safari or Opera, so we just use it for all.
-
-				It turns out also that this loop unroll can increase performance
-				significantly with Internet Explorer, particularly when
-				as many arguments are provided as possible.
-
-				Loop unroll per suggestion from Kris Zyp, implemented by
-				Tom Trenka.
-
-				Note: added empty string to force a string cast if needed.
-			 */
-			var tmp="", l=arguments.length;
-			switch(l){
-				case 9: tmp=""+arguments[8]+tmp;
-				case 8: tmp=""+arguments[7]+tmp;
-				case 7: tmp=""+arguments[6]+tmp;
-				case 6: tmp=""+arguments[5]+tmp;
-				case 5: tmp=""+arguments[4]+tmp;
-				case 4: tmp=""+arguments[3]+tmp;
-				case 3: tmp=""+arguments[2]+tmp;
-				case 2: {
-					b+=""+arguments[0]+arguments[1]+tmp;
-					break;
-				}
-				default: {
-					var i=0;
-					while(i<arguments.length){
-						tmp += arguments[i++];
-					}
-					b += tmp;
-				}
-			}
-		} else {
-			b += s;
-		}
-		this.length = b.length;
-		return this;	//	dojox.string.Builder
-	};
-	
-	this.concat = function(/*String...*/s){
-		//	summary:
-		//		Alias for append.
-		return this.append.apply(this, arguments);	//	dojox.string.Builder
-	};
-	
-	this.appendArray = function(/*Array*/strings) {
-		//	summary:
-		//		Append an array of items to the internal buffer.
-
-		//	Changed from String.prototype.concat.apply because of IE.
-		return this.append.apply(this, strings);	//	dojox.string.Builder
-	};
-	
-	this.clear = function(){
-		//	summary:
-		//		Remove all characters from the buffer.
-		b = "";
-		this.length = 0;
-		return this;	//	dojox.string.Builder
-	};
-	
-	this.replace = function(/* String */oldStr, /* String */ newStr){
-		// 	summary:
-		//		Replace instances of one string with another in the buffer.
-		b = b.replace(oldStr,newStr);
-		this.length = b.length;
-		return this;	//	dojox.string.Builder
-	};
-	
-	this.remove = function(/* Number */start, /* Number? */len){
-		//	summary:
-		//		Remove len characters starting at index start.  If len
-		//		is not provided, the end of the string is assumed.
-		if(len===undefined){ len = b.length; }
-		if(len == 0){ return this; }
-		b = b.substr(0, start) + b.substr(start+len);
-		this.length = b.length;
-		return this;	//	dojox.string.Builder
-	};
-	
-	this.insert = function(/* Number */index, /* String */str){
-		//	summary:
-		//		Insert string str starting at index.
-		if(index == 0){
-			b = str + b;
-		}else{
-			b = b.slice(0, index) + str + b.slice(index);
-		}
-		this.length = b.length;
-		return this;	//	dojox.string.Builder
-	};
-	
-	this.toString = function(){
-		//	summary:
-		//		Return the string representation of the internal buffer.
-		return b;	//	String
-	};
-
-	//	initialize the buffer.
-	if(str){ this.append(str); }
-};
-
-}
-
-if(!dojo._hasResource["dojox.string.tokenize"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
-dojo._hasResource["dojox.string.tokenize"] = true;
-dojo.provide("dojox.string.tokenize");
-
-dojox.string.tokenize = function(/*String*/ str, /*RegExp*/ re, /*Function?*/ parseDelim, /*Object?*/ instance){
-	// summary:
-	//		Split a string by a regular expression with the ability to capture the delimeters
-	// parseDelim:
-	//		Each group (excluding the 0 group) is passed as a parameter. If the function returns
-	//		a value, it's added to the list of tokens.
-	// instance:
-	//		Used as the "this" instance when calling parseDelim
-	var tokens = [];
-	var match, content, lastIndex = 0;
-	while(match = re.exec(str)){
-		content = str.slice(lastIndex, re.lastIndex - match[0].length);
-		if(content.length){
-			tokens.push(content);
-		}
-		if(parseDelim){
-			if(dojo.isOpera){
-				var copy = match.slice(0);
-				while(copy.length < match.length){
-					copy.push(null);
-				}
-				match = copy;
-			}
-			var parsed = parseDelim.apply(instance, match.slice(1).concat(tokens.length));
-			if(typeof parsed != "undefined"){
-				tokens.push(parsed);
-			}
-		}
-		lastIndex = re.lastIndex;
-	}
-	content = str.slice(lastIndex);
-	if(content.length){
-		tokens.push(content);
-	}
-	return tokens;
-}
-
-}
-
-if(!dojo._hasResource["dojox.dtl._base"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
-dojo._hasResource["dojox.dtl._base"] = true;
-dojo.provide("dojox.dtl._base");
-
-
-
-
-dojo.experimental("dojox.dtl");
-
-(function(){
-	var dd = dojox.dtl;
+//>>built
+require({cache:{
+'dojox/dtl/_base':function(){
+define([
+	"dojo/_base/kernel",
+	"dojo/_base/lang",
+	"dojox/string/tokenize",
+	"dojo/_base/json",
+	"dojo/dom",
+	"dojo/_base/xhr",
+	"dojox/string/Builder",
+	"dojo/_base/Deferred"], 
+	function(kernel, lang, Tokenize, json, dom, xhr, StringBuilder, deferred){
+	/*=====
+		Tokenize = dojox.string.tokenize;
+		StringBuilder = dojox.string.Builder;
+	=====*/
+	kernel.experimental("dojox.dtl");
+	var dd = lang.getObject("dojox.dtl", true);
+	dd._base = {};
+	/*=====
+		dd = dojox.dtl;
+	=====*/
 
 	dd.TOKEN_BLOCK = -1;
 	dd.TOKEN_VAR = -2;
 	dd.TOKEN_COMMENT = -3;
 	dd.TOKEN_TEXT = 3;
 
-	dd._Context = dojo.extend(function(dict){
+	/*=====
+		dd._Context = function(dict){
+			// summary: Pass one of these when rendering a template to tell the template what values to use.
+		}
+	=====*/
+	dd._Context = lang.extend(function(dict){
 		// summary: Pass one of these when rendering a template to tell the template what values to use.
 		if(dict){
-			dojo._mixin(this, dict);
+			lang._mixin(this, dict);
 			if(dict.get){
 				// Preserve passed getter and restore prototype get
 				this._getter = dict.get;
@@ -220,7 +59,7 @@ dojo.experimental("dojox.dtl");
 	{
 		push: function(){
 			var last = this;
-			var context = dojo.delegate(this);
+			var context = lang.delegate(this);
 			context.pop = function(){ return last; }
 			return context;
 		},
@@ -232,12 +71,12 @@ dojo.experimental("dojox.dtl");
 
 			if(this._getter){
 				var got = this._getter(key);
-				if(typeof got != "undefined"){
+				if(got !== undefined){
 					return n(got);
 				}
 			}
 
-			if(typeof this[key] != "undefined"){
+			if(this[key] !== undefined){
 				return n(this[key]);
 			}
 
@@ -259,7 +98,7 @@ dojo.experimental("dojox.dtl");
 		update: function(dict){
 			var context = this.push();
 			if(dict){
-				dojo._mixin(this, dict);
+				lang._mixin(this, dict);
 			}
 			return context;
 		}
@@ -278,7 +117,7 @@ dojo.experimental("dojox.dtl");
 		splitter.exec(""); // Reset the global
 
 		var part, parts = [], lastIndex = 0, i = 0;
-		while(part = splitter.exec(this)){
+		while((part = splitter.exec(this))){
 			parts.push(this.slice(lastIndex, splitter.lastIndex - part[0].length));
 			lastIndex = splitter.lastIndex;
 			if(limit && (++i > limit - 1)){
@@ -291,7 +130,7 @@ dojo.experimental("dojox.dtl");
 
 	dd.Token = function(token_type, contents){
 		this.token_type = token_type;
-		this.contents = new String(dojo.trim(contents));
+		this.contents = new String(lang.trim(contents));
 		this.contents.split = split;
 		this.split = function(){
 			return String.prototype.split.apply(this.contents, arguments);
@@ -325,7 +164,7 @@ dojo.experimental("dojox.dtl");
 			}
 
 			var fn = params[1];
-			var require = params[2];
+			var deps = params[2];
 
 			var parts;
 			if(fn.indexOf(":") != -1){
@@ -333,9 +172,14 @@ dojo.experimental("dojox.dtl");
 				fn = parts.pop();
 			}
 
-			dojo["require"](require);
+// FIXME: THIS DESIGN DOES NOT WORK WITH ASYNC LOADERS!
+			var mod = deps;
+			if (/\./.test(deps)) {
+				deps = deps.replace(/\./g, "/");
+			}
+			require([deps], function(){});
 
-			var parent = dojo.getObject(require);
+			var parent = lang.getObject(mod);
 
 			return parent[fn || name] || parent[name + "_"] || parent[fn + "_"];
 		},
@@ -349,18 +193,18 @@ dojo.experimental("dojox.dtl");
 			return new dd.Template(ddt.getTemplateString(file));
 		},
 		getTemplateString: function(file){
-			return dojo._getText(file.toString()) || "";
+			return xhr._getText(file.toString()) || "";
 		},
 		_resolveLazy: function(location, sync, json){
 			if(sync){
 				if(json){
-					return dojo.fromJson(dojo._getText(location)) || {};
+					return json.fromJson(xhr._getText(location)) || {};
 				}else{
 					return dd.text.getTemplateString(location);
 				}
 			}else{
-				return dojo.xhrGet({
-					handleAs: (json) ? "json" : "text",
+				return xhr.get({
+					handleAs: json ? "json" : "text",
 					url: location
 				});
 			}
@@ -368,7 +212,7 @@ dojo.experimental("dojox.dtl");
 		_resolveTemplateArg: function(arg, sync){
 			if(ddt._isTemplate(arg)){
 				if(!sync){
-					var d = new dojo.Deferred();
+					var d = new deferred();
 					d.callback(arg);
 					return d;
 				}
@@ -377,12 +221,12 @@ dojo.experimental("dojox.dtl");
 			return ddt._resolveLazy(arg, sync);
 		},
 		_isTemplate: function(arg){
-			return (typeof arg == "undefined") || (typeof arg == "string" && (arg.match(/^\s*[<{]/) || arg.indexOf(" ") != -1));
+			return (arg === undefined) || (typeof arg == "string" && (arg.match(/^\s*[<{]/) || arg.indexOf(" ") != -1));
 		},
 		_resolveContextArg: function(arg, sync){
 			if(arg.constructor == Object){
 				if(!sync){
-					var d = new dojo.Deferred;
+					var d = new deferred;
 					d.callback(arg);
 					return d;
 				}
@@ -392,15 +236,18 @@ dojo.experimental("dojox.dtl");
 		},
 		_re: /(?:\{\{\s*(.+?)\s*\}\}|\{%\s*(load\s*)?(.+?)\s*%\})/g,
 		tokenize: function(str){
-			return dojox.string.tokenize(str, ddt._re, ddt._parseDelims);
+			return Tokenize(str, ddt._re, ddt._parseDelims);
 		},
 		_parseDelims: function(varr, load, tag){
 			if(varr){
 				return [dd.TOKEN_VAR, varr];
 			}else if(load){
-				var parts = dojo.trim(tag).split(/\s+/g);
+				var parts = lang.trim(tag).split(/\s+/g);
 				for(var i = 0, part; part = parts[i]; i++){
-					dojo["require"](part);
+					if (/\./.test(part)){
+						part = part.replace(/\./g,"/");
+					}
+					require([part]);
 				}
 			}else{
 				return [dd.TOKEN_BLOCK, tag];
@@ -408,7 +255,35 @@ dojo.experimental("dojox.dtl");
 		}
 	}
 
-	dd.Template = dojo.extend(function(/*String|dojo._Url*/ template, /*Boolean*/ isString){
+	/*=====
+		dd.Template = function(template, isString){
+			// summary: 
+			// 		The base class for text-based templates.
+			// template: String|dojo._Url
+			//		The string or location of the string to
+			//		use as a template
+			// isString: Boolean
+			//		Indicates whether the template is a string or a url.
+		};
+		dd.Template.prototype.update= function(node, context){
+			// summary:
+			//		Updates this template according to the given context.
+			// node: DOMNode|String|dojo.NodeList
+			//		A node reference or set of nodes
+			// context: dojo._Url|String|Object
+			//		The context object or location
+			}
+		dd.Template.prototype.render= function(context, buffer){
+			// summary:
+			//		Renders this template.
+			// context: Object
+			//		The runtime context.
+			// buffer: StringBuilder?
+			//		A string buffer.
+		}
+		
+	=====*/
+	dd.Template = lang.extend(function(/*String|dojo._Url*/ template, /*Boolean*/ isString){
 		// template:
 		//		The string or location of the string to
 		//		use as a template
@@ -419,6 +294,8 @@ dojo.experimental("dojox.dtl");
 	},
 	{
 		update: function(node, context){
+			// summary:
+			//		Updates this template according to the given context.
 			// node: DOMNode|String|dojo.NodeList
 			//		A node reference or set of nodes
 			// context: dojo._Url|String|Object
@@ -430,7 +307,7 @@ dojo.experimental("dojox.dtl");
 						item.innerHTML = content;
 					});
 				}else{
-					dojo.byId(node).innerHTML = content;
+					dom.byId(node).innerHTML = content;
 				}
 				return this;
 			});
@@ -441,8 +318,7 @@ dojo.experimental("dojox.dtl");
 			return this.nodelist.render(context, buffer) + "";
 		},
 		getBuffer: function(){
-			
-			return new dojox.string.Builder();
+			return new StringBuilder();
 		}
 	});
 
@@ -453,18 +329,18 @@ dojo.experimental("dojox.dtl");
 		}
 
 		if(str.indexOf("{%") == -1){
-			return new dd._QuickNodeList(dojox.string.tokenize(str, qfRe, function(token){
+			return new dd._QuickNodeList(Tokenize(str, qfRe, function(token){
 				return new dd._Filter(token);
 			}));
 		}
 	}
 
-	dd._QuickNodeList = dojo.extend(function(contents){
+	dd._QuickNodeList = lang.extend(function(contents){
 		this.contents = contents;
 	},
 	{
 		render: function(context, buffer){
-			for(var i=0, l=this.contents.length; i<l; i++){
+			for(var i = 0, l = this.contents.length; i < l; i++){
 				if(this.contents[i].resolve){
 					buffer = buffer.concat(this.contents[i].resolve(context));
 				}else{
@@ -477,7 +353,7 @@ dojo.experimental("dojox.dtl");
 		clone: function(buffer){ return this; }
 	});
 
-	dd._Filter = dojo.extend(function(token){
+	dd._Filter = lang.extend(function(token){
 		// summary: Uses a string to find (and manipulate) a variable
 		if(!token) throw new Error("Filter must be called with variable name");
 		this.contents = token;
@@ -488,7 +364,7 @@ dojo.experimental("dojox.dtl");
 			this.filters = cache[1];
 		}else{
 			this.filters = [];
-			dojox.string.tokenize(token, this._re, this._tokenize, this);
+			Tokenize(token, this._re, this._tokenize, this);
 			this._cache[token] = [this.key, this.filters];
 		}
 	},
@@ -511,7 +387,7 @@ dojo.experimental("dojox.dtl");
 			var pos, arg;
 
 			for(var i = 0, has = []; i < arguments.length; i++){
-				has[i] = (typeof arguments[i] != "undefined" && typeof arguments[i] == "string" && arguments[i]);
+				has[i] = (arguments[i] !== undefined && typeof arguments[i] == "string" && arguments[i]);
 			}
 
 			if(!this.key){
@@ -536,7 +412,7 @@ dojo.experimental("dojox.dtl");
 				}
 				// Get a named filter
 				var fn = ddt.getFilter(arguments[3]);
-				if(!dojo.isFunction(fn)) throw new Error(arguments[3] + " is not registered as a filter");
+				if(!lang.isFunction(fn)) throw new Error(arguments[3] + " is not registered as a filter");
 				this.filters.push([fn, arg]);
 			}
 		},
@@ -544,7 +420,7 @@ dojo.experimental("dojox.dtl");
 			return this.contents;
 		},
 		resolve: function(context){
-			if(typeof this.key == "undefined"){
+			if(this.key === undefined){
 				return "";
 			}
 
@@ -581,7 +457,7 @@ dojo.experimental("dojox.dtl");
 				parts = path.split(".");
 				current = context.get(parts[0]);
 
-				if(dojo.isFunction(current)){
+				if(lang.isFunction(current)){
 					var self = context.getThis && context.getThis();
 					if(current.alters_data){
 						current = "";
@@ -596,7 +472,7 @@ dojo.experimental("dojox.dtl");
 					var part = parts[i];
 					if(current){
 						var base = current;
-						if(dojo.isObject(current) && part == "items" && typeof current[part] == "undefined"){
+						if(lang.isObject(current) && part == "items" && current[part] === undefined){
 							var items = [];
 							for(var key in current){
 								items.push([key, current[key]]);
@@ -605,16 +481,16 @@ dojo.experimental("dojox.dtl");
 							continue;
 						}
 
-						if(current.get && dojo.isFunction(current.get) && current.get.safe){
+						if(current.get && lang.isFunction(current.get) && current.get.safe){
 							current = current.get(part);
-						}else if(typeof current[part] == "undefined"){
+						}else if(current[part] === undefined){
 							current = current[part];
 							break;
 						}else{
 							current = current[part];
 						}
 
-						if(dojo.isFunction(current)){
+						if(lang.isFunction(current)){
 							if(current.alters_data){
 								current = "";
 							}else{
@@ -632,7 +508,7 @@ dojo.experimental("dojox.dtl");
 		}
 	});
 
-	dd._TextNode = dd._Node = dojo.extend(function(/*Object*/ obj){
+	dd._TextNode = dd._Node = lang.extend(function(/*Object*/ obj){
 		// summary: Basic catch-all node
 		this.contents = obj;
 	},
@@ -646,12 +522,12 @@ dojo.experimental("dojox.dtl");
 			return buffer.concat(this.contents);
 		},
 		isEmpty: function(){
-			return !dojo.trim(this.contents);
+			return !lang.trim(this.contents);
 		},
 		clone: function(){ return this; }
 	});
 
-	dd._NodeList = dojo.extend(function(/*Node[]*/ nodes){
+	dd._NodeList = lang.extend(function(/*Node[]*/ nodes){
 		// summary: Allows us to render a group of nodes
 		this.contents = nodes || [];
 		this.last = "";
@@ -693,7 +569,7 @@ dojo.experimental("dojox.dtl");
 		}
 	});
 
-	dd._VarNode = dojo.extend(function(str){
+	dd._VarNode = lang.extend(function(str){
 		// summary: A node to be processed as a variable
 		this.contents = new dd._Filter(str);
 	},
@@ -713,7 +589,7 @@ dojo.experimental("dojox.dtl");
 		this.clone = function(){ return this; }
 	}
 
-	dd._Parser = dojo.extend(function(tokens){
+	dd._Parser = lang.extend(function(tokens){
 		// summary: Parser used during initialization and for tag groups.
 		this.contents = tokens;
 	},
@@ -817,8 +693,8 @@ dojo.experimental("dojox.dtl");
 				if(entry.length == 3){
 					tags.push(entry);
 				}else{
-					var fn = dojo.getObject(entry[1]);
-					if(fn && dojo.isFunction(fn)){
+					var fn = lang.getObject(entry[1]);
+					if(fn && lang.isFunction(fn)){
 						entry.push(fn);
 						tags.push(entry);
 					}
@@ -830,7 +706,7 @@ dojo.experimental("dojox.dtl");
 			for(var path in locations){
 				for(var i = 0, fn; fn = locations[path][i]; i++){
 					var key = fn;
-					if(dojo.isArray(fn)){
+					if(lang.isArray(fn)){
 						key = fn[0];
 						fn = fn[1];
 					}
@@ -900,576 +776,324 @@ dojo.experimental("dojox.dtl");
 	dd.register.filters("dojox.dtl", {
 		"_base": ["escape", "safe"]
 	});
-})();
-
-}
-
-if(!dojo._hasResource["dojox.dtl"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
-dojo._hasResource["dojox.dtl"] = true;
-dojo.provide("dojox.dtl");
-
-
-}
-
-if(!dojo._hasResource["dojox.dtl.Context"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
-dojo._hasResource["dojox.dtl.Context"] = true;
-dojo.provide("dojox.dtl.Context");
-
-
-dojox.dtl.Context = dojo.extend(function(dict){
-	this._this = {};
-	dojox.dtl._Context.call(this, dict);
-}, dojox.dtl._Context.prototype,
-{
-	getKeys: function(){
-		var keys = [];
-		for(var key in this){
-			if(this.hasOwnProperty(key) && key != "_this"){
-				keys.push(key);
-			}
-		}
-		return keys;
-	},
-	extend: function(/*dojox.dtl.Context|Object*/ obj){
-		// summary: Returns a clone of this context object, with the items from the
-		//		passed objecct mixed in.
-		return  dojo.delegate(this, obj);
-	},
-	filter: function(/*dojox.dtl.Context|Object|String...*/ filter){
-		// summary: Returns a clone of this context, only containing the items
-		//		defined in the filter.
-		var context = new dojox.dtl.Context();
-		var keys = [];
-		var i, arg;
-		if(filter instanceof dojox.dtl.Context){
-			keys = filter.getKeys();
-		}else if(typeof filter == "object"){
-			for(var key in filter){
-				keys.push(key);
-			}
-		}else{
-			for(i = 0; arg = arguments[i]; i++){
-				if(typeof arg == "string"){
-					keys.push(arg);
-				}
-			}
-		}
-
-		for(i = 0, key; key = keys[i]; i++){
-			context[key] = this[key];
-		}
-
-		return context;
-	},
-	setThis: function(/*Object*/ _this){
-		this._this = _this;
-	},
-	getThis: function(){
-		return this._this;
-	},
-	hasKey: function(key){
-		if(this._getter){
-			var got = this._getter(key);
-			if(typeof got != "undefined"){
-				return true;
-			}
-		}
-
-		if(typeof this[key] != "undefined"){
-			return true;
-		}
-
-		return false;
-	}
+	return dd;
 });
 
-}
 
-if(!dojo._hasResource["dojox.dtl.tag.logic"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
-dojo._hasResource["dojox.dtl.tag.logic"] = true;
-dojo.provide("dojox.dtl.tag.logic");
+},
+'dojox/dtl/tag/loader':function(){
+define("dojox/dtl/tag/loader", [
+	"dojo/_base/lang",
+	"../_base",
+	"dojo/_base/array",
+	"dojo/_base/connect"
+], function(lang,dd,array,connect){
+	/*=====
+		dd = dojox.dtl;
+	=====*/
+	lang.getObject("dojox.dtl.tag.loader", true);
 
+	var ddtl = dd.tag.loader;
 
-
-(function(){
-	var dd = dojox.dtl;
-	var ddt = dd.text;
-	var ddtl = dd.tag.logic;
-
-	ddtl.IfNode = dojo.extend(function(bools, trues, falses, type){
-		this.bools = bools;
-		this.trues = trues;
-		this.falses = falses;
-		this.type = type;
-	},
-	{
-		render: function(context, buffer){
-			var i, bool, ifnot, filter, value;
-			if(this.type == "or"){
-				for(i = 0; bool = this.bools[i]; i++){
-					ifnot = bool[0];
-					filter = bool[1];
-					value = filter.resolve(context);
-					if((value && !ifnot) || (ifnot && !value)){
-						if(this.falses){
-							buffer = this.falses.unrender(context, buffer);
-						}
-						return (this.trues) ? this.trues.render(context, buffer, this) : buffer;
-					}
-				}
-				if(this.trues){
-					buffer = this.trues.unrender(context, buffer);
-				}
-				return (this.falses) ? this.falses.render(context, buffer, this) : buffer;
-			}else{
-				for(i = 0; bool = this.bools[i]; i++){
-					ifnot = bool[0];
-					filter = bool[1];
-					value = filter.resolve(context);
-					// If we ever encounter a false value
-					if(value == ifnot){
-						if(this.trues){
-							buffer = this.trues.unrender(context, buffer);
-						}
-						return (this.falses) ? this.falses.render(context, buffer, this) : buffer;
-					}
-				}
-				if(this.falses){
-					buffer = this.falses.unrender(context, buffer);
-				}
-				return (this.trues) ? this.trues.render(context, buffer, this) : buffer;
-			}
-			return buffer;
-		},
-		unrender: function(context, buffer){
-			buffer = (this.trues) ? this.trues.unrender(context, buffer) : buffer;
-			buffer = (this.falses) ? this.falses.unrender(context, buffer) : buffer;
-			return buffer;
-		},
-		clone: function(buffer){
-			var trues = (this.trues) ? this.trues.clone(buffer) : null;
-			var falses = (this.falses) ? this.falses.clone(buffer) : null;
-			return new this.constructor(this.bools, trues, falses, this.type);
-		}
-	});
-
-	ddtl.IfEqualNode = dojo.extend(function(var1, var2, trues, falses, negate){
-		this.var1 = new dd._Filter(var1);
-		this.var2 = new dd._Filter(var2);
-		this.trues = trues;
-		this.falses = falses;
-		this.negate = negate;
-	},
-	{
-		render: function(context, buffer){
-			var var1 = this.var1.resolve(context);
-			var var2 = this.var2.resolve(context);
-			var1 = (typeof var1 != "undefined") ? var1 : "";
-			var2 = (typeof var1 != "undefined") ? var2 : "";
-			if((this.negate && var1 != var2) || (!this.negate && var1 == var2)){
-				if(this.falses){
-					buffer = this.falses.unrender(context, buffer, this);
-				}
-				return (this.trues) ? this.trues.render(context, buffer, this) : buffer;
-			}
-			if(this.trues){
-				buffer = this.trues.unrender(context, buffer, this);
-			}
-			return (this.falses) ? this.falses.render(context, buffer, this) : buffer;
-		},
-		unrender: function(context, buffer){
-			return ddtl.IfNode.prototype.unrender.call(this, context, buffer);
-		},
-		clone: function(buffer){
-			var trues = this.trues ? this.trues.clone(buffer) : null;
-			var falses = this.falses ? this.falses.clone(buffer) : null;
-			return new this.constructor(this.var1.getExpression(), this.var2.getExpression(), trues, falses, this.negate);
-		}
-	});
-
-	ddtl.ForNode = dojo.extend(function(assign, loop, reversed, nodelist){
-		this.assign = assign;
-		this.loop = new dd._Filter(loop);
-		this.reversed = reversed;
-		this.nodelist = nodelist;
-		this.pool = [];
-	},
-	{
-		render: function(context, buffer){
-			var i, j, k;
-			var dirty = false;
-			var assign = this.assign;
-
-			for(k = 0; k < assign.length; k++){
-				if(typeof context[assign[k]] != "undefined"){
-					dirty = true;
-					context = context.push();
-					break;
-				}
-			}
-			if(!dirty && context.forloop){
-				dirty = true;
-				context = context.push();
-			}
-
-			var items = this.loop.resolve(context) || [];
-			for(i = items.length; i < this.pool.length; i++){
-				this.pool[i].unrender(context, buffer, this);
-			}
-			if(this.reversed){
-				items = items.slice(0).reverse();
-			}
-
-			var isObject = dojo.isObject(items) && !dojo.isArrayLike(items);
-			var arred = [];
-			if(isObject){
-				for(var key in items){
-					arred.push(items[key]);
-				}
-			}else{
-				arred = items;
-			}
-
-			var forloop = context.forloop = {
-				parentloop: context.get("forloop", {})
-			};
-			var j = 0;
-			for(i = 0; i < arred.length; i++){
-				var item = arred[i];
-
-				forloop.counter0 = j;
-				forloop.counter = j + 1;
-				forloop.revcounter0 = arred.length - j - 1;
-				forloop.revcounter = arred.length - j;
-				forloop.first = !j;
-				forloop.last = (j == arred.length - 1);
-
-				if(assign.length > 1 && dojo.isArrayLike(item)){
-					if(!dirty){
-						dirty = true;
-						context = context.push();
-					}
-					var zipped = {};
-					for(k = 0; k < item.length && k < assign.length; k++){
-						zipped[assign[k]] = item[k];
-					}
-					dojo.mixin(context, zipped);
-				}else{
-					context[assign[0]] = item;
-				}
-
-				if(j + 1 > this.pool.length){
-					this.pool.push(this.nodelist.clone(buffer));
-				}
-				buffer = this.pool[j++].render(context, buffer, this);
-			}
-
-			delete context.forloop;
-			if(dirty){
-				context = context.pop();
-			}else{
-				for(k = 0; k < assign.length; k++){
-					delete context[assign[k]];
-				}
-			}
-			return buffer;
-		},
-		unrender: function(context, buffer){
-			for(var i = 0, pool; pool = this.pool[i]; i++){
-				buffer = pool.unrender(context, buffer);
-			}
-			return buffer;
-		},
-		clone: function(buffer){
-			return new this.constructor(this.assign, this.loop.getExpression(), this.reversed, this.nodelist.clone(buffer));
-		}
-	});
-
-	dojo.mixin(ddtl, {
-		if_: function(parser, token){
-			var i, part, type, bools = [], parts = token.contents.split();
-			parts.shift();
-			token = parts.join(" ");
-			parts = token.split(" and ");
-			if(parts.length == 1){
-				type = "or";
-				parts = token.split(" or ");
-			}else{
-				type = "and";
-				for(i = 0; i < parts.length; i++){
-					if(parts[i].indexOf(" or ") != -1){
-						// Note, since we split by and, this is the only place we need to error check
-						throw new Error("'if' tags can't mix 'and' and 'or'");
-					}
-				}
-			}
-			for(i = 0; part = parts[i]; i++){
-				var not = false;
-				if(part.indexOf("not ") == 0){
-					part = part.slice(4);
-					not = true;
-				}
-				bools.push([not, new dd._Filter(part)]);
-			}
-			var trues = parser.parse(["else", "endif"]);
-			var falses = false;
-			var token = parser.next_token();
-			if(token.contents == "else"){
-				falses = parser.parse(["endif"]);
-				parser.next_token();
-			}
-			return new ddtl.IfNode(bools, trues, falses, type);
-		},
-		_ifequal: function(parser, token, negate){
-			var parts = token.split_contents();
-			if(parts.length != 3){
-				throw new Error(parts[0] + " takes two arguments");
-			}
-			var end = 'end' + parts[0];
-			var trues = parser.parse(["else", end]);
-			var falses = false;
-			var token = parser.next_token();
-			if(token.contents == "else"){
-				falses = parser.parse([end]);
-				parser.next_token();
-			}
-			return new ddtl.IfEqualNode(parts[1], parts[2], trues, falses, negate);
-		},
-		ifequal: function(parser, token){
-			return ddtl._ifequal(parser, token);
-		},
-		ifnotequal: function(parser, token){
-			return ddtl._ifequal(parser, token, true);
-		},
-		for_: function(parser, token){
-			var parts = token.contents.split();
-			if(parts.length < 4){
-				throw new Error("'for' statements should have at least four words: " + token.contents);
-			}
-			var reversed = parts[parts.length - 1] == "reversed";
-			var index = (reversed) ? -3 : -2;
-			if(parts[parts.length + index] != "in"){
-				throw new Error("'for' tag received an invalid argument: " + token.contents);
-			}
-			var loopvars = parts.slice(1, index).join(" ").split(/ *, */);
-			for(var i = 0; i < loopvars.length; i++){
-				if(!loopvars[i] || loopvars[i].indexOf(" ") != -1){
-					throw new Error("'for' tag received an invalid argument: " + token.contents);
-				}
-			}
-			var nodelist = parser.parse(["endfor"]);
-			parser.next_token();
-			return new ddtl.ForNode(loopvars, parts[parts.length + index + 1], reversed, nodelist);
-		}
-	});
-})();
-
-}
-
-if(!dojo._hasResource["dojox.dtl.tag.loop"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
-dojo._hasResource["dojox.dtl.tag.loop"] = true;
-dojo.provide("dojox.dtl.tag.loop");
-
-
-
-
-(function(){
-	var dd = dojox.dtl;
-	var ddtl = dd.tag.loop;
-
-	ddtl.CycleNode = dojo.extend(function(cyclevars, name, text, shared){
-		this.cyclevars = cyclevars;
+	ddtl.BlockNode = lang.extend(function(name, nodelist){
 		this.name = name;
-		this.contents = text;
-		this.shared = shared || {counter: -1, map: {}};
+		this.nodelist = nodelist; // Can be overridden
 	},
 	{
-		render: function(context, buffer){
-			if(context.forloop && !context.forloop.counter0){
-				this.shared.counter = -1;
-			}
-
-			++this.shared.counter;
-			var value = this.cyclevars[this.shared.counter % this.cyclevars.length];
-
-			var map = this.shared.map;
-			if(!map[value]){
-				map[value] = new dd._Filter(value);
-			}
-			value = map[value].resolve(context, buffer);
-
-			if(this.name){
-				context[this.name] = value;
-			}
-			this.contents.set(value);
-			return this.contents.render(context, buffer);
-		},
-		unrender: function(context, buffer){
-			return this.contents.unrender(context, buffer);
-		},
-		clone: function(buffer){
-			return new this.constructor(this.cyclevars, this.name, this.contents.clone(buffer), this.shared);
-		}
-	});
-
-	ddtl.IfChangedNode = dojo.extend(function(nodes, vars, shared){
-		this.nodes = nodes;
-		this._vars = vars;
-		this.shared = shared || {last: null, counter: 0};
-		this.vars = dojo.map(vars, function(item){
-			return new dojox.dtl._Filter(item);
-		});
-	}, {
-		render: function(context, buffer){
-			if(context.forloop){
-				if(context.forloop.counter <= this.shared.counter){
-					this.shared.last = null;
+		"super": function(){
+			if(this.parent){
+				var html = this.parent.nodelist.dummyRender(this.context, null, true);
+				if(typeof html == "string"){
+					html = new String(html);
 				}
-				this.shared.counter = context.forloop.counter;
+				html.safe = true;
+				return html;
+			}
+			return '';
+		},
+		render: function(context, buffer){
+			var name = this.name;
+			var nodelist = this.nodelist;
+			var parent;
+			if(buffer.blocks){
+				var block = buffer.blocks[name];
+				if(block){
+					parent = block.parent;
+					nodelist = block.nodelist;
+					block.used = true;
+				}
 			}
 
-			var change;
-			if(this.vars.length){
-				change = dojo.toJson(dojo.map(this.vars, function(item){
-					return item.resolve(context);
-				}));
-			}else{
-				change = this.nodes.dummyRender(context, buffer);
-			}
+			this.rendered = nodelist;
 
-			if(change != this.shared.last){
-				var firstloop = (this.shared.last === null);
-				this.shared.last = change;
-				context = context.push();
-				context.ifchanged = {firstloop: firstloop};
-				buffer = this.nodes.render(context, buffer);
-				context = context.pop();
-			}else{
-				buffer = this.nodes.unrender(context, buffer);
+			context = context.push();
+			this.context = context;
+			this.parent = null;
+			if(nodelist != this.nodelist){
+				this.parent = this;
 			}
+			context.block = this;
+
+			if(buffer.getParent){
+				var bufferParent = buffer.getParent();
+				var setParent = connect.connect(buffer, "onSetParent", function(node, up, root){
+					if(up && root){
+						buffer.setParent(bufferParent);
+					}
+				});
+			}
+			buffer = nodelist.render(context, buffer, this);
+			setParent && connect.disconnect(setParent);
+			context = context.pop();
 			return buffer;
 		},
 		unrender: function(context, buffer){
-			return this.nodes.unrender(context, buffer);
+			return this.rendered.unrender(context, buffer);
 		},
 		clone: function(buffer){
-			return new this.constructor(this.nodes.clone(buffer), this._vars, this.shared);
-		}
+			return new this.constructor(this.name, this.nodelist.clone(buffer));
+		},
+		toString: function(){ return "dojox.dtl.tag.loader.BlockNode"; }
 	});
 
-	ddtl.RegroupNode = dojo.extend(function(expression, key, alias){
-		this._expression = expression;
-		this.expression = new dd._Filter(expression);
+	ddtl.ExtendsNode = lang.extend(function(getTemplate, nodelist, shared, parent, key){
+		this.getTemplate = getTemplate;
+		this.nodelist = nodelist;
+		this.shared = shared;
+		this.parent = parent;
 		this.key = key;
-		this.alias = alias;
 	},
 	{
-		_push: function(container, grouper, stack){
-			if(stack.length){
-				container.push({ grouper: grouper, list: stack });
-			}
-		},
-		render: function(context, buffer){
-			context[this.alias] = [];
-			var list = this.expression.resolve(context);
-			if(list){
-				var last = null;
-				var stack = [];
-				for(var i = 0; i < list.length; i++){
-					var id = list[i][this.key];
-					if(last !== id){
-						this._push(context[this.alias], last, stack);
-						last = id;
-						stack = [list[i]];
+		parents: {},
+		getParent: function(context){
+			var parent = this.parent;
+			if(!parent){
+				var string;
+				parent = this.parent = context.get(this.key, false);
+				if(!parent){
+					throw new Error("extends tag used a variable that did not resolve");
+				}
+				if(typeof parent == "object"){
+					var url = parent.url || parent.templatePath;
+					if(parent.shared){
+						this.shared = true;
+					}
+					if(url){
+						parent = this.parent = url.toString();
+					}else if(parent.templateString){
+						// Allow the builder's string interning to work
+						string = parent.templateString;
+						parent = this.parent = " ";
 					}else{
-						stack.push(list[i]);
+						parent = this.parent = this.parent.toString();
 					}
 				}
-				this._push(context[this.alias], last, stack);
+				if(parent && parent.indexOf("shared:") === 0){
+					this.shared = true;
+					parent = this.parent = parent.substring(7, parent.length);
+				}
+			}
+			if(!parent){
+				throw new Error("Invalid template name in 'extends' tag.");
+			}
+			if(parent.render){
+				return parent;
+			}
+			if(this.parents[parent]){
+				return this.parents[parent];
+			}
+			this.parent = this.getTemplate(string || dojox.dtl.text.getTemplateString(parent));
+			if(this.shared){
+				this.parents[parent] = this.parent;
+			}
+			return this.parent;
+		},
+		render: function(context, buffer){
+			var parent = this.getParent(context);
+
+			parent.blocks = parent.blocks || {};
+			buffer.blocks = buffer.blocks || {};
+
+			for(var i = 0, node; node = this.nodelist.contents[i]; i++){
+				if(node instanceof dojox.dtl.tag.loader.BlockNode){
+					var old = parent.blocks[node.name];
+					if(old && old.nodelist != node.nodelist){
+						// In a shared template, the individual blocks might change
+						buffer = old.nodelist.unrender(context, buffer);
+					}
+					parent.blocks[node.name] = buffer.blocks[node.name] = {
+						shared: this.shared,
+						nodelist: node.nodelist,
+						used: false
+					}
+				}
+			}
+
+			this.rendered = parent;
+			return parent.nodelist.render(context, buffer, this);
+		},
+		unrender: function(context, buffer){
+			return this.rendered.unrender(context, buffer, this);
+		},
+		toString: function(){ return "dojox.dtl.block.ExtendsNode"; }
+	});
+
+	ddtl.IncludeNode = lang.extend(function(path, constant, getTemplate, text, parsed){
+		this._path = path;
+		this.constant = constant;
+		this.path = (constant) ? path : new dd._Filter(path);
+		this.getTemplate = getTemplate;
+		this.text = text;
+		this.parsed = (arguments.length == 5) ? parsed : true;
+	},
+	{
+		_cache: [{}, {}],
+		render: function(context, buffer){
+			var location = ((this.constant) ? this.path : this.path.resolve(context)).toString();
+			var parsed = Number(this.parsed);
+			var dirty = false;
+			if(location != this.last){
+				dirty = true;
+				if(this.last){
+					buffer = this.unrender(context, buffer);
+				}
+				this.last = location;
+			}
+
+			var cache = this._cache[parsed];
+
+			if(parsed){
+				if(!cache[location]){
+					cache[location] = dd.text._resolveTemplateArg(location, true);
+				}
+				if(dirty){
+					var template = this.getTemplate(cache[location]);
+					this.rendered = template.nodelist;
+				}
+				return this.rendered.render(context, buffer, this);
+			}else{
+				if(this.text instanceof dd._TextNode){
+					if(dirty){
+						this.rendered = this.text;
+						this.rendered.set(dd.text._resolveTemplateArg(location, true));
+					}
+					return this.rendered.render(context, buffer);
+				}else{
+					if(!cache[location]){
+						var nodelist = [];
+						var div = document.createElement("div");
+						div.innerHTML = dd.text._resolveTemplateArg(location, true);
+						var children = div.childNodes;
+						while(children.length){
+							var removed = div.removeChild(children[0]);
+							nodelist.push(removed);
+						}
+						cache[location] = nodelist;
+					}
+					if(dirty){
+						this.nodelist = [];
+						var exists = true;
+						for(var i = 0, child; child = cache[location][i]; i++){
+							this.nodelist.push(child.cloneNode(true));
+						}
+					}
+					for(var i = 0, node; node = this.nodelist[i]; i++){
+						buffer = buffer.concat(node);
+					}
+				}
 			}
 			return buffer;
 		},
 		unrender: function(context, buffer){
+			if(this.rendered){
+				buffer = this.rendered.unrender(context, buffer);
+			}
+			if(this.nodelist){
+				for(var i = 0, node; node = this.nodelist[i]; i++){
+					buffer = buffer.remove(node);
+				}
+			}
 			return buffer;
 		},
-		clone: function(context, buffer){
-			return this;
+		clone: function(buffer){
+			return new this.constructor(this._path, this.constant, this.getTemplate, this.text.clone(buffer), this.parsed);
 		}
 	});
 
-	dojo.mixin(ddtl, {
-		cycle: function(parser, token){
-			// summary: Cycle among the given strings each time this tag is encountered
-			var args = token.split_contents();
-
-			if(args.length < 2){
-				throw new Error("'cycle' tag requires at least two arguments");
-			}
-
-			if(args[1].indexOf(",") != -1){
-				var vars = args[1].split(",");
-				args = [args[0]];
-				for(var i = 0; i < vars.length; i++){
-					args.push('"' + vars[i] + '"');
-				}
-			}
-
-			if(args.length == 2){
-				var name = args[args.length - 1];
-
-				if(!parser._namedCycleNodes){
-					throw new Error("No named cycles in template: '" + name + "' is not defined");
-				}
-				if(!parser._namedCycleNodes[name]){
-					throw new Error("Named cycle '" + name + "' does not exist");
-				}
-
-		        return parser._namedCycleNodes[name];
-			}
-
-			if(args.length > 4 && args[args.length - 2] == "as"){
-				var name = args[args.length - 1];
-
-				var node = new ddtl.CycleNode(args.slice(1, args.length - 2), name, parser.create_text_node());
-
-				if(!parser._namedCycleNodes){
-					parser._namedCycleNodes = {};
-				}
-				parser._namedCycleNodes[name] = node;
-			}else{
-				node = new ddtl.CycleNode(args.slice(1), null, parser.create_text_node());
-			}
-
-			return node;
-		},
-		ifchanged: function(parser, token){
+	lang.mixin(ddtl, {
+		block: function(parser, token){
 			var parts = token.contents.split();
-			var nodes = parser.parse(["endifchanged"]);
-			parser.delete_first_token();
-			return new ddtl.IfChangedNode(nodes, parts.slice(1));
+			var name = parts[1];
+
+			parser._blocks = parser._blocks || {};
+			parser._blocks[name] = parser._blocks[name] || [];
+			parser._blocks[name].push(name);
+
+			var nodelist = parser.parse(["endblock", "endblock " + name]).rtrim();
+			parser.next_token();
+			return new dojox.dtl.tag.loader.BlockNode(name, nodelist);
 		},
-		regroup: function(parser, token){
-			var tokens = dojox.string.tokenize(token.contents, /(\s+)/g, function(spaces){
-				return spaces;
-			});
-			if(tokens.length < 11 || tokens[tokens.length - 3] != "as" || tokens[tokens.length - 7] != "by"){
-				throw new Error("Expected the format: regroup list by key as newList");
+		extends_: function(parser, token){
+			var parts = token.contents.split();
+			var shared = false;
+			var parent = null;
+			var key = null;
+			if(parts[1].charAt(0) == '"' || parts[1].charAt(0) == "'"){
+				parent = parts[1].substring(1, parts[1].length - 1);
+			}else{
+				key = parts[1];
 			}
-			var expression = tokens.slice(2, -8).join("");
-			var key = tokens[tokens.length - 5];
-			var alias = tokens[tokens.length - 1];
-			return new ddtl.RegroupNode(expression, key, alias);
+			if(parent && parent.indexOf("shared:") == 0){
+				shared = true;
+				parent = parent.substring(7, parent.length);
+			}
+			var nodelist = parser.parse();
+			return new dojox.dtl.tag.loader.ExtendsNode(parser.getTemplate, nodelist, shared, parent, key);
+		},
+		include: function(parser, token){
+			var parts = token.contents.split();
+			if(parts.length != 2){
+				throw new Error(parts[0] + " tag takes one argument: the name of the template to be included");
+			}
+			var path = parts[1];
+			var constant = false;
+			if((path.charAt(0) == '"' || path.slice(-1) == "'") && path.charAt(0) == path.slice(-1)){
+				path = path.slice(1, -1);
+				constant = true;
+			}
+			return new ddtl.IncludeNode(path, constant, parser.getTemplate, parser.create_text_node());
+		},
+		ssi: function(parser, token){
+			// We're going to treat things a little differently here.
+			// First of all, this tag is *not* portable, so I'm not
+			// concerned about it being a "drop in" replacement.
+
+			// Instead, we'll just replicate the include tag, but with that
+			// optional "parsed" parameter.
+			var parts = token.contents.split();
+			var parsed = false;
+			if(parts.length == 3){
+				parsed = (parts.pop() == "parsed");
+				if(!parsed){
+					throw new Error("Second (optional) argument to ssi tag must be 'parsed'");
+				}
+			}
+			var node = ddtl.include(parser, new dd.Token(token.token_type, parts.join(" ")));
+			node.parsed = parsed;
+			return node;
 		}
 	});
-})();
+	return dojox.dtl.tag.loader;
+});
+},
+'dojo/date':function(){
+define(["./_base/kernel", "./_base/lang"], function(dojo, lang) {
+	// module:
+	//		dojo/date
+	// summary:
+	//		TODOC
 
-}
-
-if(!dojo._hasResource["dojo.date"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
-dojo._hasResource["dojo.date"] = true;
-dojo.provide("dojo.date");
-
-dojo.getObject("date", true, dojo);
+lang.getObject("date", true, dojo);
 
 /*=====
 dojo.date = {
@@ -1574,7 +1198,7 @@ dojo.date.compare = function(/*Date*/date1, /*Date?*/date2, /*String?*/portion){
 		date1.setFullYear(0, 0, 0);
 		date2.setFullYear(0, 0, 0);
 	}
-	
+
 	if(date1 > date2){ return 1; } // int
 	if(date1 < date2){ return -1; } // int
 	return 0; // int
@@ -1808,13 +1432,13 @@ dojo.date.difference = function(/*Date*/date1, /*Date?*/date2, /*String?*/interv
 	return Math.round(delta); // Number (integer)
 };
 
-}
+return dojo.date;
+});
 
-if(!dojo._hasResource["dojox.date.php"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
-dojo._hasResource["dojox.date.php"] = true;
-dojo.provide("dojox.date.php");
-
-
+},
+'dojox/date/php':function(){
+define("dojox/date/php", ["dojo/_base/kernel", "dojo/_base/lang","dojo/date","dojox/string/tokenize"], function(dojo,dlang,ddate,dxst){
+dojo.getObject("date.php", true, dojox);
 
 dojox.date.php.format = function(/*Date*/ date, /*String*/ format){
 	// summary: Get a formatted string for a given date object
@@ -1836,7 +1460,7 @@ dojox.date.php.DateFormat = function(/*String*/ format){
 
 	var replacements = [];
 
-	this.tokens = dojox.string.tokenize(format, this.regex, function(escape, token, i){
+	this.tokens = dxst(format, this.regex, function(escape, token, i){
 		if(token){
 			replacements.push([i, token]);
 			return token;
@@ -1925,7 +1549,7 @@ dojo.extend(dojox.date.php.DateFormat, {
 
 		if(z <= (8 - jan1_w) && jan1_w > 4){
 			var last_year = new Date(this.date.getFullYear() - 1, this.date.getMonth(), this.date.getDate());
-			if(jan1_w == 5 || (jan1_w == 6 && dojo.date.isLeapYear(last_year))){
+			if(jan1_w == 5 || (jan1_w == 6 && ddate.isLeapYear(last_year))){
 				week = 53;
 			}else{
 				week = 52;
@@ -1983,7 +1607,7 @@ dojo.extend(dojox.date.php.DateFormat, {
 
 	L: function(){
 		// summary: Whether it's a leap year
-		return (dojo.date.isLeapYear(this.date)) ? "1" : "0";
+		return (ddate.isLeapYear(this.date)) ? "1" : "0";
 	},
 
 	o: function(){
@@ -2064,7 +1688,7 @@ dojo.extend(dojox.date.php.DateFormat, {
 
 	e: function(){
 		// summary: Timezone identifier (added in PHP 5.1.0)
-		return dojo.date.getTimezoneName(this.date);
+		return ddate.getTimezoneName(this.date);
 	},
 
 	I: function(){
@@ -2120,434 +1744,534 @@ dojo.extend(dojox.date.php.DateFormat, {
 	}
 
 });
-
-}
-
-if(!dojo._hasResource["dojox.dtl.utils.date"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
-dojo._hasResource["dojox.dtl.utils.date"] = true;
-dojo.provide("dojox.dtl.utils.date");
-
-
-
-dojox.dtl.utils.date.DateFormat = function(/*String*/ format){
-	dojox.date.php.DateFormat.call(this, format);
-}
-dojo.extend(dojox.dtl.utils.date.DateFormat, dojox.date.php.DateFormat.prototype, {
-	f: function(){
-		// summary:
-		//		Time, in 12-hour hours and minutes, with minutes left off if they're zero.
-		// description:
-		//		Examples: '1', '1:30', '2:05', '2'
-		//		Proprietary extension.
-		return (!this.date.getMinutes()) ? this.g() : this.g() + ":" + this.i();
-	},
-	N: function(){
-		// summary: Month abbreviation in Associated Press style. Proprietary extension.
-		return dojox.dtl.utils.date._months_ap[this.date.getMonth()];
-	},
-	P: function(){
-		// summary:
-		//		Time, in 12-hour hours, minutes and 'a.m.'/'p.m.', with minutes left off
-		//		if they're zero and the strings 'midnight' and 'noon' if appropriate.
-		// description:
-		//		Examples: '1 a.m.', '1:30 p.m.', 'midnight', 'noon', '12:30 p.m.'
-		//		Proprietary extension.
-		if(!this.date.getMinutes() && !this.date.getHours()){
-			return 'midnight';
-		}
-		if(!this.date.getMinutes() && this.date.getHours() == 12){
-			return 'noon';
-		}
-		return this.f() + " " + this.a();
-	}
+return dojox.date.php;
 });
+},
+'dojox/dtl/ext-dojo/NodeList':function(){
+define([
+	"dojo/_base/lang",
+	"dojo/_base/NodeList",
+	"../_base"
+], function(lang,Nodelist,dd){
+	/*=====
+		Nodelist = dojo.Nodelist;
+		dd = dojox.dtl;
+	=====*/
+	
+	var nl = lang.getObject("dojox.dtl.ext-dojo.NodeList", true);
 
-dojo.mixin(dojox.dtl.utils.date, {
-	format: function(/*Date*/ date, /*String*/ format){
-		var df = new dojox.dtl.utils.date.DateFormat(format);
-		return df.format(date);
-	},
-	timesince: function(d, now){
-		// summary:
-		//		Takes two datetime objects and returns the time between then and now
-		//		as a nicely formatted string, e.g "10 minutes"
-		// description:
-		//		Adapted from http://blog.natbat.co.uk/archive/2003/Jun/14/time_since
-		if(!(d instanceof Date)){
-			d = new Date(d.year, d.month, d.day);
-		}
-		if(!now){
-			now = new Date();
-		}
-
-		var delta = Math.abs(now.getTime() - d.getTime());
-		for(var i = 0, chunk; chunk = dojox.dtl.utils.date._chunks[i]; i++){
-			var count = Math.floor(delta / chunk[0]);
-			if(count) break;
-		}
-		return count + " " + chunk[1](count);
-	},
-	_chunks: [
-		[60 * 60 * 24 * 365 * 1000, function(n){ return (n == 1) ? 'year' : 'years'; }],
-		[60 * 60 * 24 * 30 * 1000, function(n){ return (n == 1) ? 'month' : 'months'; }],
-		[60 * 60 * 24 * 7 * 1000, function(n){ return (n == 1) ? 'week' : 'weeks'; }],
-		[60 * 60 * 24 * 1000, function(n){ return (n == 1) ? 'day' : 'days'; }],
-		[60 * 60 * 1000, function(n){ return (n == 1) ? 'hour' : 'hours'; }],
-		[60 * 1000, function(n){ return (n == 1) ? 'minute' : 'minutes'; }]
-	],
-	_months_ap: ["Jan.", "Feb.", "March", "April", "May", "June", "July", "Aug.", "Sept.", "Oct.", "Nov.", "Dec."]
-});
-
-}
-
-if(!dojo._hasResource["dojox.dtl.tag.date"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
-dojo._hasResource["dojox.dtl.tag.date"] = true;
-dojo.provide("dojox.dtl.tag.date");
-
-
-
-
-dojox.dtl.tag.date.NowNode = function(format, node){
-	this._format = format;
-	this.format = new dojox.dtl.utils.date.DateFormat(format);
-	this.contents = node;
-}
-dojo.extend(dojox.dtl.tag.date.NowNode, {
-	render: function(context, buffer){
-		this.contents.set(this.format.format(new Date()));
-		return this.contents.render(context, buffer);
-	},
-	unrender: function(context, buffer){
-		return this.contents.unrender(context, buffer);
-	},
-	clone: function(buffer){
-		return new this.constructor(this._format, this.contents.clone(buffer));
-	}
-});
-
-dojox.dtl.tag.date.now = function(parser, token){
-	// Split by either :" or :'
-	var parts = token.split_contents();
-	if(parts.length != 2){
-		throw new Error("'now' statement takes one argument");
-	}
-	return new dojox.dtl.tag.date.NowNode(parts[1].slice(1, -1), parser.create_text_node());
-}
-
-}
-
-if(!dojo._hasResource["dojox.dtl.tag.loader"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
-dojo._hasResource["dojox.dtl.tag.loader"] = true;
-dojo.provide("dojox.dtl.tag.loader");
-
-
-
-(function(){
-	var dd = dojox.dtl;
-	var ddtl = dd.tag.loader;
-
-	ddtl.BlockNode = dojo.extend(function(name, nodelist){
-		this.name = name;
-		this.nodelist = nodelist; // Can be overridden
-	},
-	{
-		"super": function(){
-			if(this.parent){
-				var html = this.parent.nodelist.dummyRender(this.context, null, true);
-				if(typeof html == "string"){
-					html = new String(html);
-				}
-				html.safe = true;
-				return html;
-			}
-			return '';
-		},
-		render: function(context, buffer){
-			var name = this.name;
-			var nodelist = this.nodelist;
-			var parent;
-			if(buffer.blocks){
-				var block = buffer.blocks[name];
-				if(block){
-					parent = block.parent;
-					nodelist = block.nodelist;
-					block.used = true;
-				}
-			}
-
-			this.rendered = nodelist;
-
-			context = context.push();
-			this.context = context;
-			this.parent = null;
-			if(nodelist != this.nodelist){
-				this.parent = this;
-			}
-			context.block = this;
-
-			if(buffer.getParent){
-				var bufferParent = buffer.getParent();
-				var setParent = dojo.connect(buffer, "onSetParent", function(node, up, root){
-					if(up && root){
-						buffer.setParent(bufferParent);
-					}
+	lang.extend(Nodelist, {
+		dtl: function(template, context){
+			// summary: Renders the specified template in each of the Nodelist entries.
+			// template: dojox.dtl.__StringArgs|String
+			//		The template string or location
+			// context: dojox.dtl.__ObjectArgs|Object
+			//		The context object or location
+			var d = dd, self = this;
+			
+			var render = function(template, context){
+				var content = template.render(new d._Context(context));
+				self.forEach(function(node){
+					node.innerHTML = content;
 				});
 			}
-			buffer = nodelist.render(context, buffer, this);
-			setParent && dojo.disconnect(setParent);
-			context = context.pop();
+
+			d.text._resolveTemplateArg(template).addCallback(function(templateString){
+				template = new d.Template(templateString);
+				d.text._resolveContextArg(context).addCallback(function(context){
+					render(template, context);
+				});
+			});
+
+			return this;
+		}
+	});
+	return nl;
+});
+},
+'dojox/dtl/utils/date':function(){
+define("dojox/dtl/utils/date", [
+	"dojo/_base/lang",
+	"dojox/date/php",
+	"../_base"
+], function(lang,ddp,dd){
+	/*=====
+		ddp = dojox.data.php;
+		dd = dojox.dtl;
+	=====*/
+	lang.getObject("dojox.dtl.utils.date", true);
+
+	dd.utils.date.DateFormat = ddp.DateFormat;
+	lang.extend(dd.utils.date.DateFormat, ddp.DateFormat.prototype, {
+		f: function(){
+			// summary:
+			//		Time, in 12-hour hours and minutes, with minutes left off if they're zero.
+			// description:
+			//		Examples: '1', '1:30', '2:05', '2'
+			//		Proprietary extension.
+			return (!this.date.getMinutes()) ? this.g() : this.g() + ":" + this.i();
+		},
+		N: function(){
+			// summary: Month abbreviation in Associated Press style. Proprietary extension.
+			return dojox.dtl.utils.date._months_ap[this.date.getMonth()];
+		},
+		P: function(){
+			// summary:
+			//		Time, in 12-hour hours, minutes and 'a.m.'/'p.m.', with minutes left off
+			//		if they're zero and the strings 'midnight' and 'noon' if appropriate.
+			// description:
+			//		Examples: '1 a.m.', '1:30 p.m.', 'midnight', 'noon', '12:30 p.m.'
+			//		Proprietary extension.
+			if(!this.date.getMinutes() && !this.date.getHours()){
+				return 'midnight';
+			}
+			if(!this.date.getMinutes() && this.date.getHours() == 12){
+				return 'noon';
+			}
+			return this.f() + " " + this.a();
+		}
+	});
+
+	lang.mixin(dojox.dtl.utils.date, {
+		format: function(/*Date*/ date, /*String*/ format){
+			var df = new dojox.dtl.utils.date.DateFormat(format);
+			return df.format(date);
+		},
+		timesince: function(d, now){
+			// summary:
+			//		Takes two datetime objects and returns the time between then and now
+			//		as a nicely formatted string, e.g "10 minutes"
+			// description:
+			//		Adapted from http://blog.natbat.co.uk/archive/2003/Jun/14/time_since
+			if(!(d instanceof Date)){
+				d = new Date(d.year, d.month, d.day);
+			}
+			if(!now){
+				now = new Date();
+			}
+
+			var delta = Math.abs(now.getTime() - d.getTime());
+			for(var i = 0, chunk; chunk = dojox.dtl.utils.date._chunks[i]; i++){
+				var count = Math.floor(delta / chunk[0]);
+				if(count) break;
+			}
+			return count + " " + chunk[1](count);
+		},
+		_chunks: [
+			[60 * 60 * 24 * 365 * 1000, function(n){ return (n == 1) ? 'year' : 'years'; }],
+			[60 * 60 * 24 * 30 * 1000, function(n){ return (n == 1) ? 'month' : 'months'; }],
+			[60 * 60 * 24 * 7 * 1000, function(n){ return (n == 1) ? 'week' : 'weeks'; }],
+			[60 * 60 * 24 * 1000, function(n){ return (n == 1) ? 'day' : 'days'; }],
+			[60 * 60 * 1000, function(n){ return (n == 1) ? 'hour' : 'hours'; }],
+			[60 * 1000, function(n){ return (n == 1) ? 'minute' : 'minutes'; }]
+		],
+		_months_ap: ["Jan.", "Feb.", "March", "April", "May", "June", "July", "Aug.", "Sept.", "Oct.", "Nov.", "Dec."]
+	});
+	return dojox.dtl.utils.date;
+});
+
+},
+'dojox/dtl/tag/loop':function(){
+define("dojox/dtl/tag/loop", [
+	"dojo/_base/lang",
+	"dojo/_base/array",
+	"dojo/_base/json",
+	"../_base",
+	"dojox/string/tokenize"
+], function(lang,array,json,dd,Tokenize){
+	/*=====
+		Tokenize = dojox.string.tokenize;
+		dd = dojox.dtl;
+	=====*/
+	lang.getObject("dojox.dtl.tag.loop", true);
+
+	var ddtl = dd.tag.loop;
+
+	ddtl.CycleNode = lang.extend(function(cyclevars, name, text, shared){
+		this.cyclevars = cyclevars;
+		this.name = name;
+		this.contents = text;
+		this.shared = shared || {counter: -1, map: {}};
+	},
+	{
+		render: function(context, buffer){
+			if(context.forloop && !context.forloop.counter0){
+				this.shared.counter = -1;
+			}
+
+			++this.shared.counter;
+			var value = this.cyclevars[this.shared.counter % this.cyclevars.length];
+
+			var map = this.shared.map;
+			if(!map[value]){
+				map[value] = new dd._Filter(value);
+			}
+			value = map[value].resolve(context, buffer);
+
+			if(this.name){
+				context[this.name] = value;
+			}
+			this.contents.set(value);
+			return this.contents.render(context, buffer);
+		},
+		unrender: function(context, buffer){
+			return this.contents.unrender(context, buffer);
+		},
+		clone: function(buffer){
+			return new this.constructor(this.cyclevars, this.name, this.contents.clone(buffer), this.shared);
+		}
+	});
+
+	ddtl.IfChangedNode = lang.extend(function(nodes, vars, shared){
+		this.nodes = nodes;
+		this._vars = vars;
+		this.shared = shared || {last: null, counter: 0};
+		this.vars = array.map(vars, function(item){
+			return new dojox.dtl._Filter(item);
+		});
+	}, {
+		render: function(context, buffer){
+			if(context.forloop){
+				if(context.forloop.counter <= this.shared.counter){
+					this.shared.last = null;
+				}
+				this.shared.counter = context.forloop.counter;
+			}
+
+			var change;
+			if(this.vars.length){
+				change = json.toJson(array.map(this.vars, function(item){
+					return item.resolve(context);
+				}));
+			}else{
+				change = this.nodes.dummyRender(context, buffer);
+			}
+
+			if(change != this.shared.last){
+				var firstloop = (this.shared.last === null);
+				this.shared.last = change;
+				context = context.push();
+				context.ifchanged = {firstloop: firstloop};
+				buffer = this.nodes.render(context, buffer);
+				context = context.pop();
+			}else{
+				buffer = this.nodes.unrender(context, buffer);
+			}
 			return buffer;
 		},
 		unrender: function(context, buffer){
-			return this.rendered.unrender(context, buffer);
+			return this.nodes.unrender(context, buffer);
 		},
 		clone: function(buffer){
-			return new this.constructor(this.name, this.nodelist.clone(buffer));
-		},
-		toString: function(){ return "dojox.dtl.tag.loader.BlockNode"; }
+			return new this.constructor(this.nodes.clone(buffer), this._vars, this.shared);
+		}
 	});
 
-	ddtl.ExtendsNode = dojo.extend(function(getTemplate, nodelist, shared, parent, key){
-		this.getTemplate = getTemplate;
-		this.nodelist = nodelist;
-		this.shared = shared;
-		this.parent = parent;
+	ddtl.RegroupNode = lang.extend(function(expression, key, alias){
+		this._expression = expression;
+		this.expression = new dd._Filter(expression);
 		this.key = key;
+		this.alias = alias;
 	},
 	{
-		parents: {},
-		getParent: function(context){
-			var parent = this.parent;
-			if(!parent){
-				var string;
-				parent = this.parent = context.get(this.key, false);
-				if(!parent){
-					throw new Error("extends tag used a variable that did not resolve");
-				}
-				if(typeof parent == "object"){
-					var url = parent.url || parent.templatePath;
-					if(parent.shared){
-						this.shared = true;
-					}
-					if(url){
-						parent = this.parent = url.toString();
-					}else if(parent.templateString){
-						// Allow the builder's string interning to work
-						string = parent.templateString;
-						parent = this.parent = " ";
+		_push: function(container, grouper, stack){
+			if(stack.length){
+				container.push({ grouper: grouper, list: stack });
+			}
+		},
+		render: function(context, buffer){
+			context[this.alias] = [];
+			var list = this.expression.resolve(context);
+			if(list){
+				var last = null;
+				var stack = [];
+				for(var i = 0; i < list.length; i++){
+					var id = list[i][this.key];
+					if(last !== id){
+						this._push(context[this.alias], last, stack);
+						last = id;
+						stack = [list[i]];
 					}else{
-						parent = this.parent = this.parent.toString();
+						stack.push(list[i]);
 					}
 				}
-				if(parent && parent.indexOf("shared:") === 0){
-					this.shared = true;
-					parent = this.parent = parent.substring(7, parent.length);
-				}
-			}
-			if(!parent){
-				throw new Error("Invalid template name in 'extends' tag.");
-			}
-			if(parent.render){
-				return parent;
-			}
-			if(this.parents[parent]){
-				return this.parents[parent];
-			}
-			this.parent = this.getTemplate(string || dojox.dtl.text.getTemplateString(parent));
-			if(this.shared){
-				this.parents[parent] = this.parent;
-			}
-			return this.parent;
-		},
-		render: function(context, buffer){
-			var parent = this.getParent(context);
-
-			parent.blocks = parent.blocks || {};
-			buffer.blocks = buffer.blocks || {};
-
-			for(var i = 0, node; node = this.nodelist.contents[i]; i++){
-				if(node instanceof dojox.dtl.tag.loader.BlockNode){
-					var old = parent.blocks[node.name];
-					if(old && old.nodelist != node.nodelist){
-						// In a shared template, the individual blocks might change
-						buffer = old.nodelist.unrender(context, buffer);
-					}
-					parent.blocks[node.name] = buffer.blocks[node.name] = {
-						shared: this.shared,
-						nodelist: node.nodelist,
-						used: false
-					}
-				}
-			}
-
-			this.rendered = parent;
-			return parent.nodelist.render(context, buffer, this);
-		},
-		unrender: function(context, buffer){
-			return this.rendered.unrender(context, buffer, this);
-		},
-		toString: function(){ return "dojox.dtl.block.ExtendsNode"; }
-	});
-
-	ddtl.IncludeNode = dojo.extend(function(path, constant, getTemplate, text, parsed){
-		this._path = path;
-		this.constant = constant;
-		this.path = (constant) ? path : new dd._Filter(path);
-		this.getTemplate = getTemplate;
-		this.text = text;
-		this.parsed = (arguments.length == 5) ? parsed : true;
-	},
-	{
-		_cache: [{}, {}],
-		render: function(context, buffer){
-			var location = ((this.constant) ? this.path : this.path.resolve(context)).toString();
-			var parsed = Number(this.parsed);
-			var dirty = false;
-			if(location != this.last){
-				dirty = true;
-				if(this.last){
-					buffer = this.unrender(context, buffer);
-				}
-				this.last = location;
-			}
-
-			var cache = this._cache[parsed];
-
-			if(parsed){
-				if(!cache[location]){
-					cache[location] = dd.text._resolveTemplateArg(location, true);
-				}
-				if(dirty){
-					var template = this.getTemplate(cache[location]);
-					this.rendered = template.nodelist;
-				}
-				return this.rendered.render(context, buffer, this);
-			}else{
-				if(this.text instanceof dd._TextNode){
-					if(dirty){
-						this.rendered = this.text;
-						this.rendered.set(dd.text._resolveTemplateArg(location, true));
-					}
-					return this.rendered.render(context, buffer);
-				}else{
-					if(!cache[location]){
-						var nodelist = [];
-						var div = document.createElement("div");
-						div.innerHTML = dd.text._resolveTemplateArg(location, true);
-						var children = div.childNodes;
-						while(children.length){
-							var removed = div.removeChild(children[0]);
-							nodelist.push(removed);
-						}
-						cache[location] = nodelist;
-					}
-					if(dirty){
-						this.nodelist = [];
-						var exists = true;
-						for(var i = 0, child; child = cache[location][i]; i++){
-							this.nodelist.push(child.cloneNode(true));
-						}
-					}
-					for(var i = 0, node; node = this.nodelist[i]; i++){
-						buffer = buffer.concat(node);
-					}
-				}
+				this._push(context[this.alias], last, stack);
 			}
 			return buffer;
 		},
 		unrender: function(context, buffer){
-			if(this.rendered){
-				buffer = this.rendered.unrender(context, buffer);
-			}
-			if(this.nodelist){
-				for(var i = 0, node; node = this.nodelist[i]; i++){
-					buffer = buffer.remove(node);
-				}
-			}
 			return buffer;
 		},
-		clone: function(buffer){
-			return new this.constructor(this._path, this.constant, this.getTemplate, this.text.clone(buffer), this.parsed);
+		clone: function(context, buffer){
+			return this;
 		}
 	});
 
-	dojo.mixin(ddtl, {
-		block: function(parser, token){
-			var parts = token.contents.split();
-			var name = parts[1];
+	lang.mixin(ddtl, {
+		cycle: function(parser, token){
+			// summary: Cycle among the given strings each time this tag is encountered
+			var args = token.split_contents();
 
-			parser._blocks = parser._blocks || {};
-			parser._blocks[name] = parser._blocks[name] || [];
-			parser._blocks[name].push(name);
+			if(args.length < 2){
+				throw new Error("'cycle' tag requires at least two arguments");
+			}
 
-			var nodelist = parser.parse(["endblock", "endblock " + name]).rtrim();
-			parser.next_token();
-			return new dojox.dtl.tag.loader.BlockNode(name, nodelist);
-		},
-		extends_: function(parser, token){
-			var parts = token.contents.split();
-			var shared = false;
-			var parent = null;
-			var key = null;
-			if(parts[1].charAt(0) == '"' || parts[1].charAt(0) == "'"){
-				parent = parts[1].substring(1, parts[1].length - 1);
-			}else{
-				key = parts[1];
-			}
-			if(parent && parent.indexOf("shared:") == 0){
-				shared = true;
-				parent = parent.substring(7, parent.length);
-			}
-			var nodelist = parser.parse();
-			return new dojox.dtl.tag.loader.ExtendsNode(parser.getTemplate, nodelist, shared, parent, key);
-		},
-		include: function(parser, token){
-			var parts = token.contents.split();
-			if(parts.length != 2){
-				throw new Error(parts[0] + " tag takes one argument: the name of the template to be included");
-			}
-			var path = parts[1];
-			var constant = false;
-			if((path.charAt(0) == '"' || path.slice(-1) == "'") && path.charAt(0) == path.slice(-1)){
-				path = path.slice(1, -1);
-				constant = true;
-			}
-			return new ddtl.IncludeNode(path, constant, parser.getTemplate, parser.create_text_node());
-		},
-		ssi: function(parser, token){
-			// We're going to treat things a little differently here.
-			// First of all, this tag is *not* portable, so I'm not
-			// concerned about it being a "drop in" replacement.
-
-			// Instead, we'll just replicate the include tag, but with that
-			// optional "parsed" parameter.
-			var parts = token.contents.split();
-			var parsed = false;
-			if(parts.length == 3){
-				parsed = (parts.pop() == "parsed");
-				if(!parsed){
-					throw new Error("Second (optional) argument to ssi tag must be 'parsed'");
+			if(args[1].indexOf(",") != -1){
+				var vars = args[1].split(",");
+				args = [args[0]];
+				for(var i = 0; i < vars.length; i++){
+					args.push('"' + vars[i] + '"');
 				}
 			}
-			var node = ddtl.include(parser, new dd.Token(token.token_type, parts.join(" ")));
-			node.parsed = parsed;
+
+			if(args.length == 2){
+				var name = args[args.length - 1];
+
+				if(!parser._namedCycleNodes){
+					throw new Error("No named cycles in template: '" + name + "' is not defined");
+				}
+				if(!parser._namedCycleNodes[name]){
+					throw new Error("Named cycle '" + name + "' does not exist");
+				}
+
+				return parser._namedCycleNodes[name];
+			}
+
+			if(args.length > 4 && args[args.length - 2] == "as"){
+				var name = args[args.length - 1];
+
+				var node = new ddtl.CycleNode(args.slice(1, args.length - 2), name, parser.create_text_node());
+
+				if(!parser._namedCycleNodes){
+					parser._namedCycleNodes = {};
+				}
+				parser._namedCycleNodes[name] = node;
+			}else{
+				node = new ddtl.CycleNode(args.slice(1), null, parser.create_text_node());
+			}
+
 			return node;
+		},
+		ifchanged: function(parser, token){
+			var parts = token.contents.split();
+			var nodes = parser.parse(["endifchanged"]);
+			parser.delete_first_token();
+			return new ddtl.IfChangedNode(nodes, parts.slice(1));
+		},
+		regroup: function(parser, token){
+			var tokens = Tokenize(token.contents, /(\s+)/g, function(spaces){
+				return spaces;
+			});
+			if(tokens.length < 11 || tokens[tokens.length - 3] != "as" || tokens[tokens.length - 7] != "by"){
+				throw new Error("Expected the format: regroup list by key as newList");
+			}
+			var expression = tokens.slice(2, -8).join("");
+			var key = tokens[tokens.length - 5];
+			var alias = tokens[tokens.length - 1];
+			return new ddtl.RegroupNode(expression, key, alias);
 		}
 	});
-})();
+	return dojox.dtl.tag.loop;
+});
+},
+'dojox/string/Builder':function(){
+define("dojox/string/Builder", ["dojo/_base/lang"], 
+  function(lang){
+	lang.getObject("string", true, dojox).Builder = 
+	  function(/*String?*/str){
+		//	summary:
+		//		A fast buffer for creating large strings.
+		//
+		//	length: Number
+		//		The current length of the internal string.
 
-}
+		//	N.B. the public nature of the internal buffer is no longer
+		//	needed because the IE-specific fork is no longer needed--TRT.
+		var b = "";
+		this.length = 0;
+		
+		this.append = function(/* String... */s){
+			// summary: Append all arguments to the end of the buffer
+			if(arguments.length>1){
+				/*
+					This is a loop unroll was designed specifically for Firefox;
+					it would seem that static index access on an Arguments
+					object is a LOT faster than doing dynamic index access.
+					Therefore, we create a buffer string and take advantage
+					of JS's switch fallthrough.  The peformance of this method
+					comes very close to straight up string concatenation (+=).
 
-if(!dojo._hasResource["dojox.dtl.tag.misc"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
-dojo._hasResource["dojox.dtl.tag.misc"] = true;
-dojo.provide("dojox.dtl.tag.misc");
+					If the arguments object length is greater than 9, we fall
+					back to standard dynamic access.
 
+					This optimization seems to have no real effect on either
+					Safari or Opera, so we just use it for all.
 
-(function(){
-	var dd = dojox.dtl;
+					It turns out also that this loop unroll can increase performance
+					significantly with Internet Explorer, particularly when
+					as many arguments are provided as possible.
+
+					Loop unroll per suggestion from Kris Zyp, implemented by
+					Tom Trenka.
+
+					Note: added empty string to force a string cast if needed.
+				 */
+				var tmp="", l=arguments.length;
+				switch(l){
+					case 9: tmp=""+arguments[8]+tmp;
+					case 8: tmp=""+arguments[7]+tmp;
+					case 7: tmp=""+arguments[6]+tmp;
+					case 6: tmp=""+arguments[5]+tmp;
+					case 5: tmp=""+arguments[4]+tmp;
+					case 4: tmp=""+arguments[3]+tmp;
+					case 3: tmp=""+arguments[2]+tmp;
+					case 2: {
+						b+=""+arguments[0]+arguments[1]+tmp;
+						break;
+					}
+					default: {
+						var i=0;
+						while(i<arguments.length){
+							tmp += arguments[i++];
+						}
+						b += tmp;
+					}
+				}
+			} else {
+				b += s;
+			}
+			this.length = b.length;
+			return this;	//	dojox.string.Builder
+		};
+		
+		this.concat = function(/*String...*/s){
+			//	summary:
+			//		Alias for append.
+			return this.append.apply(this, arguments);	//	dojox.string.Builder
+		};
+		
+		this.appendArray = function(/*Array*/strings) {
+			//	summary:
+			//		Append an array of items to the internal buffer.
+
+			//	Changed from String.prototype.concat.apply because of IE.
+			return this.append.apply(this, strings);	//	dojox.string.Builder
+		};
+		
+		this.clear = function(){
+			//	summary:
+			//		Remove all characters from the buffer.
+			b = "";
+			this.length = 0;
+			return this;	//	dojox.string.Builder
+		};
+		
+		this.replace = function(/* String */oldStr, /* String */ newStr){
+			// 	summary:
+			//		Replace instances of one string with another in the buffer.
+			b = b.replace(oldStr,newStr);
+			this.length = b.length;
+			return this;	//	dojox.string.Builder
+		};
+		
+		this.remove = function(/* Number */start, /* Number? */len){
+			//	summary:
+			//		Remove len characters starting at index start.  If len
+			//		is not provided, the end of the string is assumed.
+			if(len===undefined){ len = b.length; }
+			if(len == 0){ return this; }
+			b = b.substr(0, start) + b.substr(start+len);
+			this.length = b.length;
+			return this;	//	dojox.string.Builder
+		};
+		
+		this.insert = function(/* Number */index, /* String */str){
+			//	summary:
+			//		Insert string str starting at index.
+			if(index == 0){
+				b = str + b;
+			}else{
+				b = b.slice(0, index) + str + b.slice(index);
+			}
+			this.length = b.length;
+			return this;	//	dojox.string.Builder
+		};
+		
+		this.toString = function(){
+			//	summary:
+			//		Return the string representation of the internal buffer.
+			return b;	//	String
+		};
+
+		//	initialize the buffer.
+		if(str){ this.append(str); }
+	};
+	return dojox.string.Builder;
+});
+
+},
+'dojox/string/tokenize':function(){
+define([
+	"dojo/_base/lang",
+	"dojo/_base/sniff"	
+], function(lang, has){
+	var tokenize = lang.getObject("dojox.string", true).tokenize;
+
+	tokenize = function(/*String*/ str, /*RegExp*/ re, /*Function?*/ parseDelim, /*Object?*/ instance){
+		// summary:
+		//		Split a string by a regular expression with the ability to capture the delimeters
+		// parseDelim:
+		//		Each group (excluding the 0 group) is passed as a parameter. If the function returns
+		//		a value, it's added to the list of tokens.
+		// instance:
+		//		Used as the "this" instance when calling parseDelim
+		var tokens = [];
+		var match, content, lastIndex = 0;
+		while(match = re.exec(str)){
+			content = str.slice(lastIndex, re.lastIndex - match[0].length);
+			if(content.length){
+				tokens.push(content);
+			}
+			if(parseDelim){
+				if(has("opera")){
+					var copy = match.slice(0);
+					while(copy.length < match.length){
+						copy.push(null);
+					}
+					match = copy;
+				}
+				var parsed = parseDelim.apply(instance, match.slice(1).concat(tokens.length));
+				if(typeof parsed != "undefined"){
+					tokens.push(parsed);
+				}
+			}
+			lastIndex = re.lastIndex;
+		}
+		content = str.slice(lastIndex);
+		if(content.length){
+			tokens.push(content);
+		}
+		return tokens;
+	};
+	return tokenize;
+});
+
+},
+'dojox/dtl/tag/misc':function(){
+define("dojox/dtl/tag/misc", [
+	"dojo/_base/lang",
+	"dojo/_base/array",
+	"dojo/_base/connect",
+	"../_base"
+], function(lang,array,connect,dd){
+	/*=====
+		dd = dojox.dtl;
+	=====*/
+	lang.getObject("dojox.dtl.tag.misc", true);
+
 	var ddtm = dd.tag.misc;
 
-	ddtm.DebugNode = dojo.extend(function(text){
+	ddtm.DebugNode = lang.extend(function(text){
 		this.text = text;
 	},
 	{
@@ -2571,7 +2295,7 @@ dojo.provide("dojox.dtl.tag.misc");
 		toString: function(){ return "ddtm.DebugNode"; }
 	});
 
-	ddtm.FilterNode = dojo.extend(function(varnode, nodelist){
+	ddtm.FilterNode = lang.extend(function(varnode, nodelist){
 		this._varnode = varnode;
 		this._nodelist = nodelist;
 	},
@@ -2592,9 +2316,9 @@ dojo.provide("dojox.dtl.tag.misc");
 		}
 	});
 
-	ddtm.FirstOfNode = dojo.extend(function(vars, text){
+	ddtm.FirstOfNode = lang.extend(function(vars, text){
 		this._vars = vars;
-		this.vars = dojo.map(vars, function(item){
+		this.vars = array.map(vars, function(item){
 			return new dojox.dtl._Filter(item);
 		});
 		this.contents = text;
@@ -2621,7 +2345,7 @@ dojo.provide("dojox.dtl.tag.misc");
 		}
 	});
 
-	ddtm.SpacelessNode = dojo.extend(function(nodelist, text){
+	ddtm.SpacelessNode = lang.extend(function(nodelist, text){
 		this.nodelist = nodelist;
 		this.contents = text;
 	},
@@ -2630,12 +2354,12 @@ dojo.provide("dojox.dtl.tag.misc");
 			if(buffer.getParent){
 				// Unfortunately, we have to branch here
 				var watch = [
-					dojo.connect(buffer, "onAddNodeComplete", this, "_watch"),
-					dojo.connect(buffer, "onSetParent", this, "_watchParent")
+					connect.connect(buffer, "onAddNodeComplete", this, "_watch"),
+					connect.connect(buffer, "onSetParent", this, "_watchParent")
 				];
 				buffer = this.nodelist.render(context, buffer);
-				dojo.disconnect(watch[0]);
-				dojo.disconnect(watch[1]);
+				connect.disconnect(watch[0]);
+				connect.disconnect(watch[1]);
 			}else{
 				var value = this.nodelist.dummyRender(context);
 				this.contents.set(value.replace(/>\s+</g, '><'));
@@ -2684,7 +2408,7 @@ dojo.provide("dojox.dtl.tag.misc");
 		}
 	});
 
-	ddtm.TemplateTagNode = dojo.extend(function(tag, text){
+	ddtm.TemplateTagNode = lang.extend(function(tag, text){
 		this.tag = tag;
 		this.contents = text;
 	},
@@ -2711,7 +2435,7 @@ dojo.provide("dojox.dtl.tag.misc");
 		}
 	});
 
-	ddtm.WidthRatioNode = dojo.extend(function(current, max, width, text){
+	ddtm.WidthRatioNode = lang.extend(function(current, max, width, text){
 		this.current = new dd._Filter(current);
 		this.max = new dd._Filter(max);
 		this.width = width;
@@ -2736,7 +2460,7 @@ dojo.provide("dojox.dtl.tag.misc");
 		}
 	});
 
-	ddtm.WithNode = dojo.extend(function(target, alias, nodelist){
+	ddtm.WithNode = lang.extend(function(target, alias, nodelist){
 		this.target = new dd._Filter(target);
 		this.alias = alias;
 		this.nodelist = nodelist;
@@ -2758,7 +2482,7 @@ dojo.provide("dojox.dtl.tag.misc");
 		}
 	});
 
-	dojo.mixin(ddtm, {
+	lang.mixin(ddtm, {
 		comment: function(parser, token){
 			// summary: Ignore everything between {% comment %} and {% endcomment %}
 			parser.skip_past("endcomment");
@@ -2825,41 +2549,426 @@ dojo.provide("dojox.dtl.tag.misc");
 			return new ddtm.WithNode(parts[1], parts[3], nodelist);
 		}
 	});
-})();
+	return dojox.dtl.tag.misc;
+});
+},
+'dojox/dtl/Context':function(){
+define("dojox/dtl/Context", [
+	"dojo/_base/lang",
+	"./_base"
+], function(lang,dd){
+	/*=====
+		dd = dojox.dtl;
+	=====*/
+	
+	/*=====
+	 dd.Context = function(dict){
+	 	// summary: Represents a runtime context used by DTL templates.
+	 }
+	 
+	=====*/
+	dd.Context = lang.extend(function(dict){
+		this._this = {};
+		dd._Context.call(this, dict);
+	}, dd._Context.prototype,
+	{
+		getKeys: function(){
+			// summary: Returns the set of keys exported by this context.
+			var keys = [];
+			for(var key in this){
+				if(this.hasOwnProperty(key) && key != "_this"){
+					keys.push(key);
+				}
+			}
+			return keys;
+		},
+		extend: function(/*dojox.dtl.Context|Object*/ obj){
+			// summary: Returns a clone of this context object, with the items from the
+			//		passed objecct mixed in.
+			return  lang.delegate(this, obj);
+		},
+		filter: function(/*dojox.dtl.Context|Object|String...*/ filter){
+			// summary: Returns a clone of this context, only containing the items
+			//		defined in the filter.
+			var context = new dd.Context();
+			var keys = [];
+			var i, arg;
+			if(filter instanceof dd.Context){
+				keys = filter.getKeys();
+			}else if(typeof filter == "object"){
+				for(var key in filter){
+					keys.push(key);
+				}
+			}else{
+				for(i = 0; arg = arguments[i]; i++){
+					if(typeof arg == "string"){
+						keys.push(arg);
+					}
+				}
+			}
 
-}
+			for(i = 0, key; key = keys[i]; i++){
+				context[key] = this[key];
+			}
 
-if(!dojo._hasResource["dojox.dtl.ext-dojo.NodeList"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
-dojo._hasResource["dojox.dtl.ext-dojo.NodeList"] = true;
-dojo.provide("dojox.dtl.ext-dojo.NodeList");
+			return context;
+		},
+		setThis: function(/*Object*/ _this){
+			// summary: Sets the object on which to perform operations. 
+			// _this: the this ref.
+			this._this = _this;
+		},
+		getThis: function(){
+			// summary: Gets the object on which to perform operations. 
+			return this._this;
+		},
+		hasKey: function(/*String*/key){
+			// summary: Indicates whether the specified key is defined on this context.
+			// key: The key to look up.
+			if(this._getter){
+				var got = this._getter(key);
+				if(typeof got != "undefined"){
+					return true;
+				}
+			}
 
+			if(typeof this[key] != "undefined"){
+				return true;
+			}
 
-dojo.extend(dojo.NodeList, {
-	dtl: function(template, context){
-		// template: dojox.dtl.__StringArgs|String
-		//		The template string or location
-		// context: dojox.dtl.__ObjectArgs|Object
-		//		The context object or location
-		var d = dojox.dtl;
-
-		var self = this;
-		var render = function(template, context){
-			var content = template.render(new d._Context(context));
-			self.forEach(function(node){
-				node.innerHTML = content;
-			});
-		}
-
-		d.text._resolveTemplateArg(template).addCallback(function(templateString){
-			template = new d.Template(templateString);
-			d.text._resolveContextArg(context).addCallback(function(context){
-				render(template, context);
-			});
-		});
-
-		return this;
+		return false;
 	}
 });
+return dojox.dtl.Context; 
+});
+},
+'dojox/dtl/tag/logic':function(){
+define([
+	"dojo/_base/lang",
+	"../_base"
+], function(lang, dd){
+	/*=====
+		dd = dojox.dtl;
+	=====*/
+	lang.getObject("dojox.dtl.tag.logic", true);
 
-}
+	var ddt = dd.text;
+	var ddtl = dd.tag.logic;
 
+	ddtl.IfNode = lang.extend(function(bools, trues, falses, type){
+		this.bools = bools;
+		this.trues = trues;
+		this.falses = falses;
+		this.type = type;
+	},
+	{
+		render: function(context, buffer){
+			var i, bool, ifnot, filter, value;
+			if(this.type == "or"){
+				for(i = 0; bool = this.bools[i]; i++){
+					ifnot = bool[0];
+					filter = bool[1];
+					value = filter.resolve(context);
+					if((value && !ifnot) || (ifnot && !value)){
+						if(this.falses){
+							buffer = this.falses.unrender(context, buffer);
+						}
+						return (this.trues) ? this.trues.render(context, buffer, this) : buffer;
+					}
+				}
+				if(this.trues){
+					buffer = this.trues.unrender(context, buffer);
+				}
+				return (this.falses) ? this.falses.render(context, buffer, this) : buffer;
+			}else{
+				for(i = 0; bool = this.bools[i]; i++){
+					ifnot = bool[0];
+					filter = bool[1];
+					value = filter.resolve(context);
+					// If we ever encounter a false value
+					if(value == ifnot){
+						if(this.trues){
+							buffer = this.trues.unrender(context, buffer);
+						}
+						return (this.falses) ? this.falses.render(context, buffer, this) : buffer;
+					}
+				}
+				if(this.falses){
+					buffer = this.falses.unrender(context, buffer);
+				}
+				return (this.trues) ? this.trues.render(context, buffer, this) : buffer;
+			}
+			return buffer;
+		},
+		unrender: function(context, buffer){
+			buffer = (this.trues) ? this.trues.unrender(context, buffer) : buffer;
+			buffer = (this.falses) ? this.falses.unrender(context, buffer) : buffer;
+			return buffer;
+		},
+		clone: function(buffer){
+			var trues = (this.trues) ? this.trues.clone(buffer) : null;
+			var falses = (this.falses) ? this.falses.clone(buffer) : null;
+			return new this.constructor(this.bools, trues, falses, this.type);
+		}
+	});
+
+	ddtl.IfEqualNode = lang.extend(function(var1, var2, trues, falses, negate){
+		this.var1 = new dd._Filter(var1);
+		this.var2 = new dd._Filter(var2);
+		this.trues = trues;
+		this.falses = falses;
+		this.negate = negate;
+	},
+	{
+		render: function(context, buffer){
+			var var1 = this.var1.resolve(context);
+			var var2 = this.var2.resolve(context);
+			var1 = (typeof var1 != "undefined") ? var1 : "";
+			var2 = (typeof var1 != "undefined") ? var2 : "";
+			if((this.negate && var1 != var2) || (!this.negate && var1 == var2)){
+				if(this.falses){
+					buffer = this.falses.unrender(context, buffer, this);
+				}
+				return (this.trues) ? this.trues.render(context, buffer, this) : buffer;
+			}
+			if(this.trues){
+				buffer = this.trues.unrender(context, buffer, this);
+			}
+			return (this.falses) ? this.falses.render(context, buffer, this) : buffer;
+		},
+		unrender: function(context, buffer){
+			return ddtl.IfNode.prototype.unrender.call(this, context, buffer);
+		},
+		clone: function(buffer){
+			var trues = this.trues ? this.trues.clone(buffer) : null;
+			var falses = this.falses ? this.falses.clone(buffer) : null;
+			return new this.constructor(this.var1.getExpression(), this.var2.getExpression(), trues, falses, this.negate);
+		}
+	});
+
+	ddtl.ForNode = lang.extend(function(assign, loop, reversed, nodelist){
+		this.assign = assign;
+		this.loop = new dd._Filter(loop);
+		this.reversed = reversed;
+		this.nodelist = nodelist;
+		this.pool = [];
+	},
+	{
+		render: function(context, buffer){
+			var i, j, k;
+			var dirty = false;
+			var assign = this.assign;
+
+			for(k = 0; k < assign.length; k++){
+				if(typeof context[assign[k]] != "undefined"){
+					dirty = true;
+					context = context.push();
+					break;
+				}
+			}
+			if(!dirty && context.forloop){
+				dirty = true;
+				context = context.push();
+			}
+
+			var items = this.loop.resolve(context) || [];
+			for(i = items.length; i < this.pool.length; i++){
+				this.pool[i].unrender(context, buffer, this);
+			}
+			if(this.reversed){
+				items = items.slice(0).reverse();
+			}
+
+			var isObject = lang.isObject(items) && !lang.isArrayLike(items);
+			var arred = [];
+			if(isObject){
+				for(var key in items){
+					arred.push(items[key]);
+				}
+			}else{
+				arred = items;
+			}
+
+			var forloop = context.forloop = {
+				parentloop: context.get("forloop", {})
+			};
+			var j = 0;
+			for(i = 0; i < arred.length; i++){
+				var item = arred[i];
+
+				forloop.counter0 = j;
+				forloop.counter = j + 1;
+				forloop.revcounter0 = arred.length - j - 1;
+				forloop.revcounter = arred.length - j;
+				forloop.first = !j;
+				forloop.last = (j == arred.length - 1);
+
+				if(assign.length > 1 && lang.isArrayLike(item)){
+					if(!dirty){
+						dirty = true;
+						context = context.push();
+					}
+					var zipped = {};
+					for(k = 0; k < item.length && k < assign.length; k++){
+						zipped[assign[k]] = item[k];
+					}
+					lang.mixin(context, zipped);
+				}else{
+					context[assign[0]] = item;
+				}
+
+				if(j + 1 > this.pool.length){
+					this.pool.push(this.nodelist.clone(buffer));
+				}
+				buffer = this.pool[j++].render(context, buffer, this);
+			}
+
+			delete context.forloop;
+			if(dirty){
+				context = context.pop();
+			}else{
+				for(k = 0; k < assign.length; k++){
+					delete context[assign[k]];
+				}
+			}
+			return buffer;
+		},
+		unrender: function(context, buffer){
+			for(var i = 0, pool; pool = this.pool[i]; i++){
+				buffer = pool.unrender(context, buffer);
+			}
+			return buffer;
+		},
+		clone: function(buffer){
+			return new this.constructor(this.assign, this.loop.getExpression(), this.reversed, this.nodelist.clone(buffer));
+		}
+	});
+
+	lang.mixin(ddtl, {
+		if_: function(parser, token){
+			var i, part, type, bools = [], parts = token.contents.split();
+			parts.shift();
+			token = parts.join(" ");
+			parts = token.split(" and ");
+			if(parts.length == 1){
+				type = "or";
+				parts = token.split(" or ");
+			}else{
+				type = "and";
+				for(i = 0; i < parts.length; i++){
+					if(parts[i].indexOf(" or ") != -1){
+						// Note, since we split by and, this is the only place we need to error check
+						throw new Error("'if' tags can't mix 'and' and 'or'");
+					}
+				}
+			}
+			for(i = 0; part = parts[i]; i++){
+				var not = false;
+				if(part.indexOf("not ") == 0){
+					part = part.slice(4);
+					not = true;
+				}
+				bools.push([not, new dd._Filter(part)]);
+			}
+			var trues = parser.parse(["else", "endif"]);
+			var falses = false;
+			var token = parser.next_token();
+			if(token.contents == "else"){
+				falses = parser.parse(["endif"]);
+				parser.next_token();
+			}
+			return new ddtl.IfNode(bools, trues, falses, type);
+		},
+		_ifequal: function(parser, token, negate){
+			var parts = token.split_contents();
+			if(parts.length != 3){
+				throw new Error(parts[0] + " takes two arguments");
+			}
+			var end = 'end' + parts[0];
+			var trues = parser.parse(["else", end]);
+			var falses = false;
+			var token = parser.next_token();
+			if(token.contents == "else"){
+				falses = parser.parse([end]);
+				parser.next_token();
+			}
+			return new ddtl.IfEqualNode(parts[1], parts[2], trues, falses, negate);
+		},
+		ifequal: function(parser, token){
+			return ddtl._ifequal(parser, token);
+		},
+		ifnotequal: function(parser, token){
+			return ddtl._ifequal(parser, token, true);
+		},
+		for_: function(parser, token){
+			var parts = token.contents.split();
+			if(parts.length < 4){
+				throw new Error("'for' statements should have at least four words: " + token.contents);
+			}
+			var reversed = parts[parts.length - 1] == "reversed";
+			var index = (reversed) ? -3 : -2;
+			if(parts[parts.length + index] != "in"){
+				throw new Error("'for' tag received an invalid argument: " + token.contents);
+			}
+			var loopvars = parts.slice(1, index).join(" ").split(/ *, */);
+			for(var i = 0; i < loopvars.length; i++){
+				if(!loopvars[i] || loopvars[i].indexOf(" ") != -1){
+					throw new Error("'for' tag received an invalid argument: " + token.contents);
+				}
+			}
+			var nodelist = parser.parse(["endfor"]);
+			parser.next_token();
+			return new ddtl.ForNode(loopvars, parts[parts.length + index + 1], reversed, nodelist);
+		}
+	});
+	return dojox.dtl.tag.logic;
+});
+},
+'dojox/dtl/tag/date':function(){
+define("dojox/dtl/tag/date", [
+	"dojo/_base/lang",
+	"../_base",
+	"../utils/date"
+], function(lang,dd,ddud){
+	/*=====
+		dd = dojox.dtl;
+	=====*/
+	lang.getObject("dojox.dtl.tag.date", true);
+
+	dojox.dtl.tag.date.NowNode = function(format, node){
+		this._format = format;
+		this.format = new ddud.DateFormat(format);
+		this.contents = node;
+	}
+	lang.extend(dd.tag.date.NowNode, {
+		render: function(context, buffer){
+			this.contents.set(this.format.format(new Date()));
+			return this.contents.render(context, buffer);
+		},
+		unrender: function(context, buffer){
+			return this.contents.unrender(context, buffer);
+		},
+		clone: function(buffer){
+			return new this.constructor(this._format, this.contents.clone(buffer));
+		}
+	});
+
+	dojox.dtl.tag.date.now = function(parser, token){
+		// Split by either :" or :'
+		var parts = token.split_contents();
+		if(parts.length != 2){
+			throw new Error("'now' statement takes one argument");
+		}
+		return new dojox.dtl.tag.date.NowNode(parts[1].slice(1, -1), parser.create_text_node());
+	};
+	return dojox.dtl.tag.date;
+});
+
+}}});
+
+require(["dojo/i18n"], function(i18n){
+i18n._preloadLocalizations("dojox/nls/dtl", []);
+});
+define("dojox/dtl", ["./dtl/_base"], function(dxdtl){
+	return dxdtl;
+});

@@ -1,1 +1,8 @@
-dojo.provide("dojox.grid.nls.DataGrid_en-gb");dojo.provide("dijit.nls.loading");dijit.nls.loading._built=true;dojo.provide("dijit.nls.loading.en_gb");dijit.nls.loading.en_gb={"loadingState":"Loading...","errorState":"Sorry, an error occurred"};
+require({cache:{
+'dijit/nls/en/loading':function(){
+define('dijit/nls/en/loading',{});
+},
+'dijit/nls/en-gb/loading':function(){
+define('dijit/nls/en-gb/loading',{});
+}}});
+define("dojox/grid/nls/DataGrid_en-gb", [], 1);

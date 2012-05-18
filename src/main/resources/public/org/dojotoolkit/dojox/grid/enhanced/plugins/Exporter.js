@@ -1,125 +1,116 @@
-/*
-	Copyright (c) 2004-2011, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
-
-
-if(!dojo._hasResource["dojox.grid.enhanced.plugins.Exporter"]){
-dojo._hasResource["dojox.grid.enhanced.plugins.Exporter"]=true;
-dojo.provide("dojox.grid.enhanced.plugins.Exporter");
-dojo.require("dojox.grid.enhanced._Plugin");
-dojo.require("dojox.grid._RowSelector");
-dojo.declare("dojox.grid.enhanced.plugins.Exporter",dojox.grid.enhanced._Plugin,{name:"exporter",constructor:function(_1,_2){
-this.grid=_1;
-this.formatter=(_2&&dojo.isObject(_2))&&_2.exportFormatter;
+//>>built
+define("dojox/grid/enhanced/plugins/Exporter",["dojo/_base/declare","dojo/_base/array","dojo/_base/lang","../_Plugin","../../_RowSelector","../../EnhancedGrid","../../cells/_base"],function(_1,_2,_3,_4,_5,_6){
+var _7=_3.getObject("dojox.grid.cells");
+var _8=_1("dojox.grid.enhanced.plugins.Exporter",_4,{name:"exporter",constructor:function(_9,_a){
+this.grid=_9;
+this.formatter=(_a&&_3.isObject(_a))&&_a.exportFormatter;
 this._mixinGrid();
 },_mixinGrid:function(){
 var g=this.grid;
-g.exportTo=dojo.hitch(this,this.exportTo);
-g.exportGrid=dojo.hitch(this,this.exportGrid);
-g.exportSelected=dojo.hitch(this,this.exportSelected);
-g.setExportFormatter=dojo.hitch(this,this.setExportFormatter);
-},setExportFormatter:function(_3){
-this.formatter=_3;
-},exportGrid:function(_4,_5,_6){
-if(dojo.isFunction(_5)){
-_6=_5;
-_5={};
+g.exportTo=_3.hitch(this,this.exportTo);
+g.exportGrid=_3.hitch(this,this.exportGrid);
+g.exportSelected=_3.hitch(this,this.exportSelected);
+g.setExportFormatter=_3.hitch(this,this.setExportFormatter);
+},setExportFormatter:function(_b){
+this.formatter=_b;
+},exportGrid:function(_c,_d,_e){
+if(_3.isFunction(_d)){
+_e=_d;
+_d={};
 }
-if(!dojo.isString(_4)||!dojo.isFunction(_6)){
+if(!_3.isString(_c)||!_3.isFunction(_e)){
 return;
 }
-_5=_5||{};
-var g=this.grid,_7=this,_8=this._getExportWriter(_4,_5.writerArgs),_9=(_5.fetchArgs&&dojo.isObject(_5.fetchArgs))?_5.fetchArgs:{},_a=_9.onComplete;
+_d=_d||{};
+var g=this.grid,_f=this,_10=this._getExportWriter(_c,_d.writerArgs),_11=(_d.fetchArgs&&_3.isObject(_d.fetchArgs))?_d.fetchArgs:{},_12=_11.onComplete;
 if(g.store){
-_9.onComplete=function(_b,_c){
-if(_a){
-_a(_b,_c);
+_11.onComplete=function(_13,_14){
+if(_12){
+_12(_13,_14);
 }
-_6(_7._goThroughGridData(_b,_8));
+_e(_f._goThroughGridData(_13,_10));
 };
-_9.sort=_9.sort||g.getSortProps();
-g._storeLayerFetch(_9);
+_11.sort=_11.sort||g.getSortProps();
+g._storeLayerFetch(_11);
 }else{
-var _d=_9.start||0,_e=_9.count||-1,_f=[];
-for(var i=_d;i!=_d+_e&&i<g.rowCount;++i){
-_f.push(g.getItem(i));
+var _15=_11.start||0,_16=_11.count||-1,_17=[];
+for(var i=_15;i!=_15+_16&&i<g.rowCount;++i){
+_17.push(g.getItem(i));
 }
-_6(this._goThroughGridData(_f,_8));
+_e(this._goThroughGridData(_17,_10));
 }
-},exportSelected:function(_10,_11){
-if(!dojo.isString(_10)){
+},exportSelected:function(_18,_19){
+if(!_3.isString(_18)){
 return "";
 }
-var _12=this._getExportWriter(_10,_11);
-return this._goThroughGridData(this.grid.selection.getSelected(),_12);
-},_buildRow:function(_13,_14){
-var _15=this;
-dojo.forEach(_13._views,function(_16,_17){
-_13.view=_16;
-_13.viewIdx=_17;
-if(_14.beforeView(_13)){
-dojo.forEach(_16.structure.cells,function(_18,_19){
-_13.subrow=_18;
-_13.subrowIdx=_19;
-if(_14.beforeSubrow(_13)){
-dojo.forEach(_18,function(_1a,_1b){
-if(_13.isHeader&&_15._isSpecialCol(_1a)){
-_13.spCols.push(_1a.index);
+var _1a=this._getExportWriter(_18,_19);
+return this._goThroughGridData(this.grid.selection.getSelected(),_1a);
+},_buildRow:function(_1b,_1c){
+var _1d=this;
+_2.forEach(_1b._views,function(_1e,_1f){
+_1b.view=_1e;
+_1b.viewIdx=_1f;
+if(_1c.beforeView(_1b)){
+_2.forEach(_1e.structure.cells,function(_20,_21){
+_1b.subrow=_20;
+_1b.subrowIdx=_21;
+if(_1c.beforeSubrow(_1b)){
+_2.forEach(_20,function(_22,_23){
+if(_1b.isHeader&&_1d._isSpecialCol(_22)){
+_1b.spCols.push(_22.index);
 }
-_13.cell=_1a;
-_13.cellIdx=_1b;
-_14.handleCell(_13);
+_1b.cell=_22;
+_1b.cellIdx=_23;
+_1c.handleCell(_1b);
 });
-_14.afterSubrow(_13);
-}
-});
-_14.afterView(_13);
+_1c.afterSubrow(_1b);
 }
 });
-},_goThroughGridData:function(_1c,_1d){
-var _1e=this.grid,_1f=dojo.filter(_1e.views.views,function(_20){
-return !(_20 instanceof dojox.grid._RowSelector);
-}),_21={"grid":_1e,"isHeader":true,"spCols":[],"_views":_1f,"colOffset":(_1f.length<_1e.views.views.length?-1:0)};
-if(_1d.beforeHeader(_1e)){
-this._buildRow(_21,_1d);
-_1d.afterHeader();
+_1c.afterView(_1b);
 }
-_21.isHeader=false;
-if(_1d.beforeContent(_1c)){
-dojo.forEach(_1c,function(_22,_23){
-_21.row=_22;
-_21.rowIdx=_23;
-if(_1d.beforeContentRow(_21)){
-this._buildRow(_21,_1d);
-_1d.afterContentRow(_21);
+});
+},_goThroughGridData:function(_24,_25){
+var _26=this.grid,_27=_2.filter(_26.views.views,function(_28){
+return !(_28 instanceof _5);
+}),_29={"grid":_26,"isHeader":true,"spCols":[],"_views":_27,"colOffset":(_27.length<_26.views.views.length?-1:0)};
+if(_25.beforeHeader(_26)){
+this._buildRow(_29,_25);
+_25.afterHeader();
+}
+_29.isHeader=false;
+if(_25.beforeContent(_24)){
+_2.forEach(_24,function(_2a,_2b){
+_29.row=_2a;
+_29.rowIdx=_2b;
+if(_25.beforeContentRow(_29)){
+this._buildRow(_29,_25);
+_25.afterContentRow(_29);
 }
 },this);
-_1d.afterContent();
+_25.afterContent();
 }
-return _1d.toString();
-},_isSpecialCol:function(_24){
-return _24.isRowSelector||_24 instanceof dojox.grid.cells.RowIndex;
-},_getExportWriter:function(_25,_26){
-var _27,cls,_28=dojox.grid.enhanced.plugins.Exporter;
-if(_28.writerNames){
-_27=_28.writerNames[_25.toLowerCase()];
-cls=dojo.getObject(_27);
+return _25.toString();
+},_isSpecialCol:function(_2c){
+return _2c.isRowSelector||_2c instanceof _7.RowIndex;
+},_getExportWriter:function(_2d,_2e){
+var _2f,cls,_30=_8;
+if(_30.writerNames){
+_2f=_30.writerNames[_2d.toLowerCase()];
+cls=_3.getObject(_2f);
 if(cls){
-var _29=new cls(_26);
-_29.formatter=this.formatter;
-return _29;
+var _31=new cls(_2e);
+_31.formatter=this.formatter;
+return _31;
 }else{
-throw new Error("Please make sure class \""+_27+"\" is required.");
+throw new Error("Please make sure class \""+_2f+"\" is required.");
 }
 }
-throw new Error("The writer for \""+_25+"\" has not been registered.");
+throw new Error("The writer for \""+_2d+"\" has not been registered.");
 }});
-dojox.grid.enhanced.plugins.Exporter.registerWriter=function(_2a,_2b){
-var _2c=dojox.grid.enhanced.plugins.Exporter;
-_2c.writerNames=_2c.writerNames||{};
-_2c.writerNames[_2a]=_2b;
+_8.registerWriter=function(_32,_33){
+_8.writerNames=_8.writerNames||{};
+_8.writerNames[_32]=_33;
 };
-dojox.grid.EnhancedGrid.registerPlugin(dojox.grid.enhanced.plugins.Exporter);
-}
+_6.registerPlugin(_8);
+return _8;
+});

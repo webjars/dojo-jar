@@ -4,18 +4,16 @@
 	see: http://dojotoolkit.org/license for details
 */
 
-
-if(!dojo._hasResource["dojo.data.api.Notification"]){
-dojo._hasResource["dojo.data.api.Notification"]=true;
-dojo.provide("dojo.data.api.Notification");
-dojo.require("dojo.data.api.Read");
-dojo.declare("dojo.data.api.Notification",dojo.data.api.Read,{getFeatures:function(){
+//>>built
+define("dojo/data/api/Notification",["../..","./Read"],function(_1){
+_1.declare("dojo.data.api.Notification",_1.data.api.Read,{getFeatures:function(){
 return {"dojo.data.api.Read":true,"dojo.data.api.Notification":true};
-},onSet:function(_1,_2,_3,_4){
+},onSet:function(_2,_3,_4,_5){
 throw new Error("Unimplemented API: dojo.data.api.Notification.onSet");
-},onNew:function(_5,_6){
+},onNew:function(_6,_7){
 throw new Error("Unimplemented API: dojo.data.api.Notification.onNew");
-},onDelete:function(_7){
+},onDelete:function(_8){
 throw new Error("Unimplemented API: dojo.data.api.Notification.onDelete");
 }});
-}
+return _1.data.api.Notification;
+});

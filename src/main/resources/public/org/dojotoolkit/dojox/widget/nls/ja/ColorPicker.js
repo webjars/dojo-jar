@@ -1,1 +1,9 @@
-({"hexLabel":"16 進","saturationPickerTitle":"彩度セレクター","huePickerTitle":"色調セレクター","valueLabel":"v","blueLabel":"b","saturationLabel":"s","greenLabel":"g","redLabel":"r","hueLabel":"h","degLabel":"°"})
+//>>built
+define(
+"dojox/widget/nls/ja/ColorPicker", //begin v1.x content
+({
+hexLabel: "16 進",
+huePickerTitle: "色調セレクター",
+saturationPickerTitle: "彩度セレクター"
+})
+);

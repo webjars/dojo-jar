@@ -1,33 +1,41 @@
-/*
-	Copyright (c) 2004-2011, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
-
-
-if(!dojo._hasResource["dojox.form.uploader.plugins.IFrame"]){
-dojo._hasResource["dojox.form.uploader.plugins.IFrame"]=true;
-dojo.provide("dojox.form.uploader.plugins.IFrame");
-dojo.require("dojox.form.uploader.plugins.HTML5");
-dojo.require("dojo.io.iframe");
-dojo.declare("dojox.form.uploader.plugins.IFrame",[],{force:"",postMixInProperties:function(){
+//>>built
+define("dojox/form/uploader/plugins/IFrame",["dojo/dom-construct","dojo/_base/declare","dojo/_base/lang","dojo/_base/array","dojo/io/iframe","dojox/form/uploader/plugins/HTML5"],function(_1,_2,_3,_4,_5,_6){
+var _7=_2("dojox.form.uploader.plugins.IFrame",[],{force:"",postMixInProperties:function(){
 this.inherited(arguments);
-if(!this.supports("multiple")){
-this.uploadType="iframe";
-}
-},upload:function(_1){
 if(!this.supports("multiple")||this.force=="iframe"){
-this.uploadIFrame(_1);
-dojo.stopEvent(_1);
-return;
+this.uploadType="iframe";
+this.upload=this.uploadIFrame;
 }
-},uploadIFrame:function(){
-var _2=this.getUrl();
-var _3=dojo.io.iframe.send({url:this.getUrl(),form:this.form,handleAs:"json",error:dojo.hitch(this,function(_4){
-console.error("HTML Upload Error:"+_4.message);
-}),load:dojo.hitch(this,function(_5,_6,_7){
-this.onComplete(_5);
+},uploadIFrame:function(_8){
+var _9,_a=false;
+if(!this.getForm()){
+_9=_1.place("<form enctype=\"multipart/form-data\" method=\"post\"></form>",this.domNode);
+_4.forEach(this._inputs,function(n,i){
+if(n.value){
+_9.appendChild(n);
+}
+},this);
+_a=true;
+}else{
+_9=this.form;
+}
+var _b=this.getUrl();
+var _c=_5.send({url:_b,form:_9,handleAs:"json",content:_8,error:_3.hitch(this,function(_d){
+if(_a){
+_1.destroy(_9);
+}
+this.onError(_d);
+}),load:_3.hitch(this,function(_e,_f,_10){
+if(_a){
+_1.destroy(_9);
+}
+if(_e["ERROR"]||_e["error"]){
+this.onError(_e);
+}else{
+this.onComplete(_e);
+}
 })});
 }});
-dojox.form.addUploaderPlugin(dojox.form.uploader.plugins.IFrame);
-}
+dojox.form.addUploaderPlugin(_7);
+return _7;
+});

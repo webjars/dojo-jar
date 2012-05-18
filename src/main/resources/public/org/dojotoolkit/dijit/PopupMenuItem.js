@@ -1,18 +1,9 @@
-/*
-	Copyright (c) 2004-2011, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
-
-
-if(!dojo._hasResource["dijit.PopupMenuItem"]){
-dojo._hasResource["dijit.PopupMenuItem"]=true;
-dojo.provide("dijit.PopupMenuItem");
-dojo.require("dijit.MenuItem");
-dojo.declare("dijit.PopupMenuItem",dijit.MenuItem,{_fillContent:function(){
+//>>built
+define("dijit/PopupMenuItem",["dojo/_base/declare","dojo/dom-style","dojo/query","dojo/_base/window","./registry","./MenuItem","./hccss"],function(_1,_2,_3,_4,_5,_6){
+return _1("dijit.PopupMenuItem",_6,{_fillContent:function(){
 if(this.srcNodeRef){
-var _1=dojo.query("*",this.srcNodeRef);
-dijit.PopupMenuItem.superclass._fillContent.call(this,_1[0]);
+var _7=_3("*",this.srcNodeRef);
+this.inherited(arguments,[_7[0]]);
 this.dropDownContainer=this.srcNodeRef;
 }
 },startup:function(){
@@ -21,23 +12,23 @@ return;
 }
 this.inherited(arguments);
 if(!this.popup){
-var _2=dojo.query("[widgetId]",this.dropDownContainer)[0];
-this.popup=dijit.byNode(_2);
+var _8=_3("[widgetId]",this.dropDownContainer)[0];
+this.popup=_5.byNode(_8);
 }
-dojo.body().appendChild(this.popup.domNode);
+_4.body().appendChild(this.popup.domNode);
 this.popup.startup();
 this.popup.domNode.style.display="none";
 if(this.arrowWrapper){
-dojo.style(this.arrowWrapper,"visibility","");
+_2.set(this.arrowWrapper,"visibility","");
 }
-dijit.setWaiState(this.focusNode,"haspopup","true");
-},destroyDescendants:function(){
+this.focusNode.setAttribute("aria-haspopup","true");
+},destroyDescendants:function(_9){
 if(this.popup){
 if(!this.popup._destroyed){
-this.popup.destroyRecursive();
+this.popup.destroyRecursive(_9);
 }
 delete this.popup;
 }
 this.inherited(arguments);
 }});
-}
+});

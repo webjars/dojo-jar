@@ -1,39 +1,25 @@
-/*
-	Copyright (c) 2004-2011, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
-
-
-if(!dojo._hasResource["dijit.Declaration"]){
-dojo._hasResource["dijit.Declaration"]=true;
-dojo.provide("dijit.Declaration");
-dojo.require("dijit._Widget");
-dojo.require("dijit._Templated");
-dojo.declare("dijit.Declaration",dijit._Widget,{_noScript:true,stopParser:true,widgetClass:"",defaults:null,mixins:[],buildRendering:function(){
-var _1=this.srcNodeRef.parentNode.removeChild(this.srcNodeRef),_2=dojo.query("> script[type^='dojo/method']",_1).orphan(),_3=dojo.query("> script[type^='dojo/connect']",_1).orphan(),_4=_1.nodeName;
-var _5=this.defaults||{};
-dojo.forEach(_2,function(s){
-var _6=s.getAttribute("event")||s.getAttribute("data-dojo-event"),_7=dojo.parser._functionFromScript(s);
-if(_6){
-_5[_6]=_7;
+//>>built
+define("dijit/Declaration",["dojo/_base/array","dojo/_base/connect","dojo/_base/declare","dojo/_base/lang","dojo/parser","dojo/query","./_Widget","./_TemplatedMixin","./_WidgetsInTemplateMixin","dojo/NodeList-dom"],function(_1,_2,_3,_4,_5,_6,_7,_8,_9){
+return _3("dijit.Declaration",_7,{_noScript:true,stopParser:true,widgetClass:"",defaults:null,mixins:[],buildRendering:function(){
+var _a=this.srcNodeRef.parentNode.removeChild(this.srcNodeRef),_b=_6("> script[type^='dojo/method']",_a).orphan(),_c=_6("> script[type^='dojo/connect']",_a).orphan(),_d=_a.nodeName;
+var _e=this.defaults||{};
+_1.forEach(_b,function(s){
+var _f=s.getAttribute("event")||s.getAttribute("data-dojo-event"),_10=_5._functionFromScript(s);
+if(_f){
+_e[_f]=_10;
 }else{
-_3.push(s);
+_c.push(s);
 }
 });
-this.mixins=this.mixins.length?dojo.map(this.mixins,function(_8){
-return dojo.getObject(_8);
-}):[dijit._Widget,dijit._Templated];
-_5.widgetsInTemplate=true;
-_5._skipNodeCache=true;
-_5.templateString="<"+_4+" class='"+_1.className+"' dojoAttachPoint='"+(_1.getAttribute("dojoAttachPoint")||"")+"' dojoAttachEvent='"+(_1.getAttribute("dojoAttachEvent")||"")+"' >"+_1.innerHTML.replace(/\%7B/g,"{").replace(/\%7D/g,"}")+"</"+_4+">";
-dojo.query("[dojoType]",_1).forEach(function(_9){
-_9.removeAttribute("dojoType");
-});
-var wc=dojo.declare(this.widgetClass,this.mixins,_5);
-dojo.forEach(_3,function(s){
-var _a=s.getAttribute("event")||s.getAttribute("data-dojo-event")||"postscript",_b=dojo.parser._functionFromScript(s);
-dojo.connect(wc.prototype,_a,_b);
+this.mixins=this.mixins.length?_1.map(this.mixins,function(_11){
+return _4.getObject(_11);
+}):[_7,_8,_9];
+_e._skipNodeCache=true;
+_e.templateString="<"+_d+" class='"+_a.className+"'"+" data-dojo-attach-point='"+(_a.getAttribute("data-dojo-attach-point")||_a.getAttribute("dojoAttachPoint")||"")+"' data-dojo-attach-event='"+(_a.getAttribute("data-dojo-attach-event")||_a.getAttribute("dojoAttachEvent")||"")+"' >"+_a.innerHTML.replace(/\%7B/g,"{").replace(/\%7D/g,"}")+"</"+_d+">";
+var wc=_3(this.widgetClass,this.mixins,_e);
+_1.forEach(_c,function(s){
+var evt=s.getAttribute("event")||s.getAttribute("data-dojo-event")||"postscript",_12=_5._functionFromScript(s);
+_2.connect(wc.prototype,evt,_12);
 });
 }});
-}
+});

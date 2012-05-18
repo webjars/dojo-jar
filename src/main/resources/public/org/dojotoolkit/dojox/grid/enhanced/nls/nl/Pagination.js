@@ -1,1 +1,25 @@
-({"gotoButtonTitle":"Naar een specifieke pagina gaan","prevTip":"Vorige pagina","pageCountIndication":" (${0} pagina's)","pageStepLabelTemplate":"Pagina ${0}","descTemplate":"${2} - ${3} van ${1} ${0}","lastTip":"Laatste pagina","nextTip":"Volgende pagina","pageSizeLabelTemplate":"${0} items per pagina","dialogCancel":"Annuleren","itemTitle":"items","dialogConfirm":"Start","firstTip":"Eerste pagina","allItemsLabelTemplate":"Alle items","dialogIndication":"Geef het paginanummer op:","dialogTitle":"Naar pagina gaan"})
+//>>built
+define(
+"dojox/grid/enhanced/nls/nl/Pagination", //begin v1.x content
+({
+	"descTemplate": "${2} - ${3} van ${1} ${0}",
+	"firstTip": "Eerste pagina",
+	"lastTip": "Laatste pagina",
+	"nextTip": "Volgende pagina",
+	"prevTip": "Vorige pagina",
+	"itemTitle": "items",
+	"singularItemTitle": "item",
+	"pageStepLabelTemplate": "Pagina ${0}",
+	"pageSizeLabelTemplate": "${0} items per pagina",
+	"allItemsLabelTemplate": "Alle items",
+	"gotoButtonTitle": "Ga naar bepaalde pagina",
+	"dialogTitle": "Ga naar pagina",
+	"dialogIndication": "Geef het paginanummer op",
+	"pageCountIndication": " (${0} pagina's)",
+	"dialogConfirm": "Go",
+	"dialogCancel": "Annuleren",
+	"all": "alle"
+})
+//end v1.x content
+);
+

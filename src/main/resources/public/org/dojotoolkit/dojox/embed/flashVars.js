@@ -1,37 +1,32 @@
-/*
-	Copyright (c) 2004-2011, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
-
-
-if(!dojo._hasResource["dojox.embed.flashVars"]){
-dojo._hasResource["dojox.embed.flashVars"]=true;
-dojo.provide("dojox.embed.flashVars");
-dojo.mixin(dojox.embed.flashVars,{serialize:function(n,o){
-var _1=function(_2){
-if(typeof _2=="string"){
-_2=_2.replace(/;/g,"_sc_");
-_2=_2.replace(/\./g,"_pr_");
-_2=_2.replace(/\:/g,"_cl_");
+//>>built
+define("dojox/embed/flashVars",["dojo"],function(_1){
+_1.getObject("dojox.embed",true);
+_1.deprecated("dojox.embed.flashVars","Will be removed in 2.0","2.0");
+dojox.embed.flashVars={serialize:function(n,o){
+var _2=function(_3){
+if(typeof _3=="string"){
+_3=_3.replace(/;/g,"_sc_");
+_3=_3.replace(/\./g,"_pr_");
+_3=_3.replace(/\:/g,"_cl_");
 }
-return _2;
+return _3;
 };
 var df=dojox.embed.flashVars.serialize;
-var _3="";
-if(dojo.isArray(o)){
+var _4="";
+if(_1.isArray(o)){
 for(var i=0;i<o.length;i++){
-_3+=df(n+"."+i,_1(o[i]))+";";
+_4+=df(n+"."+i,_2(o[i]))+";";
 }
-return _3.replace(/;{2,}/g,";");
+return _4.replace(/;{2,}/g,";");
 }else{
-if(dojo.isObject(o)){
+if(_1.isObject(o)){
 for(var nm in o){
-_3+=df(n+"."+nm,_1(o[nm]))+";";
+_4+=df(n+"."+nm,_2(o[nm]))+";";
 }
-return _3.replace(/;{2,}/g,";");
+return _4.replace(/;{2,}/g,";");
 }
 }
 return n+":"+o;
-}});
-}
+}};
+return dojox.embed.flashVars;
+});

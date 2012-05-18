@@ -1,1 +1,17 @@
-({"descending":"Descrescător","ascending":"Crescător","nestedSort":"Sortare imbricată","unsorted":"Nu sortaţi această coloană","singleSort":"Sortare singură","indirectSelectionRadio":"Row ${0}, single selection, radio box","indirectSelectionCheckBox":"Row ${0}, multiple selection, check box","selectAll":"Select all","sortingState":"${0} - ${1}"})
+//>>built
+define(
+"dojox/grid/enhanced/nls/ro/EnhancedGrid", //begin v1.x content
+({
+	singleSort: "Sortare singulară",
+	nestedSort: "Sortare imbricată",
+	ascending: "Crescător",
+	descending: "Descrescător",
+	sortingState: "${0} - ${1}",
+	unsorted: "Nu se sortează această coloană",
+	indirectSelectionRadio: "Rândul ${0}, selecţie singulară, casetă radio",
+	indirectSelectionCheckBox: "Rândul ${0}, selecţie multiplă, casetă de bifare",
+	selectAll: "Selectare tot"
+})
+//end v1.x content
+);
+

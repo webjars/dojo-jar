@@ -1,1 +1,14 @@
-({"set":"Ορισμός","insertAnchor":"Εισαγωγή αγκίστρωσης","title":"Ιδιότητες αγκίστρωσης","text":"Περιγραφή:","cancel":"Ακύρωση","anchor":"Όνομα:"})
+//>>built
+define(
+"dojox/editor/plugins/nls/el/InsertAnchor", //begin v1.x content
+({
+	insertAnchor: "Εισαγωγή αγκίστρωσης",
+	title: "Ιδιότητες αγκίστρωσης",
+	anchor: "Όνομα:",
+	text: "Περιγραφή:",
+	set: "Ορισμός",
+	cancel: "Ακύρωση"
+})
+
+//end v1.x content
+);

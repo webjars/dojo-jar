@@ -1,57 +1,39 @@
-/*
-	Copyright (c) 2004-2011, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
-
-
-if(!dojo._hasResource["dijit.Dialog"]){
-dojo._hasResource["dijit.Dialog"]=true;
-dojo.provide("dijit.Dialog");
-dojo.require("dojo.dnd.move");
-dojo.require("dojo.dnd.TimedMoveable");
-dojo.require("dojo.fx");
-dojo.require("dojo.window");
-dojo.require("dijit._Widget");
-dojo.require("dijit._Templated");
-dojo.require("dijit._CssStateMixin");
-dojo.require("dijit.form._FormMixin");
-dojo.require("dijit._DialogMixin");
-dojo.require("dijit.DialogUnderlay");
-dojo.require("dijit.layout.ContentPane");
-dojo.requireLocalization("dijit","common",null,"ROOT,ar,ca,cs,da,de,el,es,fi,fr,he,hu,it,ja,kk,ko,nb,nl,pl,pt,pt-pt,ro,ru,sk,sl,sv,th,tr,zh,zh-tw");
-dojo.require("dijit.TooltipDialog");
-dojo.declare("dijit._DialogBase",[dijit._Templated,dijit.form._FormMixin,dijit._DialogMixin,dijit._CssStateMixin],{templateString:dojo.cache("dijit","templates/Dialog.html","<div class=\"dijitDialog\" role=\"dialog\" aria-labelledby=\"${id}_title\">\n\t<div dojoAttachPoint=\"titleBar\" class=\"dijitDialogTitleBar\">\n\t<span dojoAttachPoint=\"titleNode\" class=\"dijitDialogTitle\" id=\"${id}_title\"></span>\n\t<span dojoAttachPoint=\"closeButtonNode\" class=\"dijitDialogCloseIcon\" dojoAttachEvent=\"ondijitclick: onCancel\" title=\"${buttonCancel}\" role=\"button\" tabIndex=\"-1\">\n\t\t<span dojoAttachPoint=\"closeText\" class=\"closeText\" title=\"${buttonCancel}\">x</span>\n\t</span>\n\t</div>\n\t\t<div dojoAttachPoint=\"containerNode\" class=\"dijitDialogPaneContent\"></div>\n</div>\n"),baseClass:"dijitDialog",cssStateNodes:{closeButtonNode:"dijitDialogCloseIcon"},attributeMap:dojo.delegate(dijit._Widget.prototype.attributeMap,{title:[{node:"titleNode",type:"innerHTML"},{node:"titleBar",type:"attribute"}],"aria-describedby":""}),open:false,duration:dijit.defaultDuration,refocus:true,autofocus:true,_firstFocusItem:null,_lastFocusItem:null,doLayout:false,draggable:true,"aria-describedby":"",postMixInProperties:function(){
-var _1=dojo.i18n.getLocalization("dijit","common");
-dojo.mixin(this,_1);
+//>>built
+require({cache:{"url:dijit/templates/Dialog.html":"<div class=\"dijitDialog\" role=\"dialog\" aria-labelledby=\"${id}_title\">\n\t<div data-dojo-attach-point=\"titleBar\" class=\"dijitDialogTitleBar\">\n\t<span data-dojo-attach-point=\"titleNode\" class=\"dijitDialogTitle\" id=\"${id}_title\"></span>\n\t<span data-dojo-attach-point=\"closeButtonNode\" class=\"dijitDialogCloseIcon\" data-dojo-attach-event=\"ondijitclick: onCancel\" title=\"${buttonCancel}\" role=\"button\" tabIndex=\"-1\">\n\t\t<span data-dojo-attach-point=\"closeText\" class=\"closeText\" title=\"${buttonCancel}\">x</span>\n\t</span>\n\t</div>\n\t\t<div data-dojo-attach-point=\"containerNode\" class=\"dijitDialogPaneContent\"></div>\n</div>\n"}});
+define("dijit/Dialog",["require","dojo/_base/array","dojo/_base/connect","dojo/_base/declare","dojo/_base/Deferred","dojo/dom","dojo/dom-class","dojo/dom-geometry","dojo/dom-style","dojo/_base/event","dojo/_base/fx","dojo/i18n","dojo/_base/kernel","dojo/keys","dojo/_base/lang","dojo/on","dojo/ready","dojo/_base/sniff","dojo/_base/window","dojo/window","dojo/dnd/Moveable","dojo/dnd/TimedMoveable","./focus","./_base/manager","./_Widget","./_TemplatedMixin","./_CssStateMixin","./form/_FormMixin","./_DialogMixin","./DialogUnderlay","./layout/ContentPane","dojo/text!./templates/Dialog.html",".","dojo/i18n!./nls/common"],function(_1,_2,_3,_4,_5,_6,_7,_8,_9,_a,fx,_b,_c,_d,_e,on,_f,has,win,_10,_11,_12,_13,_14,_15,_16,_17,_18,_19,_1a,_1b,_1c,_1d){
+var _1e=_4("dijit._DialogBase",[_16,_18,_19,_17],{templateString:_1c,baseClass:"dijitDialog",cssStateNodes:{closeButtonNode:"dijitDialogCloseIcon"},_setTitleAttr:[{node:"titleNode",type:"innerHTML"},{node:"titleBar",type:"attribute"}],open:false,duration:_14.defaultDuration,refocus:true,autofocus:true,_firstFocusItem:null,_lastFocusItem:null,doLayout:false,draggable:true,"aria-describedby":"",postMixInProperties:function(){
+var _1f=_b.getLocalization("dijit","common");
+_e.mixin(this,_1f);
 this.inherited(arguments);
 },postCreate:function(){
-dojo.style(this.domNode,{display:"none",position:"absolute"});
-dojo.body().appendChild(this.domNode);
+_9.set(this.domNode,{display:"none",position:"absolute"});
+win.body().appendChild(this.domNode);
 this.inherited(arguments);
 this.connect(this,"onExecute","hide");
 this.connect(this,"onCancel","hide");
 this._modalconnects=[];
 },onLoad:function(){
 this._position();
-if(this.autofocus&&dijit._DialogLevelManager.isTop(this)){
+if(this.autofocus&&_20.isTop(this)){
 this._getFocusItems(this.domNode);
-dijit.focus(this._firstFocusItem);
+_13.focus(this._firstFocusItem);
 }
 this.inherited(arguments);
-},_endDrag:function(e){
-if(e&&e.node&&e.node===this.domNode){
-this._relativePosition=dojo.position(e.node);
-}
+},_endDrag:function(){
+var _21=_8.position(this.domNode),_22=_10.getBox();
+_21.y=Math.min(Math.max(_21.y,0),(_22.h-_21.h));
+_21.x=Math.min(Math.max(_21.x,0),(_22.w-_21.w));
+this._relativePosition=_21;
+this._position();
 },_setup:function(){
-var _2=this.domNode;
+var _23=this.domNode;
 if(this.titleBar&&this.draggable){
-this._moveable=(dojo.isIE==6)?new dojo.dnd.TimedMoveable(_2,{handle:this.titleBar}):new dojo.dnd.Moveable(_2,{handle:this.titleBar,timeout:0});
-this._dndListener=dojo.subscribe("/dnd/move/stop",this,"_endDrag");
+this._moveable=new ((has("ie")==6)?_12:_11)(_23,{handle:this.titleBar});
+this.connect(this._moveable,"onMoveStop","_endDrag");
 }else{
-dojo.addClass(_2,"dijitDialogFixed");
+_7.add(_23,"dijitDialogFixed");
 }
-this.underlayAttrs={dialogId:this.id,"class":dojo.map(this["class"].split(/\s/),function(s){
+this.underlayAttrs={dialogId:this.id,"class":_2.map(this["class"].split(/\s/),function(s){
 return s+"_underlay";
 }).join(" ")};
 },_size:function(){
@@ -62,17 +44,17 @@ this._singleChild.domNode.style.cssText=this._singleChildOriginalStyle;
 }
 delete this._singleChildOriginalStyle;
 }else{
-dojo.style(this.containerNode,{width:"auto",height:"auto"});
+_9.set(this.containerNode,{width:"auto",height:"auto"});
 }
-var mb=dojo._getMarginSize(this.domNode);
-var _3=dojo.window.getBox();
-if(mb.w>=_3.w||mb.h>=_3.h){
-var w=Math.min(mb.w,Math.floor(_3.w*0.75)),h=Math.min(mb.h,Math.floor(_3.h*0.75));
+var bb=_8.position(this.domNode);
+var _24=_10.getBox();
+if(bb.w>=_24.w||bb.h>=_24.h){
+var w=Math.min(bb.w,Math.floor(_24.w*0.75)),h=Math.min(bb.h,Math.floor(_24.h*0.75));
 if(this._singleChild&&this._singleChild.resize){
 this._singleChildOriginalStyle=this._singleChild.domNode.style.cssText;
 this._singleChild.resize({w:w,h:h});
 }else{
-dojo.style(this.containerNode,{width:w+"px",height:h+"px",overflow:"auto",position:"relative"});
+_9.set(this.containerNode,{width:w+"px",height:h+"px",overflow:"auto",position:"relative"});
 }
 }else{
 if(this._singleChild&&this._singleChild.resize){
@@ -80,44 +62,43 @@ this._singleChild.resize();
 }
 }
 },_position:function(){
-if(!dojo.hasClass(dojo.body(),"dojoMove")){
-var _4=this.domNode,_5=dojo.window.getBox(),p=this._relativePosition,bb=p?null:dojo._getBorderBox(_4),l=Math.floor(_5.l+(p?p.x:(_5.w-bb.w)/2)),t=Math.floor(_5.t+(p?p.y:(_5.h-bb.h)/2));
-dojo.style(_4,{left:l+"px",top:t+"px"});
+if(!_7.contains(win.body(),"dojoMove")){
+var _25=this.domNode,_26=_10.getBox(),p=this._relativePosition,bb=p?null:_8.position(_25),l=Math.floor(_26.l+(p?p.x:(_26.w-bb.w)/2)),t=Math.floor(_26.t+(p?p.y:(_26.h-bb.h)/2));
+_9.set(_25,{left:l+"px",top:t+"px"});
 }
-},_onKey:function(_6){
-if(_6.charOrCode){
-var dk=dojo.keys;
-var _7=_6.target;
-if(_6.charOrCode===dk.TAB){
+},_onKey:function(evt){
+if(evt.charOrCode){
+var _27=evt.target;
+if(evt.charOrCode===_d.TAB){
 this._getFocusItems(this.domNode);
 }
-var _8=(this._firstFocusItem==this._lastFocusItem);
-if(_7==this._firstFocusItem&&_6.shiftKey&&_6.charOrCode===dk.TAB){
-if(!_8){
-dijit.focus(this._lastFocusItem);
+var _28=(this._firstFocusItem==this._lastFocusItem);
+if(_27==this._firstFocusItem&&evt.shiftKey&&evt.charOrCode===_d.TAB){
+if(!_28){
+_13.focus(this._lastFocusItem);
 }
-dojo.stopEvent(_6);
+_a.stop(evt);
 }else{
-if(_7==this._lastFocusItem&&_6.charOrCode===dk.TAB&&!_6.shiftKey){
-if(!_8){
-dijit.focus(this._firstFocusItem);
+if(_27==this._lastFocusItem&&evt.charOrCode===_d.TAB&&!evt.shiftKey){
+if(!_28){
+_13.focus(this._firstFocusItem);
 }
-dojo.stopEvent(_6);
+_a.stop(evt);
 }else{
-while(_7){
-if(_7==this.domNode||dojo.hasClass(_7,"dijitPopup")){
-if(_6.charOrCode==dk.ESCAPE){
+while(_27){
+if(_27==this.domNode||_7.contains(_27,"dijitPopup")){
+if(evt.charOrCode==_d.ESCAPE){
 this.onCancel();
 }else{
 return;
 }
 }
-_7=_7.parentNode;
+_27=_27.parentNode;
 }
-if(_6.charOrCode!==dk.TAB){
-dojo.stopEvent(_6);
+if(evt.charOrCode!==_d.TAB){
+_a.stop(evt);
 }else{
-if(!dojo.isOpera){
+if(!has("opera")){
 try{
 this._firstFocusItem.focus();
 }
@@ -142,31 +123,31 @@ this._alreadyInitialized=true;
 if(this._fadeOutDeferred){
 this._fadeOutDeferred.cancel();
 }
-this._modalconnects.push(dojo.connect(window,"onscroll",this,"layout"));
-this._modalconnects.push(dojo.connect(window,"onresize",this,function(){
-var _9=dojo.window.getBox();
-if(!this._oldViewport||_9.h!=this._oldViewport.h||_9.w!=this._oldViewport.w){
+this._modalconnects.push(on(window,"scroll",_e.hitch(this,"layout")));
+this._modalconnects.push(on(window,"resize",_e.hitch(this,function(){
+var _29=_10.getBox();
+if(!this._oldViewport||_29.h!=this._oldViewport.h||_29.w!=this._oldViewport.w){
 this.layout();
-this._oldViewport=_9;
+this._oldViewport=_29;
 }
-}));
-this._modalconnects.push(dojo.connect(this.domNode,"onkeypress",this,"_onKey"));
-dojo.style(this.domNode,{opacity:0,display:""});
+})));
+this._modalconnects.push(on(this.domNode,_3._keypress,_e.hitch(this,"_onKey")));
+_9.set(this.domNode,{opacity:0,display:""});
 this._set("open",true);
 this._onShow();
 this._size();
 this._position();
-var _a;
-this._fadeInDeferred=new dojo.Deferred(dojo.hitch(this,function(){
-_a.stop();
+var _2a;
+this._fadeInDeferred=new _5(_e.hitch(this,function(){
+_2a.stop();
 delete this._fadeInDeferred;
 }));
-_a=dojo.fadeIn({node:this.domNode,duration:this.duration,beforeBegin:dojo.hitch(this,function(){
-dijit._DialogLevelManager.show(this,this.underlayAttrs);
-}),onEnd:dojo.hitch(this,function(){
-if(this.autofocus&&dijit._DialogLevelManager.isTop(this)){
+_2a=fx.fadeIn({node:this.domNode,duration:this.duration,beforeBegin:_e.hitch(this,function(){
+_20.show(this,this.underlayAttrs);
+}),onEnd:_e.hitch(this,function(){
+if(this.autofocus&&_20.isTop(this)){
 this._getFocusItems(this.domNode);
-dijit.focus(this._firstFocusItem);
+_13.focus(this._firstFocusItem);
 }
 this._fadeInDeferred.callback(true);
 delete this._fadeInDeferred;
@@ -179,23 +160,25 @@ return;
 if(this._fadeInDeferred){
 this._fadeInDeferred.cancel();
 }
-var _b;
-this._fadeOutDeferred=new dojo.Deferred(dojo.hitch(this,function(){
-_b.stop();
+var _2b;
+this._fadeOutDeferred=new _5(_e.hitch(this,function(){
+_2b.stop();
 delete this._fadeOutDeferred;
 }));
-_b=dojo.fadeOut({node:this.domNode,duration:this.duration,onEnd:dojo.hitch(this,function(){
+this._fadeOutDeferred.then(_e.hitch(this,"onHide"));
+_2b=fx.fadeOut({node:this.domNode,duration:this.duration,onEnd:_e.hitch(this,function(){
 this.domNode.style.display="none";
-dijit._DialogLevelManager.hide(this);
-this.onHide();
+_20.hide(this);
 this._fadeOutDeferred.callback(true);
 delete this._fadeOutDeferred;
 })}).play();
 if(this._scrollConnected){
 this._scrollConnected=false;
 }
-dojo.forEach(this._modalconnects,dojo.disconnect);
-this._modalconnects=[];
+var h;
+while(h=this._modalconnects.pop()){
+h.remove();
+}
 if(this._relativePosition){
 delete this._relativePosition;
 }
@@ -203,8 +186,8 @@ this._set("open",false);
 return this._fadeOutDeferred;
 },layout:function(){
 if(this.domNode.style.display!="none"){
-if(dijit._underlay){
-dijit._underlay.layout();
+if(_1d._underlay){
+_1d._underlay.layout();
 }
 this._position();
 }
@@ -218,66 +201,69 @@ this._fadeOutDeferred.cancel();
 if(this._moveable){
 this._moveable.destroy();
 }
-if(this._dndListener){
-dojo.unsubscribe(this._dndListener);
+var h;
+while(h=this._modalconnects.pop()){
+h.remove();
 }
-dojo.forEach(this._modalconnects,dojo.disconnect);
-dijit._DialogLevelManager.hide(this);
+_20.hide(this);
 this.inherited(arguments);
 }});
-dojo.declare("dijit.Dialog",[dijit.layout.ContentPane,dijit._DialogBase],{});
-dijit._DialogLevelManager={show:function(_c,_d){
-var ds=dijit._dialogStack;
-ds[ds.length-1].focus=dijit.getFocus(_c);
-var _e=dijit._underlay;
-if(!_e||_e._destroyed){
-_e=dijit._underlay=new dijit.DialogUnderlay(_d);
+var _2c=_4("dijit.Dialog",[_1b,_1e],{});
+_2c._DialogBase=_1e;
+var _20=_2c._DialogLevelManager={_beginZIndex:950,show:function(_2d,_2e){
+ds[ds.length-1].focus=_13.curNode;
+var _2f=_1d._underlay;
+if(!_2f||_2f._destroyed){
+_2f=_1d._underlay=new _1a(_2e);
 }else{
-_e.set(_c.underlayAttrs);
+_2f.set(_2d.underlayAttrs);
 }
-var _f=ds[ds.length-1].dialog?ds[ds.length-1].zIndex+2:950;
+var _30=ds[ds.length-1].dialog?ds[ds.length-1].zIndex+2:_2c._DialogLevelManager._beginZIndex;
 if(ds.length==1){
-_e.show();
+_2f.show();
 }
-dojo.style(dijit._underlay.domNode,"zIndex",_f-1);
-dojo.style(_c.domNode,"zIndex",_f);
-ds.push({dialog:_c,underlayAttrs:_d,zIndex:_f});
-},hide:function(_10){
-var ds=dijit._dialogStack;
-if(ds[ds.length-1].dialog==_10){
+_9.set(_1d._underlay.domNode,"zIndex",_30-1);
+_9.set(_2d.domNode,"zIndex",_30);
+ds.push({dialog:_2d,underlayAttrs:_2e,zIndex:_30});
+},hide:function(_31){
+if(ds[ds.length-1].dialog==_31){
 ds.pop();
 var pd=ds[ds.length-1];
 if(ds.length==1){
-if(!dijit._underlay._destroyed){
-dijit._underlay.hide();
+if(!_1d._underlay._destroyed){
+_1d._underlay.hide();
 }
 }else{
-dojo.style(dijit._underlay.domNode,"zIndex",pd.zIndex-1);
-dijit._underlay.set(pd.underlayAttrs);
+_9.set(_1d._underlay.domNode,"zIndex",pd.zIndex-1);
+_1d._underlay.set(pd.underlayAttrs);
 }
-if(_10.refocus){
-var _11=pd.focus;
-if(!_11||(pd.dialog&&!dojo.isDescendant(_11.node,pd.dialog.domNode))){
+if(_31.refocus){
+var _32=pd.focus;
+if(pd.dialog&&(!_32||!_6.isDescendant(_32,pd.dialog.domNode))){
 pd.dialog._getFocusItems(pd.dialog.domNode);
-_11=pd.dialog._firstFocusItem;
+_32=pd.dialog._firstFocusItem;
 }
-try{
-dijit.focus(_11);
-}
-catch(e){
+if(_32){
+_32.focus();
 }
 }
 }else{
-var idx=dojo.indexOf(dojo.map(ds,function(_12){
-return _12.dialog;
-}),_10);
+var idx=_2.indexOf(_2.map(ds,function(_33){
+return _33.dialog;
+}),_31);
 if(idx!=-1){
 ds.splice(idx,1);
 }
 }
-},isTop:function(_13){
-var ds=dijit._dialogStack;
-return ds[ds.length-1].dialog==_13;
+},isTop:function(_34){
+return ds[ds.length-1].dialog==_34;
 }};
-dijit._dialogStack=[{dialog:null,focus:null,underlayAttrs:null}];
+var ds=_2c._dialogStack=[{dialog:null,focus:null,underlayAttrs:null}];
+if(!_c.isAsync){
+_f(0,function(){
+var _35=["dijit/TooltipDialog"];
+_1(_35);
+});
 }
+return _2c;
+});

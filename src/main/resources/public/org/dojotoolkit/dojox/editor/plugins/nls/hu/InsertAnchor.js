@@ -1,1 +1,14 @@
-({"set":"Beállítás","insertAnchor":"Horgony beszúrása","title":"Horgony tulajdonságai","text":"Leírás:","cancel":"Mégse","anchor":"Név:"})
+//>>built
+define(
+"dojox/editor/plugins/nls/hu/InsertAnchor", //begin v1.x content
+({
+	insertAnchor: "Horgony beszúrása",
+	title: "Horgony tulajdonságai",
+	anchor: "Név:",
+	text: "Leírás:",
+	set: "Beállítás",
+	cancel: "Mégse"
+})
+
+//end v1.x content
+);

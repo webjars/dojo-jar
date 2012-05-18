@@ -1,74 +1,60 @@
-/*
-	Copyright (c) 2004-2011, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
-
-
-if(!dojo._hasResource["dojox.charting.plot2d.ClusteredColumns"]){
-dojo._hasResource["dojox.charting.plot2d.ClusteredColumns"]=true;
-dojo.provide("dojox.charting.plot2d.ClusteredColumns");
-dojo.require("dojox.charting.plot2d.common");
-dojo.require("dojox.charting.plot2d.Columns");
-dojo.require("dojox.lang.functional");
-dojo.require("dojox.lang.functional.reversed");
-(function(){
-var df=dojox.lang.functional,dc=dojox.charting.plot2d.common,_1=df.lambda("item.purgeGroup()");
-dojo.declare("dojox.charting.plot2d.ClusteredColumns",dojox.charting.plot2d.Columns,{render:function(_2,_3){
+//>>built
+define("dojox/charting/plot2d/ClusteredColumns",["dojo/_base/array","dojo/_base/declare","./Columns","./common","dojox/lang/functional","dojox/lang/functional/reversed","dojox/lang/utils"],function(_1,_2,_3,dc,df,_4,du){
+var _5=_4.lambda("item.purgeGroup()");
+return _2("dojox.charting.plot2d.ClusteredColumns",_3,{render:function(_6,_7){
 if(this.zoom&&!this.isDataDirty()){
-return this.performZoom(_2,_3);
+return this.performZoom(_6,_7);
 }
 this.resetEvents();
 this.dirty=this.isDirty();
 if(this.dirty){
-dojo.forEach(this.series,_1);
+_1.forEach(this.series,_5);
 this._eventSeries={};
 this.cleanGroup();
 var s=this.group;
-df.forEachRev(this.series,function(_4){
-_4.cleanGroup(s);
+df.forEachRev(this.series,function(_8){
+_8.cleanGroup(s);
 });
 }
-var t=this.chart.theme,f,_5,_6,_7,ht=this._hScaler.scaler.getTransformerFromModel(this._hScaler),vt=this._vScaler.scaler.getTransformerFromModel(this._vScaler),_8=Math.max(0,this._vScaler.bounds.lower),_9=vt(_8),_a=this.events();
+var t=this.chart.theme,f,_9,_a,_b,ht=this._hScaler.scaler.getTransformerFromModel(this._hScaler),vt=this._vScaler.scaler.getTransformerFromModel(this._vScaler),_c=Math.max(0,this._vScaler.bounds.lower),_d=vt(_c),_e=this.events();
 f=dc.calculateBarSize(this._hScaler.bounds.scale,this.opt,this.series.length);
-_5=f.gap;
-_6=_7=f.size;
+_9=f.gap;
+_a=_b=f.size;
 for(var i=0;i<this.series.length;++i){
-var _b=this.series[i],_c=_7*i;
-if(!this.dirty&&!_b.dirty){
+var _f=this.series[i],_10=_b*i;
+if(!this.dirty&&!_f.dirty){
 t.skip();
-this._reconnectEvents(_b.name);
+this._reconnectEvents(_f.name);
 continue;
 }
-_b.cleanGroup();
-var _d=t.next("column",[this.opt,_b]),s=_b.group,_e=new Array(_b.data.length);
-for(var j=0;j<_b.data.length;++j){
-var _f=_b.data[j];
-if(_f!==null){
-var v=typeof _f=="number"?_f:_f.y,vv=vt(v),_10=vv-_9,h=Math.abs(_10),_11=typeof _f!="number"?t.addMixin(_d,"column",_f,true):t.post(_d,"column");
-if(_6>=1&&h>=1){
-var _12={x:_3.l+ht(j+0.5)+_5+_c,y:_2.height-_3.b-(v>_8?vv:_9),width:_6,height:h};
-var _13=this._plotFill(_11.series.fill,_2,_3);
-_13=this._shapeFill(_13,_12);
-var _14=s.createRect(_12).setFill(_13).setStroke(_11.series.stroke);
-_b.dyn.fill=_14.getFill();
-_b.dyn.stroke=_14.getStroke();
-if(_a){
-var o={element:"column",index:j,run:_b,shape:_14,x:j+0.5,y:v};
+_f.cleanGroup();
+var _11=t.next("column",[this.opt,_f]),s=_f.group,_12=new Array(_f.data.length);
+for(var j=0;j<_f.data.length;++j){
+var _13=_f.data[j];
+if(_13!==null){
+var v=typeof _13=="number"?_13:_13.y,vv=vt(v),_14=vv-_d,h=Math.abs(_14),_15=typeof _13!="number"?t.addMixin(_11,"column",_13,true):t.post(_11,"column");
+if(_a>=1&&h>=0){
+var _16={x:_7.l+ht(j+0.5)+_9+_10,y:_6.height-_7.b-(v>_c?vv:_d),width:_a,height:h};
+var _17=this._plotFill(_15.series.fill,_6,_7);
+_17=this._shapeFill(_17,_16);
+var _18=s.createRect(_16).setFill(_17).setStroke(_15.series.stroke);
+_f.dyn.fill=_18.getFill();
+_f.dyn.stroke=_18.getStroke();
+if(_e){
+var o={element:"column",index:j,run:_f,shape:_18,x:j+0.5,y:v};
 this._connectEvents(o);
-_e[j]=o;
+_12[j]=o;
 }
 if(this.animate){
-this._animateColumn(_14,_2.height-_3.b-_9,h);
+this._animateColumn(_18,_6.height-_7.b-_d,h);
 }
 }
 }
 }
-this._eventSeries[_b.name]=_e;
-_b.dirty=false;
+this._eventSeries[_f.name]=_12;
+_f.dirty=false;
 }
 this.dirty=false;
 return this;
 }});
-})();
-}
+});

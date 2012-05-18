@@ -1,96 +1,85 @@
-/*
-	Copyright (c) 2004-2011, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
-
-
-if(!dojo._hasResource["dojox.editor.plugins.ShowBlockNodes"]){
-dojo._hasResource["dojox.editor.plugins.ShowBlockNodes"]=true;
-dojo.provide("dojox.editor.plugins.ShowBlockNodes");
-dojo.require("dijit._editor._Plugin");
-dojo.require("dijit.form.Button");
-dojo.require("dojo.i18n");
-dojo.requireLocalization("dojox.editor.plugins","ShowBlockNodes",null,"ROOT,ar,ca,cs,da,de,el,es,fi,fr,he,hu,it,ja,kk,ko,nb,nl,pl,pt,pt-pt,ro,ru,sk,sl,sv,th,tr,zh,zh-tw");
-dojo.declare("dojox.editor.plugins.ShowBlockNodes",dijit._editor._Plugin,{useDefaultCommand:false,iconClassPrefix:"dijitAdditionalEditorIcon",_styled:false,_initButton:function(){
-var _1=dojo.i18n.getLocalization("dojox.editor.plugins","ShowBlockNodes");
-this.button=new dijit.form.ToggleButton({label:_1["showBlockNodes"],showLabel:false,iconClass:this.iconClassPrefix+" "+this.iconClassPrefix+"ShowBlockNodes",tabIndex:"-1",onChange:dojo.hitch(this,"_showBlocks")});
-this.editor.addKeyHandler(dojo.keys.F9,true,true,dojo.hitch(this,this.toggle));
+//>>built
+define("dojox/editor/plugins/ShowBlockNodes",["dojo","dijit","dojox","dijit/_editor/_Plugin","dijit/form/Button","dijit/form/ToggleButton","dojo/_base/connect","dojo/_base/declare","dojo/i18n","dojo/i18n!dojox/editor/plugins/nls/ShowBlockNodes"],function(_1,_2,_3){
+_1.declare("dojox.editor.plugins.ShowBlockNodes",_2._editor._Plugin,{useDefaultCommand:false,iconClassPrefix:"dijitAdditionalEditorIcon",_styled:false,_initButton:function(){
+var _4=_1.i18n.getLocalization("dojox.editor.plugins","ShowBlockNodes");
+this.button=new _2.form.ToggleButton({label:_4["showBlockNodes"],showLabel:false,iconClass:this.iconClassPrefix+" "+this.iconClassPrefix+"ShowBlockNodes",tabIndex:"-1",onChange:_1.hitch(this,"_showBlocks")});
+this.editor.addKeyHandler(_1.keys.F9,true,true,_1.hitch(this,this.toggle));
 },updateState:function(){
 this.button.set("disabled",this.get("disabled"));
-},setEditor:function(_2){
-this.editor=_2;
+},setEditor:function(_5){
+this.editor=_5;
 this._initButton();
 },toggle:function(){
 this.button.set("checked",!this.button.get("checked"));
-},_showBlocks:function(_3){
-var _4=this.editor.document;
+},_showBlocks:function(_6){
+var _7=this.editor.document;
 if(!this._styled){
 try{
 this._styled=true;
-var _5="";
-var _6=["div","p","ul","ol","table","h1","h2","h3","h4","h5","h6","pre","dir","center","blockquote","form","fieldset","address","object","pre","hr","ins","noscript","li","map","button","dd","dt"];
-var _7="@media screen {\n"+"\t.editorShowBlocks {TAG} {\n"+"\t\tbackground-image: url({MODURL}/images/blockelems/{TAG}.gif);\n"+"\t\tbackground-repeat: no-repeat;\n"+"\t\tbackground-position: top left;\n"+"\t\tborder-width: 1px;\n"+"\t\tborder-style: dashed;\n"+"\t\tborder-color: #D0D0D0;\n"+"\t\tpadding-top: 15px;\n"+"\t\tpadding-left: 15px;\n"+"\t}\n"+"}\n";
-dojo.forEach(_6,function(_8){
-_5+=_7.replace(/\{TAG\}/gi,_8);
+var _8="";
+var _9=["div","p","ul","ol","table","h1","h2","h3","h4","h5","h6","pre","dir","center","blockquote","form","fieldset","address","object","pre","hr","ins","noscript","li","map","button","dd","dt"];
+var _a="@media screen {\n"+"\t.editorShowBlocks {TAG} {\n"+"\t\tbackground-image: url({MODURL}/images/blockelems/{TAG}.gif);\n"+"\t\tbackground-repeat: no-repeat;\n"+"\t\tbackground-position: top left;\n"+"\t\tborder-width: 1px;\n"+"\t\tborder-style: dashed;\n"+"\t\tborder-color: #D0D0D0;\n"+"\t\tpadding-top: 15px;\n"+"\t\tpadding-left: 15px;\n"+"\t}\n"+"}\n";
+_1.forEach(_9,function(_b){
+_8+=_a.replace(/\{TAG\}/gi,_b);
 });
-var _9=dojo.moduleUrl(dojox._scopeName,"editor/plugins/resources").toString();
-if(!(_9.match(/^https?:\/\//i))&&!(_9.match(/^file:\/\//i))){
-var _a;
-if(_9.charAt(0)==="/"){
-var _b=dojo.doc.location.protocol;
-var _c=dojo.doc.location.host;
-_a=_b+"//"+_c;
+var _c=_1.moduleUrl(_3._scopeName,"editor/plugins/resources").toString();
+if(!(_c.match(/^https?:\/\//i))&&!(_c.match(/^file:\/\//i))){
+var _d;
+if(_c.charAt(0)==="/"){
+var _e=_1.doc.location.protocol;
+var _f=_1.doc.location.host;
+_d=_e+"//"+_f;
 }else{
-_a=this._calcBaseUrl(dojo.global.location.href);
+_d=this._calcBaseUrl(_1.global.location.href);
 }
-if(_a[_a.length-1]!=="/"&&_9.charAt(0)!=="/"){
-_a+="/";
+if(_d[_d.length-1]!=="/"&&_c.charAt(0)!=="/"){
+_d+="/";
 }
-_9=_a+_9;
+_c=_d+_c;
 }
-_5=_5.replace(/\{MODURL\}/gi,_9);
-if(!dojo.isIE){
-var _d=_4.createElement("style");
-_d.appendChild(_4.createTextNode(_5));
-_4.getElementsByTagName("head")[0].appendChild(_d);
+_8=_8.replace(/\{MODURL\}/gi,_c);
+if(!_1.isIE){
+var _10=_7.createElement("style");
+_10.appendChild(_7.createTextNode(_8));
+_7.getElementsByTagName("head")[0].appendChild(_10);
 }else{
-var ss=_4.createStyleSheet("");
-ss.cssText=_5;
+var ss=_7.createStyleSheet("");
+ss.cssText=_8;
 }
 }
 catch(e){
 console.warn(e);
 }
 }
-if(_3){
-dojo.addClass(this.editor.editNode,"editorShowBlocks");
+if(_6){
+_1.addClass(this.editor.editNode,"editorShowBlocks");
 }else{
-dojo.removeClass(this.editor.editNode,"editorShowBlocks");
+_1.removeClass(this.editor.editNode,"editorShowBlocks");
 }
-},_calcBaseUrl:function(_e){
-var _f=null;
-if(_e!==null){
-var _10=_e.indexOf("?");
-if(_10!=-1){
-_e=_e.substring(0,_10);
+},_calcBaseUrl:function(_11){
+var _12=null;
+if(_11!==null){
+var _13=_11.indexOf("?");
+if(_13!=-1){
+_11=_11.substring(0,_13);
 }
-_10=_e.lastIndexOf("/");
-if(_10>0&&_10<_e.length){
-_f=_e.substring(0,_10);
+_13=_11.lastIndexOf("/");
+if(_13>0&&_13<_11.length){
+_12=_11.substring(0,_13);
 }else{
-_f=_e;
+_12=_11;
 }
 }
-return _f;
+return _12;
 }});
-dojo.subscribe(dijit._scopeName+".Editor.getPlugin",null,function(o){
+_1.subscribe(_2._scopeName+".Editor.getPlugin",null,function(o){
 if(o.plugin){
 return;
 }
-var _11=o.args.name.toLowerCase();
-if(_11==="showblocknodes"){
-o.plugin=new dojox.editor.plugins.ShowBlockNodes();
+var _14=o.args.name.toLowerCase();
+if(_14==="showblocknodes"){
+o.plugin=new _3.editor.plugins.ShowBlockNodes();
 }
 });
-}
+return _3.editor.plugins.ShowBlockNodes;
+});

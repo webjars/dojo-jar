@@ -1,1 +1,14 @@
-({"set":"Festlegen","insertAnchor":"Anker einfügen","title":"Eigenschaften des Ankers","text":"Beschreibung:","cancel":"Abbrechen","anchor":"Name:"})
+//>>built
+define(
+"dojox/editor/plugins/nls/de/InsertAnchor", //begin v1.x content
+({
+	insertAnchor: "Anker einfügen",
+	title: "Eigenschaften des Ankers",
+	anchor: "Name:",
+	text: "Beschreibung:",
+	set: "Festlegen",
+	cancel: "Abbrechen"
+})
+
+//end v1.x content
+);

@@ -4,26 +4,25 @@
 	see: http://dojotoolkit.org/license for details
 */
 
-
-if(!dojo._hasResource["dojo.dnd.common"]){
-dojo._hasResource["dojo.dnd.common"]=true;
-dojo.provide("dojo.dnd.common");
-dojo.getObject("dnd",true,dojo);
-dojo.dnd.getCopyKeyState=dojo.isCopyKey;
-dojo.dnd._uniqueId=0;
-dojo.dnd.getUniqueId=function(){
+//>>built
+define("dojo/dnd/common",["../main"],function(_1){
+_1.getObject("dnd",true,_1);
+_1.dnd.getCopyKeyState=_1.isCopyKey;
+_1.dnd._uniqueId=0;
+_1.dnd.getUniqueId=function(){
 var id;
 do{
-id=dojo._scopeName+"Unique"+(++dojo.dnd._uniqueId);
-}while(dojo.byId(id));
+id=_1._scopeName+"Unique"+(++_1.dnd._uniqueId);
+}while(_1.byId(id));
 return id;
 };
-dojo.dnd._empty={};
-dojo.dnd.isFormElement=function(e){
+_1.dnd._empty={};
+_1.dnd.isFormElement=function(e){
 var t=e.target;
 if(t.nodeType==3){
 t=t.parentNode;
 }
 return " button textarea input select option ".indexOf(" "+t.tagName.toLowerCase()+" ")>=0;
 };
-}
+return _1.dnd;
+});

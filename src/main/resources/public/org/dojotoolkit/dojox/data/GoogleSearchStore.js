@@ -1,81 +1,65 @@
-/*
-	Copyright (c) 2004-2011, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
-
-
-if(!dojo._hasResource["dojox.data.GoogleSearchStore"]){
-dojo._hasResource["dojox.data.GoogleSearchStore"]=true;
-dojo.provide("dojox.data.GoogleSearchStore");
-dojo.require("dojo.io.script");
-dojo.provide("dojox.data.GoogleWebSearchStore");
-dojo.provide("dojox.data.GoogleBlogSearchStore");
-dojo.provide("dojox.data.GoogleLocalSearchStore");
-dojo.provide("dojox.data.GoogleVideoSearchStore");
-dojo.provide("dojox.data.GoogleNewsSearchStore");
-dojo.provide("dojox.data.GoogleBookSearchStore");
-dojo.provide("dojox.data.GoogleImageSearchStore");
-dojo.experimental("dojox.data.GoogleSearchStore");
-dojo.declare("dojox.data.GoogleSearchStore",null,{constructor:function(_1){
-if(_1){
-if(_1.label){
-this.label=_1.label;
+//>>built
+define("dojox/data/GoogleSearchStore",["dojo/_base/kernel","dojo/_base/lang","dojo/_base/declare","dojo/_base/window","dojo/_base/query","dojo/dom-construct","dojo/io/script"],function(_1,_2,_3,_4,_5,_6,_7){
+_1.experimental("dojox.data.GoogleSearchStore");
+var _8=_3("dojox.data.GoogleSearchStore",null,{constructor:function(_9){
+if(_9){
+if(_9.label){
+this.label=_9.label;
 }
-if(_1.key){
-this._key=_1.key;
+if(_9.key){
+this._key=_9.key;
 }
-if(_1.lang){
-this._lang=_1.lang;
+if(_9.lang){
+this._lang=_9.lang;
 }
-if("urlPreventCache" in _1){
-this.urlPreventCache=_1.urlPreventCache?true:false;
+if("urlPreventCache" in _9){
+this.urlPreventCache=_9.urlPreventCache?true:false;
 }
 }
 this._id=dojox.data.GoogleSearchStore.prototype._id++;
-},_id:0,_requestCount:0,_googleUrl:"http://ajax.googleapis.com/ajax/services/search/",_storeRef:"_S",_attributes:["unescapedUrl","url","visibleUrl","cacheUrl","title","titleNoFormatting","content","estimatedResultCount"],_aggregatedAttributes:{estimatedResultCount:"cursor.estimatedResultCount"},label:"titleNoFormatting",_type:"web",urlPreventCache:true,_queryAttrs:{text:"q"},_assertIsItem:function(_2){
-if(!this.isItem(_2)){
+},_id:0,_requestCount:0,_googleUrl:"http://ajax.googleapis.com/ajax/services/search/",_storeRef:"_S",_attributes:["unescapedUrl","url","visibleUrl","cacheUrl","title","titleNoFormatting","content","estimatedResultCount"],_aggregatedAttributes:{estimatedResultCount:"cursor.estimatedResultCount"},label:"titleNoFormatting",_type:"web",urlPreventCache:true,_queryAttrs:{text:"q"},_assertIsItem:function(_a){
+if(!this.isItem(_a)){
 throw new Error("dojox.data.GoogleSearchStore: a function was passed an item argument that was not an item");
 }
-},_assertIsAttribute:function(_3){
-if(typeof _3!=="string"){
+},_assertIsAttribute:function(_b){
+if(typeof _b!=="string"){
 throw new Error("dojox.data.GoogleSearchStore: a function was passed an attribute argument that was not an attribute name string");
 }
 },getFeatures:function(){
 return {"dojo.data.api.Read":true};
-},getValue:function(_4,_5,_6){
-var _7=this.getValues(_4,_5);
-if(_7&&_7.length>0){
-return _7[0];
+},getValue:function(_c,_d,_e){
+var _f=this.getValues(_c,_d);
+if(_f&&_f.length>0){
+return _f[0];
 }
-return _6;
-},getAttributes:function(_8){
+return _e;
+},getAttributes:function(_10){
 return this._attributes;
-},hasAttribute:function(_9,_a){
-if(this.getValue(_9,_a)){
+},hasAttribute:function(_11,_12){
+if(this.getValue(_11,_12)){
 return true;
 }
 return false;
-},isItemLoaded:function(_b){
-return this.isItem(_b);
-},loadItem:function(_c){
-},getLabel:function(_d){
-return this.getValue(_d,this.label);
-},getLabelAttributes:function(_e){
+},isItemLoaded:function(_13){
+return this.isItem(_13);
+},loadItem:function(_14){
+},getLabel:function(_15){
+return this.getValue(_15,this.label);
+},getLabelAttributes:function(_16){
 return [this.label];
-},containsValue:function(_f,_10,_11){
-var _12=this.getValues(_f,_10);
-for(var i=0;i<_12.length;i++){
-if(_12[i]===_11){
+},containsValue:function(_17,_18,_19){
+var _1a=this.getValues(_17,_18);
+for(var i=0;i<_1a.length;i++){
+if(_1a[i]===_19){
 return true;
 }
 }
 return false;
-},getValues:function(_13,_14){
-this._assertIsItem(_13);
-this._assertIsAttribute(_14);
-var val=_13[_14];
-if(dojo.isArray(val)){
+},getValues:function(_1b,_1c){
+this._assertIsItem(_1b);
+this._assertIsAttribute(_1c);
+var val=_1b[_1c];
+if(_2.isArray(val)){
 return val;
 }else{
 if(val!==undefined){
@@ -84,144 +68,144 @@ return [val];
 return [];
 }
 }
-},isItem:function(_15){
-if(_15&&_15[this._storeRef]===this){
+},isItem:function(_1d){
+if(_1d&&_1d[this._storeRef]===this){
 return true;
 }
 return false;
-},close:function(_16){
-},_format:function(_17,_18){
-return _17;
-},fetch:function(_19){
-_19=_19||{};
-var _1a=_19.scope||dojo.global;
-if(!_19.query){
-if(_19.onError){
-_19.onError.call(_1a,new Error(this.declaredClass+": A query must be specified."));
+},close:function(_1e){
+},_format:function(_1f,_20){
+return _1f;
+},fetch:function(_21){
+_21=_21||{};
+var _22=_21.scope||_4.global;
+if(!_21.query){
+if(_21.onError){
+_21.onError.call(_22,new Error(this.declaredClass+": A query must be specified."));
 return;
 }
 }
-var _1b={};
-for(var _1c in this._queryAttrs){
-_1b[_1c]=_19.query[_1c];
+var _23={};
+for(var _24 in this._queryAttrs){
+_23[_24]=_21.query[_24];
 }
-_19={query:_1b,onComplete:_19.onComplete,onError:_19.onError,onItem:_19.onItem,onBegin:_19.onBegin,start:_19.start,count:_19.count};
-var _1d=8;
-var _1e="GoogleSearchStoreCallback_"+this._id+"_"+(++this._requestCount);
-var _1f=this._createContent(_1b,_1e,_19);
-var _20;
-if(typeof (_19.start)==="undefined"||_19.start===null){
-_19.start=0;
+_21={query:_23,onComplete:_21.onComplete,onError:_21.onError,onItem:_21.onItem,onBegin:_21.onBegin,start:_21.start,count:_21.count};
+var _25=8;
+var _26="GoogleSearchStoreCallback_"+this._id+"_"+(++this._requestCount);
+var _27=this._createContent(_23,_26,_21);
+var _28;
+if(typeof (_21.start)==="undefined"||_21.start===null){
+_21.start=0;
 }
-if(!_19.count){
-_19.count=_1d;
+if(!_21.count){
+_21.count=_25;
 }
-_20={start:_19.start-_19.start%_1d};
-var _21=this;
-var _22=this._googleUrl+this._type;
-var _23={url:_22,preventCache:this.urlPreventCache,content:_1f};
-var _24=[];
-var _25=0;
-var _26=false;
-var _27=_19.start-1;
-var _28=0;
-var _29=[];
-function _2a(req){
-_28++;
-_23.content.context=_23.content.start=req.start;
-var _2b=dojo.io.script.get(_23);
-_29.push(_2b.ioArgs.id);
-_2b.addErrback(function(_2c){
-if(_19.onError){
-_19.onError.call(_1a,_2c,_19);
+_28={start:_21.start-_21.start%_25};
+var _29=this;
+var _2a=this._googleUrl+this._type;
+var _2b={url:_2a,preventCache:this.urlPreventCache,content:_27};
+var _2c=[];
+var _2d=0;
+var _2e=false;
+var _2f=_21.start-1;
+var _30=0;
+var _31=[];
+function _32(req){
+_30++;
+_2b.content.context=_2b.content.start=req.start;
+var _33=_7.get(_2b);
+_31.push(_33.ioArgs.id);
+_33.addErrback(function(_34){
+if(_21.onError){
+_21.onError.call(_22,_34,_21);
 }
 });
 };
-var _2d=function(_2e,_2f){
-if(_29.length>0){
-dojo.query("#"+_29.splice(0,1)).forEach(dojo.destroy);
+var _35=function(_36,_37){
+if(_31.length>0){
+_5("#"+_31.splice(0,1)).forEach(_6.destroy);
 }
-if(_26){
+if(_2e){
 return;
 }
-var _30=_21._getItems(_2f);
-var _31=_2f?_2f["cursor"]:null;
-if(_30){
-for(var i=0;i<_30.length&&i+_2e<_19.count+_19.start;i++){
-_21._processItem(_30[i],_2f);
-_24[i+_2e]=_30[i];
+var _38=_29._getItems(_37);
+var _39=_37?_37["cursor"]:null;
+if(_38){
+for(var i=0;i<_38.length&&i+_36<_21.count+_21.start;i++){
+_29._processItem(_38[i],_37);
+_2c[i+_36]=_38[i];
 }
-_25++;
-if(_25==1){
-var _32=_31?_31.pages:null;
-var _33=_32?Number(_32[_32.length-1].start):0;
-if(_19.onBegin){
-var est=_31?_31.estimatedResultCount:_30.length;
-var _34=est?Math.min(est,_33+_30.length):_33+_30.length;
-_19.onBegin.call(_1a,_34,_19);
+_2d++;
+if(_2d==1){
+var _3a=_39?_39.pages:null;
+var _3b=_3a?Number(_3a[_3a.length-1].start):0;
+if(_21.onBegin){
+var est=_39?_39.estimatedResultCount:_38.length;
+var _3c=est?Math.min(est,_3b+_38.length):_3b+_38.length;
+_21.onBegin.call(_22,_3c,_21);
 }
-var _35=(_19.start-_19.start%_1d)+_1d;
-var _36=1;
-while(_32){
-if(!_32[_36]||Number(_32[_36].start)>=_19.start+_19.count){
+var _3d=(_21.start-_21.start%_25)+_25;
+var _3e=1;
+while(_3a){
+if(!_3a[_3e]||Number(_3a[_3e].start)>=_21.start+_21.count){
 break;
 }
-if(Number(_32[_36].start)>=_35){
-_2a({start:_32[_36].start});
+if(Number(_3a[_3e].start)>=_3d){
+_32({start:_3a[_3e].start});
 }
-_36++;
+_3e++;
 }
 }
-if(_19.onItem&&_24[_27+1]){
+if(_21.onItem&&_2c[_2f+1]){
 do{
-_27++;
-_19.onItem.call(_1a,_24[_27],_19);
-}while(_24[_27+1]&&_27<_19.start+_19.count);
+_2f++;
+_21.onItem.call(_22,_2c[_2f],_21);
+}while(_2c[_2f+1]&&_2f<_21.start+_21.count);
 }
-if(_25==_28){
-_26=true;
-dojo.global[_1e]=null;
-if(_19.onItem){
-_19.onComplete.call(_1a,null,_19);
+if(_2d==_30){
+_2e=true;
+_4.global[_26]=null;
+if(_21.onItem){
+_21.onComplete.call(_22,null,_21);
 }else{
-_24=_24.slice(_19.start,_19.start+_19.count);
-_19.onComplete.call(_1a,_24,_19);
+_2c=_2c.slice(_21.start,_21.start+_21.count);
+_21.onComplete.call(_22,_2c,_21);
 }
 }
 }
 };
-var _37=[];
-var _38=_20.start-1;
-dojo.global[_1e]=function(_39,_3a,_3b,_3c){
+var _3f=[];
+var _40=_28.start-1;
+_4.global[_26]=function(_41,_42,_43,_44){
 try{
-if(_3b!=200){
-if(_19.onError){
-_19.onError.call(_1a,new Error("Response from Google was: "+_3b),_19);
+if(_43!=200){
+if(_21.onError){
+_21.onError.call(_22,new Error("Response from Google was: "+_43),_21);
 }
-dojo.global[_1e]=function(){
+_4.global[_26]=function(){
 };
 return;
 }
-if(_39==_38+1){
-_2d(Number(_39),_3a);
-_38+=_1d;
-if(_37.length>0){
-_37.sort(_21._getSort());
-while(_37.length>0&&_37[0].start==_38+1){
-_2d(Number(_37[0].start),_37[0].data);
-_37.splice(0,1);
-_38+=_1d;
+if(_41==_40+1){
+_35(Number(_41),_42);
+_40+=_25;
+if(_3f.length>0){
+_3f.sort(_29._getSort());
+while(_3f.length>0&&_3f[0].start==_40+1){
+_35(Number(_3f[0].start),_3f[0].data);
+_3f.splice(0,1);
+_40+=_25;
 }
 }
 }else{
-_37.push({start:_39,data:_3a});
+_3f.push({start:_41,data:_42});
 }
 }
 catch(e){
-_19.onError.call(_1a,e,_19);
+_21.onError.call(_22,e,_21);
 }
 };
-_2a(_20);
+_32(_28);
 },_getSort:function(){
 return function(a,b){
 if(a.start<b.start){
@@ -232,25 +216,26 @@ return 1;
 }
 return 0;
 };
-},_processItem:function(_3d,_3e){
-_3d[this._storeRef]=this;
-for(var _3f in this._aggregatedAttributes){
-_3d[_3f]=dojo.getObject(this._aggregatedAttributes[_3f],false,_3e);
+},_processItem:function(_45,_46){
+_45[this._storeRef]=this;
+for(var _47 in this._aggregatedAttributes){
+_45[_47]=_2.getObject(this._aggregatedAttributes[_47],false,_46);
 }
-},_getItems:function(_40){
-return _40["results"]||_40;
-},_createContent:function(_41,_42,_43){
-var _44={v:"1.0",rsz:"large",callback:_42,key:this._key,hl:this._lang};
-for(var _45 in this._queryAttrs){
-_44[this._queryAttrs[_45]]=_41[_45];
+},_getItems:function(_48){
+return _48["results"]||_48;
+},_createContent:function(_49,_4a,_4b){
+var _4c={v:"1.0",rsz:"large",callback:_4a,key:this._key,hl:this._lang};
+for(var _4d in this._queryAttrs){
+_4c[this._queryAttrs[_4d]]=_49[_4d];
 }
-return _44;
+return _4c;
 }});
-dojo.declare("dojox.data.GoogleWebSearchStore",dojox.data.GoogleSearchStore,{});
-dojo.declare("dojox.data.GoogleBlogSearchStore",dojox.data.GoogleSearchStore,{_type:"blogs",_attributes:["blogUrl","postUrl","title","titleNoFormatting","content","author","publishedDate"],_aggregatedAttributes:{}});
-dojo.declare("dojox.data.GoogleLocalSearchStore",dojox.data.GoogleSearchStore,{_type:"local",_attributes:["title","titleNoFormatting","url","lat","lng","streetAddress","city","region","country","phoneNumbers","ddUrl","ddUrlToHere","ddUrlFromHere","staticMapUrl","viewport"],_aggregatedAttributes:{viewport:"viewport"},_queryAttrs:{text:"q",centerLatLong:"sll",searchSpan:"sspn"}});
-dojo.declare("dojox.data.GoogleVideoSearchStore",dojox.data.GoogleSearchStore,{_type:"video",_attributes:["title","titleNoFormatting","content","url","published","publisher","duration","tbWidth","tbHeight","tbUrl","playUrl"],_aggregatedAttributes:{}});
-dojo.declare("dojox.data.GoogleNewsSearchStore",dojox.data.GoogleSearchStore,{_type:"news",_attributes:["title","titleNoFormatting","content","url","unescapedUrl","publisher","clusterUrl","location","publishedDate","relatedStories"],_aggregatedAttributes:{}});
-dojo.declare("dojox.data.GoogleBookSearchStore",dojox.data.GoogleSearchStore,{_type:"books",_attributes:["title","titleNoFormatting","authors","url","unescapedUrl","bookId","pageCount","publishedYear"],_aggregatedAttributes:{}});
-dojo.declare("dojox.data.GoogleImageSearchStore",dojox.data.GoogleSearchStore,{_type:"images",_attributes:["title","titleNoFormatting","visibleUrl","url","unescapedUrl","originalContextUrl","width","height","tbWidth","tbHeight","tbUrl","content","contentNoFormatting"],_aggregatedAttributes:{}});
-}
+var _4e=_3("dojox.data.GoogleWebSearchStore",_8,{});
+var _4f=_3("dojox.data.GoogleBlogSearchStore",_8,{_type:"blogs",_attributes:["blogUrl","postUrl","title","titleNoFormatting","content","author","publishedDate"],_aggregatedAttributes:{}});
+var _50=_3("dojox.data.GoogleLocalSearchStore",_8,{_type:"local",_attributes:["title","titleNoFormatting","url","lat","lng","streetAddress","city","region","country","phoneNumbers","ddUrl","ddUrlToHere","ddUrlFromHere","staticMapUrl","viewport"],_aggregatedAttributes:{viewport:"viewport"},_queryAttrs:{text:"q",centerLatLong:"sll",searchSpan:"sspn"}});
+var _51=_3("dojox.data.GoogleVideoSearchStore",_8,{_type:"video",_attributes:["title","titleNoFormatting","content","url","published","publisher","duration","tbWidth","tbHeight","tbUrl","playUrl"],_aggregatedAttributes:{}});
+var _52=_3("dojox.data.GoogleNewsSearchStore",_8,{_type:"news",_attributes:["title","titleNoFormatting","content","url","unescapedUrl","publisher","clusterUrl","location","publishedDate","relatedStories"],_aggregatedAttributes:{}});
+var _53=_3("dojox.data.GoogleBookSearchStore",_8,{_type:"books",_attributes:["title","titleNoFormatting","authors","url","unescapedUrl","bookId","pageCount","publishedYear"],_aggregatedAttributes:{}});
+var _54=_3("dojox.data.GoogleImageSearchStore",_8,{_type:"images",_attributes:["title","titleNoFormatting","visibleUrl","url","unescapedUrl","originalContextUrl","width","height","tbWidth","tbHeight","tbUrl","content","contentNoFormatting"],_aggregatedAttributes:{}});
+return {Search:_8,ImageSearch:_54,BookSearch:_53,NewsSearch:_52,VideoSearch:_51,LocalSearch:_50,BlogSearch:_4f,WebSearch:_4e};
+});

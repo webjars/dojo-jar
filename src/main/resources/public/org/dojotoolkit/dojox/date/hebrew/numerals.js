@@ -1,93 +1,86 @@
-/*
-	Copyright (c) 2004-2011, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
-
-
-if(!dojo._hasResource["dojox.date.hebrew.numerals"]){
-dojo._hasResource["dojox.date.hebrew.numerals"]=true;
-dojo.provide("dojox.date.hebrew.numerals");
-(function(){
-var _1="אבגדהוזחט";
-var _2="יכלמנסעפצ";
-var _3="קרשת";
-var _4=function(_5,_6){
-_5=_5.replace("יה","טו").replace("יו","טז");
-if(!_6){
-var _7=_5.length;
-if(_7>1){
-_5=_5.substr(0,_7-1)+"\""+_5.charAt(_7-1);
+//>>built
+define("dojox/date/hebrew/numerals",["dojo/_base/kernel","dojo/_base/array"],function(_1){
+_1.getObject("date.hebrew.numerals",true,dojox);
+_1.experimental("dojox.date.hebrew.numerals");
+var _2="אבגדהוזחט";
+var _3="יכלמנסעפצ";
+var _4="קרשת";
+var _5=function(_6,_7){
+_6=_6.replace("יה","טו").replace("יו","טז");
+if(!_7){
+var _8=_6.length;
+if(_8>1){
+_6=_6.substr(0,_8-1)+"\""+_6.charAt(_8-1);
 }else{
-_5+="׳";
+_6+="׳";
 }
 }
-return _5;
+return _6;
 };
-var _8=function(_9){
-var _a=0;
-dojo.forEach(_9,function(ch){
+var _9=function(_a){
+var _b=0;
+_1.forEach(_a,function(ch){
 var i;
-if((i=_1.indexOf(ch))!=-1){
-_a+=++i;
-}else{
 if((i=_2.indexOf(ch))!=-1){
-_a+=10*++i;
+_b+=++i;
 }else{
 if((i=_3.indexOf(ch))!=-1){
-_a+=100*++i;
+_b+=10*++i;
+}else{
+if((i=_4.indexOf(ch))!=-1){
+_b+=100*++i;
 }
 }
 }
 });
-return _a;
+return _b;
 };
-var _b=function(_c){
-var _d="",n=4,j=9;
-while(_c){
-if(_c>=n*100){
-_d+=_3.charAt(n-1);
-_c-=n*100;
+var _c=function(_d){
+var _e="",n=4,j=9;
+while(_d){
+if(_d>=n*100){
+_e+=_4.charAt(n-1);
+_d-=n*100;
 continue;
 }else{
 if(n>1){
 n--;
 continue;
 }else{
-if(_c>=j*10){
-_d+=_2.charAt(j-1);
-_c-=j*10;
+if(_d>=j*10){
+_e+=_3.charAt(j-1);
+_d-=j*10;
 }else{
 if(j>1){
 j--;
 continue;
 }else{
-if(_c>0){
-_d+=_1.charAt(_c-1);
-_c=0;
+if(_d>0){
+_e+=_2.charAt(_d-1);
+_d=0;
 }
 }
 }
 }
 }
 }
-return _d;
+return _e;
 };
-dojox.date.hebrew.numerals.getYearHebrewLetters=function(_e){
-var _f=_e%1000;
-return _4(_b(_f));
+dojox.date.hebrew.numerals.getYearHebrewLetters=function(_f){
+var rem=_f%1000;
+return _5(_c(rem));
 };
 dojox.date.hebrew.numerals.parseYearHebrewLetters=function(_10){
-return _8(_10)+5000;
+return _9(_10)+5000;
 };
 dojox.date.hebrew.numerals.getDayHebrewLetters=function(day,_11){
-return _4(_b(day),_11);
+return _5(_c(day),_11);
 };
 dojox.date.hebrew.numerals.parseDayHebrewLetters=function(day){
-return _8(day);
+return _9(day);
 };
 dojox.date.hebrew.numerals.getMonthHebrewLetters=function(_12){
-return _4(_b(_12+1));
+return _5(_c(_12+1));
 };
 dojox.date.hebrew.numerals.parseMonthHebrewLetters=function(_13){
 var _14=dojox.date.hebrew.numerals.parseDayHebrewLetters(_13)-1;
@@ -96,5 +89,5 @@ throw new Error("The month name is incorrect , month = "+_14);
 }
 return _14;
 };
-})();
-}
+return dojox.date.hebrew.numerals;
+});

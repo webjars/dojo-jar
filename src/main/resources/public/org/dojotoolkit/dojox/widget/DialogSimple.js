@@ -1,14 +1,5 @@
-/*
-	Copyright (c) 2004-2011, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
-
-
-if(!dojo._hasResource["dojox.widget.DialogSimple"]){
-dojo._hasResource["dojox.widget.DialogSimple"]=true;
-dojo.provide("dojox.widget.DialogSimple");
-dojo.require("dijit.Dialog");
-dojo.require("dojox.layout.ContentPane");
-dojo.declare("dojox.widget.DialogSimple",[dojox.layout.ContentPane,dijit._DialogBase],{});
-}
+//>>built
+define("dojox/widget/DialogSimple",["dojo","dijit","dojox","dijit/Dialog","dojox/layout/ContentPane"],function(_1,_2,_3){
+_1.getObject("widget",true,_3);
+return _1.declare("dojox.widget.DialogSimple",[_3.layout.ContentPane,_2._DialogBase],{});
+});

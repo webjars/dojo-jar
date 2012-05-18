@@ -1,1 +1,13 @@
-dojo.provide("dojox.grid.nls.DataGrid_el");dojo.provide("dijit.nls.loading");dijit.nls.loading._built=true;dojo.provide("dijit.nls.loading.el");dijit.nls.loading.el={"loadingState":"Φόρτωση...","errorState":"Σας ζητούμε συγνώμη, παρουσιάστηκε σφάλμα"};
+require({cache:{
+'dijit/nls/el/loading':function(){
+define(
+"dijit/nls/el/loading", //begin v1.x content
+({
+	loadingState: "Φόρτωση...",
+	errorState: "Σας ζητούμε συγνώμη, παρουσιάστηκε σφάλμα"
+})
+//end v1.x content
+);
+
+}}});
+define("dojox/grid/nls/DataGrid_el", [], 1);

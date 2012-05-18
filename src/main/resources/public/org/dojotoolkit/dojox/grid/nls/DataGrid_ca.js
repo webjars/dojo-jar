@@ -1,1 +1,14 @@
-dojo.provide("dojox.grid.nls.DataGrid_ca");dojo.provide("dijit.nls.loading");dijit.nls.loading._built=true;dojo.provide("dijit.nls.loading.ca");dijit.nls.loading.ca={"loadingState":"S'està carregant...","errorState":"Ens sap greu. S'ha produït un error."};
+require({cache:{
+'dijit/nls/ca/loading':function(){
+define(
+"dijit/nls/ca/loading", //begin v1.x content
+({
+	loadingState: "S'està carregant...",
+	errorState: "Ens sap greu. S'ha produït un error."
+})
+
+//end v1.x content
+);
+
+}}});
+define("dojox/grid/nls/DataGrid_ca", [], 1);

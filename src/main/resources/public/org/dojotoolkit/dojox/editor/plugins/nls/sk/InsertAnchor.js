@@ -1,1 +1,14 @@
-({"set":"Nastaviť","insertAnchor":"Vložiť kotvu","title":"Vlastnosti kotvy","text":"Opis:","cancel":"Zrušiť","anchor":"Názov:"})
+//>>built
+define(
+"dojox/editor/plugins/nls/sk/InsertAnchor", //begin v1.x content
+({
+	insertAnchor: "Vložiť kotvu",
+	title: "Vlastnosti kotvy",
+	anchor: "Názov:",
+	text: "Opis:",
+	set: "Nastaviť",
+	cancel: "Zrušiť"
+})
+
+//end v1.x content
+);

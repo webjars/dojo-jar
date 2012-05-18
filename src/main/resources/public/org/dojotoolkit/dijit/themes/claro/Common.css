@@ -15,19 +15,10 @@
 }
 .claro .dijitFocusedLabel {
   
-  outline: 1px dotted #4a4a4a;
-}
-.claro .dijitContentPaneLoading {
-  background: url('images/loadingAnimation.gif') no-repeat left center;
-  padding-left: 25px;
-}
-.claro .dijitContentPaneError {
-  background: url('../../icons/images/commonIconsObjActEnabled.png') no-repeat left center;
-  background-position: -496px;
-  padding-left: 25px;
+  outline: 1px dotted #494949;
 }
 .claro .dojoDndItemBefore, .claro .dojoDndItemAfter {
-  border-top: 1px solid #769dc0;
+  border-top: 1px solid #759dc0;
 }
 .claro .dojoDndItemOver {
   cursor: pointer;
@@ -45,7 +36,7 @@
   padding-left: 21px;
 }
 .claro.dojoDndMove .dojoDndAvatarHeader, .claro.dojoDndCopy .dojoDndAvatarHeader {
-  background-image: url(images/dnd.png);
+  background-image: url("images/dnd.png");
   background-repeat: no-repeat;
   background-position: 2px -122px;
 }

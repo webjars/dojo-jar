@@ -1,1 +1,8 @@
-({"saturationPickerTitle":"Seletor de Saturação","huePickerTitle":"Seletor de Matiz","valueLabel":"v","blueLabel":"b","saturationLabel":"s","greenLabel":"g","redLabel":"r","hueLabel":"h","hexLabel":"hex","degLabel":"°"})
+//>>built
+define(
+"dojox/widget/nls/pt/ColorPicker", //begin v1.x content
+({
+huePickerTitle: "Seletor de Matiz",
+saturationPickerTitle: "Seletor de Saturação"
+})
+);

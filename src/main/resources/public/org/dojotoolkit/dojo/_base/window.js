@@ -4,46 +4,52 @@
 	see: http://dojotoolkit.org/license for details
 */
 
-
-if(!dojo._hasResource["dojo._base.window"]){
-dojo._hasResource["dojo._base.window"]=true;
-dojo.provide("dojo._base.window");
-dojo.doc=window["document"]||null;
-dojo.body=function(){
-return dojo.doc.body||dojo.doc.getElementsByTagName("body")[0];
+//>>built
+define("dojo/_base/window",["./kernel","../has","./sniff"],function(_1,_2){
+_1.doc=this["document"]||null;
+_1.body=function(){
+return _1.doc.body||_1.doc.getElementsByTagName("body")[0];
 };
-dojo.setContext=function(_1,_2){
-dojo.global=_1;
-dojo.doc=_2;
+_1.setContext=function(_3,_4){
+_1.global=_5.global=_3;
+_1.doc=_5.doc=_4;
 };
-dojo.withGlobal=function(_3,_4,_5,_6){
-var _7=dojo.global;
+_1.withGlobal=function(_6,_7,_8,_9){
+var _a=_1.global;
 try{
-dojo.global=_3;
-return dojo.withDoc.call(null,_3.document,_4,_5,_6);
+_1.global=_5.global=_6;
+return _1.withDoc.call(null,_6.document,_7,_8,_9);
 }
 finally{
-dojo.global=_7;
+_1.global=_5.global=_a;
 }
 };
-dojo.withDoc=function(_8,_9,_a,_b){
-var _c=dojo.doc,_d=dojo._bodyLtr,_e=dojo.isQuirks;
+_1.withDoc=function(_b,_c,_d,_e){
+var _f=_1.doc,_10=_1.isQuirks,_11=_1.isIE,_12,_13,_14;
 try{
-dojo.doc=_8;
-delete dojo._bodyLtr;
-dojo.isQuirks=dojo.doc.compatMode=="BackCompat";
-if(_a&&typeof _9=="string"){
-_9=_a[_9];
+_1.doc=_5.doc=_b;
+_1.isQuirks=_2.add("quirks",_1.doc.compatMode=="BackCompat",true,true);
+if(_2("ie")){
+if((_14=_b.parentWindow)&&_14.navigator){
+_12=parseFloat(_14.navigator.appVersion.split("MSIE ")[1])||undefined;
+_13=_b.documentMode;
+if(_13&&_13!=5&&Math.floor(_12)!=_13){
+_12=_13;
 }
-return _9.apply(_a,_b||[]);
+_1.isIE=_2.add("ie",_12,true,true);
+}
+}
+if(_d&&typeof _c=="string"){
+_c=_d[_c];
+}
+return _c.apply(_d,_e||[]);
 }
 finally{
-dojo.doc=_c;
-delete dojo._bodyLtr;
-if(_d!==undefined){
-dojo._bodyLtr=_d;
-}
-dojo.isQuirks=_e;
+_1.doc=_5.doc=_f;
+_1.isQuirks=_2.add("quirks",_10,true,true);
+_1.isIE=_2.add("ie",_11,true,true);
 }
 };
-}
+var _5={global:_1.global,doc:_1.doc,body:_1.body,setContext:_1.setContext,withGlobal:_1.withGlobal,withDoc:_1.withDoc};
+return _5;
+});

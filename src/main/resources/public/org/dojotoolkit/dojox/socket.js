@@ -1,125 +1,115 @@
-/*
-	Copyright (c) 2004-2011, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
-
-
-if(!dojo._hasResource["dojox.socket"]){
-dojo._hasResource["dojox.socket"]=true;
-dojo.provide("dojox.socket");
-dojo.require("dojo.cookie");
-var WebSocket=window.WebSocket;
-function Socket(_1){
-if(typeof _1=="string"){
-_1={url:_1};
+//>>built
+define("dojox/socket",["dojo","dojo/Evented","dojo/cookie","dojo/_base/url"],function(_1,_2){
+var _3=window.WebSocket;
+function _4(_5){
+if(typeof _5=="string"){
+_5={url:_5};
 }
-return WebSocket?dojox.socket.WebSocket(_1,true):dojox.socket.LongPoll(_1);
+return _3?dojox.socket.WebSocket(_5,true):dojox.socket.LongPoll(_5);
 };
-dojox.socket=Socket;
-Socket.WebSocket=function(_2,_3){
-var ws=new WebSocket(new dojo._Url(document.baseURI.replace(/^http/i,"ws"),_2.url));
-ws.on=function(_4,_5){
-ws.addEventListener(_4,_5,true);
+dojox.socket=_4;
+_4.WebSocket=function(_6,_7){
+var ws=new _3(new _1._Url(document.baseURI.replace(/^http/i,"ws"),_6.url));
+ws.on=function(_8,_9){
+ws.addEventListener(_8,_9,true);
 };
-var _6;
-dojo.connect(ws,"onopen",function(_7){
-_6=true;
+var _a;
+_1.connect(ws,"onopen",function(_b){
+_a=true;
 });
-dojo.connect(ws,"onclose",function(_8){
-if(_6){
+_1.connect(ws,"onclose",function(_c){
+if(_a){
 return;
 }
-if(_3){
-Socket.replace(ws,dojox.socket.LongPoll(_2),true);
+if(_7){
+_4.replace(ws,dojox.socket.LongPoll(_6),true);
 }
 });
 return ws;
 };
-Socket.replace=function(_9,_a,_b){
-_9.send=dojo.hitch(_a,"send");
-_9.close=dojo.hitch(_a,"close");
-if(_b){
-_c("open");
+_4.replace=function(_d,_e,_f){
+_d.send=_1.hitch(_e,"send");
+_d.close=_1.hitch(_e,"close");
+if(_f){
+_10("open");
 }
-dojo.forEach(["message","close","error"],_c);
-function _c(_d){
-(_a.addEventListener||_a.on).call(_a,_d,function(_e){
-var _f=document.createEvent("MessageEvent");
-_f.initMessageEvent(_e.type,false,false,_e.data,_e.origin,_e.lastEventId,_e.source);
-_9.dispatchEvent(_f);
+_1.forEach(["message","close","error"],_10);
+function _10(_11){
+(_e.addEventListener||_e.on).call(_e,_11,function(_12){
+var _13=document.createEvent("MessageEvent");
+_13.initMessageEvent(_12.type,false,false,_12.data,_12.origin,_12.lastEventId,_12.source);
+_d.dispatchEvent(_13);
 },true);
 };
 };
-Socket.LongPoll=function(_10){
-var _11=false,_12=true,_13,_14=[];
-var _15={send:function(_16){
-var _17=dojo.delegate(_10);
-_17.rawBody=_16;
-clearTimeout(_13);
-var _18=_12?(_12=false)||_15.firstRequest(_17):_15.transport(_17);
-_14.push(_18);
-_18.then(function(_19){
-_15.readyState=1;
-_14.splice(dojo.indexOf(_14,_18),1);
-if(!_14.length){
-_13=setTimeout(_21,_10.interval);
+_4.LongPoll=function(_14){
+var _15=false,_16=true,_17,_18=[];
+var _19={send:function(_1a){
+var _1b=_1.delegate(_14);
+_1b.rawBody=_1a;
+clearTimeout(_17);
+var _1c=_16?(_16=false)||_19.firstRequest(_1b):_19.transport(_1b);
+_18.push(_1c);
+_1c.then(function(_1d){
+_19.readyState=1;
+_18.splice(_1.indexOf(_18,_1c),1);
+if(!_18.length){
+_17=setTimeout(_23,_14.interval);
 }
-if(_19){
-_1b("message",{data:_19},_18);
+if(_1d){
+_1f("message",{data:_1d},_1c);
 }
-},function(_1a){
-_14.splice(dojo.indexOf(_14,_18),1);
-if(!_11){
-_1b("error",{error:_1a},_18);
-if(!_14.length){
-_15.readyState=3;
-_1b("close",{wasClean:false},_18);
+},function(_1e){
+_18.splice(_1.indexOf(_18,_1c),1);
+if(!_15){
+_1f("error",{error:_1e},_1c);
+if(!_18.length){
+_19.readyState=3;
+_1f("close",{wasClean:false},_1c);
 }
 }
 });
-return _18;
+return _1c;
 },close:function(){
-_15.readyState=2;
-_11=true;
-for(var i=0;i<_14.length;i++){
-_14[i].cancel();
+_19.readyState=2;
+_15=true;
+for(var i=0;i<_18.length;i++){
+_18[i].cancel();
 }
-_15.readyState=3;
-_1b("close",{wasClean:true});
-},transport:_10.transport||dojo.xhrPost,args:_10,url:_10.url,readyState:0,CONNECTING:0,OPEN:1,CLOSING:2,CLOSED:3,dispatchEvent:function(_1c){
-_1b(_1c.type,_1c);
-},on:function(_1d,_1e){
-return dojo.connect(this,"on"+_1d,_1e);
-},firstRequest:function(_1f){
-var _20=(_1f.headers||(_1f.headers={}));
-_20.Pragma="start-long-poll";
+_19.readyState=3;
+_1f("close",{wasClean:true});
+},transport:_14.transport||_1.xhrPost,args:_14,url:_14.url,readyState:0,CONNECTING:0,OPEN:1,CLOSING:2,CLOSED:3,dispatchEvent:function(_20){
+_1f(_20.type,_20);
+},on:_2.prototype.on,firstRequest:function(_21){
+var _22=(_21.headers||(_21.headers={}));
+_22.Pragma="start-long-poll";
 try{
-return this.transport(_1f);
+return this.transport(_21);
 }
 finally{
-delete _20.Pragma;
+delete _22.Pragma;
 }
 }};
-function _21(){
-if(_15.readyState==0){
-_1b("open",{});
+function _23(){
+if(_19.readyState==0){
+_1f("open",{});
 }
-if(!_14.length){
-_15.send();
-}
-};
-function _1b(_22,_23,_24){
-if(_15["on"+_22]){
-var _25=document.createEvent("HTMLEvents");
-_25.initEvent(_22,false,false);
-dojo.mixin(_25,_23);
-_25.ioArgs=_24&&_24.ioArgs;
-_15["on"+_22](_25);
+if(!_18.length){
+_19.send();
 }
 };
-_15.connect=_15.on;
-setTimeout(_21);
-return _15;
-};
+function _1f(_24,_25,_26){
+if(_19["on"+_24]){
+var _27=document.createEvent("HTMLEvents");
+_27.initEvent(_24,false,false);
+_1.mixin(_27,_25);
+_27.ioArgs=_26&&_26.ioArgs;
+_19["on"+_24](_27);
 }
+};
+_19.connect=_19.on;
+setTimeout(_23);
+return _19;
+};
+return _4;
+});

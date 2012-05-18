@@ -1,35 +1,27 @@
-/*
-	Copyright (c) 2004-2011, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
-
-
-if(!dojo._hasResource["dojox.dtl.render.dom"]){
-dojo._hasResource["dojox.dtl.render.dom"]=true;
-dojo.provide("dojox.dtl.render.dom");
-dojo.require("dojox.dtl.Context");
-dojo.require("dojox.dtl.dom");
-dojox.dtl.render.dom.Render=function(_1,_2){
-this._tpl=_2;
-this.domNode=dojo.byId(_1);
+//>>built
+define("dojox/dtl/render/dom",["dojo/_base/lang","dojo/dom","../Context","../dom","../_base"],function(_1,_2,_3,_4,dd){
+_1.getObject("dojox.dtl.render.dom",true);
+dd.render.dom.Render=function(_5,_6){
+this._tpl=_6;
+this.domNode=_2.byId(_5);
 };
-dojo.extend(dojox.dtl.render.dom.Render,{setAttachPoint:function(_3){
-this.domNode=_3;
-},render:function(_4,_5,_6){
+_1.extend(dd.render.dom.Render,{setAttachPoint:function(_7){
+this.domNode=_7;
+},render:function(_8,_9,_a){
 if(!this.domNode){
 throw new Error("You cannot use the Render object without specifying where you want to render it");
 }
-this._tpl=_5=_5||this._tpl;
-_6=_6||_5.getBuffer();
-_4=_4||new dojox.dtl.Context();
-var _7=_5.render(_4,_6).getParent();
-if(!_7){
+this._tpl=_9=_9||this._tpl;
+_a=_a||_9.getBuffer();
+_8=_8||new _3();
+var _b=_9.render(_8,_a).getParent();
+if(!_b){
 throw new Error("Rendered template does not have a root node");
 }
-if(this.domNode!==_7){
-this.domNode.parentNode.replaceChild(_7,this.domNode);
-this.domNode=_7;
+if(this.domNode!==_b){
+this.domNode.parentNode.replaceChild(_b,this.domNode);
+this.domNode=_b;
 }
 }});
-}
+return dojox.dtl.render.dom;
+});

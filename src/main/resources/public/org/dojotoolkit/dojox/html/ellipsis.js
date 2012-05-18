@@ -1,15 +1,6 @@
-/*
-	Copyright (c) 2004-2011, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
-
-
-if(!dojo._hasResource["dojox.html.ellipsis"]){
-dojo._hasResource["dojox.html.ellipsis"]=true;
-dojo.provide("dojox.html.ellipsis");
-(function(d){
-if(d.isMoz){
+//>>built
+define("dojox/html/ellipsis",["dojo/_base/kernel","dojo/_base/lang","dojo/_base/array","dojo/_base/Color","dojo/colors"],function(d){
+if(d.isFF<7){
 var _1=1;
 if("dojoxFFEllipsisDelay" in d.config){
 _1=Number(d.config.dojoxFFEllipsisDelay);
@@ -170,5 +161,4 @@ c=d.connect(d.body(),"DOMSubtreeModified",_10);
 _10();
 });
 }
-})(dojo);
-}
+});
